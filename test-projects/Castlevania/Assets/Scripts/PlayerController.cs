@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
     private bool facingRight = true;
     private bool grounded = false;
     public Transform groundCheck;
+    public GameObject whip;
     private readonly float groundRadius = 0.2f;
     public LayerMask whatIsGround;
     public float jumpForce = 5.0f;
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         boxCollider2d = GetComponent<BoxCollider2D>();
+        whip.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -31,7 +33,7 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate() {
         var verticalInput = Input.GetAxis("Vertical");
-        SetAttackAnimation(false);
+        Attack(false);
 
         if (verticalInput < -0.5) {
             SetCrouchAnimation(true);
@@ -42,7 +44,7 @@ public class PlayerController : MonoBehaviour {
             boxCollider2d.size = new Vector2(0.4f, 1.0f);
 
             if (AttackPressed) {
-                SetAttackAnimation(true);
+                Attack(true);
             }
 
             grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
@@ -67,9 +69,17 @@ public class PlayerController : MonoBehaviour {
         get {
             return Input.GetKeyDown(KeyCode.RightControl);
         }
-    }    
+    }
 
-    private void SetAttackAnimation(bool value) {
+    private void ActivateWhip() {
+        whip.SetActive(true);
+    }
+
+    private void DeactivateWhip() {
+        whip.SetActive(false);
+    }
+
+    private void Attack(bool value) {
         animator.SetBool("Attacking", value);
     }
 
@@ -83,7 +93,8 @@ public class PlayerController : MonoBehaviour {
 
     private void Flip() {
         facingRight = !facingRight;
-        spriteRenderer.flipX = !facingRight;
+        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        rb2d.velocity = new Vector3(-rb2d.velocity.x, 0);
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {

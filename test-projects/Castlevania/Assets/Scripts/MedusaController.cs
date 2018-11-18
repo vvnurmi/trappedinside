@@ -8,6 +8,7 @@ public class MedusaController : MonoBehaviour {
     private bool facingRight = true;
     public float movementFrequency = 1.0f;
     public float movementAmplitude = 2.0f;
+    public int health = 3;
     private Vector3 startingPosition;
 
     void Start () {
