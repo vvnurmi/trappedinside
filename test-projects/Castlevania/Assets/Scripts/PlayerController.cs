@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour {
 
     public float speed = 7f;
     private Rigidbody2D rb2d;
-    private SpriteRenderer spriteRenderer;
     private Animator animator;
     private BoxCollider2D boxCollider2d;
     private bool facingRight = true;
@@ -21,7 +20,6 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         rb2d = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         boxCollider2d = GetComponent<BoxCollider2D>();
         whip.SetActive(false);
