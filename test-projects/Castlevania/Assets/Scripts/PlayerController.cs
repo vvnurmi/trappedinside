@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour {
     private bool facingRight = true;
     private bool grounded = false;
     public Transform groundCheck;
-    private float groundRadius = 0.2f;
+    private readonly float groundRadius = 0.2f;
     public LayerMask whatIsGround;
     public float jumpForce = 5.0f;
 
@@ -30,22 +30,27 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate() {
         var verticalInput = Input.GetAxis("Vertical");
+        SetAttackAnimation(false);
+
         if (verticalInput < -0.5) {
-            animator.SetBool("Crouching", true);
+            SetCrouchAnimation(true);
             boxCollider2d.size = new Vector2(0.4f, 0.5f);
-            return;
         }
         else {
+            SetCrouchAnimation(false);
             boxCollider2d.size = new Vector2(0.4f, 1.0f);
-            animator.SetBool("Crouching", false);
-            grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
-            var horizontalInput = Input.GetAxis("Horizontal");
 
+            if (AttackPressed) {
+                SetAttackAnimation(true);
+            }
+
+            grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
             if (grounded && verticalInput > 0) {
                 rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             }
 
-            animator.SetBool("Walking", Math.Abs(horizontalInput) != 0.0f && grounded);
+            var horizontalInput = Input.GetAxis("Horizontal");
+            SetWalkAnimation(Math.Abs(horizontalInput) != 0.0f && grounded);
             rb2d.velocity = new Vector2(horizontalInput * speed, rb2d.velocity.y);
 
             if (horizontalInput < 0 && facingRight) {
@@ -55,6 +60,24 @@ public class PlayerController : MonoBehaviour {
                 Flip();
             }
         }
+    }
+
+    private bool AttackPressed {
+        get {
+            return Input.GetKeyDown(KeyCode.RightControl);
+        }
+    }    
+
+    private void SetAttackAnimation(bool value) {
+        animator.SetBool("Attacking", value);
+    }
+
+    private void SetCrouchAnimation(bool value) {
+        animator.SetBool("Crouching", value);
+    }
+
+    private void SetWalkAnimation(bool value) {
+        animator.SetBool("Walking", value);
     }
 
     private void Flip() {

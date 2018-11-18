@@ -251,6 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1790147678}
+  maxDistanceFromCenter: 1.5
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
