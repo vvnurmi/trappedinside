@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour {
     private readonly float groundRadius = 0.2f;
     public LayerMask whatIsGround;
     public float jumpForce = 5.0f;
+    public float health = 10.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -83,5 +84,11 @@ public class PlayerController : MonoBehaviour {
     private void Flip() {
         facingRight = !facingRight;
         spriteRenderer.flipX = !facingRight;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if(collision.gameObject.CompareTag("Enemy")) {
+            health -= 1;
+        }
     }
 }
