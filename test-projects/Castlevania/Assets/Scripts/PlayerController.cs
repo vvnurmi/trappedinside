@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-
     public float speed = 7f;
     private Rigidbody2D rb2d;
     private Animator animator;
@@ -16,6 +15,7 @@ public class PlayerController : MonoBehaviour {
     public LayerMask whatIsGround;
     public float jumpForce = 5.0f;
     public float health = 10.0f;
+    private bool crouchPressed = false;
 
 	// Use this for initialization
 	void Start () {
@@ -30,10 +30,17 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        var verticalInput = Input.GetAxis("Vertical");
+
+        var jumpPressedInThisFrame = Input.GetKeyDown(KeyCode.UpArrow);
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+            crouchPressed = true;
+        else if(Input.GetKeyUp(KeyCode.DownArrow))
+            crouchPressed = false;
+
         Attack(false);
 
-        if (verticalInput < -0.5) {
+        if (crouchPressed) {
             SetCrouchAnimation(true);
             boxCollider2d.size = new Vector2(0.4f, 0.5f);
         }
@@ -46,7 +53,9 @@ public class PlayerController : MonoBehaviour {
             }
 
             grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
-            if (grounded && verticalInput > 0) {
+
+
+            if (grounded && jumpPressedInThisFrame) {
                 rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             }
 
@@ -61,6 +70,7 @@ public class PlayerController : MonoBehaviour {
                 Flip();
             }
         }
+
     }
 
     private bool AttackPressed {
