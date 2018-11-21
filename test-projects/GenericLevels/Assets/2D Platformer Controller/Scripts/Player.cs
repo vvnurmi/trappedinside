@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     private float accelerationTimeGrounded = .1f;
     private float moveSpeed = 6f;
 
+    public bool canWallSlide;
     public Vector2 wallJumpClimb;
     public Vector2 wallJumpOff;
     public Vector2 wallLeap;
@@ -102,6 +103,8 @@ public class Player : MonoBehaviour
 
     private void HandleWallSliding()
     {
+        if (!canWallSlide) return;
+
         wallDirX = (controller.collisions.left) ? -1 : 1;
         wallSliding = false;
         if ((controller.collisions.left || controller.collisions.right) && !controller.collisions.below && velocity.y < 0)
