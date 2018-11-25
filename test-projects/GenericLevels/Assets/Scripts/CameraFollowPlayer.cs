@@ -6,23 +6,48 @@ public class CameraFollowPlayer : MonoBehaviour
     private new Camera camera;
     private Player player;
     private float[] cameraBounds;
+    private float originalCameraOrthographicSize;
 
     private void Start()
     {
         camera = GetComponent<Camera>();
         player = FindObjectOfType<Player>();
+        originalCameraOrthographicSize = camera.orthographicSize;
+        FindCameraBounds();
+    }
 
-        var cameraBoundRoot = GameObject.FindGameObjectWithTag("CameraBounds");
-        var boundNum = cameraBoundRoot.transform.childCount;
-        cameraBounds = new float[boundNum];
-        for (int i = 0; i < boundNum; i++)
-            cameraBounds[i] = cameraBoundRoot.transform.GetChild(i).transform.position.x;
+    private void FindCameraBounds()
+    {
+        var cameraBoundObjects = GameObject.FindGameObjectsWithTag("CameraBounds");
+        cameraBounds = new float[cameraBoundObjects.Length];
+        {
+            int i = 0;
+            foreach (var obj in cameraBoundObjects)
+                cameraBounds[i++] = obj.transform.position.x;
+        }
     }
 
     private void LateUpdate()
     {
+        // Follow player in late update so that the player will have moved already.
+        // Otherwise the player won't appear stable on the screen.
         FollowPlayer();
         ObeyBounds();
+        LimitViewSize();
+    }
+
+    /// <summary>
+    /// Ensures that the viewport shows at most <see cref="originalCameraOrthographicSize"/> world units
+    /// horizontally and vertically.
+    /// </summary>
+    private void LimitViewSize()
+    {
+        // Note: Unity itself only limits vertical size by camera.orthographicSize.
+        // If the view is very low and wide, you would be able to see very far horizontally.
+        if (camera.pixelHeight > camera.pixelWidth)
+            camera.orthographicSize = originalCameraOrthographicSize;
+        else
+            camera.orthographicSize = originalCameraOrthographicSize * camera.pixelHeight / camera.pixelWidth;
     }
 
     private void FollowPlayer()
