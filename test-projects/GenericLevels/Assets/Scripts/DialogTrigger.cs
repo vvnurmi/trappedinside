@@ -17,9 +17,4 @@ public class DialogTrigger : MonoBehaviour
         wasTriggered = true;
         GameState.ShowDialog(dialog, dialogPosition);
     }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        GameState.HideDialog();
-    }
 }
