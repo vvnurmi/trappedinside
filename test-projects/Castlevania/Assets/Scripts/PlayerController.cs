@@ -109,5 +109,9 @@ public class PlayerController : MonoBehaviour {
         if(collision.gameObject.CompareTag("Enemy")) {
             health -= 1;
         }
+        else if(collision.gameObject.CompareTag("Ham")) {
+            health += 10;
+            collision.gameObject.SetActive(false);
+        }
     }
 }
