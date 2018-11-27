@@ -15,7 +15,15 @@ public class PlayerController : MonoBehaviour {
     public LayerMask whatIsGround;
     public float jumpForce = 5.0f;
     public float health = 10.0f;
+    public float enemyHitForce = 2f;
     private bool crouchPressed = false;
+
+
+    private float freezeTime = 0.9f;
+    private float noHitTime = 1.5f;
+
+    private float currentHitTimer = 0f;
+
 
 	// Use this for initialization
 	void Start () {
@@ -30,6 +38,14 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
+
+        if (currentHitTimer > 0f) {
+            currentHitTimer -= Time.deltaTime;
+        }
+
+        if (currentHitTimer > freezeTime) {
+            return;
+        }
 
         var jumpPressedInThisFrame = Input.GetKeyDown(KeyCode.UpArrow);
 
@@ -106,8 +122,12 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if(collision.gameObject.CompareTag("Enemy")) {
+        if(collision.gameObject.CompareTag("Enemy") && currentHitTimer < 0.1) {
+            currentHitTimer = noHitTime;
             health -= 1;
+            var xVelocitySign = Math.Sign(rb2d.velocity.x);
+            xVelocitySign = xVelocitySign == 0 ? 1 : xVelocitySign;
+            rb2d.AddForce(new Vector2(-enemyHitForce * xVelocitySign, enemyHitForce), ForceMode2D.Impulse);
         }
         else if(collision.gameObject.CompareTag("Ham")) {
             health += 10;
