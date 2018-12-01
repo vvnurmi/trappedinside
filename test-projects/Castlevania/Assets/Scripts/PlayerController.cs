@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody2D rb2d;
     private Animator animator;
     private BoxCollider2D boxCollider2d;
+    private AudioSource audioSource;
     private bool facingRight = true;
     private bool grounded = false;
     public Transform groundCheck;
@@ -15,22 +16,23 @@ public class PlayerController : MonoBehaviour {
     public LayerMask whatIsGround;
     public float jumpForce = 5.0f;
     public float health = 10.0f;
-    public float enemyHitForce = 2f;
     private bool crouchPressed = false;
+    public float enemyHitForce = 2f;
+
+    public AudioClip whipSound;
 
 
-    private float freezeTime = 0.9f;
-    private float noHitTime = 1.5f;
 
-    private float currentHitTimer = 0f;
-
+    private HitController hitController;
 
 	// Use this for initialization
 	void Start () {
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         boxCollider2d = GetComponent<BoxCollider2D>();
-        whip.SetActive(false);
+        hitController = GetComponent<HitController>();
+        audioSource = GetComponent<AudioSource>();
+        DeactivateWhip();
 	}
 	
 	// Update is called once per frame
@@ -39,11 +41,8 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate() {
 
-        if (currentHitTimer > 0f) {
-            currentHitTimer -= Time.deltaTime;
-        }
 
-        if (currentHitTimer > freezeTime) {
+        if (hitController.PlayerImmobile) {
             return;
         }
 
@@ -65,6 +64,7 @@ public class PlayerController : MonoBehaviour {
             boxCollider2d.size = new Vector2(0.4f, 1.0f);
 
             if (AttackPressed) {
+                audioSource.PlayOneShot(whipSound);
                 Attack(true);
             }
 
@@ -122,16 +122,19 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if(collision.gameObject.CompareTag("Enemy") && currentHitTimer < 0.1) {
-            currentHitTimer = noHitTime;
+        var whipController = whip.GetComponent<WhipController>();
+        if(whipController.IsWhipCollision) {
+            whipController.IsWhipCollision = false;
+            return;
+        }
+
+        if(collision.gameObject.CompareTag("Enemy") && !hitController.HitEffectOn) {
+            hitController.HandleCollision(rb2d);
             health -= 1;
-            var xVelocitySign = Math.Sign(rb2d.velocity.x);
-            xVelocitySign = xVelocitySign == 0 ? 1 : xVelocitySign;
-            rb2d.AddForce(new Vector2(-enemyHitForce * xVelocitySign, enemyHitForce), ForceMode2D.Impulse);
         }
         else if(collision.gameObject.CompareTag("Ham")) {
             health += 10;
-            collision.gameObject.SetActive(false);
+            Destroy(collision.gameObject);
         }
     }
 }
