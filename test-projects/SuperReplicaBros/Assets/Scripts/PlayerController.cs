@@ -36,8 +36,11 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Seconds it takes to reach maximum speed from standstill.")]
     public float maxSpeedReachTime = 1;
 
-    [Tooltip("How high the hero can jump.")]
-    public float jumpHeight = 3;
+    [Tooltip("How high the hero jumps if Jump is touched only briefly.")]
+    public float jumpHeightMin = 2;
+
+    [Tooltip("How high the hero can jump when Jump is held down.")]
+    public float jumpHeightMax = 4;
 
     [Tooltip("Seconds it takes for a jump to reach its apex.")]
     public float jumpApexTime = 1;
@@ -54,6 +57,7 @@ public class PlayerController : MonoBehaviour
     // Set about once, probably in Start().
     private float gravity;
     private float initialJumpSpeed;
+    private float dampedJumpSpeed; // What jump speed becomes after Jump button is released.
     [HideInInspector]
     private BoxCollider2D boxCollider;
     [HideInInspector]
@@ -70,8 +74,9 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        gravity = -(2 * jumpHeight) / Mathf.Pow(jumpApexTime, 2);
+        gravity = -(2 * jumpHeightMax) / Mathf.Pow(jumpApexTime, 2);
         initialJumpSpeed = Mathf.Abs(gravity) * jumpApexTime;
+        dampedJumpSpeed = Mathf.Sqrt(2 * Mathf.Abs(gravity) * jumpHeightMin);
         boxCollider = GetComponent<BoxCollider2D>();
         collisions.faceDir = 1;
         CalculateRaySpacing();
@@ -81,8 +86,10 @@ public class PlayerController : MonoBehaviour
     {
         var horizontalInput = Input.GetAxis("Horizontal");
         var isJumping = Input.GetButtonDown("Jump");
+        var stopJumping = Input.GetButtonUp("Jump");
 
         if (isJumping) Jump();
+        if (stopJumping) StopJumping();
 
         float targetVelocityX = horizontalInput * maxSpeed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, maxSpeedReachTime);
@@ -100,6 +107,11 @@ public class PlayerController : MonoBehaviour
     {
         if (collisions.below)
             velocity.y = initialJumpSpeed;
+    }
+
+    public void StopJumping()
+    {
+        velocity.y = Mathf.Min(velocity.y, dampedJumpSpeed);
     }
 
     public void Move(Vector2 moveAmount)
