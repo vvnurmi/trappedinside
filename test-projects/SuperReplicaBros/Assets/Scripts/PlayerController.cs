@@ -91,10 +91,12 @@ public class PlayerController : MonoBehaviour
         if (isJumping) Jump();
         if (stopJumping) StopJumping();
 
+        var oldVelocity = velocity;
         float targetVelocityX = horizontalInput * maxSpeed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, maxSpeedReachTime);
         velocity.y += gravity * Time.deltaTime;
-        Move(velocity * Time.deltaTime);
+        var averageVelocity = Vector2.Lerp(oldVelocity, velocity, 0.5f);
+        Move(averageVelocity * Time.deltaTime);
 
         // Stop movement in directions where we have collided.
         if (collisions.above || collisions.below)
