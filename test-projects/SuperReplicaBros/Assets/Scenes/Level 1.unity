@@ -5877,7 +5877,7 @@ MonoBehaviour:
   approximateRaySpacing: 0.5
   groundLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
   rayCount: {x: 0, y: 0}
   raySpacing: {x: 0, y: 0}
 --- !u!1 &1868436809
@@ -5971,4 +5971,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1447629745}
   lockY: 1
-  dontMoveLeft: 1
+  blockMoveLeft: 0
