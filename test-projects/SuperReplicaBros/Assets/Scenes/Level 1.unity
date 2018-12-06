@@ -6056,7 +6056,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 9
   maxSpeedReachTime: 0.1
-  jumpHeightMin: 2
+  jumpHeightMin: 0.8
   jumpHeightMax: 4.2
   jumpApexTime: 0.5
   approximateRaySpacing: 0.3
