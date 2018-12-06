@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class PlayerCamera : MonoBehaviour
 {
-    [Tooltip("The player to follow.")]
+    [Tooltip("The player to follow, or null.")]
     public GameObject player;
 
     [Tooltip("If true, don't move vertically.")]
@@ -34,6 +34,8 @@ public class PlayerCamera : MonoBehaviour
 
     private void FollowPlayer()
     {
+        if (player == null) return;
+
         var oldCameraPos = camera.transform.position;
         var followedPos = player.transform.position;
         var newCameraPos = new Vector3(
