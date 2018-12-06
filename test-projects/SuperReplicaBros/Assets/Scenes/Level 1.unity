@@ -6059,7 +6059,7 @@ MonoBehaviour:
   jumpHeightMin: 2
   jumpHeightMax: 4.2
   jumpApexTime: 0.5
-  approximateRaySpacing: 0.5
+  approximateRaySpacing: 0.3
   groundLayers:
     serializedVersion: 2
     m_Bits: 768
