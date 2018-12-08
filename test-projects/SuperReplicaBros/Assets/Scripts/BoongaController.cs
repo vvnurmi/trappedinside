@@ -65,8 +65,4 @@ public class BoongaController : MonoBehaviour {
     void Destroy() {
         Destroy(gameObject);
     }
-
-    // Update is called once per frame
-    void Update () {
-    }
 }
