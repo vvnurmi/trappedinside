@@ -58,6 +58,8 @@ public class PlayerController : MonoBehaviour
     private float gravity;
     private float initialJumpSpeed;
     private float dampedJumpSpeed; // What jump speed becomes after Jump button is released.
+    private bool facingRight = true;
+    private Animator animator;
     [HideInInspector]
     private BoxCollider2D boxCollider;
     [HideInInspector]
@@ -78,13 +80,13 @@ public class PlayerController : MonoBehaviour
         initialJumpSpeed = Mathf.Abs(gravity) * jumpApexTime;
         dampedJumpSpeed = Mathf.Sqrt(2 * Mathf.Abs(gravity) * jumpHeightMin);
         boxCollider = GetComponent<BoxCollider2D>();
+        animator = GetComponent<Animator>();
         collisions.faceDir = 1;
         CalculateRaySpacing();
     }
 
     private void Update()
     {
-        var horizontalInput = Input.GetAxis("Horizontal");
         var isJumping = Input.GetButtonDown("Jump");
         var stopJumping = Input.GetButtonUp("Jump");
 
@@ -92,9 +94,8 @@ public class PlayerController : MonoBehaviour
         if (stopJumping) StopJumping();
 
         var oldVelocity = velocity;
-        float targetVelocityX = horizontalInput * maxSpeed;
-        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, maxSpeedReachTime);
         velocity.y += gravity * Time.deltaTime;
+        HandleHorizontalInput();
         var averageVelocity = Vector2.Lerp(oldVelocity, velocity, 0.5f);
         Move(averageVelocity * Time.deltaTime);
 
@@ -103,6 +104,25 @@ public class PlayerController : MonoBehaviour
             velocity.y = 0;
         if (collisions.left || collisions.right)
             velocity.x = 0;
+    }
+
+    private void HandleHorizontalInput() {
+        var horizontalInput = Input.GetAxis("Horizontal");
+
+        if(horizontalInput < 0 && facingRight) {
+            Flip();
+        } else if (horizontalInput > 0 && !facingRight) {
+            Flip();
+        }
+
+        float targetVelocityX = horizontalInput * maxSpeed;
+        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, maxSpeedReachTime);
+        animator.SetFloat("Speed", Mathf.Abs(velocity.x));
+    }
+
+    private void Flip() {
+        facingRight = !facingRight;
+        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
     }
 
     public void Jump()
