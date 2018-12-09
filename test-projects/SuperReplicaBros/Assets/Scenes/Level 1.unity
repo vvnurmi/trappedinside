@@ -6185,4 +6185,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1447629745}
   lockY: 1
-  blockMoveLeft: 0
+  blockMoveLeft: 1
