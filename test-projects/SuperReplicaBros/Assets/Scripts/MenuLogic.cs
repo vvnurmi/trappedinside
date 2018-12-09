@@ -75,7 +75,7 @@ public class MenuLogic : MonoBehaviour
         Debug.Assert(others.Length >= 1);
         if (others.Length == 1) return false;
 
-        Destroy(this);
+        Destroy(gameObject);
         return true;
     }
 }
