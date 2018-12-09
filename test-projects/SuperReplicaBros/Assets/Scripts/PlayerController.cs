@@ -87,15 +87,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        var isJumping = Input.GetButtonDown("Jump");
-        var stopJumping = Input.GetButtonUp("Jump");
-
-        if (isJumping) Jump();
-        if (stopJumping) StopJumping();
-
         var oldVelocity = velocity;
-        velocity.y += gravity * Time.deltaTime;
+
+        HandleVerticalInput();
         HandleHorizontalInput();
+
         var averageVelocity = Vector2.Lerp(oldVelocity, velocity, 0.5f);
         Move(averageVelocity * Time.deltaTime);
 
@@ -104,6 +100,17 @@ public class PlayerController : MonoBehaviour
             velocity.y = 0;
         if (collisions.left || collisions.right)
             velocity.x = 0;
+    }
+
+    private void HandleVerticalInput() {
+        var isJumping = Input.GetButtonDown("Jump");
+        var stopJumping = Input.GetButtonUp("Jump");
+
+        if (isJumping) Jump();
+        if (stopJumping) StopJumping();
+
+        velocity.y += gravity * Time.deltaTime;
+        animator.SetBool("Jumping", !collisions.below);
     }
 
     private void HandleHorizontalInput() {
@@ -117,7 +124,7 @@ public class PlayerController : MonoBehaviour
 
         float targetVelocityX = horizontalInput * maxSpeed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, maxSpeedReachTime);
-        animator.SetFloat("Speed", Mathf.Abs(velocity.x));
+        animator.SetFloat("Speed", Mathf.Abs(horizontalInput));
     }
 
     private void Flip() {
