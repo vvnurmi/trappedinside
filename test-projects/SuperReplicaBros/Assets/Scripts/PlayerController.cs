@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 // Code adapted from Sebastian Lague's 2D Platformer Controller tutorial.
 // https://github.com/SebLague/2DPlatformer-Tutorial
@@ -74,9 +75,14 @@ public class PlayerController : MonoBehaviour
     private float velocityXSmoothing;
     public CollisionInfo collisions;
 
+    /// <summary>
+    /// Invoked when the player dies.
+    /// </summary>
+    public event Action Death;
+
     public void OutOfBounds()
     {
-        Debug.Log("Player is out of bounds.");
+        Death.Invoke();
     }
 
     private void Start()

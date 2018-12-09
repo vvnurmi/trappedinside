@@ -11,12 +11,21 @@ public class MenuLogic : MonoBehaviour
 {
     private MenuMode mode = MenuMode.Title;
 
+    void OnEnable()
+    {
+        if (DieForUniquePersistence())
+            return;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     private void Start()
     {
-        if (DieForUniquePersistence()) return;
-
         SceneManager.LoadScene("Game Title", LoadSceneMode.Additive);
-        HidePlayer();
     }
 
     private void Update()
@@ -24,6 +33,28 @@ public class MenuLogic : MonoBehaviour
         var isStartPressed = Input.GetButtonDown("Jump");
         if (mode == MenuMode.Title && isStartPressed)
             BeginGameplay();
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode sceneMode)
+    {
+        // Look for the player and hook its death event.
+        // Note that it doesn't exist in title screens, etc.
+        var player = TryFindPlayer();
+        if (player == null) return;
+
+        var playerController = player.GetComponent<PlayerController>();
+        Debug.Assert(playerController != null);
+        playerController.Death += OnPlayerDeath;
+
+        if (mode == MenuMode.Title)
+            HidePlayer();
+    }
+
+    private void OnPlayerDeath()
+    {
+        mode = MenuMode.Title;
+        SceneManager.LoadScene("Level 1");
+        SceneManager.LoadScene("Game Title", LoadSceneMode.Additive);
     }
 
     public void HidePlayer()
@@ -53,9 +84,14 @@ public class MenuLogic : MonoBehaviour
         return camera;
     }
 
+    private GameObject TryFindPlayer()
+    {
+        return GameObject.FindGameObjectWithTag("Player");
+    }
+
     private GameObject FindPlayer()
     {
-        var player = GameObject.FindGameObjectWithTag("Player");
+        var player = TryFindPlayer();
         Debug.Assert(player != null);
         return player;
     }
