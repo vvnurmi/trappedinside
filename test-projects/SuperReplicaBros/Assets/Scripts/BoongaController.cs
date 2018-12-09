@@ -16,6 +16,10 @@ public class BoongaController : MonoBehaviour {
     private float wallCheckRadius = 0.15f;
     private bool deathHandled = false;
 
+    public void OutOfBounds() {
+        Destroy();
+    }
+
 	// Use this for initialization
 	void Start () {
         rb2d = GetComponent<Rigidbody2D>();

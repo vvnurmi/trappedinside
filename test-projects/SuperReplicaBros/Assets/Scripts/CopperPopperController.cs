@@ -10,6 +10,10 @@ public class CopperPopperController : MonoBehaviour {
     private Animator animator;
     private bool cocoonHandled = false;
 
+    public void OutOfBounds() {
+        Destroy();
+    }
+
     // Use this for initialization
     void Start() {
         animator = GetComponent<Animator>();

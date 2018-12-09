@@ -74,6 +74,11 @@ public class PlayerController : MonoBehaviour
     private float velocityXSmoothing;
     public CollisionInfo collisions;
 
+    public void OutOfBounds()
+    {
+        Debug.Log("Player is out of bounds.");
+    }
+
     private void Start()
     {
         gravity = -(2 * jumpHeightMax) / Mathf.Pow(jumpApexTime, 2);
