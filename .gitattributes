@@ -1,0 +1,9 @@
+# Makes explicitly marked text files check in with
+# Unix line endings regardless of client settings.
+* text=auto
+
+# Explicitly declare some known text files as text.
+# These files will always check in with LF endings.
+*.cs text
+*.meta text
+*.txt text
