@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CopperPopperController : MonoBehaviour {
-    public float velocity = -2f;
+    public Vector2 velocity = new Vector2(-2f, 0);
     public Transform wallCheck;
     public bool cocoon = false;
+    public float gravity = -9.81f;
+
+    [Tooltip("Which collision layers are considered ground.")]
+    public LayerMask groundLayers;
 
     private Animator animator;
     private bool cocoonHandled = false;
+
+    private RaycastCollider raycastCollider;
 
     public void OutOfBounds() {
         Destroy();
@@ -16,6 +22,15 @@ public class CopperPopperController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+        raycastCollider = new RaycastCollider
+        {
+            SkinWidth = PlayerController.skinWidth,
+            BoxCollider = GetComponent<BoxCollider2D>(),
+            ApproximateRaySpacing = PlayerController.approximateRaySpacing,
+            GroundLayers = groundLayers
+        };
+        raycastCollider.Init();
+
         animator = GetComponent<Animator>();
     }
 
@@ -29,35 +44,47 @@ public class CopperPopperController : MonoBehaviour {
             HandleCocoon();
             return;
         }
+        velocity.y += gravity * Time.deltaTime;
 
-        if (transform.position.y < -100)
-            Destroy(gameObject);
+        Move(velocity * Time.deltaTime);
 
-        Move();
+        // Stop movement in directions where we have collided.
+        if (raycastCollider.Collisions.Above || raycastCollider.Collisions.Below)
+            velocity.y = 0;
+        if (raycastCollider.Collisions.Left || raycastCollider.Collisions.Right)
+            Flip();
 
     }
 
-    private void Move() {
-        transform.Translate(velocity * Time.deltaTime, 0, 0);
+    public void Move(Vector2 moveAmount)
+    {
+        raycastCollider.UpdateRaycastOrigins();
+        raycastCollider.Collisions.Reset();
+        raycastCollider.Collisions.MoveAmountOld = moveAmount;
+
+        if (moveAmount.x != 0)
+            raycastCollider.Collisions.FaceDir = (int)Mathf.Sign(moveAmount.x);
+
+        raycastCollider.HorizontalCollisions(ref moveAmount);
+        if (moveAmount.y != 0)
+            raycastCollider.VerticalCollisions(ref moveAmount);
+
+        transform.Translate(moveAmount);
     }
+
 
     void HandleCocoon() {
         animator.SetBool("Cocoon", true);
-        velocity = 0;
+        velocity.x = 0;
         cocoonHandled = true;
     }
 
     void Flip() {
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-        velocity *= -1;
-        Move();
+        velocity.x *= -1;
     }
 
     void Destroy() {
         Destroy(gameObject);
-    }
-
-    void OnTriggerEnter2D(Collider2D collision) {
-        Flip();    
     }
 }

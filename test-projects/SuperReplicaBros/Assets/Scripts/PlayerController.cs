@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     public const float skinWidth = .015f;
 
     [Tooltip("How far apart to shoot ground collision rays. The actual distance may differ slightly.")]
-    public float approximateRaySpacing = 0.25f;
+    public const float approximateRaySpacing = 0.25f;
 
     [Tooltip("Which collision layers are considered ground.")]
     public LayerMask groundLayers;
@@ -146,7 +146,4 @@ public class PlayerController : MonoBehaviour
 
         transform.Translate(moveAmount);
     }
-
-
-
 }

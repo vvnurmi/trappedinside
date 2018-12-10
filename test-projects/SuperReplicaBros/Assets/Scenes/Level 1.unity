@@ -5898,11 +5898,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4887559440529544, guid: a9e77f49ad7ef75469253ef23f96ec81, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 25.63
+      value: 29.2
       objectReference: {fileID: 0}
     - target: {fileID: 4887559440529544, guid: a9e77f49ad7ef75469253ef23f96ec81, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.56
+      value: -2.52
       objectReference: {fileID: 0}
     - target: {fileID: 4887559440529544, guid: a9e77f49ad7ef75469253ef23f96ec81, type: 2}
       propertyPath: m_LocalPosition.z
@@ -5928,7 +5928,33 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 50760207585603466, guid: a9e77f49ad7ef75469253ef23f96ec81,
+        type: 2}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 50760207585603466, guid: a9e77f49ad7ef75469253ef23f96ec81,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 61447215520175252, guid: a9e77f49ad7ef75469253ef23f96ec81,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 0.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590583220790650, guid: a9e77f49ad7ef75469253ef23f96ec81,
+        type: 2}
+      propertyPath: gravity
+      value: -9.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590583220790650, guid: a9e77f49ad7ef75469253ef23f96ec81,
+        type: 2}
+      propertyPath: groundLayers.m_Bits
+      value: 768
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 58588604543342866, guid: a9e77f49ad7ef75469253ef23f96ec81, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: a9e77f49ad7ef75469253ef23f96ec81, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &1447629745
@@ -6089,12 +6115,9 @@ MonoBehaviour:
   jumpHeightMin: 0.8
   jumpHeightMax: 4.2
   jumpApexTime: 0.5
-  approximateRaySpacing: 0.3
   groundLayers:
     serializedVersion: 2
     m_Bits: 768
-  rayCount: {x: 0, y: 0}
-  raySpacing: {x: 0, y: 0}
 --- !u!1 &1581509939
 GameObject:
   m_ObjectHideFlags: 0
