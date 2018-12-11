@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 212055396289487726}
   - component: {fileID: 50760207585603466}
   - component: {fileID: 61447215520175252}
-  - component: {fileID: 58588604543342866}
   - component: {fileID: 114590583220790650}
   - component: {fileID: 95670750819553448}
   m_Layer: 0
@@ -39,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1802201501086024}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.63, y: -2.56, z: 0.23046875}
+  m_LocalPosition: {x: 28.38, y: -2.35, z: 0.23046875}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -52,7 +51,7 @@ Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1802201501086024}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -64,22 +63,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
---- !u!58 &58588604543342866
-CircleCollider2D:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1802201501086024}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 1
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.08}
-  serializedVersion: 2
-  m_Radius: 0.22
+  m_Constraints: 0
 --- !u!61 &61447215520175252
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -103,7 +87,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.91, y: 0.44}
+  m_Size: {x: 0.91, y: 0.53}
   m_EdgeRadius: 0
 --- !u!95 &95670750819553448
 Animator:
@@ -134,9 +118,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8696ba2e42e464c40a70febaa3317b0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: -2
-  wallCheck: {fileID: 0}
+  velocity: {x: -2, y: 0}
   cocoon: 0
+  gravity: -9.81
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 768
 --- !u!212 &212055396289487726
 SpriteRenderer:
   m_ObjectHideFlags: 1

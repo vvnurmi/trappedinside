@@ -59,14 +59,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        raycastCollider = new RaycastCollider
-        {
-            SkinWidth = skinWidth,
-            BoxCollider = GetComponent<BoxCollider2D>(),
-            ApproximateRaySpacing = approximateRaySpacing,
-            GroundLayers = groundLayers
-        };
-        raycastCollider.Init();
+        raycastCollider = new RaycastCollider(GetComponent<BoxCollider2D>(), groundLayers);
+
         gravity = -(2 * jumpHeightMax) / Mathf.Pow(jumpApexTime, 2);
         initialJumpSpeed = Mathf.Abs(gravity) * jumpApexTime;
         dampedJumpSpeed = Mathf.Sqrt(2 * Mathf.Abs(gravity) * jumpHeightMin);
@@ -84,9 +78,9 @@ public class PlayerController : MonoBehaviour
         Move(averageVelocity * Time.deltaTime);
 
         // Stop movement in directions where we have collided.
-        if (raycastCollider.Collisions.Above || raycastCollider.Collisions.Below)
+        if (raycastCollider.collisions.above || raycastCollider.collisions.below)
             velocity.y = 0;
-        if (raycastCollider.Collisions.Left || raycastCollider.Collisions.Right)
+        if (raycastCollider.collisions.left || raycastCollider.collisions.right)
             velocity.x = 0;
     }
 
@@ -98,7 +92,7 @@ public class PlayerController : MonoBehaviour
         if (stopJumping) StopJumping();
 
         velocity.y += gravity * Time.deltaTime;
-        animator.SetBool("Jumping", !raycastCollider.Collisions.Below);
+        animator.SetBool("Jumping", !raycastCollider.collisions.below);
     }
 
     private void HandleHorizontalInput() {
@@ -122,7 +116,7 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-        if (raycastCollider.Collisions.Below)
+        if (raycastCollider.collisions.below)
             velocity.y = initialJumpSpeed;
     }
 
@@ -134,11 +128,11 @@ public class PlayerController : MonoBehaviour
     public void Move(Vector2 moveAmount)
     {
         raycastCollider.UpdateRaycastOrigins();
-        raycastCollider.Collisions.Reset();
-        raycastCollider.Collisions.MoveAmountOld = moveAmount;
+        raycastCollider.collisions.Reset();
+        raycastCollider.collisions.moveAmountOld = moveAmount;
 
         if (moveAmount.x != 0)
-            raycastCollider.Collisions.FaceDir = (int)Mathf.Sign(moveAmount.x);
+            raycastCollider.collisions.faceDir = (int)Mathf.Sign(moveAmount.x);
 
         raycastCollider.HorizontalCollisions(ref moveAmount);
         if (moveAmount.y != 0)

@@ -5,16 +5,15 @@ using UnityEngine;
 
 public class BoongaController : MonoBehaviour {
 
-    public float velocity = -2f;
-    public Transform wallCheck;
-    public LayerMask whatIsGround;
+    public Vector2 velocity = new Vector2(-2f, 0);
+    public float gravity = -9.81f;
     public bool dead = false;
+    [Tooltip("Which collision layers are considered ground.")]
+    public LayerMask groundLayers;
 
-    private Rigidbody2D rb2d;
     private Animator animator;
-    private BoxCollider2D boxCollider;
-    private float wallCheckRadius = 0.15f;
     private bool deathHandled = false;
+    private RaycastCollider raycastCollider;
 
     public void OutOfBounds() {
         Destroy();
@@ -22,9 +21,8 @@ public class BoongaController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        rb2d = GetComponent<Rigidbody2D>();
+        raycastCollider = new RaycastCollider(GetComponent<BoxCollider2D>(), groundLayers);
         animator = GetComponent<Animator>();
-        boxCollider = GetComponent<BoxCollider2D>();
     }
 
     void FixedUpdate() {
@@ -38,27 +36,39 @@ public class BoongaController : MonoBehaviour {
             return;
         }
 
-        if (transform.position.y < -100)
-            Destroy(gameObject);
+        velocity.y += gravity * Time.deltaTime;
 
-        transform.Translate(velocity * Time.deltaTime, 0, 0);
+        Move(velocity * Time.deltaTime);
 
-        if(HitWall()) {
+        // Stop movement in directions where we have collided.
+        if (raycastCollider.collisions.above || raycastCollider.collisions.below)
+            velocity.y = 0;
+        if (raycastCollider.collisions.left || raycastCollider.collisions.right)
             Flip();
-        }
     }
+
+    public void Move(Vector2 moveAmount)
+    {
+        raycastCollider.UpdateRaycastOrigins();
+        raycastCollider.collisions.Reset();
+        raycastCollider.collisions.moveAmountOld = moveAmount;
+
+        if (moveAmount.x != 0)
+            raycastCollider.collisions.faceDir = (int)Mathf.Sign(moveAmount.x);
+
+        raycastCollider.HorizontalCollisions(ref moveAmount);
+        if (moveAmount.y != 0)
+            raycastCollider.VerticalCollisions(ref moveAmount);
+
+        transform.Translate(moveAmount);
+    }
+
 
     void HandleDeath() {
         animator.SetBool("Dead", true);
-        velocity = 0;
-        boxCollider.isTrigger = true;
-        rb2d.isKinematic = true;
+        velocity = new Vector2();
         transform.Translate(0, -0.15f, 0);
         deathHandled = true;
-    }
-
-    bool HitWall() {
-        return Physics2D.OverlapCircle(wallCheck.position, wallCheckRadius, whatIsGround);
     }
 
     void Flip() {

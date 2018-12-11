@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CopperPopperController : MonoBehaviour {
     public Vector2 velocity = new Vector2(-2f, 0);
-    public Transform wallCheck;
     public bool cocoon = false;
     public float gravity = -9.81f;
 
@@ -22,15 +21,7 @@ public class CopperPopperController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        raycastCollider = new RaycastCollider
-        {
-            SkinWidth = PlayerController.skinWidth,
-            BoxCollider = GetComponent<BoxCollider2D>(),
-            ApproximateRaySpacing = PlayerController.approximateRaySpacing,
-            GroundLayers = groundLayers
-        };
-        raycastCollider.Init();
-
+        raycastCollider = new RaycastCollider(GetComponent<BoxCollider2D>(), groundLayers);
         animator = GetComponent<Animator>();
     }
 
@@ -49,9 +40,9 @@ public class CopperPopperController : MonoBehaviour {
         Move(velocity * Time.deltaTime);
 
         // Stop movement in directions where we have collided.
-        if (raycastCollider.Collisions.Above || raycastCollider.Collisions.Below)
+        if (raycastCollider.collisions.above || raycastCollider.collisions.below)
             velocity.y = 0;
-        if (raycastCollider.Collisions.Left || raycastCollider.Collisions.Right)
+        if (raycastCollider.collisions.left || raycastCollider.collisions.right)
             Flip();
 
     }
@@ -59,11 +50,11 @@ public class CopperPopperController : MonoBehaviour {
     public void Move(Vector2 moveAmount)
     {
         raycastCollider.UpdateRaycastOrigins();
-        raycastCollider.Collisions.Reset();
-        raycastCollider.Collisions.MoveAmountOld = moveAmount;
+        raycastCollider.collisions.Reset();
+        raycastCollider.collisions.moveAmountOld = moveAmount;
 
         if (moveAmount.x != 0)
-            raycastCollider.Collisions.FaceDir = (int)Mathf.Sign(moveAmount.x);
+            raycastCollider.collisions.faceDir = (int)Mathf.Sign(moveAmount.x);
 
         raycastCollider.HorizontalCollisions(ref moveAmount);
         if (moveAmount.y != 0)
