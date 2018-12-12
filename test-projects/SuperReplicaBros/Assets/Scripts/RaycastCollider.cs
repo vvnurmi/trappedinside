@@ -39,15 +39,23 @@ public class RaycastCollider
     private readonly float approximateRaySpacing = 0.25f;
 
     private BoxCollider2D boxCollider;
-    private LayerMask groundLayers;
+    private LayerMask hitLayers;
 
     public CollisionInfo collisions = new CollisionInfo();
 
     public RaycastCollider(BoxCollider2D collider, LayerMask layers)
     {
         boxCollider = collider;
-        groundLayers = layers;
+        hitLayers = layers;
         CalculateRaySpacing();
+    }
+
+    public bool HasHorizontalCollisions {
+        get { return collisions.left || collisions.right; }
+    }
+
+    public bool HasVerticalCollisions {
+        get { return collisions.above || collisions.below; }
     }
 
     public void UpdateRaycastOrigins()
@@ -80,7 +88,7 @@ public class RaycastCollider
         {
             var rayOrigin = (directionY == -1) ? raycastOrigins.bottomLeft : raycastOrigins.topLeft;
             rayOrigin += Vector2.right * (raySpacing.y * i + moveAmount.x);
-            var hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, groundLayers);
+            var hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, hitLayers);
             Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
             if (!hit) continue;
 
@@ -103,7 +111,7 @@ public class RaycastCollider
         {
             var rayOrigin = (directionX == -1) ? raycastOrigins.bottomLeft : raycastOrigins.bottomRight;
             rayOrigin += Vector2.up * (raySpacing.x * i);
-            var hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, groundLayers);
+            var hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, hitLayers);
             Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
             if (!hit || hit.distance == 0) continue;
 

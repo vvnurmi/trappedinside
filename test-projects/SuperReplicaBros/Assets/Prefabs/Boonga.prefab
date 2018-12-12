@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 50779429173716080}
   - component: {fileID: 114302933478647276}
   - component: {fileID: 95625649881303892}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Boonga
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ MonoBehaviour:
   dead: 0
   groundLayers:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 256
 --- !u!212 &212410097206918272
 SpriteRenderer:
   m_ObjectHideFlags: 1

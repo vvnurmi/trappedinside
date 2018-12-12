@@ -63,6 +63,11 @@ public class BoongaController : MonoBehaviour {
         transform.Translate(moveAmount);
     }
 
+    public void TakeDamage()
+    {
+        dead = true;
+    }
+
 
     void HandleDeath() {
         animator.SetBool("Dead", true);

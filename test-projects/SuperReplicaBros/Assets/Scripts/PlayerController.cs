@@ -35,13 +35,22 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Which collision layers are considered ground.")]
     public LayerMask groundLayers;
 
+    [Tooltip("Minimum time between two consecutive hits.")]
+    public float hitDelay = 1.0f;
+
+    private const int ENEMY_LAYER = 10;
+
+    public int health = 5;
+
     // Set about once, probably in Start().
     private float gravity;
     private float initialJumpSpeed;
     private float dampedJumpSpeed; // What jump speed becomes after Jump button is released.
     private bool facingRight = true;
+    private float nextHitAllowedAt = 0f;
     private Animator animator;
-    private RaycastCollider raycastCollider;
+
+    private RaycastCollider groundCollider;
 
     // Modified during gameplay.
     private Vector2 velocity;
@@ -59,7 +68,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        raycastCollider = new RaycastCollider(GetComponent<BoxCollider2D>(), groundLayers);
+        var boxCollider = GetComponent<BoxCollider2D>();
+        groundCollider = new RaycastCollider(boxCollider, groundLayers);
 
         gravity = -(2 * jumpHeightMax) / Mathf.Pow(jumpApexTime, 2);
         initialJumpSpeed = Mathf.Abs(gravity) * jumpApexTime;
@@ -78,9 +88,9 @@ public class PlayerController : MonoBehaviour
         Move(averageVelocity * Time.deltaTime);
 
         // Stop movement in directions where we have collided.
-        if (raycastCollider.collisions.above || raycastCollider.collisions.below)
+        if (groundCollider.HasVerticalCollisions)
             velocity.y = 0;
-        if (raycastCollider.collisions.left || raycastCollider.collisions.right)
+        if (groundCollider.HasHorizontalCollisions)
             velocity.x = 0;
     }
 
@@ -92,7 +102,7 @@ public class PlayerController : MonoBehaviour
         if (stopJumping) StopJumping();
 
         velocity.y += gravity * Time.deltaTime;
-        animator.SetBool("Jumping", !raycastCollider.collisions.below);
+        animator.SetBool("Jumping", !groundCollider.collisions.below);
     }
 
     private void HandleHorizontalInput() {
@@ -116,7 +126,7 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-        if (raycastCollider.collisions.below)
+        if (groundCollider.collisions.below)
             velocity.y = initialJumpSpeed;
     }
 
@@ -127,17 +137,48 @@ public class PlayerController : MonoBehaviour
 
     public void Move(Vector2 moveAmount)
     {
-        raycastCollider.UpdateRaycastOrigins();
-        raycastCollider.collisions.Reset();
-        raycastCollider.collisions.moveAmountOld = moveAmount;
+        groundCollider.UpdateRaycastOrigins();
+        groundCollider.collisions.Reset();
+        groundCollider.collisions.moveAmountOld = moveAmount;
 
         if (moveAmount.x != 0)
-            raycastCollider.collisions.faceDir = (int)Mathf.Sign(moveAmount.x);
+            groundCollider.collisions.faceDir = (int)Mathf.Sign(moveAmount.x);
 
-        raycastCollider.HorizontalCollisions(ref moveAmount);
+        groundCollider.HorizontalCollisions(ref moveAmount);
         if (moveAmount.y != 0)
-            raycastCollider.VerticalCollisions(ref moveAmount);
+            groundCollider.VerticalCollisions(ref moveAmount);
 
         transform.Translate(moveAmount);
+    }
+
+    public void TakeDamage()
+    {
+        health--;
+
+        if(health <= 0)
+        {
+            Death();
+        }
+
+        velocity.x = 0;
+        nextHitAllowedAt = Time.time + hitDelay;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.layer == ENEMY_LAYER)
+        {
+            if(velocity.y < 0)
+            {
+                collision.gameObject.SendMessage("TakeDamage", SendMessageOptions.RequireReceiver);
+            }
+            else
+            {
+                if(Time.time > nextHitAllowedAt)
+                {
+                    TakeDamage();
+                }
+            }
+        }
     }
 }

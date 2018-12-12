@@ -5929,6 +5929,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114590583220790650, guid: a9e77f49ad7ef75469253ef23f96ec81,
+        type: 2}
+      propertyPath: groundLayers.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9e77f49ad7ef75469253ef23f96ec81, type: 2}
   m_IsPrefabAsset: 0
@@ -6093,6 +6098,10 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 768
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  health: 5
 --- !u!1 &1581509939
 GameObject:
   m_ObjectHideFlags: 0
@@ -6171,11 +6180,6 @@ Prefab:
     - target: {fileID: 4403086897966080, guid: b4ab5de7e6d6c5b4c943f956d4db6f91, type: 2}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114302933478647276, guid: b4ab5de7e6d6c5b4c943f956d4db6f91,
-        type: 2}
-      propertyPath: groundLayers.m_Bits
-      value: 768
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4ab5de7e6d6c5b4c943f956d4db6f91, type: 2}

@@ -63,6 +63,11 @@ public class CopperPopperController : MonoBehaviour {
         transform.Translate(moveAmount);
     }
 
+    public void TakeDamage()
+    {
+        cocoon = true;
+    }
+
 
     void HandleCocoon() {
         animator.SetBool("Cocoon", true);

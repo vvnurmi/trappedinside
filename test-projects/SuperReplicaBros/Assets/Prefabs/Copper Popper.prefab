@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 61447215520175252}
   - component: {fileID: 114590583220790650}
   - component: {fileID: 95670750819553448}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Copper Popper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
