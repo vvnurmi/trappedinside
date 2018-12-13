@@ -63,8 +63,10 @@ public class PlayerController : MonoBehaviour
 
     public void OutOfBounds()
     {
-        Death.Invoke();
+        Death();
     }
+
+    private bool Dead { get { return health <= 0; } }
 
     private void Start()
     {
@@ -79,6 +81,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if(Dead)
+        {
+            return;
+        }
+
         var oldVelocity = velocity;
 
         HandleVerticalInput();
@@ -155,13 +162,16 @@ public class PlayerController : MonoBehaviour
     {
         health--;
 
-        if(health <= 0)
+        if(Dead)
         {
-            Death();
+            animator.Play("Death");
         }
-
-        velocity.x = 0;
-        nextHitAllowedAt = Time.time + hitDelay;
+        else
+        {
+            animator.Play("Damage");
+            velocity.x = 0;
+            nextHitAllowedAt = Time.time + hitDelay;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -171,6 +181,7 @@ public class PlayerController : MonoBehaviour
             if(velocity.y < 0)
             {
                 collision.gameObject.SendMessage("TakeDamage", SendMessageOptions.RequireReceiver);
+                velocity.y = 10.0f;
             }
             else
             {

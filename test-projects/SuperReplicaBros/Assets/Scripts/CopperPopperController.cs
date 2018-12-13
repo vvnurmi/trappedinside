@@ -1,50 +1,53 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class CopperPopperController : MonoBehaviour {
+public class CopperPopperController : MonoBehaviour
+{
     public Vector2 velocity = new Vector2(-2f, 0);
     public bool cocoon = false;
     public float gravity = -9.81f;
+    public float cocoonRecoveryTime = 10.0f;
 
     [Tooltip("Which collision layers are considered ground.")]
     public LayerMask groundLayers;
 
     private Animator animator;
-    private bool cocoonHandled = false;
-
+    private float cocoonTime;
     private RaycastCollider raycastCollider;
 
-    public void OutOfBounds() {
+    public void OutOfBounds()
+    {
         Destroy();
     }
 
-    // Use this for initialization
-    void Start() {
+    void Start()
+    {
+        cocoonTime = -cocoonRecoveryTime;
         raycastCollider = new RaycastCollider(GetComponent<BoxCollider2D>(), groundLayers);
         animator = GetComponent<Animator>();
     }
 
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
+        if(Time.time > cocoonTime + cocoonRecoveryTime && cocoon)
+        {
+            cocoon = false;
+            animator.SetBool("Cocoon", false);
+            velocity.x = -2;
+        }
 
-        if (cocoon && cocoonHandled) {
+        if (cocoon)
+        {
             return;
         }
 
-        if (cocoon && !cocoonHandled) {
-            HandleCocoon();
-            return;
-        }
         velocity.y += gravity * Time.deltaTime;
-
         Move(velocity * Time.deltaTime);
 
         // Stop movement in directions where we have collided.
-        if (raycastCollider.collisions.above || raycastCollider.collisions.below)
+        if (raycastCollider.HasVerticalCollisions)
             velocity.y = 0;
-        if (raycastCollider.collisions.left || raycastCollider.collisions.right)
+        if (raycastCollider.HasHorizontalCollisions)
             Flip();
-
     }
 
     public void Move(Vector2 moveAmount)
@@ -65,22 +68,20 @@ public class CopperPopperController : MonoBehaviour {
 
     public void TakeDamage()
     {
+        animator.SetBool("Cocoon", true);
+        velocity.x = 0;
+        cocoonTime = Time.time;
         cocoon = true;
     }
 
-
-    void HandleCocoon() {
-        animator.SetBool("Cocoon", true);
-        velocity.x = 0;
-        cocoonHandled = true;
-    }
-
-    void Flip() {
+    void Flip()
+    {
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         velocity.x *= -1;
     }
 
-    void Destroy() {
+    void Destroy()
+    {
         Destroy(gameObject);
     }
 }

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class BoongaController : MonoBehaviour {
+public class BoongaController : MonoBehaviour
+{
 
     public Vector2 velocity = new Vector2(-2f, 0);
     public float gravity = -9.81f;
@@ -12,27 +10,24 @@ public class BoongaController : MonoBehaviour {
     public LayerMask groundLayers;
 
     private Animator animator;
-    private bool deathHandled = false;
     private RaycastCollider raycastCollider;
 
-    public void OutOfBounds() {
+    public void OutOfBounds()
+    {
         Destroy();
     }
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         raycastCollider = new RaycastCollider(GetComponent<BoxCollider2D>(), groundLayers);
         animator = GetComponent<Animator>();
     }
 
-    void FixedUpdate() {
-
-        if(dead && deathHandled) {
-            return;
-        }
-
-        if(dead && !deathHandled) {
-            HandleDeath();
+    void FixedUpdate()
+    {
+        if(dead)
+        {
             return;
         }
 
@@ -41,9 +36,9 @@ public class BoongaController : MonoBehaviour {
         Move(velocity * Time.deltaTime);
 
         // Stop movement in directions where we have collided.
-        if (raycastCollider.collisions.above || raycastCollider.collisions.below)
+        if (raycastCollider.HasVerticalCollisions)
             velocity.y = 0;
-        if (raycastCollider.collisions.left || raycastCollider.collisions.right)
+        if (raycastCollider.HasHorizontalCollisions)
             Flip();
     }
 
@@ -65,23 +60,21 @@ public class BoongaController : MonoBehaviour {
 
     public void TakeDamage()
     {
-        dead = true;
-    }
-
-
-    void HandleDeath() {
         animator.SetBool("Dead", true);
         velocity = new Vector2();
         transform.Translate(0, -0.15f, 0);
-        deathHandled = true;
+        GetComponent<BoxCollider2D>().enabled = false;
+        dead = true;
     }
 
-    void Flip() {
+    void Flip()
+    {
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         velocity *= -1;
     }
 
-    void Destroy() {
+    void Destroy()
+    {
         Destroy(gameObject);
     }
 }
