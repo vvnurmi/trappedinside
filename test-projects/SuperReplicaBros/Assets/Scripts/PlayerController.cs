@@ -9,7 +9,7 @@ using UnityEngine;
 /// Handles hero movement. Gravity is handcrafted.
 /// </summary>
 [RequireComponent(typeof(BoxCollider2D))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, ICollisionObject
 {
     [Tooltip("Maximum walking speed of the hero.")]
     public float maxSpeed = 5;
@@ -37,8 +37,6 @@ public class PlayerController : MonoBehaviour
 
     [Tooltip("Minimum time between two consecutive hits.")]
     public float hitDelay = 1.0f;
-
-    private const int ENEMY_LAYER = 10;
 
     public int health = 5;
 
@@ -126,7 +124,7 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Speed", Mathf.Abs(horizontalInput));
     }
 
-    private void Flip() {
+    public void Flip() {
         facingRight = !facingRight;
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
     }
@@ -160,6 +158,9 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage()
     {
+        if (Time.time < nextHitAllowedAt)
+            return;
+
         health--;
 
         if(Dead)
@@ -174,22 +175,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void RecoilUp()
+    {
+        velocity.y = 10.0f;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer == ENEMY_LAYER)
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            if(velocity.y < 0)
-            {
-                collision.gameObject.SendMessage("TakeDamage", SendMessageOptions.RequireReceiver);
-                velocity.y = 10.0f;
-            }
-            else
-            {
-                if(Time.time > nextHitAllowedAt)
-                {
-                    TakeDamage();
-                }
-            }
+            collision.gameObject.SendMessage(
+                "HandleCollision", 
+                new CollisionDetails { velocity = velocity, collisionObject = this }
+                );
         }
     }
 }

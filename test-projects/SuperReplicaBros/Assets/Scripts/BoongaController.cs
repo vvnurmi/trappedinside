@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class BoongaController : MonoBehaviour
+public class BoongaController : MonoBehaviour, ICollisionObject
 {
 
     public Vector2 velocity = new Vector2(-2f, 0);
@@ -58,6 +58,19 @@ public class BoongaController : MonoBehaviour
         transform.Translate(moveAmount);
     }
 
+    public void HandleCollision(CollisionDetails collisionDetails)
+    {
+        if(collisionDetails.velocity.y < 0)
+        {
+            TakeDamage();
+            collisionDetails.collisionObject.RecoilUp();
+        }
+        else
+        {
+            collisionDetails.collisionObject.TakeDamage();
+        }
+    }
+
     public void TakeDamage()
     {
         animator.SetBool("Dead", true);
@@ -67,7 +80,7 @@ public class BoongaController : MonoBehaviour
         dead = true;
     }
 
-    void Flip()
+    public void Flip()
     {
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         velocity *= -1;
@@ -77,4 +90,18 @@ public class BoongaController : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    public void RecoilUp()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            Flip();
+        }
+    }
+
 }

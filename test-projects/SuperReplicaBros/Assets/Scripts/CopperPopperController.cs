@@ -1,17 +1,15 @@
 ﻿using UnityEngine;
 
-public class CopperPopperController : MonoBehaviour
+public class CopperPopperController : MonoBehaviour, ICollisionObject
 {
     public Vector2 velocity = new Vector2(-2f, 0);
     public bool cocoon = false;
     public float gravity = -9.81f;
-    public float cocoonRecoveryTime = 10.0f;
 
     [Tooltip("Which collision layers are considered ground.")]
     public LayerMask groundLayers;
 
     private Animator animator;
-    private float cocoonTime;
     private RaycastCollider raycastCollider;
 
     public void OutOfBounds()
@@ -21,25 +19,12 @@ public class CopperPopperController : MonoBehaviour
 
     void Start()
     {
-        cocoonTime = -cocoonRecoveryTime;
         raycastCollider = new RaycastCollider(GetComponent<BoxCollider2D>(), groundLayers);
         animator = GetComponent<Animator>();
     }
 
     void FixedUpdate()
     {
-        if(Time.time > cocoonTime + cocoonRecoveryTime && cocoon)
-        {
-            cocoon = false;
-            animator.SetBool("Cocoon", false);
-            velocity.x = -2;
-        }
-
-        if (cocoon)
-        {
-            return;
-        }
-
         velocity.y += gravity * Time.deltaTime;
         Move(velocity * Time.deltaTime);
 
@@ -66,15 +51,35 @@ public class CopperPopperController : MonoBehaviour
         transform.Translate(moveAmount);
     }
 
+    public void HandleCollision(CollisionDetails collisionDetails)
+    {
+        if (cocoon && velocity.x == 0)
+        {
+            float direction = Mathf.Sign(collisionDetails.velocity.x);
+            velocity.x = direction * 10.0f;
+        }
+        else
+        {
+            if (collisionDetails.velocity.y < 0)
+            {
+                TakeDamage();
+                collisionDetails.collisionObject.RecoilUp();
+            }
+            else
+            {
+                collisionDetails.collisionObject.TakeDamage();
+            }
+        }
+    }
+
     public void TakeDamage()
     {
         animator.SetBool("Cocoon", true);
         velocity.x = 0;
-        cocoonTime = Time.time;
         cocoon = true;
     }
 
-    void Flip()
+    public void Flip()
     {
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         velocity.x *= -1;
@@ -84,4 +89,18 @@ public class CopperPopperController : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    public void RecoilUp()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            Flip();
+        }
+    }
+
 }
