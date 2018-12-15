@@ -47,6 +47,8 @@ public class PlayerCamera : MonoBehaviour
 
     private void RestrictPlayer()
     {
+        if (player == null) return;
+
         playerBlock.enabled = blockMoveLeft;
         if (!blockMoveLeft) return;
 
