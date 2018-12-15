@@ -65,6 +65,10 @@ public class BoongaController : MonoBehaviour, ICollisionObject
             TakeDamage();
             collisionDetails.collisionObject.RecoilUp();
         }
+        else if(collisionDetails.isAttack)
+        {
+            TakeDamage();
+        }
         else
         {
             collisionDetails.collisionObject.TakeDamage();

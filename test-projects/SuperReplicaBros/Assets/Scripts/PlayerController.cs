@@ -47,8 +47,8 @@ public class PlayerController : MonoBehaviour, ICollisionObject
     private bool facingRight = true;
     private float nextHitAllowedAt = 0f;
     private Animator animator;
-
     private RaycastCollider groundCollider;
+    private CircleCollider2D attackCollider;
 
     // Modified during gameplay.
     private Vector2 velocity;
@@ -75,6 +75,8 @@ public class PlayerController : MonoBehaviour, ICollisionObject
         initialJumpSpeed = Mathf.Abs(gravity) * jumpApexTime;
         dampedJumpSpeed = Mathf.Sqrt(2 * Mathf.Abs(gravity) * jumpHeightMin);
         animator = GetComponent<Animator>();
+        attackCollider = GetComponent<CircleCollider2D>();
+        attackCollider.enabled = false;
     }
 
     private void Update()
@@ -85,6 +87,11 @@ public class PlayerController : MonoBehaviour, ICollisionObject
         }
 
         var oldVelocity = velocity;
+
+        if(Input.GetButtonDown("Fire1"))
+        {
+            animator.Play("MeleeAttack");
+        }
 
         HandleVerticalInput();
         HandleHorizontalInput();
@@ -180,13 +187,25 @@ public class PlayerController : MonoBehaviour, ICollisionObject
         velocity.y = 10.0f;
     }
 
+
+    public void StartAttacking()
+    {
+        attackCollider.enabled = true;
+    }
+
+    public void StopAttacking()
+    {
+        attackCollider.enabled = false;
+    }
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             collision.gameObject.SendMessage(
                 "HandleCollision", 
-                new CollisionDetails { velocity = velocity, collisionObject = this }
+                new CollisionDetails { velocity = velocity, collisionObject = this, isAttack = attackCollider.IsTouching(collision) }
                 );
         }
     }
