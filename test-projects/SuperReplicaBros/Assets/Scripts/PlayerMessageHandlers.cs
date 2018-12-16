@@ -17,4 +17,10 @@ public class PlayerMessageHandlers : MonoBehaviour
     {
         player.KillInstantly();
     }
+
+    public void CompleteLevel()
+    {
+        var menuLogic = FindObjectOfType<MenuLogic>();
+        menuLogic.CompleteLevel();
+    }
 }

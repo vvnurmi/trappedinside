@@ -4,6 +4,15 @@ using UnityEngine;
 // Code adapted from Sebastian Lague's 2D Platformer Controller tutorial.
 // https://github.com/SebLague/2DPlatformer-Tutorial
 
+public struct PlayerInput
+{
+    public bool fire1;
+    public bool fire2;
+    public bool jumpPressed;
+    public bool jumpReleased;
+    public float horizontal;
+    public float vertical;
+}
 
 /// <summary>
 /// Handles hero movement. Gravity is handcrafted.
@@ -55,6 +64,7 @@ public class PlayerController : MonoBehaviour, ICollisionObject
     // Modified during gameplay.
     private Vector2 velocity;
     private float velocityXSmoothing;
+    private bool isControllable = true;
 
     /// <summary>
     /// Invoked when the player dies.
@@ -85,19 +95,10 @@ public class PlayerController : MonoBehaviour, ICollisionObject
 
         var oldVelocity = velocity;
 
-        if(Input.GetButtonDown("Fire1"))
-        {
-            animator.Play("MeleeAttack");
-        }
-
-        if (Input.GetButtonDown("Fire2"))
-        {
-            animator.Play("RangedAttack");
-            CreateFireBall();
-        }
-
-        HandleVerticalInput();
-        HandleHorizontalInput();
+        var input = GetInput();
+        HandleFireInput(input);
+        HandleVerticalInput(input);
+        HandleHorizontalInput(input);
 
         var averageVelocity = Vector2.Lerp(oldVelocity, velocity, 0.5f);
         Move(averageVelocity * Time.deltaTime);
@@ -120,29 +121,53 @@ public class PlayerController : MonoBehaviour, ICollisionObject
         fireBallObject.transform.position = transform.position + new Vector3(fireBallOffset, 0, 0);
     }
 
-    private void HandleVerticalInput() {
-        var isJumping = Input.GetButtonDown("Jump");
-        var stopJumping = Input.GetButtonUp("Jump");
+    private PlayerInput GetInput()
+    {
+        return !isControllable
+            ? new PlayerInput()
+            : new PlayerInput
+            {
+                fire1 = Input.GetButtonDown("Fire1"),
+                fire2 = Input.GetButtonDown("Fire2"),
+                jumpPressed = Input.GetButtonDown("Jump"),
+                jumpReleased = Input.GetButtonUp("Jump"),
+                horizontal = Input.GetAxis("Horizontal"),
+                vertical = Input.GetAxis("Vertical"),
+            };
+    }
 
-        if (isJumping) Jump();
-        if (stopJumping) StopJumping();
+    private void HandleFireInput(PlayerInput input)
+    {
+        if (input.fire1)
+        {
+            animator.Play("MeleeAttack");
+        }
+
+        if (input.fire2)
+        {
+            animator.Play("RangedAttack");
+            CreateFireBall();
+        }
+    }
+
+    private void HandleVerticalInput(PlayerInput input) {
+        if (input.jumpPressed) Jump();
+        if (input.jumpReleased) StopJumping();
 
         velocity.y += gravity * Time.deltaTime;
         animator.SetBool("Jumping", !groundCollider.collisions.below);
     }
 
-    private void HandleHorizontalInput() {
-        var horizontalInput = Input.GetAxis("Horizontal");
-
-        if(horizontalInput < 0 && facingRight) {
+    private void HandleHorizontalInput(PlayerInput input) {
+        if(input.horizontal < 0 && facingRight) {
             Flip();
-        } else if (horizontalInput > 0 && !facingRight) {
+        } else if (input.horizontal > 0 && !facingRight) {
             Flip();
         }
 
-        float targetVelocityX = horizontalInput * maxSpeed;
+        float targetVelocityX = input.horizontal * maxSpeed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, maxSpeedReachTime);
-        animator.SetFloat("Speed", Mathf.Abs(horizontalInput));
+        animator.SetFloat("Speed", Mathf.Abs(input.horizontal));
     }
 
     public void Flip() {
@@ -226,6 +251,15 @@ public class PlayerController : MonoBehaviour, ICollisionObject
         attackCollider.enabled = false;
     }
 
+    public void DisableControls()
+    {
+        isControllable = false;
+    }
+
+    public void EnableControls()
+    {
+        isControllable = true;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

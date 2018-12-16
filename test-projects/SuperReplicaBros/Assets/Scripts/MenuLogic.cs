@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-enum MenuMode
+public enum MenuMode
 {
     Title,
     Gameplay,
@@ -9,16 +9,20 @@ enum MenuMode
 
 public class MenuLogic : MonoBehaviour
 {
+    public float levelTitleDelay = 3.0f;
+    public float deathDelay = 4.0f;
+    public float levelCompletionDelay = 5.0f;
+
     private MenuMode mode = MenuMode.Title;
 
-    void OnEnable()
+    private void OnEnable()
     {
         if (DieForUniquePersistence())
             return;
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
@@ -53,7 +57,7 @@ public class MenuLogic : MonoBehaviour
     private void OnPlayerDeath()
     {
         SceneManager.LoadScene("Game Over", LoadSceneMode.Additive);
-        Invoke("ReturnToGameTitle", time: 2.0f);
+        Invoke(nameof(ReturnToGameTitle), time: levelTitleDelay);
     }
 
     private void ReturnToGameTitle()
@@ -63,7 +67,7 @@ public class MenuLogic : MonoBehaviour
         SceneManager.LoadScene("Game Title", LoadSceneMode.Additive);
     }
 
-    public void HidePlayer()
+    private void HidePlayer()
     {
         FindCamera().player = null;
         FindPlayer().SetActive(false);
@@ -73,7 +77,7 @@ public class MenuLogic : MonoBehaviour
     {
         mode = MenuMode.Gameplay;
         SceneManager.LoadScene("Level Title");
-        Invoke("LoadLevel", time: 2.0f);
+        Invoke(nameof(LoadLevel), time: levelTitleDelay);
     }
 
     private void LoadLevel()
@@ -100,6 +104,13 @@ public class MenuLogic : MonoBehaviour
         var player = TryFindPlayer();
         Debug.Assert(player != null);
         return player;
+    }
+
+    public void CompleteLevel()
+    {
+        SceneManager.LoadScene("Level Complete", LoadSceneMode.Additive);
+        FindPlayer().GetComponent<PlayerController>().DisableControls();
+        Invoke(nameof(BeginGameplay), time: levelCompletionDelay);
     }
 
     /// <summary>
