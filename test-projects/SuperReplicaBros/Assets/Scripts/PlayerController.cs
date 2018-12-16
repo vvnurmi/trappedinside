@@ -40,6 +40,8 @@ public class PlayerController : MonoBehaviour, ICollisionObject
 
     public int health = 5;
 
+    public GameObject fireBall;
+
     // Set about once, probably in Start().
     private float gravity;
     private float initialJumpSpeed;
@@ -88,6 +90,12 @@ public class PlayerController : MonoBehaviour, ICollisionObject
             animator.Play("MeleeAttack");
         }
 
+        if (Input.GetButtonDown("Fire2"))
+        {
+            animator.Play("RangedAttack");
+            CreateFireBall();
+        }
+
         HandleVerticalInput();
         HandleHorizontalInput();
 
@@ -99,6 +107,17 @@ public class PlayerController : MonoBehaviour, ICollisionObject
             velocity.y = 0;
         if (groundCollider.HasHorizontalCollisions)
             velocity.x = 0;
+    }
+
+    private void CreateFireBall()
+    {
+        var fireBallObject = Instantiate(fireBall);
+
+        var fireBallController = fireBallObject.GetComponent<FireBallController>();
+        fireBallController.facingRight = facingRight;
+
+        var fireBallOffset = facingRight ? 0.5f : -0.5f;
+        fireBallObject.transform.position = transform.position + new Vector3(fireBallOffset, 0, 0);
     }
 
     private void HandleVerticalInput() {

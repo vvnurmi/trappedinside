@@ -5763,7 +5763,7 @@ TilemapCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -6194,6 +6194,7 @@ MonoBehaviour:
     m_Bits: 768
   hitDelay: 1
   health: 5
+  fireBall: {fileID: 1583706107117772, guid: 2ddb18810918d94439cf08f27f6d16f5, type: 2}
 --- !u!58 &1447629752
 CircleCollider2D:
   m_ObjectHideFlags: 0
