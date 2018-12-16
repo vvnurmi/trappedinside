@@ -52,13 +52,13 @@ public class MenuLogic : MonoBehaviour
 
     private void OnPlayerDeath()
     {
-        mode = MenuMode.Title;
         SceneManager.LoadScene("Game Over", LoadSceneMode.Additive);
         Invoke("ReturnToGameTitle", time: 2.0f);
     }
 
     private void ReturnToGameTitle()
     {
+        mode = MenuMode.Title;
         SceneManager.LoadScene("Level 1");
         SceneManager.LoadScene("Game Title", LoadSceneMode.Additive);
     }
