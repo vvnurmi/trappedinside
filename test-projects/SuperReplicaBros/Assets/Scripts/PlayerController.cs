@@ -59,12 +59,7 @@ public class PlayerController : MonoBehaviour, ICollisionObject
     /// </summary>
     public event Action Death;
 
-    public void OutOfBounds()
-    {
-        Death();
-    }
-
-    private bool Dead { get { return health <= 0; } }
+    private bool IsDead { get { return health <= 0; } }
 
     private void Start()
     {
@@ -81,7 +76,7 @@ public class PlayerController : MonoBehaviour, ICollisionObject
 
     private void Update()
     {
-        if(Dead)
+        if(IsDead)
         {
             return;
         }
@@ -165,21 +160,34 @@ public class PlayerController : MonoBehaviour, ICollisionObject
 
     public void TakeDamage()
     {
-        if (Time.time < nextHitAllowedAt)
+        if (IsDead || Time.time < nextHitAllowedAt)
             return;
 
         health--;
 
-        if(Dead)
-        {
-            animator.Play("Death");
-        }
+        if (IsDead)
+            OnDeath();
         else
-        {
-            animator.Play("Damage");
-            velocity.x = 0;
-            nextHitAllowedAt = Time.time + hitDelay;
-        }
+            OnDamage();
+    }
+
+    public void KillInstantly()
+    {
+        if (IsDead) return;
+        OnDeath();
+    }
+
+    private void OnDamage()
+    {
+        animator.Play("Damage");
+        velocity.x = 0;
+        nextHitAllowedAt = Time.time + hitDelay;
+    }
+
+    private void OnDeath()
+    {
+        animator.Play("Death");
+        Death();
     }
 
     public void RecoilUp()
@@ -204,7 +212,7 @@ public class PlayerController : MonoBehaviour, ICollisionObject
         if(collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             collision.gameObject.SendMessage(
-                "HandleCollision", 
+                "HandleCollision",
                 new CollisionDetails { velocity = velocity, collisionObject = this, isAttack = attackCollider.IsTouching(collision) }
                 );
         }

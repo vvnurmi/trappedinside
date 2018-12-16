@@ -12,6 +12,8 @@ public class CopperPopperController : MonoBehaviour, ICollisionObject
     private Animator animator;
     private RaycastCollider raycastCollider;
 
+    public bool IsStaticCocoon { get { return cocoon && velocity.x == 0; } }
+
     public void OutOfBounds()
     {
         Destroy();
@@ -51,31 +53,6 @@ public class CopperPopperController : MonoBehaviour, ICollisionObject
         transform.Translate(moveAmount);
     }
 
-    public void HandleCollision(CollisionDetails collisionDetails)
-    {
-        if (cocoon && velocity.x == 0)
-        {
-            float direction = Mathf.Sign(collisionDetails.velocity.x);
-            velocity.x = direction * 10.0f;
-        }
-        else
-        {
-            if (collisionDetails.velocity.y < 0)
-            {
-                TakeDamage();
-                collisionDetails.collisionObject.RecoilUp();
-            }
-            else if (collisionDetails.isAttack)
-            {
-                TakeDamage();
-            }
-            else
-            {
-                collisionDetails.collisionObject.TakeDamage();
-            }
-        }
-    }
-
     public void TakeDamage()
     {
         animator.SetBool("Cocoon", true);
@@ -87,6 +64,13 @@ public class CopperPopperController : MonoBehaviour, ICollisionObject
     {
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         velocity.x *= -1;
+    }
+
+    public void LaunchCocoon(float direction)
+    {
+        Debug.Assert(IsStaticCocoon);
+        Debug.Assert(direction == 1 || direction == -1);
+        velocity.x = direction * 10.0f;
     }
 
     void Destroy()

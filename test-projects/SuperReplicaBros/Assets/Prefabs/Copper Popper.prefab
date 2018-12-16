@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212055396289487726}
   - component: {fileID: 50760207585603466}
   - component: {fileID: 61447215520175252}
+  - component: {fileID: 114666609318179594}
   - component: {fileID: 114590583220790650}
   - component: {fileID: 95670750819553448}
   m_Layer: 10
@@ -124,6 +125,17 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &114666609318179594
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1802201501086024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40edd1016e3ea1e4687146becccf0285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212055396289487726
 SpriteRenderer:
   m_ObjectHideFlags: 1

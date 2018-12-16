@@ -58,23 +58,6 @@ public class BoongaController : MonoBehaviour, ICollisionObject
         transform.Translate(moveAmount);
     }
 
-    public void HandleCollision(CollisionDetails collisionDetails)
-    {
-        if(collisionDetails.velocity.y < 0)
-        {
-            TakeDamage();
-            collisionDetails.collisionObject.RecoilUp();
-        }
-        else if(collisionDetails.isAttack)
-        {
-            TakeDamage();
-        }
-        else
-        {
-            collisionDetails.collisionObject.TakeDamage();
-        }
-    }
-
     public void TakeDamage()
     {
         animator.SetBool("Dead", true);
