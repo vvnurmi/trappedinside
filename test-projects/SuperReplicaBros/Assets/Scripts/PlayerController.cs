@@ -174,6 +174,7 @@ public class PlayerController : MonoBehaviour, ICollisionObject
     public void KillInstantly()
     {
         if (IsDead) return;
+        health = 0;
         OnDeath();
     }
 
