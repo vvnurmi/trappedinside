@@ -60,6 +60,8 @@ public class PlayerController : MonoBehaviour, ICollisionObject
     private Animator animator;
     private RaycastCollider groundCollider;
     private CircleCollider2D attackCollider;
+    private readonly float minimumShotDelay = 0.5f;
+    private float lastShotAt = 0.0f;
 
     // Modified during gameplay.
     private Vector2 velocity;
@@ -145,8 +147,12 @@ public class PlayerController : MonoBehaviour, ICollisionObject
 
         if (input.fire2)
         {
-            animator.Play("RangedAttack");
-            CreateFireBall();
+            if(lastShotAt + minimumShotDelay < Time.time)
+            {
+                animator.Play("RangedAttack");
+                CreateFireBall();
+                lastShotAt = Time.time;
+            }
         }
     }
 
