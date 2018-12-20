@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour, ICollisionObject
     public float hitDelay = 1.0f;
 
     public int health = 5;
+    public int collectedStars = 0;
 
     public GameObject fireBall;
 
@@ -275,6 +276,11 @@ public class PlayerController : MonoBehaviour, ICollisionObject
                 "HandleCollision",
                 new CollisionDetails { velocity = velocity, collisionObject = this, isAttack = attackCollider.IsTouching(collision) }
                 );
+        }
+        else if(collision.gameObject.tag == "Star")
+        {
+            collectedStars++;
+            Destroy(collision.gameObject);
         }
     }
 }
