@@ -30,14 +30,14 @@ public class PlayerCamera : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (player == null) return;
+
         FollowPlayer();
         RestrictPlayer();
     }
 
     private void FollowPlayer()
     {
-        if (player == null) return;
-
         var oldCameraPos = camera.transform.position;
         var followedPos = player.transform.position;
         var newCameraPos = new Vector3(
@@ -49,14 +49,10 @@ public class PlayerCamera : MonoBehaviour
 
     private void RestrictPlayer()
     {
-        if (player == null) return;
-
         playerBlock.enabled = blockMoveLeft;
         if (!blockMoveLeft) return;
 
-        var cameraWorldMin = camera.ViewportToWorldPoint(Vector3.zero);
-        var cameraWorldMax = camera.ViewportToWorldPoint(Vector3.one);
-        var cameraWorldSize = cameraWorldMax - cameraWorldMin;
+        var cameraWorldSize = camera.GetWorldSize();
         playerBlock.size = new Vector2(1, 4 * cameraWorldSize.y);
         playerBlock.offset = new Vector2(-(1 + cameraWorldSize.x) / 2, 0);
     }
