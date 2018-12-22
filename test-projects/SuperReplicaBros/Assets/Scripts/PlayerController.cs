@@ -239,7 +239,7 @@ public class PlayerController : MonoBehaviour, ICollisionObject
     private void OnDeath()
     {
         animator.Play("Death");
-        Death();
+        Death?.Invoke();
     }
 
     public void RecoilUp()
