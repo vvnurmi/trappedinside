@@ -23,6 +23,9 @@ public class PlayerCamera : MonoBehaviour
         // Create a box collider that can prevent the player from moving left.
         var playerBlocker = new GameObject("Player Blocker");
         playerBlocker.transform.parent = gameObject.transform;
+        playerBlocker.transform.SetPositionAndRotation(
+            gameObject.transform.position,
+            gameObject.transform.rotation);
         playerBlocker.layer = LayerMask.NameToLayer("BlockPlayer");
         playerBlock = playerBlocker.AddComponent<BoxCollider2D>();
         playerBlock.enabled = false;
