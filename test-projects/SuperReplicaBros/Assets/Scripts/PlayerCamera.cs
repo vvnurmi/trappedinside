@@ -52,8 +52,8 @@ public class PlayerCamera : MonoBehaviour
         playerBlock.enabled = blockMoveLeft;
         if (!blockMoveLeft) return;
 
-        var cameraWorldSize = camera.GetWorldSize();
-        playerBlock.size = new Vector2(1, 4 * cameraWorldSize.y);
-        playerBlock.offset = new Vector2(-(1 + cameraWorldSize.x) / 2, 0);
+        var cameraWorldArea = camera.GetWorldArea();
+        playerBlock.size = new Vector2(1, 4 * cameraWorldArea.height);
+        playerBlock.offset = new Vector2(-(1 + cameraWorldArea.width) / 2, 0);
     }
 }
