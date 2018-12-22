@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
 public class PlayerCamera : MonoBehaviour
@@ -15,6 +14,7 @@ public class PlayerCamera : MonoBehaviour
 
     new private Camera camera;
     private BoxCollider2D playerBlock;
+    private BoxCollider2D enemySpawnTrigger;
 
     private void Start()
     {
@@ -29,6 +29,22 @@ public class PlayerCamera : MonoBehaviour
         playerBlocker.layer = LayerMask.NameToLayer("BlockPlayer");
         playerBlock = playerBlocker.AddComponent<BoxCollider2D>();
         playerBlock.enabled = false;
+
+        // Create a box collider that activates enemies when they are about to appear on the screen.
+        var enemySpawner = new GameObject("Enemy Spawner");
+        enemySpawner.transform.parent = gameObject.transform;
+        enemySpawner.transform.SetPositionAndRotation(
+            gameObject.transform.position,
+            gameObject.transform.rotation);
+        enemySpawner.layer = LayerMask.NameToLayer("EnemySpawn");
+        // Be a kinematic trigger to detect static triggers on Spawners.
+        // Never sleep to be able to trigger also when camera doesn't move.
+        var triggerBody = enemySpawner.AddComponent<Rigidbody2D>();
+        triggerBody.bodyType = RigidbodyType2D.Kinematic;
+        triggerBody.sleepMode = RigidbodySleepMode2D.NeverSleep;
+        enemySpawnTrigger = enemySpawner.AddComponent<BoxCollider2D>();
+        enemySpawnTrigger.isTrigger = true;
+        enemySpawner.AddComponent<SpawnTrigger>();
     }
 
     private void LateUpdate()
@@ -37,6 +53,7 @@ public class PlayerCamera : MonoBehaviour
 
         FollowPlayer();
         RestrictPlayer();
+        UpdateEnemyActivationArea();
     }
 
     private void FollowPlayer()
@@ -58,5 +75,12 @@ public class PlayerCamera : MonoBehaviour
         var cameraWorldArea = camera.GetWorldArea();
         playerBlock.size = new Vector2(1, 4 * cameraWorldArea.height);
         playerBlock.offset = new Vector2(-(1 + cameraWorldArea.width) / 2, 0);
+    }
+
+    private void UpdateEnemyActivationArea()
+    {
+        var cameraWorldArea = camera.GetWorldArea();
+        enemySpawnTrigger.size = cameraWorldArea.size * 2.0f;
+        enemySpawnTrigger.offset = Vector2.zero;
     }
 }

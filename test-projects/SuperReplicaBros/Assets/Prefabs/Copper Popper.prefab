@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114666609318179594}
   - component: {fileID: 114590583220790650}
   - component: {fileID: 95670750819553448}
+  - component: {fileID: 114586564509711310}
   m_Layer: 10
   m_Name: Copper Popper
   m_TagString: Untagged
@@ -108,6 +109,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114586564509711310
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1802201501086024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a81aa5113195bfd44be1bb91c9960997, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114590583220790650
 MonoBehaviour:
   m_ObjectHideFlags: 1
