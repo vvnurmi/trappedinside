@@ -12,13 +12,17 @@ public class PlayerCamera : MonoBehaviour
     [Tooltip("If true, don't move left ever and don't let the player move left of the view.")]
     public bool blockMoveLeft;
 
+    public AudioClip levelCompleteSound;
+
     new private Camera camera;
     private BoxCollider2D playerBlock;
     private BoxCollider2D enemySpawnTrigger;
+    private AudioSource audioSource;
 
     private void Start()
     {
         camera = GetComponent<Camera>();
+        audioSource = GetComponent<AudioSource>();
 
         // Create a box collider that can prevent the player from moving left.
         var playerBlocker = new GameObject("Player Blocker");
@@ -82,5 +86,11 @@ public class PlayerCamera : MonoBehaviour
         var cameraWorldArea = camera.GetWorldArea();
         enemySpawnTrigger.size = cameraWorldArea.size * 2.0f;
         enemySpawnTrigger.offset = Vector2.zero;
+    }
+
+    public void PlayLevelCompleteSound()
+    {
+        audioSource.Stop();
+        audioSource.PlayOneShot(levelCompleteSound);
     }
 }

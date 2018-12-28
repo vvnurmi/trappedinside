@@ -11,6 +11,7 @@ public class CopperPopperController : MonoBehaviour, ICollisionObject
 
     private Animator animator;
     private RaycastCollider raycastCollider;
+    private AudioSource hitSoundSource;
 
     public bool IsStaticCocoon { get { return cocoon && velocity.x == 0; } }
 
@@ -23,6 +24,7 @@ public class CopperPopperController : MonoBehaviour, ICollisionObject
     {
         raycastCollider = new RaycastCollider(GetComponent<BoxCollider2D>(), groundLayers);
         animator = GetComponent<Animator>();
+        hitSoundSource = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -56,6 +58,7 @@ public class CopperPopperController : MonoBehaviour, ICollisionObject
     public void TakeDamage()
     {
         animator.SetBool("Cocoon", true);
+        hitSoundSource.Play();
         velocity.x = 0;
         cocoon = true;
     }
@@ -70,6 +73,7 @@ public class CopperPopperController : MonoBehaviour, ICollisionObject
     {
         Debug.Assert(IsStaticCocoon);
         Debug.Assert(direction == 1 || direction == -1);
+        hitSoundSource.Play();
         velocity.x = direction * 10.0f;
     }
 

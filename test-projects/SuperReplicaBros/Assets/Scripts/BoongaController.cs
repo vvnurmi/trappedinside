@@ -11,6 +11,7 @@ public class BoongaController : MonoBehaviour, ICollisionObject
 
     private Animator animator;
     private RaycastCollider raycastCollider;
+    private AudioSource hitSoundSource;
 
     public void OutOfBounds()
     {
@@ -21,6 +22,7 @@ public class BoongaController : MonoBehaviour, ICollisionObject
 	void Start ()
     {
         raycastCollider = new RaycastCollider(GetComponent<BoxCollider2D>(), groundLayers);
+        hitSoundSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
     }
 
@@ -61,6 +63,7 @@ public class BoongaController : MonoBehaviour, ICollisionObject
     public void TakeDamage()
     {
         animator.SetBool("Dead", true);
+        hitSoundSource.Play();
         velocity = new Vector2();
         transform.Translate(0, -0.15f, 0);
         GetComponent<BoxCollider2D>().enabled = false;

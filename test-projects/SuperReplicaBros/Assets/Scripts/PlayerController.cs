@@ -47,6 +47,12 @@ public class PlayerController : MonoBehaviour, ICollisionObject
     [Tooltip("Minimum time between two consecutive hits.")]
     public float hitDelay = 1.0f;
 
+    public AudioClip jumpSound;
+    public AudioClip hitSound;
+    public AudioClip punchSound;
+    public AudioClip flameSound;
+    public AudioClip starSound;
+
     public int health = 5;
     public int collectedStars = 0;
 
@@ -63,6 +69,7 @@ public class PlayerController : MonoBehaviour, ICollisionObject
     private CircleCollider2D attackCollider;
     private readonly float minimumShotDelay = 0.5f;
     private float lastShotAt = 0.0f;
+    private AudioSource audioSource;
 
     // Modified during gameplay.
     private Vector2 velocity;
@@ -87,11 +94,12 @@ public class PlayerController : MonoBehaviour, ICollisionObject
         animator = GetComponent<Animator>();
         attackCollider = GetComponent<CircleCollider2D>();
         attackCollider.enabled = false;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
-        if(IsDead)
+        if (IsDead)
         {
             return;
         }
@@ -144,20 +152,23 @@ public class PlayerController : MonoBehaviour, ICollisionObject
         if (input.fire1)
         {
             animator.Play("MeleeAttack");
+            PlaySound(punchSound);
         }
 
         if (input.fire2)
         {
-            if(lastShotAt + minimumShotDelay < Time.time)
+            if (lastShotAt + minimumShotDelay < Time.time)
             {
                 animator.Play("RangedAttack");
+                PlaySound(flameSound);
                 CreateFireBall();
                 lastShotAt = Time.time;
             }
         }
     }
 
-    private void HandleVerticalInput(PlayerInput input) {
+    private void HandleVerticalInput(PlayerInput input)
+    {
         if (input.jumpPressed) Jump();
         if (input.jumpReleased) StopJumping();
 
@@ -165,10 +176,14 @@ public class PlayerController : MonoBehaviour, ICollisionObject
         animator.SetBool("Jumping", !groundCollider.collisions.below);
     }
 
-    private void HandleHorizontalInput(PlayerInput input) {
-        if(input.horizontal < 0 && facingRight) {
+    private void HandleHorizontalInput(PlayerInput input)
+    {
+        if (input.horizontal < 0 && facingRight)
+        {
             Flip();
-        } else if (input.horizontal > 0 && !facingRight) {
+        }
+        else if (input.horizontal > 0 && !facingRight)
+        {
             Flip();
         }
 
@@ -177,7 +192,8 @@ public class PlayerController : MonoBehaviour, ICollisionObject
         animator.SetFloat("Speed", Mathf.Abs(input.horizontal));
     }
 
-    public void Flip() {
+    public void Flip()
+    {
         facingRight = !facingRight;
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
     }
@@ -185,7 +201,10 @@ public class PlayerController : MonoBehaviour, ICollisionObject
     public void Jump()
     {
         if (groundCollider.collisions.below)
+        {
             velocity.y = initialJumpSpeed;
+            PlaySound(jumpSound);
+        }
     }
 
     public void StopJumping()
@@ -232,6 +251,7 @@ public class PlayerController : MonoBehaviour, ICollisionObject
     private void OnDamage()
     {
         animator.Play("Damage");
+        PlaySound(hitSound);
         velocity.x = 0;
         nextHitAllowedAt = Time.time + hitDelay;
     }
@@ -239,7 +259,16 @@ public class PlayerController : MonoBehaviour, ICollisionObject
     private void OnDeath()
     {
         animator.Play("Death");
+        PlaySound(hitSound);
         Death?.Invoke();
+    }
+
+    private void PlaySound(AudioClip sound)
+    {
+        if(sound != null)
+        {
+            audioSource.PlayOneShot(sound);
+        }
     }
 
     public void RecoilUp()
@@ -270,17 +299,18 @@ public class PlayerController : MonoBehaviour, ICollisionObject
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             collision.gameObject.SendMessage(
                 "HandleCollision",
                 new CollisionDetails { velocity = velocity, collisionObject = this, isAttack = attackCollider.IsTouching(collision) }
                 );
         }
-        else if(collision.gameObject.tag == "Star")
+        else if (collision.gameObject.tag == "Star")
         {
             collectedStars++;
             Destroy(collision.gameObject);
+            PlaySound(starSound);
         }
     }
 }

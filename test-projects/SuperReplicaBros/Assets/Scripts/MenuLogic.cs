@@ -30,6 +30,7 @@ public class MenuLogic : MonoBehaviour
     private void Start()
     {
         SceneManager.LoadScene("Game Title", LoadSceneMode.Additive);
+
     }
 
     private void Update()
@@ -110,6 +111,7 @@ public class MenuLogic : MonoBehaviour
     {
         SceneManager.LoadScene("Level Complete", LoadSceneMode.Additive);
         FindPlayer().GetComponent<PlayerController>().DisableControls();
+        FindCamera().GetComponent<PlayerCamera>().PlayLevelCompleteSound();
         Invoke(nameof(BeginGameplay), time: levelCompletionDelay);
     }
 
