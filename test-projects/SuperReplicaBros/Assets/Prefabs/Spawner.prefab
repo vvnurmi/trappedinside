@@ -77,6 +77,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b4ff22fa3e00e34a80b16df65f43179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawn: {fileID: 1403915401279290, guid: b4ab5de7e6d6c5b4c943f956d4db6f91, type: 2}
+  spawn: {fileID: 0}
   count: 1
   spawnDelay: 1
