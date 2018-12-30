@@ -7,19 +7,31 @@ public class ScrollingSky : MonoBehaviour
     [Tooltip("How fast the sky moves on its own.")]
     public float windSpeed = 1.0f;
 
+    [Tooltip("How fast the sky moves against the camera's movement.")]
+    public float parallaxSpeed = 0.1f;
+
+    [Tooltip("The camera for which to do the parallax scroll.")]
+    new public GameObject camera;
+
+    private Vector3 oldCameraPosition;
     private GameObject gameObjectClone;
 
     private void Start()
     {
         CloneTilemap();
+        oldCameraPosition = camera.transform.position;
     }
 
     private void Update()
     {
         var windMoveX = Time.deltaTime * windSpeed;
-        var totalMove = Vector3.right * windMoveX;
+        var newCameraPosition = camera.transform.position;
+        var parallaxMoveX = -(newCameraPosition - oldCameraPosition).x * parallaxSpeed;
+        var totalMove = Vector3.right * (windMoveX + parallaxMoveX);
         gameObject.transform.position += totalMove;
         gameObjectClone.transform.position += totalMove;
+
+        oldCameraPosition = newCameraPosition;
     }
 
     private void CloneTilemap()

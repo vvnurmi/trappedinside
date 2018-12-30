@@ -6363,6 +6363,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windSpeed: 0.1
+  parallaxSpeed: 0.2
+  camera: {fileID: 1868436809}
 --- !u!1001 &963786635
 Prefab:
   m_ObjectHideFlags: 0
