@@ -6,11 +6,9 @@ using UnityEngine.UI;
 
 public class TextBoxController : MonoBehaviour
 {
-
     private Text text;
-    private Queue<string> chatLines = new Queue<string>();
+    private Queue<ChatLine> chatLines = new Queue<ChatLine>();
     private Image textPanel;
-
 
     private PlayerController PlayerController { get { return FindObjectOfType<PlayerController>(); } }
 
@@ -20,7 +18,6 @@ public class TextBoxController : MonoBehaviour
         text = GetComponentInChildren<Text>();
         textPanel = GetComponentInChildren<Image>();
     }
-
 
     // Update is called once per frame
     void Update()
@@ -33,7 +30,7 @@ public class TextBoxController : MonoBehaviour
     {
         if (chatLines.Count > 0)
         {
-            text.text = chatLines.Dequeue();
+            SetTextBoxText(chatLines.Dequeue());
         }
         else
         {
@@ -44,13 +41,19 @@ public class TextBoxController : MonoBehaviour
         }
     }
 
-    internal void StartChat(string[] inputLines)
+    internal void StartChat(ChatLine[] lines)
     {
-        chatLines = new Queue<string>(inputLines);
-        text.text = chatLines.Dequeue();
+        chatLines = new Queue<ChatLine>(lines);
+        SetTextBoxText(chatLines.Dequeue());
         PlayerController.DisableControls();
         IsChatActive = true;
         SetTextPanelVisibility(true);
+    }
+
+    private void SetTextBoxText(ChatLine chatLine)
+    {
+        text.color = chatLine.color;
+        text.text = chatLine.text;
     }
 
     private void SetTextPanelVisibility(bool visible)
