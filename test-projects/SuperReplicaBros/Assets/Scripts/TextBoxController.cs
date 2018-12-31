@@ -9,6 +9,10 @@ public class TextBoxController : MonoBehaviour
     private Text text;
     private Queue<ChatLine> chatLines = new Queue<ChatLine>();
     private Image textPanel;
+    private bool isTyping = false;
+    private bool cancelTyping = false;
+
+    public float typeSpeed = 0.1f;
 
     private PlayerController PlayerController { get { return FindObjectOfType<PlayerController>(); } }
 
@@ -28,32 +32,59 @@ public class TextBoxController : MonoBehaviour
 
     internal void ProgressChat()
     {
-        if (chatLines.Count > 0)
+        if (!isTyping)
         {
-            SetTextBoxText(chatLines.Dequeue());
+            if (chatLines.Count > 0)
+            {
+                StartScrollingText();
+            }
+            else
+            {
+                PlayerController.EnableControls();
+                IsChatActive = false;
+                text.text = string.Empty;
+                SetTextPanelVisibility(false);
+            }
         }
         else
         {
-            PlayerController.EnableControls();
-            IsChatActive = false;
-            text.text = string.Empty;
-            SetTextPanelVisibility(false);
+            cancelTyping = true;
         }
+
+    }
+
+    private IEnumerator TextScroll(ChatLine chatLine)
+    {
+        isTyping = true;
+        text.text = string.Empty;
+        text.color = chatLine.color;
+        foreach(var c in chatLine.text)
+        {
+            if(cancelTyping)
+            {
+                break;
+            }
+            text.text += c;
+            yield return new WaitForSeconds(typeSpeed);
+        }
+        text.text = chatLine.text;
+        isTyping = false;
+        cancelTyping = false;
+
     }
 
     internal void StartChat(ChatLine[] lines)
     {
         chatLines = new Queue<ChatLine>(lines);
-        SetTextBoxText(chatLines.Dequeue());
+        StartScrollingText();
         PlayerController.DisableControls();
         IsChatActive = true;
         SetTextPanelVisibility(true);
     }
 
-    private void SetTextBoxText(ChatLine chatLine)
+    private void StartScrollingText()
     {
-        text.color = chatLine.color;
-        text.text = chatLine.text;
+        StartCoroutine(TextScroll(chatLines.Dequeue()));
     }
 
     private void SetTextPanelVisibility(bool visible)
