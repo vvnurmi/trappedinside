@@ -47,23 +47,11 @@ public class ChatObjectController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (ColliderIsPlayer(collision))
-        {
-            playerInsideChatArea = true;
-        }
+        playerInsideChatArea = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (ColliderIsPlayer(collision))
-        {
-            playerInsideChatArea = false;
-        }
+        playerInsideChatArea = false;
     }
-
-    private bool ColliderIsPlayer(Collider2D collision)
-    {
-        return collision.gameObject.tag == "Player";
-    }
-
 }
