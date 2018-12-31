@@ -25,7 +25,7 @@ public class FireBallController : MonoBehaviour, ICollisionObject
         }
         float step = velocity * Time.deltaTime;
         transform.Translate(step, 0f, 0f);
-        traveledDistance += step;
+        traveledDistance += Mathf.Abs(step);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
