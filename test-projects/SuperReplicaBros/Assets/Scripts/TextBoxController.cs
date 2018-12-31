@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,19 +15,14 @@ public class TextBoxController : MonoBehaviour
 
     private PlayerController PlayerController { get { return FindObjectOfType<PlayerController>(); } }
 
-    // Use this for initialization
-    void Start()
+    internal bool IsChatActive { get; private set; }
+
+    private void Start()
     {
         text = GetComponentInChildren<Text>();
         textPanel = GetComponentInChildren<Image>();
+        SetTextPanelVisibility(false);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
-    internal bool IsChatActive { get; private set; }
 
     internal void ProgressChat()
     {
@@ -50,7 +44,6 @@ public class TextBoxController : MonoBehaviour
         {
             cancelTyping = true;
         }
-
     }
 
     private IEnumerator TextScroll(ChatLine chatLine)
@@ -58,9 +51,9 @@ public class TextBoxController : MonoBehaviour
         isTyping = true;
         text.text = string.Empty;
         text.color = chatLine.color;
-        foreach(var c in chatLine.text)
+        foreach (var c in chatLine.text)
         {
-            if(cancelTyping)
+            if (cancelTyping)
             {
                 break;
             }
@@ -89,13 +82,6 @@ public class TextBoxController : MonoBehaviour
 
     private void SetTextPanelVisibility(bool visible)
     {
-        if (visible)
-        {
-            textPanel.color = new Color(0, 0, 0, 0.8f);
-        }
-        else
-        {
-            textPanel.color = new Color(0, 0, 0, 0);
-        }
+        textPanel.gameObject.SetActive(visible);
     }
 }
