@@ -9,14 +9,18 @@ public class TextBoxController : MonoBehaviour
 
     private Text text;
     private Queue<string> chatLines = new Queue<string>();
+    private Image textPanel;
+
+
+    private PlayerController PlayerController { get { return FindObjectOfType<PlayerController>(); } }
 
     // Use this for initialization
     void Start()
     {
         text = GetComponentInChildren<Text>();
+        textPanel = GetComponentInChildren<Image>();
     }
 
-    private PlayerController PlayerController { get { return FindObjectOfType<PlayerController>(); } }
 
     // Update is called once per frame
     void Update()
@@ -36,6 +40,7 @@ public class TextBoxController : MonoBehaviour
             PlayerController.EnableControls();
             IsChatActive = false;
             text.text = string.Empty;
+            SetTextPanelVisibility(false);
         }
     }
 
@@ -45,5 +50,18 @@ public class TextBoxController : MonoBehaviour
         text.text = chatLines.Dequeue();
         PlayerController.DisableControls();
         IsChatActive = true;
+        SetTextPanelVisibility(true);
+    }
+
+    private void SetTextPanelVisibility(bool visible)
+    {
+        if (visible)
+        {
+            textPanel.color = new Color(0, 0, 0, 0.8f);
+        }
+        else
+        {
+            textPanel.color = new Color(0, 0, 0, 0);
+        }
     }
 }
