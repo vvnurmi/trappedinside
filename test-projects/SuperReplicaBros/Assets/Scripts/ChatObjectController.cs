@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
-
+[Serializable]
 public struct ChatLine
 {
     public Color color;
+    [TextArea]
     public string text;
 }
 
@@ -17,21 +17,15 @@ public class ChatObjectController : MonoBehaviour
     public ChatLine[] inputLines;
 
     // Use this for initialization
-    void Start()
+    private void Start()
     {
         textBox = FindObjectOfType<TextBoxController>();
-        inputLines = new ChatLine[] 
-        {
-            new ChatLine { color = new Color(1, 1, 0), text = "Beware of the monsters ahead!" },
-            new ChatLine { color = new Color(1, 0, 0), text = "No worries, I will punch 'em!" }
-
-        };
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if(Input.GetButtonDown("Submit"))
+        if (Input.GetButtonDown("Submit"))
         {
             if (playerInsideChatArea && !textBox.IsChatActive)
             {

@@ -24275,6 +24275,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e4c6dffc51606142b371b616d5f435b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputLines:
+  - color: {r: 1, g: 1, b: 0, a: 1}
+    text: Beware of the slimy monsters ahead!
+  - color: {r: 1, g: 0, b: 0, a: 1}
+    text: "No worries, I will punch 'em!\n\n( \u2022_\u2022)\n( \u2022_\u2022)>\u2310\u25A1-\u25A1\n(\u2310\u25A1_\u25A1)"
 --- !u!1 &2103718708
 GameObject:
   m_ObjectHideFlags: 0
