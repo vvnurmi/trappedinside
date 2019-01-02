@@ -34,7 +34,7 @@ public class TextBoxController : MonoBehaviour
             }
             else
             {
-                PlayerController.EnableControls();
+                PlayerController.ResumePlayerControl();
                 IsChatActive = false;
                 text.text = string.Empty;
                 SetTextPanelVisibility(false);
@@ -70,7 +70,7 @@ public class TextBoxController : MonoBehaviour
     {
         chatLines = new Queue<ChatLine>(lines);
         StartScrollingText();
-        PlayerController.DisableControls();
+        PlayerController.OverridePlayerControl(new PlayerInput());
         IsChatActive = true;
         SetTextPanelVisibility(true);
     }

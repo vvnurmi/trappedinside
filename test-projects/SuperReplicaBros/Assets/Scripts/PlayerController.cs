@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour, ICollisionObject
     private Vector2 velocity;
     private float velocityXSmoothing;
     private bool isControllable = true;
+    private PlayerInput overrideControls; // Used unless 'isControllable'.
 
     /// <summary>
     /// Invoked when the player dies.
@@ -135,7 +136,7 @@ public class PlayerController : MonoBehaviour, ICollisionObject
     private PlayerInput GetInput()
     {
         return !isControllable
-            ? new PlayerInput()
+            ? overrideControls
             : new PlayerInput
             {
                 fire1 = Input.GetButtonDown("Fire1"),
@@ -287,12 +288,19 @@ public class PlayerController : MonoBehaviour, ICollisionObject
         attackCollider.enabled = false;
     }
 
-    public void DisableControls()
+    /// <summary>
+    /// Makes the player use the given input.
+    /// </summary>
+    public void OverridePlayerControl(PlayerInput input)
     {
         isControllable = false;
+        overrideControls = input;
     }
 
-    public void EnableControls()
+    /// <summary>
+    /// Resumes player control over the character.
+    /// </summary>
+    public void ResumePlayerControl()
     {
         isControllable = true;
     }
