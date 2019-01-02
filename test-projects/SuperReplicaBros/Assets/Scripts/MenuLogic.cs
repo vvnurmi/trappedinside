@@ -35,7 +35,7 @@ public class MenuLogic : MonoBehaviour
 
     private void Update()
     {
-        var isStartPressed = Input.GetButtonDown("Jump");
+        var isStartPressed = Input.GetButtonDown("Jump") || Input.GetButtonDown("Submit");
         if (mode == MenuMode.Title && isStartPressed)
             BeginGameplay();
     }
@@ -64,7 +64,7 @@ public class MenuLogic : MonoBehaviour
     private void ReturnToGameTitle()
     {
         mode = MenuMode.Title;
-        SceneManager.LoadScene("Level 1");
+        SceneManager.LoadScene("Boot");
         SceneManager.LoadScene("Game Title", LoadSceneMode.Additive);
     }
 
