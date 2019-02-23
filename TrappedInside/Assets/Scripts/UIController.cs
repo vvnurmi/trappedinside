@@ -9,18 +9,17 @@ public enum UIMode
 
 public class UIController : MonoBehaviour
 {
+    private static GameObject host;
+
     private UIMode mode = UIMode.Title;
 
-    private void OnEnable()
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void OnBeforeSceneLoadRuntimeMethod()
     {
-        if (Lifetime.KillForUniquePersistence<UIController>(gameObject))
-            return;
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        Debug.Assert(host == null);
+        host = new GameObject("UI Controller", typeof(UIController));
+        DontDestroyOnLoad(host);
+        SceneManager.sceneLoaded += host.GetComponent<UIController>().OnSceneLoaded;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode sceneMode)
@@ -36,13 +35,15 @@ public class UIController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (mode == UIMode.Title)
+        switch (mode)
         {
-            bool promptPressed =
-                Input.GetButtonDown("Fire1") ||
-                Input.GetButtonDown("Jump");
-            if (promptPressed)
-                SceneManager.LoadScene("Level1");
+            case UIMode.Title:
+                bool promptPressed =
+                    Input.GetButtonDown("Fire1") ||
+                    Input.GetButtonDown("Jump");
+                if (promptPressed)
+                    SceneManager.LoadScene("Level1");
+                break;
         }
     }
 }
