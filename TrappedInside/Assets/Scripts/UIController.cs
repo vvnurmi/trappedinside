@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public enum UIMode
 {
+    Unknown,
     Title,
     Gameplay,
 }
@@ -30,7 +31,10 @@ public class UIController : MonoBehaviour
         else if (scene.name.StartsWith("Level"))
             mode = UIMode.Gameplay;
         else
-            Debug.Assert(false, "Scene name heuristic failed");
+        {
+            mode = UIMode.Unknown;
+            Debug.Assert(false, $"Scene name heuristic couldn't identify scene '{scene.name}'");
+        }
     }
 
     private void FixedUpdate()
