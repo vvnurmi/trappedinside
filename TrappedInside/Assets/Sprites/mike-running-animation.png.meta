@@ -1,7 +1,13 @@
 fileFormatVersion: 2
 guid: a36a4de00e5b2a34499f505fa2bba5fb
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: mike-running-animation_0
+    21300002: mike-running-animation_1
+    21300004: mike-running-animation_2
+    21300006: mike-running-animation_3
+    21300008: mike-running-animation_4
+    21300010: mike-running-animation_5
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -31,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 0
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -40,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -63,7 +69,18 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -71,7 +88,127 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: mike-running-animation_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 4
+        width: 13
+        height: 25
+      alignment: 9
+      pivot: {x: 0.53846157, y: 0.39999998}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6814151088bc2ca4faf556e8c0e5d515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mike-running-animation_1
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 2
+        width: 13
+        height: 26
+      alignment: 9
+      pivot: {x: 0.53846157, y: 0.42307693}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1668fe160b658e24d879ea3828148aa3
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mike-running-animation_2
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 2
+        width: 13
+        height: 26
+      alignment: 9
+      pivot: {x: 0.53846157, y: 0.42307693}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64fd77676b40a7f4f9c994de404ea5ad
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mike-running-animation_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 4
+        width: 16
+        height: 25
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35999998}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62b9c592362959b4fad85a6ddfd76a2e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mike-running-animation_4
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 2
+        width: 13
+        height: 26
+      alignment: 9
+      pivot: {x: 0.53846157, y: 0.42307693}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b8b515409723bf4a9da8da13f2fabb8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mike-running-animation_5
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 2
+        width: 13
+        height: 26
+      alignment: 9
+      pivot: {x: 0.53846157, y: 0.42307693}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bed69417c8cedc44b8117c61395ed22e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

@@ -1,7 +1,10 @@
 fileFormatVersion: 2
 guid: 16e8d0173208d7f428b8b10aeefa436b
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: mike-jumping-animation_0
+    21300002: mike-jumping-animation_1
+    21300004: mike-jumping-animation_2
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -31,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 0
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -40,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -63,7 +66,18 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -71,7 +85,67 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: mike-jumping-animation_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 2
+        width: 13
+        height: 26
+      alignment: 9
+      pivot: {x: 0.53846157, y: 0.42307693}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34288ffbd689ffc4891fc6df83bc2b1d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mike-jumping-animation_1
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 2
+        width: 13
+        height: 25
+      alignment: 9
+      pivot: {x: 0.53846157, y: 0.44}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e30e0d1f1adbd9d4e982e4ad27e54097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mike-jumping-animation_2
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 3
+        width: 15
+        height: 25
+      alignment: 9
+      pivot: {x: 0.4666667, y: 0.39999998}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f80550b608631854f8b1502e1c549b04
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
