@@ -93,18 +93,18 @@ TextureImporter:
       name: mike-running-animation_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 4
-        width: 13
-        height: 25
-      alignment: 9
-      pivot: {x: 0.53846157, y: 0.39999998}
+        x: 0
+        y: 0
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6814151088bc2ca4faf556e8c0e5d515
+      spriteID: 591f5b42b1e413546b83b2af313b925e
       vertices: []
       indices: 
       edges: []
@@ -113,18 +113,18 @@ TextureImporter:
       name: mike-running-animation_1
       rect:
         serializedVersion: 2
-        x: 37
-        y: 2
-        width: 13
-        height: 26
-      alignment: 9
-      pivot: {x: 0.53846157, y: 0.42307693}
+        x: 30
+        y: 0
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1668fe160b658e24d879ea3828148aa3
+      spriteID: 788d6dbde59fe994daa5b1d2ff6e73e2
       vertices: []
       indices: 
       edges: []
@@ -133,18 +133,18 @@ TextureImporter:
       name: mike-running-animation_2
       rect:
         serializedVersion: 2
-        x: 67
-        y: 2
-        width: 13
-        height: 26
-      alignment: 9
-      pivot: {x: 0.53846157, y: 0.42307693}
+        x: 60
+        y: 0
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 64fd77676b40a7f4f9c994de404ea5ad
+      spriteID: 2115cb9bc30b9c44d9c7fc58265e916b
       vertices: []
       indices: 
       edges: []
@@ -153,18 +153,18 @@ TextureImporter:
       name: mike-running-animation_3
       rect:
         serializedVersion: 2
-        x: 96
-        y: 4
-        width: 16
-        height: 25
-      alignment: 9
-      pivot: {x: 0.5, y: 0.35999998}
+        x: 90
+        y: 0
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 62b9c592362959b4fad85a6ddfd76a2e
+      spriteID: 73d327265c5a0e74e8353f06d6df7db7
       vertices: []
       indices: 
       edges: []
@@ -173,18 +173,18 @@ TextureImporter:
       name: mike-running-animation_4
       rect:
         serializedVersion: 2
-        x: 127
-        y: 2
-        width: 13
-        height: 26
-      alignment: 9
-      pivot: {x: 0.53846157, y: 0.42307693}
+        x: 120
+        y: 0
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3b8b515409723bf4a9da8da13f2fabb8
+      spriteID: bbaaf365ed436b24e96daff40a03b58c
       vertices: []
       indices: 
       edges: []
@@ -193,18 +193,18 @@ TextureImporter:
       name: mike-running-animation_5
       rect:
         serializedVersion: 2
-        x: 157
-        y: 2
-        width: 13
-        height: 26
-      alignment: 9
-      pivot: {x: 0.53846157, y: 0.42307693}
+        x: 150
+        y: 0
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bed69417c8cedc44b8117c61395ed22e
+      spriteID: e19484a2d4600404f971338056dd2e8d
       vertices: []
       indices: 
       edges: []
