@@ -1,7 +1,10 @@
 fileFormatVersion: 2
 guid: de08d3d359e1d4441802171394b66ac9
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: mike-attack-animation_0
+    21300002: mike-attack-animation_1
+    21300004: mike-attack-animation_2
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -82,7 +85,67 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: mike-attack-animation_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 2
+        width: 13
+        height: 26
+      alignment: 9
+      pivot: {x: 0.53846157, y: 0.42307693}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72772c2845c415443b76d3318ee1249f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mike-attack-animation_1
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 2
+        width: 16
+        height: 25
+      alignment: 9
+      pivot: {x: 0.625, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3f4c554b3fc71148a751b05f25be83d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mike-attack-animation_2
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 2
+        width: 21
+        height: 25
+      alignment: 9
+      pivot: {x: 0.2857143, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2415db3fe4ce3214dae079b0541da360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

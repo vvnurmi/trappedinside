@@ -62,6 +62,7 @@ public class MikeController : MonoBehaviour, ICollisionObject
     private float velocityXSmoothing;
     private bool isControllable = true;
     private PlayerInput overrideControls; // Used unless 'isControllable'.
+    private bool isInMelee;
 
     /// <summary>
     /// Invoked when the player dies.
@@ -129,7 +130,7 @@ public class MikeController : MonoBehaviour, ICollisionObject
     {
         if (input.fire1)
         {
-            animator.Play("MeleeAttack");
+            animator.SetTrigger("StartMelee");
             PlaySound(punchSound);
         }
     }
@@ -154,7 +155,9 @@ public class MikeController : MonoBehaviour, ICollisionObject
             Flip();
         }
 
-        float targetVelocityX = input.horizontal * maxSpeed;
+        float targetVelocityX = isInMelee
+            ? 0
+            : input.horizontal * maxSpeed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, maxSpeedReachTime);
         animator.SetFloat("Speed", Mathf.Abs(input.horizontal));
     }
@@ -167,12 +170,11 @@ public class MikeController : MonoBehaviour, ICollisionObject
 
     public void Jump()
     {
-        if (groundCollider.collisions.below)
-        {
-            velocity.y = initialJumpSpeed;
-            PlaySound(jumpSound);
-            animator.SetTrigger("StartJump");
-        }
+        if (!groundCollider.collisions.below || isInMelee) return;
+
+        velocity.y = initialJumpSpeed;
+        PlaySound(jumpSound);
+        animator.SetTrigger("StartJump");
     }
 
     public void StopJumping()
@@ -245,14 +247,17 @@ public class MikeController : MonoBehaviour, ICollisionObject
     }
 
 
-    public void StartAttacking()
+    public void AnimEvent_StartAttacking()
     {
+        isInMelee = true;
         attackCollider.enabled = true;
     }
 
-    public void StopAttacking()
+    public void AnimEvent_StopAttacking()
     {
+        isInMelee = false;
         attackCollider.enabled = false;
+        animator.SetTrigger("StopMelee");
     }
 
     /// <summary>
