@@ -26,6 +26,9 @@ public class MikeController : MonoBehaviour, ICollisionObject
     [Tooltip("Seconds it takes to reach maximum speed from standstill.")]
     public float maxSpeedReachTime = 1;
 
+    [Tooltip("Seconds it takes to stop to standstill from maximum speed.")]
+    public float maxSpeedStopTime = 0.5f;
+
     [Tooltip("How high the hero jumps if Jump is touched only briefly.")]
     public float jumpHeightMin = 2;
 
@@ -158,7 +161,10 @@ public class MikeController : MonoBehaviour, ICollisionObject
         float targetVelocityX = isInMelee
             ? 0
             : input.horizontal * maxSpeed;
-        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, maxSpeedReachTime);
+        float smoothTime = velocity.x * (targetVelocityX - velocity.x) < 0
+            ? maxSpeedStopTime
+            : maxSpeedReachTime;
+        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, smoothTime);
         animator.SetFloat("Speed", Mathf.Abs(input.horizontal));
     }
 

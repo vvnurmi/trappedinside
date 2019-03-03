@@ -2080,6 +2080,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 1
   maxSpeedReachTime: 0.3
+  maxSpeedStopTime: 0.05
   jumpHeightMin: 0.1
   jumpHeightMax: 0.5
   jumpApexTime: 0.5
