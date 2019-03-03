@@ -67,6 +67,9 @@ public class MikeController : MonoBehaviour, ICollisionObject
     private PlayerInput overrideControls; // Used unless 'isControllable'.
     private bool isInMelee;
 
+    // Helpers
+    private TimedAnimationTrigger startMeleeAnimTrigger;
+
     /// <summary>
     /// Invoked when the player dies.
     /// </summary>
@@ -86,6 +89,8 @@ public class MikeController : MonoBehaviour, ICollisionObject
         attackCollider = GetComponent<CircleCollider2D>();
         attackCollider.enabled = false;
         audioSource = GetComponent<AudioSource>();
+
+        startMeleeAnimTrigger = new TimedAnimationTrigger(animator, "StartMelee", 0.1f);
     }
 
     private void Update()
@@ -94,6 +99,8 @@ public class MikeController : MonoBehaviour, ICollisionObject
         {
             return;
         }
+
+        startMeleeAnimTrigger.Update();
 
         var oldVelocity = velocity;
 
@@ -133,7 +140,7 @@ public class MikeController : MonoBehaviour, ICollisionObject
     {
         if (input.fire1)
         {
-            animator.SetTrigger("StartMelee");
+            startMeleeAnimTrigger.Set();
             PlaySound(punchSound);
         }
     }
