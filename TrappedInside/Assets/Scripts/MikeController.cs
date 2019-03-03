@@ -69,6 +69,7 @@ public class MikeController : MonoBehaviour, ICollisionObject
 
     // Helpers
     private TimedAnimationTrigger startMeleeAnimTrigger;
+    private TimedAnimationTrigger startJumpAnimTrigger;
 
     /// <summary>
     /// Invoked when the player dies.
@@ -91,6 +92,7 @@ public class MikeController : MonoBehaviour, ICollisionObject
         audioSource = GetComponent<AudioSource>();
 
         startMeleeAnimTrigger = new TimedAnimationTrigger(animator, "StartMelee", 0.1f);
+        startJumpAnimTrigger = new TimedAnimationTrigger(animator, "StartJump", 0.1f);
     }
 
     private void Update()
@@ -101,6 +103,7 @@ public class MikeController : MonoBehaviour, ICollisionObject
         }
 
         startMeleeAnimTrigger.Update();
+        startJumpAnimTrigger.Update();
 
         var oldVelocity = velocity;
 
@@ -187,7 +190,7 @@ public class MikeController : MonoBehaviour, ICollisionObject
 
         velocity.y = initialJumpSpeed;
         PlaySound(jumpSound);
-        animator.SetTrigger("StartJump");
+        startJumpAnimTrigger.Set();
     }
 
     public void StopJumping()
