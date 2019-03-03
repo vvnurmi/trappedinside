@@ -98,6 +98,8 @@ public class MikeController : MonoBehaviour, ICollisionObject
         HandleVerticalInput(input);
         HandleHorizontalInput(input);
 
+        animator.SetFloat("VerticalSpeed", velocity.y);
+
         var averageVelocity = Vector2.Lerp(oldVelocity, velocity, 0.5f);
         Move(averageVelocity * Time.deltaTime);
 
@@ -169,6 +171,7 @@ public class MikeController : MonoBehaviour, ICollisionObject
         {
             velocity.y = initialJumpSpeed;
             PlaySound(jumpSound);
+            animator.SetTrigger("StartJump");
         }
     }
 
