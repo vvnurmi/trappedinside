@@ -68,8 +68,7 @@ public class MikeController : MonoBehaviour, ICollisionObject
     private bool isInMelee;
 
     // Helpers
-    private TimedAnimationTrigger startMeleeAnimTrigger;
-    private TimedAnimationTrigger startJumpAnimTrigger;
+    private TimedAnimationTriggers timedAnimTriggers;
 
     /// <summary>
     /// Invoked when the player dies.
@@ -91,8 +90,7 @@ public class MikeController : MonoBehaviour, ICollisionObject
         attackCollider.enabled = false;
         audioSource = GetComponent<AudioSource>();
 
-        startMeleeAnimTrigger = new TimedAnimationTrigger(animator, "StartMelee", 0.1f);
-        startJumpAnimTrigger = new TimedAnimationTrigger(animator, "StartJump", 0.1f);
+        timedAnimTriggers = new TimedAnimationTriggers(animator, 0.1f);
     }
 
     private void Update()
@@ -102,8 +100,7 @@ public class MikeController : MonoBehaviour, ICollisionObject
             return;
         }
 
-        startMeleeAnimTrigger.Update();
-        startJumpAnimTrigger.Update();
+        timedAnimTriggers.Update();
 
         var oldVelocity = velocity;
 
@@ -143,7 +140,7 @@ public class MikeController : MonoBehaviour, ICollisionObject
     {
         if (input.fire1)
         {
-            startMeleeAnimTrigger.Set();
+            timedAnimTriggers.Set("StartMelee");
             PlaySound(punchSound);
         }
     }
@@ -190,7 +187,7 @@ public class MikeController : MonoBehaviour, ICollisionObject
 
         velocity.y = initialJumpSpeed;
         PlaySound(jumpSound);
-        startJumpAnimTrigger.Set();
+        timedAnimTriggers.Set("StartJump");
     }
 
     public void StopJumping()
