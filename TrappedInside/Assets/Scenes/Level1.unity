@@ -289,14 +289,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 100012, guid: b6ea4e7e6d4845f4ab566848146f0f2d, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 100014, guid: b6ea4e7e6d4845f4ab566848146f0f2d, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b6ea4e7e6d4845f4ab566848146f0f2d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -341,11 +333,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 100016, guid: b6ea4e7e6d4845f4ab566848146f0f2d, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 100020, guid: b6ea4e7e6d4845f4ab566848146f0f2d, type: 3}
+    - target: {fileID: 100012, guid: b6ea4e7e6d4845f4ab566848146f0f2d, type: 3}
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
@@ -1729,7 +1717,19 @@ PrefabInstance:
       propertyPath: m_ColliderPaths.Array.data[29].m_ColliderPaths.Array.data[0].Array.data[3].Y
       value: -20791016
       objectReference: {fileID: 0}
+    - target: {fileID: 100014, guid: b6ea4e7e6d4845f4ab566848146f0f2d, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100016, guid: b6ea4e7e6d4845f4ab566848146f0f2d, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 100018, guid: b6ea4e7e6d4845f4ab566848146f0f2d, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100020, guid: b6ea4e7e6d4845f4ab566848146f0f2d, type: 3}
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
@@ -1836,6 +1836,21 @@ PrefabInstance:
     - target: {fileID: 100072, guid: b6ea4e7e6d4845f4ab566848146f0f2d, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8195094279510102558, guid: b6ea4e7e6d4845f4ab566848146f0f2d,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.8207547
+      objectReference: {fileID: 0}
+    - target: {fileID: 8195094279510102558, guid: b6ea4e7e6d4845f4ab566848146f0f2d,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.8207547
+      objectReference: {fileID: 0}
+    - target: {fileID: 8195094279510102558, guid: b6ea4e7e6d4845f4ab566848146f0f2d,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.8207547
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6ea4e7e6d4845f4ab566848146f0f2d, type: 3}
@@ -1982,7 +1997,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.26}
+  m_Size: {x: 0.1, y: 0.25}
   m_EdgeRadius: 0
 --- !u!50 &1056133439
 Rigidbody2D:

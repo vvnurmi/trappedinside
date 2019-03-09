@@ -40,6 +40,9 @@ ScriptedImporter:
     100070: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (28)
     100072: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (29)
     100074: _MapPrfab/level-1-forest/Middle Mountains
+    100076: _MapPrfab/level-1-forest/Front trees
+    100078: _MapPrfab/level-1-forest/Sky
+    100080: _MapPrfab/level-1-forest/Trees
     400000: _MapPrfab/level-1-forest/Transform
     400002: _MapPrfab/level-1-forest/Back Mountains/Transform
     400004: _MapPrfab/level-1-forest/Decorations/Transform
@@ -78,6 +81,9 @@ ScriptedImporter:
     400070: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (28)/Transform
     400072: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (29)/Transform
     400074: _MapPrfab/level-1-forest/Middle Mountains/Transform
+    400076: _MapPrfab/level-1-forest/Front trees/Transform
+    400078: _MapPrfab/level-1-forest/Sky/Transform
+    400080: _MapPrfab/level-1-forest/Trees/Transform
     5000000: _MapPrfab/level-1-forest/Ground/Collision_Default/Rigidbody2D
     6000000: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon/PolygonCollider2D
     6000002: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (1)/PolygonCollider2D
@@ -161,6 +167,15 @@ ScriptedImporter:
     11400096: _MapPrfab/level-1-forest/Middle Mountains/MonoBehaviour-SuperTiled2Unity.SuperTileLayer
     11400098: _MapPrfab/level-1-forest/Middle Mountains/MonoBehaviour-SuperTiled2Unity.SuperCustomProperties
     11400100: _MapPrfab/level-1-forest/Middle Mountains/MonoBehaviour-SuperTiled2Unity.TilemapData
+    11400102: _MapPrfab/level-1-forest/Front trees/MonoBehaviour-SuperTiled2Unity.SuperTileLayer
+    11400104: _MapPrfab/level-1-forest/Front trees/MonoBehaviour-SuperTiled2Unity.SuperCustomProperties
+    11400106: _MapPrfab/level-1-forest/Front trees/MonoBehaviour-SuperTiled2Unity.TilemapData
+    11400108: _MapPrfab/level-1-forest/Sky/MonoBehaviour-SuperTiled2Unity.SuperTileLayer
+    11400110: _MapPrfab/level-1-forest/Sky/MonoBehaviour-SuperTiled2Unity.SuperCustomProperties
+    11400112: _MapPrfab/level-1-forest/Sky/MonoBehaviour-SuperTiled2Unity.TilemapData
+    11400114: _MapPrfab/level-1-forest/Trees/MonoBehaviour-SuperTiled2Unity.SuperTileLayer
+    11400116: _MapPrfab/level-1-forest/Trees/MonoBehaviour-SuperTiled2Unity.SuperCustomProperties
+    11400118: _MapPrfab/level-1-forest/Trees/MonoBehaviour-SuperTiled2Unity.TilemapData
     100100000: _MapPrfab
     2569400265252428796: _MapPrfab/level-1-forest/Grid
     3664157343022684176: _MapPrfab/level-1-forest/Back Mountains/TilemapRenderer
@@ -169,12 +184,18 @@ ScriptedImporter:
     3664157343022684182: _MapPrfab/level-1-forest/Front Mountains/TilemapRenderer
     3664157343022684184: _MapPrfab/level-1-forest/Ground/TilemapRenderer
     3664157343022684186: _MapPrfab/level-1-forest/Middle Mountains/TilemapRenderer
+    3664157343022684188: _MapPrfab/level-1-forest/Front trees/TilemapRenderer
+    3664157343022684190: _MapPrfab/level-1-forest/Sky/TilemapRenderer
+    3664157343022684192: _MapPrfab/level-1-forest/Trees/TilemapRenderer
     8195094279510102542: _MapPrfab/level-1-forest/Back Mountains/Tilemap
     8195094279510102544: _MapPrfab/level-1-forest/Decorations/Tilemap
     8195094279510102546: _MapPrfab/level-1-forest/Front Decorations/Tilemap
     8195094279510102548: _MapPrfab/level-1-forest/Front Mountains/Tilemap
     8195094279510102550: _MapPrfab/level-1-forest/Ground/Tilemap
     8195094279510102552: _MapPrfab/level-1-forest/Middle Mountains/Tilemap
+    8195094279510102554: _MapPrfab/level-1-forest/Front trees/Tilemap
+    8195094279510102556: _MapPrfab/level-1-forest/Sky/Tilemap
+    8195094279510102558: _MapPrfab/level-1-forest/Trees/Tilemap
   externalObjects: {}
   userData: 
   assetBundleName: 
