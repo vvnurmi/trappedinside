@@ -16,15 +16,13 @@ public class InputProvider : MonoBehaviour
     {
         return !isControllable
             ? overrideControls
-            : new PlayerInput
-            {
-                fire1 = Input.GetButtonDown("Fire1"),
-                fire2 = Input.GetButtonDown("Fire2"),
-                jumpPressed = Input.GetButtonDown("Jump"),
-                jumpReleased = Input.GetButtonUp("Jump"),
-                horizontal = Input.GetAxis("Horizontal"),
-                vertical = Input.GetAxis("Vertical"),
-            };
+            : new PlayerInput(
+                fire1: Input.GetButtonDown("Fire1"),
+                fire2: Input.GetButtonDown("Fire2"),
+                jumpPressed: Input.GetButtonDown("Jump"),
+                jumpReleased: Input.GetButtonUp("Jump"),
+                horizontal: Input.GetAxis("Horizontal"),
+                vertical: Input.GetAxis("Vertical"));
     }
 
     /// <summary>

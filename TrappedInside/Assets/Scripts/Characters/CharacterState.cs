@@ -1,7 +1,7 @@
 ﻿/// <summary>
 /// Cross-component state of a game character.
 /// </summary>
-public struct CharacterState
+public class CharacterState
 {
     public bool isInMelee;
 
