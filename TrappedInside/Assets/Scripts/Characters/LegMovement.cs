@@ -7,6 +7,7 @@
 /// Movement of a character that walks on legs.
 /// </summary>
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(CharacterController2D))]
 [RequireComponent(typeof(InputProvider))]
@@ -18,10 +19,15 @@ public class LegMovement : MonoBehaviour
     [Tooltip("Ground collision settings.")]
     public RaycastCollider groundCollider;
 
+    [Tooltip("The sound to play on jump.")]
+    public AudioClip jumpSound;
+
     // Set about once, probably in Start().
+    private Animator animator;
+    private AudioSource audioSource;
     private CharacterController2D characterController;
     private InputProvider inputProvider;
-    private Animator animator;
+    private SpriteRenderer spriteRenderer;
     private float gravity;
     private float initialJumpSpeed;
     private float dampedJumpSpeed; // What jump speed becomes after Jump button is released.
@@ -33,15 +39,17 @@ public class LegMovement : MonoBehaviour
     private Vector2 velocity;
     private float velocityXSmoothing;
 
-    private bool IsFacingRight => transform.localScale.x > 0;
+    private bool IsFacingRight => !spriteRenderer.flipX;
 
     // >>> MonoBehaviour overrides
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         characterController = GetComponent<CharacterController2D>();
         inputProvider = GetComponent<InputProvider>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         var boxCollider = GetComponent<BoxCollider2D>();
         groundCollider.SetHitBox(boxCollider);
 
@@ -106,12 +114,9 @@ public class LegMovement : MonoBehaviour
         animator.SetFloat("Speed", Mathf.Abs(input.horizontal));
     }
 
-    private void Flip()
+    public void Flip()
     {
-        transform.localScale = new Vector3(
-            -transform.localScale.x,
-            transform.localScale.y,
-            transform.localScale.z);
+        spriteRenderer.flipX = !spriteRenderer.flipX;
     }
 
     private void Jump()
@@ -120,6 +125,7 @@ public class LegMovement : MonoBehaviour
 
         velocity.y = initialJumpSpeed;
         timedAnimTriggers.Set("StartJump");
+        audioSource.PlayOneShot(jumpSound);
     }
 
     private void StopJumping()
