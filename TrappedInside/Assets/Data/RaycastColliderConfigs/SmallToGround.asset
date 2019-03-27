@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ee25d33d31d3ac49847ba97fede3f4a, type: 3}
+  m_Script: {fileID: 11500000, guid: 34512456b94f1244587146db0d1db31c, type: 3}
   m_Name: SmallToGround
   m_EditorClassIdentifier: 
   hitLayers:

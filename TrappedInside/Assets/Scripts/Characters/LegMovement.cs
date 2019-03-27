@@ -17,7 +17,7 @@ public class LegMovement : MonoBehaviour
     public LegMovementParameters movement;
 
     [Tooltip("Ground collision settings.")]
-    public RaycastCollider groundCollider;
+    public RaycastColliderConfig groundColliderConfig;
 
     [Tooltip("The sound to play on jump.")]
     public AudioClip jumpSound;
@@ -27,6 +27,7 @@ public class LegMovement : MonoBehaviour
     private AudioSource audioSource;
     private CharacterController2D characterController;
     private InputProvider inputProvider;
+    private RaycastCollider groundCollider;
     private SpriteRenderer spriteRenderer;
     private float gravity;
     private float initialJumpSpeed;
@@ -41,7 +42,7 @@ public class LegMovement : MonoBehaviour
 
     private bool IsFacingRight => !spriteRenderer.flipX;
 
-    // >>> MonoBehaviour overrides
+    #region MonoBehaviour overrides
 
     private void Start()
     {
@@ -51,7 +52,7 @@ public class LegMovement : MonoBehaviour
         inputProvider = GetComponent<InputProvider>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         var boxCollider = GetComponent<BoxCollider2D>();
-        groundCollider.SetHitBox(boxCollider);
+        groundCollider = new RaycastCollider(groundColliderConfig, boxCollider);
 
         timedAnimTriggers = new TimedAnimationTriggers(animator, 0.1f);
 
@@ -82,7 +83,7 @@ public class LegMovement : MonoBehaviour
         animator.SetFloat("VerticalSpeed", velocity.y);
     }
 
-    // <<< MonoBehaviour overrides
+    #endregion
 
     private void HandleVerticalInput(PlayerInput input)
     {

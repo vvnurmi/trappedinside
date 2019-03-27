@@ -54,7 +54,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitDelay: 1
-  jumpSound: {fileID: 0}
   hitSound: {fileID: 0}
   health: 5
 --- !u!114 &7796358727257184554
@@ -70,7 +69,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movement: {fileID: 11400000, guid: 1e770ab97c626c642bcfa741aa5f9ee4, type: 2}
-  groundCollider: {fileID: 11400000, guid: 154b909aae9b121459bce9be10cfe15a, type: 2}
+  groundColliderConfig: {fileID: 11400000, guid: cd525c68f3c9d1947a4d3159897486f9,
+    type: 2}
   jumpSound: {fileID: 0}
 --- !u!114 &2575936935629836869
 MonoBehaviour:
