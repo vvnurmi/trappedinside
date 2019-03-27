@@ -19,7 +19,7 @@ public class CharacterController2D : MonoBehaviour
     private AudioSource audioSource;
 
     // Modified during gameplay.
-    public CharacterState state;
+    public CharacterState state = new CharacterState();
     private float nextHitAllowedAt = 0f;
     public int health = 5;
 
