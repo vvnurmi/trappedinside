@@ -52,7 +52,7 @@ public class LegMovement : MonoBehaviour
         inputProvider = GetComponent<InputProvider>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         var boxCollider = GetComponent<BoxCollider2D>();
-        groundCollider = new RaycastCollider(groundColliderConfig, boxCollider);
+        groundCollider = new RaycastCollider(groundColliderConfig, boxCollider, characterController.state);
 
         timedAnimTriggers = new TimedAnimationTriggers(animator, 0.1f);
 
@@ -75,9 +75,10 @@ public class LegMovement : MonoBehaviour
         Move(averageVelocity * Time.deltaTime);
 
         // Stop movement in directions where we have collided.
-        if (groundCollider.HasVerticalCollisions)
+        CollisionInfo collisions = characterController.state.collisions;
+        if (collisions.HasVerticalCollisions)
             velocity.y = 0;
-        if (groundCollider.HasHorizontalCollisions)
+        if (collisions.HasHorizontalCollisions)
             velocity.x = 0;
 
         animator.SetFloat("VerticalSpeed", velocity.y);
@@ -91,7 +92,7 @@ public class LegMovement : MonoBehaviour
         if (input.jumpReleased) StopJumping();
 
         velocity.y += gravity * Time.deltaTime;
-        animator.SetBool("Jumping", !groundCollider.collisions.below);
+        animator.SetBool("Jumping", !characterController.state.collisions.below);
     }
 
     private void HandleHorizontalInput(PlayerInput input)
@@ -122,7 +123,7 @@ public class LegMovement : MonoBehaviour
 
     private void Jump()
     {
-        if (!groundCollider.collisions.below || !characterController.state.CanJump) return;
+        if (!characterController.state.collisions.below || !characterController.state.CanJump) return;
 
         velocity.y = initialJumpSpeed;
         timedAnimTriggers.Set("StartJump");
@@ -137,11 +138,13 @@ public class LegMovement : MonoBehaviour
     private void Move(Vector2 moveAmount)
     {
         groundCollider.UpdateRaycastOrigins();
-        groundCollider.collisions.Reset();
-        groundCollider.collisions.moveAmountOld = moveAmount;
+
+        CollisionInfo collisions = characterController.state.collisions;
+        collisions.Reset();
+        collisions.moveAmountOld = moveAmount;
 
         if (moveAmount.x != 0)
-            groundCollider.collisions.faceDir = (int)Mathf.Sign(moveAmount.x);
+            collisions.faceDir = (int)Mathf.Sign(moveAmount.x);
 
         groundCollider.HorizontalCollisions(ref moveAmount);
         if (moveAmount.y != 0)

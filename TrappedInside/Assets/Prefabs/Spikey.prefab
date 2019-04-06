@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8301578446613848798}
   - component: {fileID: 8614446127000585952}
   - component: {fileID: 2485980015433637092}
-  - component: {fileID: 5597445901054720334}
+  - component: {fileID: 98861720284762844}
   - component: {fileID: 7759201794009633413}
   - component: {fileID: 5579079165362012507}
   - component: {fileID: 8370212541680358770}
@@ -69,7 +69,7 @@ MonoBehaviour:
   groundColliderConfig: {fileID: 11400000, guid: b5717d0de6257cf4d948f4c447b3bd97,
     type: 2}
   jumpSound: {fileID: 0}
---- !u!114 &5597445901054720334
+--- !u!114 &98861720284762844
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2353349583925028531}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 782016b2c7a29ff4eba90cc49aa87241, type: 3}
+  m_Script: {fileID: 11500000, guid: b8cec36e96936be44b46b55369cfcd15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!50 &7759201794009633413

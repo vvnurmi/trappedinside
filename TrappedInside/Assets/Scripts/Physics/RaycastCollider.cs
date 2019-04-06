@@ -8,55 +8,26 @@ public class RaycastOrigins
     public Vector2 bottomRight;
 }
 
-public class CollisionInfo
-{
-    public bool above;
-    public bool below;
-    public bool left;
-    public bool right;
-
-    public Vector2 moveAmountOld;
-    public int faceDir;
-
-    public void Reset()
-    {
-        above = false;
-        below = false;
-        left = false;
-        right = false;
-    }
-}
-
 public class RaycastCollider
 {
     private RaycastOrigins raycastOrigins = new RaycastOrigins();
     private Vector2Int rayCount = new Vector2Int();
     private Vector2 raySpacing;
 
-    private BoxCollider2D boxCollider;
     private RaycastColliderConfig config;
-
-    public CollisionInfo collisions = new CollisionInfo();
+    private BoxCollider2D boxCollider;
+    private CharacterState state;
 
     /// <summary>
     /// Sets the box to check against <see cref="hitLayers"/>.
     /// To be called before use.
     /// </summary>
-    public RaycastCollider(RaycastColliderConfig configuration, BoxCollider2D collider)
+    public RaycastCollider(RaycastColliderConfig config, BoxCollider2D boxCollider, CharacterState state)
     {
-        config = configuration;
-        boxCollider = collider;
+        this.config = config;
+        this.boxCollider = boxCollider;
+        this.state = state;
         CalculateRaySpacing();
-    }
-
-    public bool HasHorizontalCollisions
-    {
-        get { return collisions.left || collisions.right; }
-    }
-
-    public bool HasVerticalCollisions
-    {
-        get { return collisions.above || collisions.below; }
     }
 
     public void UpdateRaycastOrigins()
@@ -95,14 +66,14 @@ public class RaycastCollider
 
             moveAmount.y = (hit.distance - config.skinWidth) * directionY;
             rayLength = hit.distance;
-            collisions.below = directionY == -1;
-            collisions.above = directionY == 1;
+            state.collisions.below = directionY == -1;
+            state.collisions.above = directionY == 1;
         }
     }
 
     public void HorizontalCollisions(ref Vector2 moveAmount)
     {
-        float directionX = collisions.faceDir;
+        float directionX = state.collisions.faceDir;
         float rayLength = Mathf.Abs(moveAmount.x) + config.skinWidth;
 
         if (Mathf.Abs(moveAmount.x) < config.skinWidth)
@@ -118,8 +89,8 @@ public class RaycastCollider
 
             moveAmount.x = (hit.distance - config.skinWidth) * directionX;
             rayLength = hit.distance;
-            collisions.left = directionX == -1;
-            collisions.right = directionX == 1;
+            state.collisions.left = directionX == -1;
+            state.collisions.right = directionX == 1;
         }
     }
 }

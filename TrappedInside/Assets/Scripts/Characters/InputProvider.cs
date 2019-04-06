@@ -12,7 +12,7 @@ public class InputProvider : MonoBehaviour
     /// <summary>
     /// Returns the current state of the input.
     /// </summary>
-    public PlayerInput GetInput()
+    public virtual PlayerInput GetInput()
     {
         return !isControllable
             ? overrideControls
