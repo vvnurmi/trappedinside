@@ -10,6 +10,9 @@ public class MeleeAttack : MonoBehaviour
     [Tooltip("The sound to play on melee attack.")]
     public AudioClip meleeSound;
 
+    [Tooltip("Amount of damage to inflict on hit.")]
+    public int hitDamage = 1;
+
     // Set about once, probably in Start().
     private Animator animator;
     private AudioSource audioSource;
@@ -19,6 +22,8 @@ public class MeleeAttack : MonoBehaviour
 
     // Helpers
     private TimedAnimationTriggers timedAnimTriggers;
+
+    #region MonoBehaviour overrides
 
     private void Start()
     {
@@ -39,6 +44,15 @@ public class MeleeAttack : MonoBehaviour
         var input = inputProvider.GetInput();
         HandleFireInput(input);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        HitPoints victimHp = collision.gameObject.GetComponent<HitPoints>();
+        if (victimHp != null)
+            victimHp.Damage(hitDamage);
+    }
+
+    #endregion
 
     private void HandleFireInput(PlayerInput input)
     {
