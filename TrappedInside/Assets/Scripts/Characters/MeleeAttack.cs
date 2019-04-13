@@ -1,5 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
+/// <summary>
+/// Handles melee attacking.
+/// Assumes that gameObject has one CircleCollider. It's the hit area of the melee attack.
+/// </summary>
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(CharacterController2D))]
@@ -41,6 +46,8 @@ public class MeleeAttack : MonoBehaviour
     {
         timedAnimTriggers.Update();
 
+        UpdateAttackColliderPosition();
+
         var input = inputProvider.GetInput();
         HandleFireInput(input);
     }
@@ -53,6 +60,18 @@ public class MeleeAttack : MonoBehaviour
     }
 
     #endregion
+
+    /// <summary>
+    /// Flips attack collider to the side the character is facing.
+    /// </summary>
+    private void UpdateAttackColliderPosition()
+    {
+        var oldOffset = attackCollider.offset;
+        var shouldFlip = oldOffset.x > 0 != characterController.state.collisions.faceDir > 0;
+        attackCollider.offset = new Vector2(
+            shouldFlip ? -oldOffset.x : oldOffset.x,
+            oldOffset.y);
+    }
 
     private void HandleFireInput(PlayerInput input)
     {

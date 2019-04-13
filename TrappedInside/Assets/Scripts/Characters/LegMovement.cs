@@ -118,7 +118,17 @@ public class LegMovement : MonoBehaviour
 
     public void Flip()
     {
-        spriteRenderer.flipX = !spriteRenderer.flipX;
+        var collisions = characterController.state.collisions;
+        if (spriteRenderer.flipX)
+        {
+            spriteRenderer.flipX = false;
+            collisions.faceDir = 1;
+        }
+        else
+        {
+            spriteRenderer.flipX = true;
+            collisions.faceDir = -1;
+        }
     }
 
     private void Jump()
@@ -142,9 +152,6 @@ public class LegMovement : MonoBehaviour
         CollisionInfo collisions = characterController.state.collisions;
         collisions.Reset();
         collisions.moveAmountOld = moveAmount;
-
-        if (moveAmount.x != 0)
-            collisions.faceDir = (int)Mathf.Sign(moveAmount.x);
 
         groundCollider.HorizontalCollisions(ref moveAmount);
         if (moveAmount.y != 0)

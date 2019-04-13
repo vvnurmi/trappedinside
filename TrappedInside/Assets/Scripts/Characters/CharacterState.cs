@@ -24,7 +24,10 @@ public class CollisionInfo
     public bool right;
 
     public Vector2 moveAmountOld;
-    public int faceDir;
+    /// <summary>
+    /// 1 = right, -1 = left
+    /// </summary>
+    public int faceDir = 1;
 
     public bool HasHorizontalCollisions => left || right;
     public bool HasVerticalCollisions => above || below;
