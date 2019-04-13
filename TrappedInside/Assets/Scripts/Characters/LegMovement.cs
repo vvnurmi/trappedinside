@@ -40,7 +40,7 @@ public class LegMovement : MonoBehaviour
     private Vector2 velocity;
     private float velocityXSmoothing;
 
-    private bool IsFacingRight => !spriteRenderer.flipX;
+    private bool IsFacingRight => characterController.state.collisions.faceDir == 1;
 
     #region MonoBehaviour overrides
 
@@ -119,16 +119,11 @@ public class LegMovement : MonoBehaviour
     public void Flip()
     {
         var collisions = characterController.state.collisions;
-        if (spriteRenderer.flipX)
-        {
-            spriteRenderer.flipX = false;
-            collisions.faceDir = 1;
-        }
-        else
-        {
-            spriteRenderer.flipX = true;
-            collisions.faceDir = -1;
-        }
+        collisions.faceDir = -collisions.faceDir;
+        transform.localScale = new Vector3(
+            -transform.localScale.x,
+            transform.localScale.y,
+            transform.localScale.z);
     }
 
     private void Jump()
