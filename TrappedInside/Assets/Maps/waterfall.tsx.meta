@@ -1,0 +1,70 @@
+fileFormatVersion: 2
+guid: 950d3135eb892bd49bafcdd83f12a851
+ScriptedImporter:
+  fileIDToRecycleName:
+    2800000: Atlas_waterfall_1
+    11400000: _TilesetScriptObject
+    11400002: _superAsset
+    11400004: Tile_waterfall_1
+    11400006: Tile_waterfall_2
+    11400008: Tile_waterfall_3
+    11400010: Tile_waterfall_4
+    11400012: Tile_waterfall_5
+    11400014: Tile_waterfall_6
+    11400016: Tile_waterfall_7
+    11400018: Tile_waterfall_8
+    11400020: Tile_waterfall_9
+    11400022: Tile_waterfall_10
+    11400024: Tile_waterfall_11
+    11400026: Tile_waterfall_12
+    11400028: Tile_waterfall_13
+    11400030: Tile_waterfall_14
+    11400032: Tile_waterfall_15
+    11400034: Tile_waterfall_16
+    11400036: Tile_waterfall_17
+    11400038: Tile_waterfall_18
+    11400040: Tile_waterfall_19
+    11400042: Tile_waterfall_20
+    11400044: Tile_waterfall_21
+    11400046: Tile_waterfall_22
+    11400048: Tile_waterfall_23
+    11400050: Tile_waterfall_24
+    21300000: Sprite_waterfall_1
+    21300002: Sprite_waterfall_2
+    21300004: Sprite_waterfall_3
+    21300006: Sprite_waterfall_4
+    21300008: Sprite_waterfall_5
+    21300010: Sprite_waterfall_6
+    21300012: Sprite_waterfall_7
+    21300014: Sprite_waterfall_8
+    21300016: Sprite_waterfall_9
+    21300018: Sprite_waterfall_10
+    21300020: Sprite_waterfall_11
+    21300022: Sprite_waterfall_12
+    21300024: Sprite_waterfall_13
+    21300026: Sprite_waterfall_14
+    21300028: Sprite_waterfall_15
+    21300030: Sprite_waterfall_16
+    21300032: Sprite_waterfall_17
+    21300034: Sprite_waterfall_18
+    21300036: Sprite_waterfall_19
+    21300038: Sprite_waterfall_20
+    21300040: Sprite_waterfall_21
+    21300042: Sprite_waterfall_22
+    21300044: Sprite_waterfall_23
+    21300046: Sprite_waterfall_24
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: cc34d0f3dc257a442819830b408c5322, type: 3}
+  errors: []
+  warnings: []
+  missingSortingLayers: []
+  missingLayers: []
+  pixelsPerUnit: 100
+  edgesPerEllipse: 32
+  numberOfObjectsImported: 51
+  useSpriteAtlas: 1
+  atlasWidth: 2048
+  atlasHeight: 2048
