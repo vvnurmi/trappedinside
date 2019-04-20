@@ -14,6 +14,8 @@ public class UIController : MonoBehaviour
 
     private UIMode mode = UIMode.Title;
 
+    #region MonoBehaviour overrides
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void OnBeforeSceneLoadRuntimeMethod()
     {
@@ -50,4 +52,6 @@ public class UIController : MonoBehaviour
                 break;
         }
     }
+
+    #endregion
 }
