@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: b21c28be9a725d248802331911ee6e7d
+guid: 8890eec2152e0dd49a5d78e4ab552d84
 TextureImporter:
   fileIDToRecycleName:
-    21300000: spikey-moving-animation_0
-    21300002: spikey-moving-animation_1
+    21300000: spikey_0
+    21300002: spikey_1
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -86,41 +86,41 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spikey-moving-animation_0
+      name: spikey_0
       rect:
         serializedVersion: 2
-        x: 2
+        x: 0
         y: 0
-        width: 28
-        height: 21
-      alignment: 9
-      pivot: {x: 0.5, y: 0.0952381}
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 35dbdda7854ff034781ceeff04eab134
+      spriteID: 22ca6c516b8fd0a4da5638560ef995f6
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spikey-moving-animation_1
+      name: spikey_1
       rect:
         serializedVersion: 2
-        x: 33
+        x: 20
         y: 0
-        width: 30
+        width: 20
         height: 20
-      alignment: 9
-      pivot: {x: 0.5, y: 0.1}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fe8db5e6cc90afb478678c0fd965a2d6
+      spriteID: 4f67537d9ae6180458f4cffa9e1f8cd3
       vertices: []
       indices: 
       edges: []
@@ -128,7 +128,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 318af492a8a5d5b4ba81ad674075c4a7
+    spriteID: d977e7ca643ca394b8749fc6de579da4
     vertices: []
     indices: 
     edges: []
