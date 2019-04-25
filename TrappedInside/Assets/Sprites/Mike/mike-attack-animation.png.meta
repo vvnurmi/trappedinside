@@ -90,18 +90,18 @@ TextureImporter:
       name: mike-attack-animation_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 2
-        width: 13
-        height: 26
+        x: 0
+        y: 0
+        width: 50
+        height: 40
       alignment: 9
-      pivot: {x: 0.53846157, y: 0.42307693}
+      pivot: {x: 0.4, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 72772c2845c415443b76d3318ee1249f
+      spriteID: 9182e0b0912173145bd52d67a63c42c5
       vertices: []
       indices: 
       edges: []
@@ -110,18 +110,18 @@ TextureImporter:
       name: mike-attack-animation_1
       rect:
         serializedVersion: 2
-        x: 33
-        y: 2
-        width: 16
-        height: 25
+        x: 50
+        y: 0
+        width: 50
+        height: 40
       alignment: 9
-      pivot: {x: 0.625, y: 0.52}
+      pivot: {x: 0.4, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d3f4c554b3fc71148a751b05f25be83d
+      spriteID: 0f63b2fbcf0b8f74cbb99359bcffea67
       vertices: []
       indices: 
       edges: []
@@ -130,18 +130,18 @@ TextureImporter:
       name: mike-attack-animation_2
       rect:
         serializedVersion: 2
-        x: 69
-        y: 2
-        width: 21
-        height: 25
+        x: 100
+        y: 0
+        width: 50
+        height: 40
       alignment: 9
-      pivot: {x: 0.2857143, y: 0.52}
+      pivot: {x: 0.4, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2415db3fe4ce3214dae079b0541da360
+      spriteID: 32ba5eb87ef0564458d665ca0959e840
       vertices: []
       indices: 
       edges: []

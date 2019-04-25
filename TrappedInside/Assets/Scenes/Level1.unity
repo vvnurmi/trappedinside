@@ -1944,6 +1944,27 @@ PrefabInstance:
       propertyPath: m_projectionMatrixMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7796358727257184597, guid: 774735a8eafb5b347b1b081956c3b34e,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7796358727257184597, guid: 774735a8eafb5b347b1b081956c3b34e,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7796358727257184597, guid: 774735a8eafb5b347b1b081956c3b34e,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 7796358727257184598, guid: 774735a8eafb5b347b1b081956c3b34e,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8a2c6be564ff6ad418770aa553df7a81,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 774735a8eafb5b347b1b081956c3b34e, type: 3}
 --- !u!1001 &8459749404564562800
@@ -2066,7 +2087,7 @@ PrefabInstance:
     - target: {fileID: 5579079165362012507, guid: 8bbb6dce803abb14092e5007ad5f1f2e,
         type: 3}
       propertyPath: m_Size.y
-      value: 0.1
+      value: 0.09
       objectReference: {fileID: 0}
     - target: {fileID: 8370212541680358770, guid: 8bbb6dce803abb14092e5007ad5f1f2e,
         type: 3}
