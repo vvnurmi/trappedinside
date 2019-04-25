@@ -90,18 +90,18 @@ TextureImporter:
       name: mike-jumping-animation_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 8
         y: 0
-        width: 40
-        height: 40
+        width: 25
+        height: 38
       alignment: 9
-      pivot: {x: 20, y: 20}
+      pivot: {x: 0.48, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4c91fbcf17cf93247b83436f9524758f
+      spriteID: a4e6c6a26919d4f42a146c1ac511dd15
       vertices: []
       indices: 
       edges: []
@@ -110,18 +110,18 @@ TextureImporter:
       name: mike-jumping-animation_1
       rect:
         serializedVersion: 2
-        x: 40
-        y: 0
-        width: 40
-        height: 40
+        x: 46
+        y: 1
+        width: 24
+        height: 37
       alignment: 9
-      pivot: {x: 20, y: 20}
+      pivot: {x: 0.5833334, y: 0.4864865}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2589a20b245f0c040ab406e91f668b1a
+      spriteID: b8ec48c5222613a48988aba0b8427de8
       vertices: []
       indices: 
       edges: []

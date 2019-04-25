@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05d35a01c5962d146aa937bd385f60dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitDamage: 1
 --- !u!58 &8480575396405387988
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -158,7 +159,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeSound: {fileID: 0}
-  hitDamage: 1
   weapon: {fileID: 7226107627772768022}
 --- !u!114 &1036893419211792455
 MonoBehaviour:
@@ -210,15 +210,15 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.3, y: 0.3}
+    pivot: {x: 0.5, y: 0.47368422}
+    oldSize: {x: 0.2, y: 0.38}
     newSize: {x: 0.3, y: 0.3}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.25}
+  m_Size: {x: 0.12, y: 0.36}
   m_EdgeRadius: 0
 --- !u!212 &7796358727257184598
 SpriteRenderer:
@@ -257,7 +257,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 16e8d0173208d7f428b8b10aeefa436b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8a2c6be564ff6ad418770aa553df7a81, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
