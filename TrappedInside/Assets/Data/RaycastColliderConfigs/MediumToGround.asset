@@ -16,4 +16,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   skinWidth: 0.01
-  approximateRaySpacing: 0.05
+  approximateRaySpacing: 0.03
