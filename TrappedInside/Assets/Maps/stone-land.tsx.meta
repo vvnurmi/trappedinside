@@ -71,6 +71,18 @@ ScriptedImporter:
     11400130: Tile_stone-land_64
     11400132: Tile_stone-land_65
     11400134: Tile_stone-land_66
+    11400136: Tile_stone-land_67
+    11400138: Tile_stone-land_68
+    11400140: Tile_stone-land_69
+    11400142: Tile_stone-land_70
+    11400144: Tile_stone-land_71
+    11400146: Tile_stone-land_72
+    11400148: Tile_stone-land_73
+    11400150: Tile_stone-land_74
+    11400152: Tile_stone-land_75
+    11400154: Tile_stone-land_76
+    11400156: Tile_stone-land_77
+    11400158: Tile_stone-land_78
     21300000: Sprite_stone-land_1
     21300002: Sprite_stone-land_2
     21300004: Sprite_stone-land_3
@@ -137,6 +149,18 @@ ScriptedImporter:
     21300126: Sprite_stone-land_64
     21300128: Sprite_stone-land_65
     21300130: Sprite_stone-land_66
+    21300132: Sprite_stone-land_67
+    21300134: Sprite_stone-land_68
+    21300136: Sprite_stone-land_69
+    21300138: Sprite_stone-land_70
+    21300140: Sprite_stone-land_71
+    21300142: Sprite_stone-land_72
+    21300144: Sprite_stone-land_73
+    21300146: Sprite_stone-land_74
+    21300148: Sprite_stone-land_75
+    21300150: Sprite_stone-land_76
+    21300152: Sprite_stone-land_77
+    21300154: Sprite_stone-land_78
   externalObjects: {}
   userData: 
   assetBundleName: 
@@ -148,7 +172,7 @@ ScriptedImporter:
   missingLayers: []
   pixelsPerUnit: 100
   edgesPerEllipse: 32
-  numberOfObjectsImported: 135
+  numberOfObjectsImported: 159
   useSpriteAtlas: 1
   atlasWidth: 2048
   atlasHeight: 2048

@@ -84,7 +84,6 @@ ScriptedImporter:
     100158: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (67)
     100160: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (68)
     100162: _MapPrfab/level-1-forest/Stars
-    100164: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (69)
     400000: _MapPrfab/level-1-forest/Transform
     400002: _MapPrfab/level-1-forest/Back Mountains/Transform
     400004: _MapPrfab/level-1-forest/Decorations/Transform
@@ -167,7 +166,6 @@ ScriptedImporter:
     400158: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (67)/Transform
     400160: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (68)/Transform
     400162: _MapPrfab/level-1-forest/Stars/Transform
-    400164: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (69)/Transform
     5000000: _MapPrfab/level-1-forest/Ground/Collision_Default/Rigidbody2D
     6000000: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon/PolygonCollider2D
     6000002: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (1)/PolygonCollider2D
@@ -238,7 +236,6 @@ ScriptedImporter:
     6000132: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (66)/PolygonCollider2D
     6000134: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (67)/PolygonCollider2D
     6000136: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (68)/PolygonCollider2D
-    6000138: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (69)/PolygonCollider2D
     6600000: _MapPrfab/level-1-forest/Ground/Collision_Default/CompositeCollider2D
     11400000: _MapPrfab/level-1-forest/MonoBehaviour-SuperTiled2Unity.SuperMap
     11400002: _MapPrfab/level-1-forest/MonoBehaviour-SuperTiled2Unity.SuperCustomProperties
@@ -345,7 +342,6 @@ ScriptedImporter:
     11400204: _MapPrfab/level-1-forest/Stars/MonoBehaviour-SuperTiled2Unity.SuperTileLayer
     11400206: _MapPrfab/level-1-forest/Stars/MonoBehaviour-SuperTiled2Unity.SuperCustomProperties
     11400208: _MapPrfab/level-1-forest/Stars/MonoBehaviour-SuperTiled2Unity.TilemapData
-    11400210: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (69)/MonoBehaviour-SuperTiled2Unity.SuperColliderComponent
     100100000: _MapPrfab
     2569400265252428796: _MapPrfab/level-1-forest/Grid
     3664157343022684176: _MapPrfab/level-1-forest/Back Mountains/TilemapRenderer
