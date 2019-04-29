@@ -16,5 +16,5 @@ MonoBehaviour:
   maxSpeedReachTime: 0.3
   maxSpeedStopTime: 0.05
   jumpHeightMin: 0.1
-  jumpHeightMax: 0.8
+  jumpHeightMax: 0.9
   jumpApexTime: 0.5
