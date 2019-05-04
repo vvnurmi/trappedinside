@@ -91,7 +91,15 @@ public class LegMovement : MonoBehaviour
         if (input.jumpPressed) Jump();
         if (input.jumpReleased) StopJumping();
 
-        velocity.y += gravity * Time.deltaTime;
+        //This was a quick hack to enable characters that are not affected by gravity. Should be refactored.
+        if(gravity != 0)
+        {
+            velocity.y += gravity * Time.deltaTime;
+        } else
+        {
+            velocity.y = input.vertical * movement.maxSpeed;
+        }
+
         animator.SetBool("Jumping", !characterController.state.collisions.below);
     }
 

@@ -1944,18 +1944,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mike: {fileID: 559370077}
-  cameraAreaLimits:
-    serializedVersion: 2
-    x: 3
-    y: -8.3
-    width: 46
-    height: 7
-  playerMovingArea:
-    serializedVersion: 2
-    x: 0.25
-    y: 0
-    width: 0.5
-    height: 1
   leftBound: 0
   rightBound: 1000
   lowerBound: -9.6
@@ -2005,7 +1993,7 @@ PrefabInstance:
     - target: {fileID: 7796358727257184555, guid: 774735a8eafb5b347b1b081956c3b34e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.93
+      value: 10.5
       objectReference: {fileID: 0}
     - target: {fileID: 7796358727257184555, guid: 774735a8eafb5b347b1b081956c3b34e,
         type: 3}
@@ -2076,20 +2064,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spikey
       objectReference: {fileID: 0}
-    - target: {fileID: 2353349583925028531, guid: 8bbb6dce803abb14092e5007ad5f1f2e,
-        type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 8301578446613848798, guid: 8bbb6dce803abb14092e5007ad5f1f2e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.805
+      value: 11.36
       objectReference: {fileID: 0}
     - target: {fileID: 8301578446613848798, guid: 8bbb6dce803abb14092e5007ad5f1f2e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.947
+      value: -8.15
       objectReference: {fileID: 0}
     - target: {fileID: 8301578446613848798, guid: 8bbb6dce803abb14092e5007ad5f1f2e,
         type: 3}
@@ -2135,77 +2118,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485980015433637092, guid: 8bbb6dce803abb14092e5007ad5f1f2e,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 817280774220747521, guid: 8bbb6dce803abb14092e5007ad5f1f2e,
-        type: 3}
-      propertyPath: m_projectionMatrixMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5579079165362012507, guid: 8bbb6dce803abb14092e5007ad5f1f2e,
-        type: 3}
-      propertyPath: m_Offset.y
-      value: -0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 5579079165362012507, guid: 8bbb6dce803abb14092e5007ad5f1f2e,
-        type: 3}
-      propertyPath: m_SpriteTilingProperty.pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5579079165362012507, guid: 8bbb6dce803abb14092e5007ad5f1f2e,
-        type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5579079165362012507, guid: 8bbb6dce803abb14092e5007ad5f1f2e,
-        type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5579079165362012507, guid: 8bbb6dce803abb14092e5007ad5f1f2e,
-        type: 3}
-      propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5579079165362012507, guid: 8bbb6dce803abb14092e5007ad5f1f2e,
-        type: 3}
-      propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5579079165362012507, guid: 8bbb6dce803abb14092e5007ad5f1f2e,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.16
-      objectReference: {fileID: 0}
-    - target: {fileID: 5579079165362012507, guid: 8bbb6dce803abb14092e5007ad5f1f2e,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.09
-      objectReference: {fileID: 0}
-    - target: {fileID: 8370212541680358770, guid: 8bbb6dce803abb14092e5007ad5f1f2e,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 8890eec2152e0dd49a5d78e4ab552d84,
-        type: 3}
-    - target: {fileID: 8370212541680358770, guid: 8bbb6dce803abb14092e5007ad5f1f2e,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8370212541680358770, guid: 8bbb6dce803abb14092e5007ad5f1f2e,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8370212541680358770, guid: 8bbb6dce803abb14092e5007ad5f1f2e,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bbb6dce803abb14092e5007ad5f1f2e, type: 3}
