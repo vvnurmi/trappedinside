@@ -48,7 +48,7 @@ public class UIController : MonoBehaviour
                     Input.GetButtonDown("Fire1") ||
                     Input.GetButtonDown("Jump");
                 if (promptPressed)
-                    SceneManager.LoadScene("Level1");
+                    SceneManager.LoadScene("Level1_Start");
                 break;
         }
     }
