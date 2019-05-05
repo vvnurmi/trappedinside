@@ -6,10 +6,8 @@ using UnityEngine.UI;
 /// </summary>
 public class NarrativeTypist : MonoBehaviour
 {
-    [Tooltip("How many characters to type per second")]
-    public float charsPerSecond = 10;
-
     // Set about once, probably in Start().
+    private NarrativeTypistSettings settings;
     private Text textComponent;
     private string fullText;
     private float startTime;
@@ -21,6 +19,9 @@ public class NarrativeTypist : MonoBehaviour
 
     private void Awake()
     {
+        settings = GetComponentInParent<NarrativeTypistSettings>();
+        Debug.Assert(settings != null,
+            $"Expected to find {nameof(NarrativeTypistSettings)} from the parent of {nameof(NarrativeTypist)}");
         textComponent = GetComponentInChildren<Text>();
         Debug.Assert(textComponent != null);
         fullText = textComponent.text;
@@ -35,11 +36,17 @@ public class NarrativeTypist : MonoBehaviour
     {
         ReadInput();
 
+        var oldCharsToShow = charsToShow;
         charsToShow = Mathf.Clamp(
-            value: Mathf.RoundToInt((Time.time - startTime) * charsPerSecond),
+            value: Mathf.RoundToInt((Time.time - startTime) * settings.charsPerSecond),
             min: charsToShow,
             max: fullText.Length);
         textComponent.text = fullText.Substring(0, charsToShow);
+
+        var lastCharIsSpace = textComponent.text.Length == 0 ||
+            char.IsWhiteSpace(textComponent.text[textComponent.text.Length - 1]);
+        if (oldCharsToShow < charsToShow && !lastCharIsSpace)
+            settings.audioSource.PlayOneShot(settings.characterSound);
     }
 
     #endregion
