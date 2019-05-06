@@ -354,6 +354,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 590017522}
+  - component: {fileID: 590017524}
   - component: {fileID: 590017523}
   m_Layer: 0
   m_Name: NarrativeBoxes
@@ -395,6 +396,19 @@ MonoBehaviour:
   charsPerSecond: 10
   characterSound: {fileID: 8300000, guid: fa298f74504c15946b062f760d0c9993, type: 3}
   audioSource: {fileID: 630255254}
+--- !u!114 &590017524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590017521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c79e241b4db68a4b9df639e568175ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeline: {fileID: 207930598}
 --- !u!1 &630255251
 GameObject:
   m_ObjectHideFlags: 0
