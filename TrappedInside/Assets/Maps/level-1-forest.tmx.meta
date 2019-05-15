@@ -84,6 +84,10 @@ ScriptedImporter:
     100158: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (67)
     100160: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (68)
     100162: _MapPrfab/level-1-forest/Stars
+    100164: _MapPrfab/level-1-forest/Hills
+    100166: _MapPrfab/level-1-forest/Hill Trees
+    100168: _MapPrfab/level-1-forest/Hill background/Collision_Default
+    100170: _MapPrfab/level-1-forest/Hill background/Collision_Default/Polygon
     400000: _MapPrfab/level-1-forest/Transform
     400002: _MapPrfab/level-1-forest/Back Mountains/Transform
     400004: _MapPrfab/level-1-forest/Decorations/Transform
@@ -166,7 +170,12 @@ ScriptedImporter:
     400158: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (67)/Transform
     400160: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (68)/Transform
     400162: _MapPrfab/level-1-forest/Stars/Transform
+    400164: _MapPrfab/level-1-forest/Hills/Transform
+    400166: _MapPrfab/level-1-forest/Hill Trees/Transform
+    400168: _MapPrfab/level-1-forest/Hill background/Collision_Default/Transform
+    400170: _MapPrfab/level-1-forest/Hill background/Collision_Default/Polygon/Transform
     5000000: _MapPrfab/level-1-forest/Ground/Collision_Default/Rigidbody2D
+    5000002: _MapPrfab/level-1-forest/Hill background/Collision_Default/Rigidbody2D
     6000000: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon/PolygonCollider2D
     6000002: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (1)/PolygonCollider2D
     6000004: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (2)/PolygonCollider2D
@@ -236,7 +245,9 @@ ScriptedImporter:
     6000132: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (66)/PolygonCollider2D
     6000134: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (67)/PolygonCollider2D
     6000136: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (68)/PolygonCollider2D
+    6000138: _MapPrfab/level-1-forest/Hill background/Collision_Default/Polygon/PolygonCollider2D
     6600000: _MapPrfab/level-1-forest/Ground/Collision_Default/CompositeCollider2D
+    6600002: _MapPrfab/level-1-forest/Hill background/Collision_Default/CompositeCollider2D
     11400000: _MapPrfab/level-1-forest/MonoBehaviour-SuperTiled2Unity.SuperMap
     11400002: _MapPrfab/level-1-forest/MonoBehaviour-SuperTiled2Unity.SuperCustomProperties
     11400004: _MapPrfab/level-1-forest/Back Mountains/MonoBehaviour-SuperTiled2Unity.SuperTileLayer
@@ -342,6 +353,13 @@ ScriptedImporter:
     11400204: _MapPrfab/level-1-forest/Stars/MonoBehaviour-SuperTiled2Unity.SuperTileLayer
     11400206: _MapPrfab/level-1-forest/Stars/MonoBehaviour-SuperTiled2Unity.SuperCustomProperties
     11400208: _MapPrfab/level-1-forest/Stars/MonoBehaviour-SuperTiled2Unity.TilemapData
+    11400210: _MapPrfab/level-1-forest/Hills/MonoBehaviour-SuperTiled2Unity.SuperTileLayer
+    11400212: _MapPrfab/level-1-forest/Hills/MonoBehaviour-SuperTiled2Unity.SuperCustomProperties
+    11400214: _MapPrfab/level-1-forest/Hills/MonoBehaviour-SuperTiled2Unity.TilemapData
+    11400216: _MapPrfab/level-1-forest/Hill Trees/MonoBehaviour-SuperTiled2Unity.SuperTileLayer
+    11400218: _MapPrfab/level-1-forest/Hill Trees/MonoBehaviour-SuperTiled2Unity.SuperCustomProperties
+    11400220: _MapPrfab/level-1-forest/Hill Trees/MonoBehaviour-SuperTiled2Unity.TilemapData
+    11400222: _MapPrfab/level-1-forest/Hill background/Collision_Default/Polygon/MonoBehaviour-SuperTiled2Unity.SuperColliderComponent
     100100000: _MapPrfab
     2569400265252428796: _MapPrfab/level-1-forest/Grid
     3664157343022684176: _MapPrfab/level-1-forest/Back Mountains/TilemapRenderer
@@ -355,6 +373,8 @@ ScriptedImporter:
     3664157343022684192: _MapPrfab/level-1-forest/Trees/TilemapRenderer
     3664157343022684194: _MapPrfab/level-1-forest/Hill background/TilemapRenderer
     3664157343022684196: _MapPrfab/level-1-forest/Stars/TilemapRenderer
+    3664157343022684198: _MapPrfab/level-1-forest/Hills/TilemapRenderer
+    3664157343022684200: _MapPrfab/level-1-forest/Hill Trees/TilemapRenderer
     8195094279510102542: _MapPrfab/level-1-forest/Back Mountains/Tilemap
     8195094279510102544: _MapPrfab/level-1-forest/Decorations/Tilemap
     8195094279510102546: _MapPrfab/level-1-forest/Front Decorations/Tilemap
@@ -366,6 +386,8 @@ ScriptedImporter:
     8195094279510102558: _MapPrfab/level-1-forest/Trees/Tilemap
     8195094279510102560: _MapPrfab/level-1-forest/Hill background/Tilemap
     8195094279510102562: _MapPrfab/level-1-forest/Stars/Tilemap
+    8195094279510102564: _MapPrfab/level-1-forest/Hills/Tilemap
+    8195094279510102566: _MapPrfab/level-1-forest/Hill Trees/Tilemap
   externalObjects: {}
   userData: 
   assetBundleName: 
