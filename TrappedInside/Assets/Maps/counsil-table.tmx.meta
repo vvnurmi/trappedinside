@@ -1,0 +1,99 @@
+fileFormatVersion: 2
+guid: 7c87e249e05617045901908d9fd46aca
+ScriptedImporter:
+  fileIDToRecycleName:
+    100000: _MapPrfab/counsil-table
+    100002: _MapPrfab/counsil-table/Background
+    100004: _MapPrfab/counsil-table/Chairs
+    100006: _MapPrfab/counsil-table/Characters
+    100008: _MapPrfab/counsil-table/Front Hills
+    100010: _MapPrfab/counsil-table/Ground
+    100012: _MapPrfab/counsil-table/Ground/Collision_Default
+    100014: _MapPrfab/counsil-table/Ground/Collision_Default/Polygon
+    100016: _MapPrfab/counsil-table/Hills
+    100018: _MapPrfab/counsil-table/Leaves
+    100020: _MapPrfab/counsil-table/Table
+    100022: _MapPrfab/counsil-table/Trees
+    400000: _MapPrfab/counsil-table/Transform
+    400002: _MapPrfab/counsil-table/Background/Transform
+    400004: _MapPrfab/counsil-table/Chairs/Transform
+    400006: _MapPrfab/counsil-table/Characters/Transform
+    400008: _MapPrfab/counsil-table/Front Hills/Transform
+    400010: _MapPrfab/counsil-table/Ground/Transform
+    400012: _MapPrfab/counsil-table/Ground/Collision_Default/Transform
+    400014: _MapPrfab/counsil-table/Ground/Collision_Default/Polygon/Transform
+    400016: _MapPrfab/counsil-table/Hills/Transform
+    400018: _MapPrfab/counsil-table/Leaves/Transform
+    400020: _MapPrfab/counsil-table/Table/Transform
+    400022: _MapPrfab/counsil-table/Trees/Transform
+    5000000: _MapPrfab/counsil-table/Ground/Collision_Default/Rigidbody2D
+    6000000: _MapPrfab/counsil-table/Ground/Collision_Default/Polygon/PolygonCollider2D
+    6600000: _MapPrfab/counsil-table/Ground/Collision_Default/CompositeCollider2D
+    11400000: _MapPrfab/counsil-table/MonoBehaviour-SuperTiled2Unity.SuperMap
+    11400002: _MapPrfab/counsil-table/MonoBehaviour-SuperTiled2Unity.SuperCustomProperties
+    11400004: _MapPrfab/counsil-table/Background/MonoBehaviour-SuperTiled2Unity.SuperTileLayer
+    11400006: _MapPrfab/counsil-table/Background/MonoBehaviour-SuperTiled2Unity.SuperCustomProperties
+    11400008: _MapPrfab/counsil-table/Background/MonoBehaviour-SuperTiled2Unity.TilemapData
+    11400010: _MapPrfab/counsil-table/Chairs/MonoBehaviour-SuperTiled2Unity.SuperTileLayer
+    11400012: _MapPrfab/counsil-table/Chairs/MonoBehaviour-SuperTiled2Unity.SuperCustomProperties
+    11400014: _MapPrfab/counsil-table/Chairs/MonoBehaviour-SuperTiled2Unity.TilemapData
+    11400016: _MapPrfab/counsil-table/Characters/MonoBehaviour-SuperTiled2Unity.SuperTileLayer
+    11400018: _MapPrfab/counsil-table/Characters/MonoBehaviour-SuperTiled2Unity.SuperCustomProperties
+    11400020: _MapPrfab/counsil-table/Characters/MonoBehaviour-SuperTiled2Unity.TilemapData
+    11400022: _MapPrfab/counsil-table/Front Hills/MonoBehaviour-SuperTiled2Unity.SuperTileLayer
+    11400024: _MapPrfab/counsil-table/Front Hills/MonoBehaviour-SuperTiled2Unity.SuperCustomProperties
+    11400026: _MapPrfab/counsil-table/Front Hills/MonoBehaviour-SuperTiled2Unity.TilemapData
+    11400028: _MapPrfab/counsil-table/Ground/MonoBehaviour-SuperTiled2Unity.SuperTileLayer
+    11400030: _MapPrfab/counsil-table/Ground/MonoBehaviour-SuperTiled2Unity.SuperCustomProperties
+    11400032: _MapPrfab/counsil-table/Ground/MonoBehaviour-SuperTiled2Unity.TilemapData
+    11400034: _MapPrfab/counsil-table/Ground/Collision_Default/Polygon/MonoBehaviour-SuperTiled2Unity.SuperColliderComponent
+    11400036: _MapPrfab/counsil-table/Hills/MonoBehaviour-SuperTiled2Unity.SuperTileLayer
+    11400038: _MapPrfab/counsil-table/Hills/MonoBehaviour-SuperTiled2Unity.SuperCustomProperties
+    11400040: _MapPrfab/counsil-table/Hills/MonoBehaviour-SuperTiled2Unity.TilemapData
+    11400042: _MapPrfab/counsil-table/Leaves/MonoBehaviour-SuperTiled2Unity.SuperTileLayer
+    11400044: _MapPrfab/counsil-table/Leaves/MonoBehaviour-SuperTiled2Unity.SuperCustomProperties
+    11400046: _MapPrfab/counsil-table/Leaves/MonoBehaviour-SuperTiled2Unity.TilemapData
+    11400048: _MapPrfab/counsil-table/Table/MonoBehaviour-SuperTiled2Unity.SuperTileLayer
+    11400050: _MapPrfab/counsil-table/Table/MonoBehaviour-SuperTiled2Unity.SuperCustomProperties
+    11400052: _MapPrfab/counsil-table/Table/MonoBehaviour-SuperTiled2Unity.TilemapData
+    11400054: _MapPrfab/counsil-table/Trees/MonoBehaviour-SuperTiled2Unity.SuperTileLayer
+    11400056: _MapPrfab/counsil-table/Trees/MonoBehaviour-SuperTiled2Unity.SuperCustomProperties
+    11400058: _MapPrfab/counsil-table/Trees/MonoBehaviour-SuperTiled2Unity.TilemapData
+    11400060: _superAsset
+    100100000: _MapPrfab
+    2569400265252428796: _MapPrfab/counsil-table/Grid
+    3664157343022684176: _MapPrfab/counsil-table/Background/TilemapRenderer
+    3664157343022684178: _MapPrfab/counsil-table/Chairs/TilemapRenderer
+    3664157343022684180: _MapPrfab/counsil-table/Characters/TilemapRenderer
+    3664157343022684182: _MapPrfab/counsil-table/Front Hills/TilemapRenderer
+    3664157343022684184: _MapPrfab/counsil-table/Ground/TilemapRenderer
+    3664157343022684186: _MapPrfab/counsil-table/Hills/TilemapRenderer
+    3664157343022684188: _MapPrfab/counsil-table/Leaves/TilemapRenderer
+    3664157343022684190: _MapPrfab/counsil-table/Table/TilemapRenderer
+    3664157343022684192: _MapPrfab/counsil-table/Trees/TilemapRenderer
+    8195094279510102542: _MapPrfab/counsil-table/Background/Tilemap
+    8195094279510102544: _MapPrfab/counsil-table/Chairs/Tilemap
+    8195094279510102546: _MapPrfab/counsil-table/Characters/Tilemap
+    8195094279510102548: _MapPrfab/counsil-table/Front Hills/Tilemap
+    8195094279510102550: _MapPrfab/counsil-table/Ground/Tilemap
+    8195094279510102552: _MapPrfab/counsil-table/Hills/Tilemap
+    8195094279510102554: _MapPrfab/counsil-table/Leaves/Tilemap
+    8195094279510102556: _MapPrfab/counsil-table/Table/Tilemap
+    8195094279510102558: _MapPrfab/counsil-table/Trees/Tilemap
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 1fa25d03934ea624a82bf2fcee6f0873, type: 3}
+  errors: []
+  warnings: []
+  missingSortingLayers: []
+  missingLayers: []
+  pixelsPerUnit: 100
+  edgesPerEllipse: 32
+  numberOfObjectsImported: 2
+  tilesAsObjects: 0
+  importSorting: 0
+  isIsometric: 0
+  customImporterClassName: 
+  internalTilesets: []
