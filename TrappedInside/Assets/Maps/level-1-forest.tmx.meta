@@ -86,6 +86,7 @@ ScriptedImporter:
     100162: _MapPrfab/level-1-forest/Hill Trees
     100164: _MapPrfab/level-1-forest/Hills
     100166: _MapPrfab/level-1-forest/Trees
+    100168: _MapPrfab/level-1-forest/Sea
     400000: _MapPrfab/level-1-forest/Transform
     400002: _MapPrfab/level-1-forest/Back Mountains/Transform
     400004: _MapPrfab/level-1-forest/Decorations/Transform
@@ -170,6 +171,7 @@ ScriptedImporter:
     400162: _MapPrfab/level-1-forest/Hill Trees/Transform
     400164: _MapPrfab/level-1-forest/Hills/Transform
     400166: _MapPrfab/level-1-forest/Trees/Transform
+    400168: _MapPrfab/level-1-forest/Sea/Transform
     5000000: _MapPrfab/level-1-forest/Ground/Collision_Default/Rigidbody2D
     6000000: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon/PolygonCollider2D
     6000002: _MapPrfab/level-1-forest/Ground/Collision_Default/Polygon (1)/PolygonCollider2D
@@ -352,6 +354,9 @@ ScriptedImporter:
     11400216: _MapPrfab/level-1-forest/Trees/MonoBehaviour-SuperTiled2Unity.SuperTileLayer
     11400218: _MapPrfab/level-1-forest/Trees/MonoBehaviour-SuperTiled2Unity.SuperCustomProperties
     11400220: _MapPrfab/level-1-forest/Trees/MonoBehaviour-SuperTiled2Unity.TilemapData
+    11400222: _MapPrfab/level-1-forest/Sea/MonoBehaviour-SuperTiled2Unity.SuperTileLayer
+    11400224: _MapPrfab/level-1-forest/Sea/MonoBehaviour-SuperTiled2Unity.SuperCustomProperties
+    11400226: _MapPrfab/level-1-forest/Sea/MonoBehaviour-SuperTiled2Unity.TilemapData
     100100000: _MapPrfab
     2569400265252428796: _MapPrfab/level-1-forest/Grid
     3664157343022684176: _MapPrfab/level-1-forest/Back Mountains/TilemapRenderer
@@ -367,6 +372,7 @@ ScriptedImporter:
     3664157343022684196: _MapPrfab/level-1-forest/Hill Trees/TilemapRenderer
     3664157343022684198: _MapPrfab/level-1-forest/Hills/TilemapRenderer
     3664157343022684200: _MapPrfab/level-1-forest/Trees/TilemapRenderer
+    3664157343022684202: _MapPrfab/level-1-forest/Sea/TilemapRenderer
     8195094279510102542: _MapPrfab/level-1-forest/Back Mountains/Tilemap
     8195094279510102544: _MapPrfab/level-1-forest/Decorations/Tilemap
     8195094279510102546: _MapPrfab/level-1-forest/Front Decorations/Tilemap
@@ -380,6 +386,7 @@ ScriptedImporter:
     8195094279510102562: _MapPrfab/level-1-forest/Hill Trees/Tilemap
     8195094279510102564: _MapPrfab/level-1-forest/Hills/Tilemap
     8195094279510102566: _MapPrfab/level-1-forest/Trees/Tilemap
+    8195094279510102568: _MapPrfab/level-1-forest/Sea/Tilemap
   externalObjects: {}
   userData: 
   assetBundleName: 

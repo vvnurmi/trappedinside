@@ -300,6 +300,8 @@ MonoBehaviour:
     scale: 1
   - obj: {fileID: 2119819430}
     scale: 1
+  - obj: {fileID: 2119819433}
+    scale: 0.86
   - obj: {fileID: 2119819431}
     scale: 1
 --- !u!1 &753548287 stripped
@@ -4238,6 +4240,12 @@ GameObject:
 --- !u!1 &2119819432 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100154, guid: b6ea4e7e6d4845f4ab566848146f0f2d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2119819428}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2119819433 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100168, guid: b6ea4e7e6d4845f4ab566848146f0f2d,
     type: 3}
   m_PrefabInstance: {fileID: 2119819428}
   m_PrefabAsset: {fileID: 0}
