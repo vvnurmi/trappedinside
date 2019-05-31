@@ -73,7 +73,7 @@ public class RaycastCollider
 
     public void HorizontalCollisions(ref Vector2 moveAmount)
     {
-        float directionX = state.collisions.faceDir;
+        float directionX = Mathf.Sign(moveAmount.x);
         float rayLength = Mathf.Abs(moveAmount.x) + config.skinWidth;
 
         if (Mathf.Abs(moveAmount.x) < config.skinWidth)
