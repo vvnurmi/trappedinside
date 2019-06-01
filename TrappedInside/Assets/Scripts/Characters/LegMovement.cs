@@ -157,7 +157,6 @@ public class LegMovement : MonoBehaviour
 
         CollisionInfo collisions = characterController.state.collisions;
         collisions.Reset();
-        collisions.moveAmountOld = moveAmount;
 
         groundCollider.HorizontalCollisions(ref moveAmount);
         if (moveAmount.y != 0)

@@ -6,7 +6,6 @@ using UnityEngine;
 /// </summary>
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(AudioSource))]
-[RequireComponent(typeof(InputProvider))]
 public class CharacterController2D : MonoBehaviour
 {
     [Tooltip("Minimum time between two consecutive hits.")]

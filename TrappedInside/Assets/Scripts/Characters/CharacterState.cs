@@ -23,7 +23,6 @@ public class CollisionInfo
     public bool left;
     public bool right;
 
-    public Vector2 moveAmountOld;
     /// <summary>
     /// 1 = right, -1 = left
     /// </summary>
