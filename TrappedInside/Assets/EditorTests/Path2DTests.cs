@@ -5,7 +5,7 @@ namespace Tests
 {
     public class Path2DTests
     {
-        public const float TestPrecision = 1e-6f;
+        public const double TestPrecision = 1e-6f;
 
         public static Path2D CreatePath() => new Path2D
         {
@@ -67,6 +67,17 @@ namespace Tests
         }
 
         [Test]
+        public void NormalAt()
+        {
+            var path = CreatePath();
+
+            Assert.AreEqual(Vector2.down, path.NormalAt((Path2DParam)0.5f));
+            Assert.AreEqual(Vector2.right, path.NormalAt((Path2DParam)1.5f));
+            Assert.AreEqual(Vector2.up, path.NormalAt((Path2DParam)2.5f));
+            Assert.AreEqual(Vector2.left, path.NormalAt((Path2DParam)3.5f));
+        }
+
+        [Test]
         public void Walk()
         {
             var path = CreatePath();
@@ -79,6 +90,29 @@ namespace Tests
             Assert.AreEqual(1.0f, p.t, TestPrecision);
 
             p = path.Walk(p, 3);
+            Assert.AreEqual(2.5f, p.t, TestPrecision);
+        }
+
+        [Test]
+        public void FindNearest()
+        {
+            var path = CreatePath();
+            Path2DParam p;
+
+            // Position on path point.
+            p = path.FindNearest(new Vector2(0, 0));
+            Assert.AreEqual(0.0f, p.t, TestPrecision);
+
+            // Position between path points.
+            p = path.FindNearest(new Vector2(1, 0));
+            Assert.AreEqual(0.5f, p.t, TestPrecision);
+
+            // Position between last and first path points.
+            p = path.FindNearest(new Vector2(0, 1));
+            Assert.AreEqual(3.5f, p.t, TestPrecision);
+
+            // Point not directly on the path.
+            p = path.FindNearest(new Vector2(1, 2.1f));
             Assert.AreEqual(2.5f, p.t, TestPrecision);
         }
     }
