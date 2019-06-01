@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class RaycastOrigins
 {
@@ -16,17 +17,17 @@ public class RaycastCollider
 
     private RaycastColliderConfig config;
     private BoxCollider2D boxCollider;
-    private CharacterState state;
+    private CollisionInfo collisionInfo;
 
     /// <summary>
     /// Sets the box to check against <see cref="hitLayers"/>.
     /// To be called before use.
     /// </summary>
-    public RaycastCollider(RaycastColliderConfig config, BoxCollider2D boxCollider, CharacterState state)
+    public RaycastCollider(RaycastColliderConfig config, BoxCollider2D boxCollider, CollisionInfo collisionInfo)
     {
         this.config = config;
         this.boxCollider = boxCollider;
-        this.state = state;
+        this.collisionInfo = collisionInfo;
         CalculateRaySpacing();
     }
 
@@ -66,8 +67,8 @@ public class RaycastCollider
 
             moveAmount.y = (hit.distance - config.skinWidth) * directionY;
             rayLength = hit.distance;
-            state.collisions.below = directionY == -1;
-            state.collisions.above = directionY == 1;
+            collisionInfo.below = directionY == -1;
+            collisionInfo.above = directionY == 1;
         }
     }
 
@@ -89,8 +90,8 @@ public class RaycastCollider
 
             moveAmount.x = (hit.distance - config.skinWidth) * directionX;
             rayLength = hit.distance;
-            state.collisions.left = directionX == -1;
-            state.collisions.right = directionX == 1;
+            collisionInfo.left = directionX == -1;
+            collisionInfo.right = directionX == 1;
         }
     }
 }

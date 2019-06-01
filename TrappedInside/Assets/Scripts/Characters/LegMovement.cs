@@ -52,7 +52,10 @@ public class LegMovement : MonoBehaviour
         inputProvider = GetComponent<InputProvider>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         var boxCollider = GetComponent<BoxCollider2D>();
-        groundCollider = new RaycastCollider(groundColliderConfig, boxCollider, characterController.state);
+        groundCollider = new RaycastCollider(
+            groundColliderConfig,
+            boxCollider,
+            characterController.state.collisions);
 
         timedAnimTriggers = new TimedAnimationTriggers(animator, 0.1f);
 
