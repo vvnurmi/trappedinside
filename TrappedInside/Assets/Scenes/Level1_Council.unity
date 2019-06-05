@@ -234,6 +234,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Fan-Duil: The bright one!'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 389201066}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &2549468 stripped
@@ -629,6 +633,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Amazon: The handsome one!'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1289871989}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &70395473 stripped
@@ -766,13 +774,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4870593725711413360, guid: 57079ccc471861144be08ec46198311f,
+    - target: {fileID: 6679537236488246335, guid: 57079ccc471861144be08ec46198311f,
         type: 3}
-      propertyPath: m_Text
-      value: "Amazon: You are the most manly creature I\u2019ve ever witnessed. It
-        would be an honor to share with you the most treasured of the amazonian pleasures.
-        Will you accept it?"
-      objectReference: {fileID: 0}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1289871989}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57079ccc471861144be08ec46198311f, type: 3}
 --- !u!224 &106210537 stripped
@@ -909,6 +915,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Fan-Duil: The omniscient one!'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 389201066}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &134651958 stripped
@@ -1039,6 +1049,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Amazon Queen: You forgot to mention how handsome he is.'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1289871989}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &159334659 stripped
@@ -1169,6 +1183,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Justin Finn: Rrrrrsshhhhh...'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1658611861}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &165108689 stripped
@@ -1317,6 +1335,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: "Justin Finn: Rrrrshhhh\u2026 The enviable one!"
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1658611861}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &261256034 stripped
@@ -1449,6 +1471,10 @@ PrefabInstance:
         help so desperately.\r\nYou see\u2026 the darkest of the lords has arisen.
         He means business. We are doomed. Unless\u2026\r"
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 574169345}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &304579579 stripped
@@ -1586,6 +1612,10 @@ PrefabInstance:
       value: 'Brokenshield: Take this Laser Blaster forged by dwarfs to help you on
         your way.'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1265595218}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &356723570 stripped
@@ -1711,12 +1741,10 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4870593725711413360, guid: 62151b2a299bcc74ca27828704126d3b,
-        type: 3}
-      propertyPath: m_Text
-      value: 'Fan-Duil:  Randalf, is this the chosen one you''ve speaken so highly
-        of?'
-      objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 389201066}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &359491627 stripped
@@ -1748,6 +1776,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4870593725592697847, guid: 62151b2a299bcc74ca27828704126d3b,
     type: 3}
   m_PrefabInstance: {fileID: 1595894440}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &389201066 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1253371395460659991, guid: 3d3ed1b6c00f3bb4696310d643dd2abc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1253371394776477381}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &544462695
 PrefabInstance:
@@ -2014,6 +2048,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Brokenshield: A better man!'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1265595218}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &569161144 stripped
@@ -2230,6 +2268,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Mike: Sure thing. I only have one request.'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1184941355}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &640224177 stripped
@@ -2360,6 +2402,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Justin Finn: Rrrrsssshhh....'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1658611861}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &645659171 stripped
@@ -2497,6 +2543,11 @@ PrefabInstance:
       value: 'Amazon: Are you sure? The most treasured of the amazonian treasures
         is quite quickly given.'
       objectReference: {fileID: 0}
+    - target: {fileID: 6679537236488246335, guid: 57079ccc471861144be08ec46198311f,
+        type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1289871989}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57079ccc471861144be08ec46198311f, type: 3}
 --- !u!224 &655911786 stripped
@@ -2640,6 +2691,10 @@ PrefabInstance:
       value: 'Randalf: Most sophisticated one, no doubt about it. The first of the
         undefeatable quests is the climb to Mount Boom.'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 574169345}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &726904586 stripped
@@ -2777,6 +2832,10 @@ PrefabInstance:
       value: 'Mike: You once said something I said you would regret some day. Today
         could be that day.'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1184941355}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &757426140 stripped
@@ -2925,6 +2984,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Justin: Rrrrrshhhh...'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1658611861}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &900969071 stripped
@@ -3362,6 +3425,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Brokenshield: The stupendous one!'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1265595218}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &964916769 stripped
@@ -3622,6 +3689,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Fan-Duil: You fool! What have you done?'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 389201066}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &1095260723 stripped
@@ -3738,6 +3809,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4870593725592697847, guid: 62151b2a299bcc74ca27828704126d3b,
     type: 3}
   m_PrefabInstance: {fileID: 2549467}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1265595218 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8600321159649217314, guid: 00205204acb334c49ad7f0e40ec5ec45,
+    type: 3}
+  m_PrefabInstance: {fileID: 8600321160184242304}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1274471615
 PrefabInstance:
@@ -3861,6 +3938,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: "Randalf: \u2026 How did you know?!?"
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 574169345}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &1274471616 stripped
@@ -3868,6 +3949,12 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4870593725592697803, guid: 62151b2a299bcc74ca27828704126d3b,
     type: 3}
   m_PrefabInstance: {fileID: 1274471615}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1289871989 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6828903291704439606, guid: 65bb7ef7fea68ab4b87665856aee7246,
+    type: 3}
+  m_PrefabInstance: {fileID: 6828903290590166357}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1330993016 stripped
 GameObject:
@@ -3997,6 +4084,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Amazon: Let me fill it!'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1289871989}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &1344232543 stripped
@@ -4127,6 +4218,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Brokenshield: The astonishing one!'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1265595218}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &1346429841 stripped
@@ -4257,6 +4352,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Amazon: The desirable one!'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1289871989}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &1383351953 stripped
@@ -4393,6 +4492,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Brokenshield: Quiet woman and Justin. There is no time for nonsence!'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1265595218}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &1408623105 stripped
@@ -4783,6 +4886,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Mike: It is for Justin.'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1184941355}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &1487782974 stripped
@@ -5051,6 +5158,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Randalf: Brokenshield is right. But fear not, our saviour has arrived.'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 574169345}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &1522009753 stripped
@@ -5181,6 +5292,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Randalf: The chosen one, yes. Mike, please, you''ve got to help us.'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 574169345}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &1566534615 stripped
@@ -5311,6 +5426,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Fan-duil: You truly are a great man!'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 389201066}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &1595894441 stripped
@@ -5318,6 +5437,12 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4870593725592697803, guid: 62151b2a299bcc74ca27828704126d3b,
     type: 3}
   m_PrefabInstance: {fileID: 1595894440}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1658611861 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5509691340440337629, guid: 83c91bc5cc33a20439322474fc016509,
+    type: 3}
+  m_PrefabInstance: {fileID: 5509691340685465700}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1659072034
 PrefabInstance:
@@ -5558,6 +5683,10 @@ PrefabInstance:
         you that. It wasn't true. I was jealous of your looks and talent even back
         then.
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1658611861}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &1677069291 stripped
@@ -5694,6 +5823,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Amazon: A true man!'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1289871989}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &1795879636 stripped
@@ -5836,6 +5969,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Justin Finn: Rrrsssshhh...'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1658611861}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &1898488464 stripped
@@ -5984,6 +6121,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Justin Finn: Rrrrrshhhh...'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1658611861}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &1962125959 stripped

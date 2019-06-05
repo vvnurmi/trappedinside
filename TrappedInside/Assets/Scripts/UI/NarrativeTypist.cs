@@ -9,6 +9,7 @@ public class NarrativeTypist : MonoBehaviour
 {
     // Set about once, probably in Start().
     private NarrativeTypistSettings settings;
+    private TalkAnimator talkAnimator;
     private Text textComponent;
     private string fullText;
     private float startTime;
@@ -23,6 +24,7 @@ public class NarrativeTypist : MonoBehaviour
     virtual protected void Awake()
     {
         settings = GetComponentInParent<NarrativeTypistSettings>();
+        talkAnimator = GetComponent<TalkAnimator>();
         Debug.Assert(settings != null,
             $"Expected to find {nameof(NarrativeTypistSettings)} from the parent of {nameof(NarrativeTypist)}");
         textComponent = GetComponentsInChildren<Text>().First(text => text.name == "Text");
@@ -49,6 +51,7 @@ public class NarrativeTypist : MonoBehaviour
         // If something more was typed, make noise and react to text end.
         if (oldCharsToShow < charsToShow)
         {
+            talkAnimator.StartTalkingAnimation();
             var lastCharIsSpace = textComponent.text.Length == 0 ||
                 char.IsWhiteSpace(textComponent.text[textComponent.text.Length - 1]);
             if (!lastCharIsSpace)
@@ -65,6 +68,7 @@ public class NarrativeTypist : MonoBehaviour
     /// </summary>
     virtual protected void OnTypingFinished()
     {
+        talkAnimator.StopTalkingAnimation();
         charsToShow = fullText.Length;
     }
 

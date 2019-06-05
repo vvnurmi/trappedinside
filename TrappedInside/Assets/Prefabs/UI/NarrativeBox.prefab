@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 4870593725592697800}
   - component: {fileID: 7152554419289107708}
   - component: {fileID: 8352565899478106803}
+  - component: {fileID: 359491629}
   m_Layer: 5
   m_Name: NarrativeBox
   m_TagString: Untagged
@@ -200,6 +201,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac136b4e25d566946855f5a5218de305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &359491629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4870593725592697847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b4c39645f0871e49bed588fa1cdaeba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterAnimator: {fileID: 0}
 --- !u!1 &4870593725711413374
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,6 +292,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Foobar
-
-    Barfoo'
+  m_Text: 'Fan-Duil:  Randalf, is this the chosen one you''ve speaken so highly of?'
