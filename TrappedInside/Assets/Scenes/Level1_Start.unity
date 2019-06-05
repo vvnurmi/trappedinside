@@ -851,6 +851,10 @@ PrefabInstance:
       propertyPath: timeline
       value: 
       objectReference: {fileID: 207930598}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 647353462}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &782476356 stripped
@@ -1102,6 +1106,10 @@ PrefabInstance:
       propertyPath: timeline
       value: 
       objectReference: {fileID: 207930598}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 647353462}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &1271599372 stripped
@@ -1267,6 +1275,10 @@ PrefabInstance:
       propertyPath: timeline
       value: 
       objectReference: {fileID: 207930598}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1421852585}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &1906044561 stripped
@@ -1414,6 +1426,10 @@ PrefabInstance:
       propertyPath: timeline
       value: 
       objectReference: {fileID: 207930598}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 647353462}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &2038714350 stripped
