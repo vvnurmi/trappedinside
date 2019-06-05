@@ -375,6 +375,10 @@ PrefabInstance:
       value: 'Randalf: Now is not a time to be a dope, Justin. Just ask for Mike''s
         forgiveness and we can continue.'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1184941355}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &64676858 stripped
@@ -1906,6 +1910,10 @@ PrefabInstance:
       value: "Mike: I\u2019m sorry my Queen, but I need my full strength facing the
         upcoming challenges. "
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1184941355}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &544462696 stripped
@@ -3125,6 +3133,10 @@ PrefabInstance:
       value: 'Mike: But I''m willing to let go of the past. If only you tell everyone
         here that you were wrong and ask for my forgiveness.'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1184941355}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &934241758 stripped
@@ -3559,6 +3571,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: "Mike: Well, let\u2019s just say I\u2019m\u2026"
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1184941355}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &1064865489 stripped
@@ -4626,6 +4642,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Mike: Unless I defeat the three undefeatable quests?'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1184941355}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &1411593064 stripped
@@ -4756,6 +4776,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Mike: Don''t worry Justin. I forgive you.'
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1184941355}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &1421500579 stripped
@@ -5028,6 +5052,10 @@ PrefabInstance:
         mission at hand - saving the world - to even consider such a precious gift
         right now."
       objectReference: {fileID: 0}
+    - target: {fileID: 359491629, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
+      propertyPath: characterAnimator
+      value: 
+      objectReference: {fileID: 1184941355}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62151b2a299bcc74ca27828704126d3b, type: 3}
 --- !u!224 &1508295631 stripped
