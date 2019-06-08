@@ -91,18 +91,18 @@ TextureImporter:
       name: randalf_0
       rect:
         serializedVersion: 2
-        x: 5
+        x: 0
         y: 0
-        width: 34
+        width: 40
         height: 40
-      alignment: 9
-      pivot: {x: 0.5, y: 0.35}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34d7024dd90bade4891bbe6da003b3aa
+      spriteID: 083b5003b96a20f4080d5a5ab093afc4
       vertices: []
       indices: 
       edges: []
@@ -111,18 +111,18 @@ TextureImporter:
       name: randalf_1
       rect:
         serializedVersion: 2
-        x: 48
+        x: 40
         y: 0
-        width: 30
+        width: 40
         height: 40
-      alignment: 9
-      pivot: {x: 0.4666667, y: 0.35}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be904f83a2077ec42ade9fa20c5fa678
+      spriteID: fed95a8e05ed1e6478f629594232948a
       vertices: []
       indices: 
       edges: []
@@ -131,18 +131,18 @@ TextureImporter:
       name: randalf_2
       rect:
         serializedVersion: 2
-        x: 81
+        x: 80
         y: 0
-        width: 34
+        width: 40
         height: 40
-      alignment: 9
-      pivot: {x: 0.5, y: 0.35}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5f166af9dba79634c9f6650e14902fde
+      spriteID: 0cb1c4d908872fb428c304f5a83803b8
       vertices: []
       indices: 
       edges: []
@@ -151,18 +151,18 @@ TextureImporter:
       name: randalf_3
       rect:
         serializedVersion: 2
-        x: 122
+        x: 120
         y: 0
-        width: 30
+        width: 40
         height: 40
-      alignment: 9
-      pivot: {x: 0.53333336, y: 0.35}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 05aa7cf978071b843b3827ae8fc54ba6
+      spriteID: 24e39c5547d412547b075cc34ba68714
       vertices: []
       indices: 
       edges: []
