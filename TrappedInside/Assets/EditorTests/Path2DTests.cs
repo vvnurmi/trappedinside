@@ -115,5 +115,17 @@ namespace Tests
             p = path.FindNearest(new Vector2(1, 2.1f));
             Assert.AreEqual(2.5f, p.t, TestPrecision);
         }
+
+        /// <summary>
+        /// Reproduce a bug where <see cref="Path2D.FindNearest(Vector2)"/> returned
+        /// a path parameter that referred to a path point after the last one.
+        /// </summary>
+        [Test]
+        public void FindNearestReturnsValidPathParam()
+        {
+            var path = CreatePath();
+            var p = path.FindNearest(new Vector2(-1e-7f, 1e-7f));
+            var testPosition = path.At(p);
+        }
     }
 }

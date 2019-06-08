@@ -91,6 +91,6 @@ public class Path2D
             if (nextP.t == 0) break;
         }
 
-        return bestParam;
+        return (Path2DParam)(bestParam.t % points.Length);
     }
 }
