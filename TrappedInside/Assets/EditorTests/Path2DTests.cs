@@ -127,5 +127,19 @@ namespace Tests
             var p = path.FindNearest(new Vector2(-1e-7f, 1e-7f));
             var testPosition = path.At(p);
         }
+
+        /// <summary>
+        /// Reproduce a bug where <see cref="Path2D.Walk(Path2DParam, float)"/> skipped
+        /// a point due to a floating point precision issue.
+        /// </summary>
+        [Test]
+        public void WalkDoesntSkipPoints()
+        {
+            // Note: float can represent 1.9999999f but will round 2.9999999f to 3.0f.
+            var path = CreatePath();
+            var p = (Path2DParam)1.9999999f;
+            p = path.Walk(p, 0.2f);
+            Assert.AreEqual(2.1f, p.t, delta: 1e-6);
+        }
     }
 }
