@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -14,7 +15,7 @@ public class CrawlMovement : MonoBehaviour
 
     private Vector2 movement;
     private Collider2D surface;
-    private Path2D surfacePath;
+    private Multipath2D surfacePaths;
     private Path2DParam surfaceParam;
     private readonly RaycastHit2D[] hits = new RaycastHit2D[4];
 
@@ -29,8 +30,8 @@ public class CrawlMovement : MonoBehaviour
         // When crawling, follow the surface. Otherwise, fall by gravity.
         if (IsCrawling)
         {
-            surfaceParam = surfacePath.Walk(surfaceParam, speed * Time.deltaTime);
-            deltaPosition = surfacePath.At(surfaceParam) - (Vector2)transform.position;
+            surfaceParam = surfacePaths.Current.Walk(surfaceParam, speed * Time.deltaTime);
+            deltaPosition = surfacePaths.Current.At(surfaceParam) - (Vector2)transform.position;
             worldDirection = deltaPosition.normalized;
         }
         else
@@ -41,8 +42,11 @@ public class CrawlMovement : MonoBehaviour
         }
 
         // See if we're going to collide into obstacles.
+        var raycastOrigin = (Vector2)transform.position
+            // Start slightly behind to detect if we're inside already.
+            - worldDirection * groundColliderConfig.skinWidth;
         var hitCount = Physics2D.RaycastNonAlloc(
-            (Vector2)transform.position - worldDirection * groundColliderConfig.skinWidth,
+            raycastOrigin,
             worldDirection,
             hits,
             deltaPosition.magnitude + groundColliderConfig.skinWidth,
@@ -74,26 +78,35 @@ public class CrawlMovement : MonoBehaviour
         // If we hit a new surface then make sure we are able to follow its shape.
         if (hitSomethingNew)
         {
-            surfacePath = hits[hitIndex].collider.TryGetShapeAsPath();
-            if (surfacePath == null)
+            surfacePaths = hits[hitIndex].collider.TryGetShapeAsPath();
+            if (surfacePaths == null)
             {
                 hitSomethingNew = false;
                 DetachFromSurface();
             }
         }
 
-        // Attach to any crawlable surface in our way.
+        // Attach to any crawlable surface that we hit.
         if (hitSomethingNew)
         {
             surface = hits[hitIndex].collider;
-            surfaceParam = surfacePath.FindNearest(hits[hitIndex].point);
+            var pathIndex = surfacePaths.FindClosestPath(hits[hitIndex].point);
+            surfacePaths.ChoosePath(pathIndex);
+            if (Debug.isDebugBuild)
+            {
+                var p = surfacePaths.Current.points;
+                for (int i = 0; i < p.Length - 1; i++)
+                    Debug.DrawLine(p[i], p[i + 1], Color.cyan, duration: 5.0f);
+                Debug.DrawLine(p[p.Length - 1], p[0], Color.cyan, duration: 5.0f);
+            }
+            surfaceParam = surfacePaths.Current.FindNearest(hits[hitIndex].point);
             movement = Vector2.zero;
         }
 
         // Orient ourselves along the current crawl surface.
         if (IsCrawling)
         {
-            var surfaceNormal = surfacePath.NormalAt(surfaceParam);
+            var surfaceNormal = surfacePaths.Current.NormalAt(surfaceParam);
             var orientation = Quaternion.LookRotation(Vector3.forward, surfaceNormal);
             transform.SetPositionAndRotation(transform.position, orientation);
         }
@@ -102,7 +115,7 @@ public class CrawlMovement : MonoBehaviour
     public void DetachFromSurface()
     {
         surface = null;
-        surfacePath = null;
+        surfacePaths = null;
         surfaceParam = (Path2DParam)0;
         movement = Vector2.zero;
         transform.SetPositionAndRotation(transform.position, Quaternion.LookRotation(Vector3.forward));
