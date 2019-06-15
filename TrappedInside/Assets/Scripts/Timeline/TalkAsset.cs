@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Playables;
 
 public class TalkAsset : PlayableAsset
 {
 
+    public string speaker = "Speaker";
     public string text = "Example text";
     public int charsPerSecond = 10;
 
@@ -16,6 +15,7 @@ public class TalkAsset : PlayableAsset
         var talkBehaviour = playable.GetBehaviour();
         talkBehaviour.charsPerSecond = charsPerSecond;
         talkBehaviour.text = text;
+        talkBehaviour.speaker = speaker;
         return playable;
     }
 }

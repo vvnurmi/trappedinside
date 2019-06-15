@@ -10,17 +10,18 @@ public class TalkBehaviour : PlayableBehaviour
     private int charsToShow;
     private float startTime;
     public int charsPerSecond = 10;
+    public string speaker = string.Empty;
     public string text = string.Empty;
     private bool dialogueAcked = false;
 
-
     private bool IsDoneTyping => charsToShow == text.Length;
-    private bool DialogueReady => IsDoneTyping && dialogueAcked;
 
     public override void ProcessFrame(Playable playable, FrameData info, object playerData) {
         GameObject dialogueBox = playerData as GameObject;
+        var textComponents = dialogueBox.GetComponentsInChildren<Text>();
 
-        var textComponent = dialogueBox.GetComponentInChildren<Text>();
+        var speakerComponent = textComponents[0];
+        var textComponent = textComponents[1];
 
         var oldCharsToShow = charsToShow;
         charsToShow = Mathf.Clamp(
@@ -28,6 +29,7 @@ public class TalkBehaviour : PlayableBehaviour
             min: charsToShow,
             max: text.Length);
 
+        speakerComponent.text = speaker;
         textComponent.text = text.Substring(0, charsToShow);
 
         // If something more was typed, make noise and react to text end.
@@ -39,38 +41,45 @@ public class TalkBehaviour : PlayableBehaviour
                 dialogueBox.GetComponent<AudioSource>().Play();
         }
 
+        if(Input.GetKeyUp(KeyCode.Space))
+        {
+            SetSpeed(playable, 2);
+        }
+
         if(IsDoneTyping)
         {
             if(dialogueAcked)
             {
-                playable.GetGraph().GetRootPlayable(0).SetSpeed(1);
+                SetSpeed(playable, 5);
             }
             else
             {
-                playable.GetGraph().GetRootPlayable(0).SetSpeed(0);
+                SetSpeed(playable, 0);
                 dialogueAcked = Input.GetKeyUp(KeyCode.Space);
             }
         }
     }
 
+    private void SetSpeed(Playable playable, double value)
+    {
+        playable.GetGraph().GetRootPlayable(0).SetSpeed(value);
+    }
+
     // Called when the owning graph starts playing
     public override void OnGraphStart(Playable playable)
     {
-        Console.WriteLine("OnGraphStart");
-        //startTime = Time.time;
     }
 
     // Called when the owning graph stops playing
     public override void OnGraphStop(Playable playable)
     {
-        Console.WriteLine("OnGraphStart");
-
     }
 
     // Called when the state of the playable is set to Play
     public override void OnBehaviourPlay(Playable playable, FrameData info)
     {
         startTime = Time.time;
+        playable.GetGraph().GetRootPlayable(0).SetSpeed(1);
     }
 
     // Called when the state of the playable is set to Paused
