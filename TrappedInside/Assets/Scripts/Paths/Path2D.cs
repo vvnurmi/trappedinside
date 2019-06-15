@@ -8,7 +8,7 @@ public class Path2D
     public Vector2[] points;
 
     public Path2DParam NextPoint(Path2DParam p) =>
-        (Path2DParam)(Mathf.Floor(p.t + 1) % points.Length);
+        (Path2DParam)((Mathf.Floor(p.t) + 1) % points.Length);
 
     public Path2DParam Add(Path2DParam p, float u) =>
         (Path2DParam)((p.t + u) % points.Length);
@@ -91,6 +91,6 @@ public class Path2D
             if (nextP.t == 0) break;
         }
 
-        return bestParam;
+        return (Path2DParam)(bestParam.t % points.Length);
     }
 }
