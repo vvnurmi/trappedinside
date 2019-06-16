@@ -1541,8 +1541,8 @@ MonoBehaviour:
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
   speaker: Mike
+  speakerColor: {r: 0.13725491, g: 0.10196079, b: 0.70980394, a: 1}
   text: Calm down Randalf the great Wizard, what is it?
-  charsPerSecond: 10
 --- !u!114 &114317398313345178
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1556,8 +1556,8 @@ MonoBehaviour:
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
   speaker: Mike
+  speakerColor: {r: 0.13725491, g: 0.10196079, b: 0.70980394, a: 1}
   text: Randalf!
-  charsPerSecond: 10
 --- !u!114 &114339827331948570
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1591,8 +1591,8 @@ MonoBehaviour:
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
   speaker: Randalf
+  speakerColor: {r: 0.427451, g: 0.1137255, b: 0.65882355, a: 1}
   text: Mike, we need you more than ever!
-  charsPerSecond: 10
 --- !u!114 &114355014353976038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2097,8 +2097,8 @@ MonoBehaviour:
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
   speaker: Randalf
+  speakerColor: {r: 0.427451, g: 0.1137255, b: 0.65882355, a: 1}
   text: "I\u2019ll explain later. Now follow me."
-  charsPerSecond: 10
 --- !u!114 &114580730264784028
 MonoBehaviour:
   m_ObjectHideFlags: 1

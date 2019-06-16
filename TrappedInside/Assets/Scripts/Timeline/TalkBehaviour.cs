@@ -11,15 +11,17 @@ public class TalkBehaviour : PlayableBehaviour
     public int charsPerSecond = 10;
     public string speaker = string.Empty;
     public string text = string.Empty;
-    private bool dialogueAcked = false;
+    public Color speakerColor = new Color(1, 1, 1);
+    private bool dialogAcked = false;
 
     private bool IsDoneTyping => charsToShow == text.Length;
 
     public override void ProcessFrame(Playable playable, FrameData info, object playerData) {
-        GameObject dialogueBox = playerData as GameObject;
-        var textComponents = dialogueBox.GetComponentsInChildren<Text>();
+        GameObject dialogBox = playerData as GameObject;
+        var textComponents = dialogBox.GetComponentsInChildren<Text>();
 
         var speakerComponent = textComponents[0];
+        speakerComponent.color = speakerColor;
         var textComponent = textComponents[1];
 
         var oldCharsToShow = charsToShow;
@@ -37,21 +39,21 @@ public class TalkBehaviour : PlayableBehaviour
             var lastCharIsSpace = textComponent.text.Length == 0 ||
                 char.IsWhiteSpace(textComponent.text[textComponent.text.Length - 1]);
             if (!lastCharIsSpace)
-                dialogueBox.GetComponent<AudioSource>().Play();
+                dialogBox.GetComponent<AudioSource>().Play();
         }
 
         var jumpReleased = Input.GetButtonUp("Jump");
 
         if (IsDoneTyping)
         {
-            if(dialogueAcked)
+            if(dialogAcked)
             {
                 SetSpeed(playable, 5);
             }
             else
             {
                 SetSpeed(playable, 0);
-                dialogueAcked = jumpReleased;
+                dialogAcked = jumpReleased;
             }
         }
         else
