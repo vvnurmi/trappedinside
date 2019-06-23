@@ -7,20 +7,19 @@ public class HitPoints : MonoBehaviour
 {
     [Tooltip("Number of hit points when not damaged.")]
     public int maxHitPoints = 1;
-
-    private int hitPoints;
+    public int CurrentHitPoints { get; private set; }
 
     private void Start()
     {
-        hitPoints = maxHitPoints;
+        CurrentHitPoints = maxHitPoints;
     }
 
     public void Damage(int damage)
     {
         Debug.Assert(damage > 0);
-        hitPoints = Mathf.Max(0, hitPoints - damage);
+        CurrentHitPoints = Mathf.Max(0, CurrentHitPoints - damage);
 
-        if (hitPoints == 0)
+        if (CurrentHitPoints == 0)
         {
             Destroy(gameObject);
         }
