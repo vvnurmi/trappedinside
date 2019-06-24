@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Handles walking character movement. Gravity is handcrafted.
 /// </summary>
-[RequireComponent(typeof(Animator))]
+//[RequireComponent(typeof(Animator))] // Required on a child object
 [RequireComponent(typeof(AudioSource))]
 public class CharacterController2D : MonoBehaviour
 {
@@ -33,7 +33,8 @@ public class CharacterController2D : MonoBehaviour
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
+        Debug.Assert(animator != null);
         audioSource = GetComponent<AudioSource>();
     }
 

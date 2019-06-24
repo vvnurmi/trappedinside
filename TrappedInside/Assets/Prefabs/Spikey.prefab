@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 8883084454530619947}
   - component: {fileID: 7759201794009633413}
   - component: {fileID: 5579079165362012507}
-  - component: {fileID: 8540143798092504529}
   - component: {fileID: 6569582501130210664}
   m_Layer: 10
   m_Name: Spikey
@@ -144,25 +143,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.17, y: 0.1}
   m_EdgeRadius: 0
---- !u!95 &8540143798092504529
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2353349583925028531}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3ada53949521bcc42808eb7b1781c3b6, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!82 &6569582501130210664
 AudioSource:
   m_ObjectHideFlags: 0
@@ -299,6 +279,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4352205651680063483}
   - component: {fileID: 6397468968904672730}
+  - component: {fileID: 8387785637119229425}
   m_Layer: 10
   m_Name: Body
   m_TagString: Untagged
@@ -368,3 +349,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &8387785637119229425
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3963804912500745622}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3ada53949521bcc42808eb7b1781c3b6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
