@@ -13,15 +13,13 @@ namespace SuperTiled2Unity.Editor
 
         private AssetImportContext m_Context;
 
-        public SuperImportContext(AssetImportContext context, ST2USettings settings, SuperIcons icons)
+        public SuperImportContext(AssetImportContext context, ST2USettings settings)
         {
             m_Context = context;
             Settings = settings;
-            Icons = icons;
         }
 
         public ST2USettings Settings { get; private set; }
-        public SuperIcons Icons { get; private set; }
 
         public void AddObjectToAsset(string identifier, UnityEngine.Object obj)
         {
@@ -41,7 +39,9 @@ namespace SuperTiled2Unity.Editor
         public int GetNumberOfObjects()
         {
             var objects = new List<UnityEngine.Object>();
+#if UNITY_2018_3_OR_NEWER
             m_Context.GetObjects(objects);
+#endif
             return objects.Count;
         }
 
@@ -76,9 +76,25 @@ namespace SuperTiled2Unity.Editor
             return pt * Settings.InversePPU;
         }
 
+        // Applies PPU multiple but does not invert Y
+        public Vector2 MakePointPPU(float x, float y)
+        {
+            return MakePointPPU(new Vector2(x, y));
+        }
+
+        public Vector2 MakePointPPU(Vector2 pt)
+        {
+            return pt * Settings.InversePPU;
+        }
+
         public Vector2[] MakePoints(Vector2[] points)
         {
             return points.Select(p => MakePoint(p)).ToArray();
+        }
+
+        public Vector2[] MakePointsPPU(Vector2[] points)
+        {
+            return points.Select(p => MakePointPPU(p)).ToArray();
         }
 
         public float MakeRotation(float rot)

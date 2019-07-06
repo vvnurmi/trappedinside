@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -79,6 +76,11 @@ namespace SuperTiled2Unity.Editor
 
         public static void AddChildWithUniqueName(this GameObject go, GameObject child)
         {
+            AddChildWithUniqueName(go, child, false);
+        }
+
+        public static void AddChildWithUniqueName(this GameObject go, GameObject child, bool worldPositionStays)
+        {
             if (go == null)
             {
                 return;
@@ -94,7 +96,7 @@ namespace SuperTiled2Unity.Editor
             }
 
             child.name = name;
-            child.transform.SetParent(go.transform, false);
+            child.transform.SetParent(go.transform, worldPositionStays);
         }
 
         // Creates a new object, attached to the parent, with a specialized layer component
@@ -108,10 +110,10 @@ namespace SuperTiled2Unity.Editor
 
             // Add the object to the parent
             goLayer.name = layerComponent.m_TiledName;
-            goParent.AddChildWithUniqueName(goLayer);
+            goParent.AddChildWithUniqueName(goLayer, loader.WorldPositionStays);
 
             // Position the layer based on the x, y offsets and pixels per unit
-            goLayer.transform.localPosition = importContext.MakePoint(layerComponent.m_OffsetX, layerComponent.m_OffsetY);
+            goLayer.transform.localPosition += (Vector3)importContext.MakePoint(layerComponent.m_OffsetX, layerComponent.m_OffsetY);
 
             return layerComponent;
         }
@@ -163,18 +165,84 @@ namespace SuperTiled2Unity.Editor
             var components = go.GetComponentsInChildren<MonoBehaviour>();
             foreach (var comp in components)
             {
-                // Property must be public and instanced and writable
-                var csprop = comp.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public).Where(
-                    info => info.CanWrite &&
-                    info.Name == property.m_Name &&
-                    info.PropertyType == objValue.GetType()
-                    ).FirstOrDefault();
+                // Look for methods first
+                var method = FindMethodBySignature(comp, property.m_Name, objValue.GetType());
+                if (method != null)
+                {
+                    method.Invoke(comp, new object[1] { objValue });
+                    continue;
+                }
 
+                // Then properties
+                var csprop = FindPropertyBySignature(comp, property.m_Name, objValue.GetType());
                 if (csprop != null)
                 {
                     csprop.SetValue(comp, objValue, null);
+                    continue;
+                }
+
+                // Finally, look for public fields
+                var csfield = FindFieldBySignature(comp, property.m_Name, objValue.GetType());
+                if (csfield != null)
+                {
+                    csfield.SetValue(comp, objValue);
+                    continue;
                 }
             }
+        }
+
+        private static MethodInfo FindMethodBySignature(MonoBehaviour component, string name, Type paramType)
+        {
+            return component.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public).Where(info =>
+            {
+                // Name must match
+                if (info.Name != name)
+                {
+                    return false;
+                }
+
+                // Return type must be void
+                if (info.ReturnType != typeof(void))
+                {
+                    return false;
+                }
+
+                // Must have one parameter that matches param type
+                var parameters = info.GetParameters();
+                if (parameters.Length != 1)
+                {
+                    return false;
+                }
+
+                // Parameter type must match
+                if (parameters[0].ParameterType != paramType)
+                {
+                    return false;
+                }
+
+                return true;
+            }).FirstOrDefault();
+        }
+
+        private static PropertyInfo FindPropertyBySignature(MonoBehaviour component, string name, Type valueType)
+        {
+            // Property must be public and instanced and writable
+            return component.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public).Where(
+                info =>
+                info.CanWrite &&
+                info.Name == name &&
+                info.PropertyType == valueType
+                ).FirstOrDefault();
+        }
+
+        private static FieldInfo FindFieldBySignature(MonoBehaviour component, string name, Type valueType)
+        {
+            return component.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public).Where(
+                info =>
+                !info.IsInitOnly &&
+                info.Name == name &&
+                info.FieldType == valueType
+                ).FirstOrDefault();
         }
     }
 }
