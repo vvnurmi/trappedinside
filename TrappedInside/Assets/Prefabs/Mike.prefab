@@ -115,9 +115,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9facbb3b5301cfd4fb2033d3868c422d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitDelay: 1
-  hitSound: {fileID: 0}
-  health: 5
 --- !u!114 &7796358727257184554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,6 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHitPoints: 3
+  hitDelay: 1
 --- !u!114 &1114513015011594890
 MonoBehaviour:
   m_ObjectHideFlags: 0
