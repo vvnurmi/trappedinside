@@ -1,6 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// Implements horizontal parallax scrolling by scaling objects horizontally
+/// and moving them based on reference camera movement.
+/// </summary>
 public class ScalingParallax : MonoBehaviour
 {
     [Serializable]
