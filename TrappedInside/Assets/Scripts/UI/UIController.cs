@@ -14,6 +14,14 @@ public class UIController : MonoBehaviour
 
     private UIMode mode = UIMode.Title;
 
+    public static UIController Instance => host.GetComponent<UIController>();
+
+    public void RestartLevel()
+    {
+        Debug.Assert(mode == UIMode.Gameplay);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     #region MonoBehaviour overrides
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
