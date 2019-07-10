@@ -102,18 +102,18 @@ TextureImporter:
       name: mike-dying-animation_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 40
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 10
+        y: 1
+        width: 20
+        height: 38
+      alignment: 9
+      pivot: {x: 0.5, y: 0.47368422}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4710baf0bddc35b4198d789093364f7d
+      spriteID: dabd633577896ce4ca8fa499b10147a8
       internalID: 8989801740861639388
       vertices: []
       indices: 
@@ -123,18 +123,18 @@ TextureImporter:
       name: mike-dying-animation_1
       rect:
         serializedVersion: 2
-        x: 40
-        y: 0
-        width: 40
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 50
+        y: 1
+        width: 20
+        height: 34
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5294118}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 751f8bb810af3b140a1587f34bdf1de3
+      spriteID: 597595bc2e11f4547b54c73adc5f2307
       internalID: -4149939883458142871
       vertices: []
       indices: 
@@ -144,18 +144,18 @@ TextureImporter:
       name: mike-dying-animation_2
       rect:
         serializedVersion: 2
-        x: 80
-        y: 0
-        width: 40
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 91
+        y: 1
+        width: 20
+        height: 32
+      alignment: 9
+      pivot: {x: 0.45, y: 0.5625}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 821b8e305f34a75428b1630a625667ee
+      spriteID: a9464071602e10140ab1c2d20fb1df7d
       internalID: -5958243801632347401
       vertices: []
       indices: 
@@ -165,18 +165,18 @@ TextureImporter:
       name: mike-dying-animation_3
       rect:
         serializedVersion: 2
-        x: 120
-        y: 0
-        width: 40
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 131
+        y: 1
+        width: 24
+        height: 16
+      alignment: 9
+      pivot: {x: 0.375, y: 1.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc053fc9a0adac9488add0084a00d594
+      spriteID: c7c00528783b80940b6bedb6b460b2fd
       internalID: 6654461160000828779
       vertices: []
       indices: 
@@ -186,18 +186,18 @@ TextureImporter:
       name: mike-dying-animation_4
       rect:
         serializedVersion: 2
-        x: 160
-        y: 0
-        width: 40
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 171
+        y: 1
+        width: 25
+        height: 9
+      alignment: 9
+      pivot: {x: 0.36, y: 2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5505a89d9498cc54b9cc0811eacf6f95
+      spriteID: 26d4c7583ee0d9444a65af3f7d2517d1
       internalID: 6801143652061246122
       vertices: []
       indices: 
