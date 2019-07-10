@@ -101,14 +101,11 @@ public class LegMovement : MonoBehaviour
 
     private void HandleHorizontalInput(PlayerInput input)
     {
-        if (input.horizontal < 0 && IsFacingRight)
-        {
+        var inputRequiresFlip =
+            (input.horizontal < 0 && IsFacingRight) ||
+            (input.horizontal > 0 && !IsFacingRight);
+        if (inputRequiresFlip && characterController.state.CanChangeDirection)
             Flip();
-        }
-        else if (input.horizontal > 0 && !IsFacingRight)
-        {
-            Flip();
-        }
 
         float targetVelocityX = characterController.state.CanMoveHorizontally
             ? input.horizontal * movement.maxSpeed

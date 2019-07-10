@@ -1,16 +1,16 @@
-﻿using UnityEngine;
-
-/// <summary>
+﻿/// <summary>
 /// Cross-component state of a game character.
 /// </summary>
 public class CharacterState
 {
+    public bool isDead;
     public bool isInMelee;
 
     public CollisionInfo collisions = new CollisionInfo();
 
-    public bool CanMoveHorizontally => !isInMelee;
-    public bool CanJump => !isInMelee;
+    public bool CanMoveHorizontally => !isDead && !isInMelee;
+    public bool CanJump => !isDead && !isInMelee;
+    public bool CanChangeDirection => !isDead;
 }
 
 /// <summary>

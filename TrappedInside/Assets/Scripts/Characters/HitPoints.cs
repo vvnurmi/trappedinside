@@ -21,6 +21,7 @@ public interface IDying
 /// <summary>
 /// Makes a game object damageable.
 /// </summary>
+[RequireComponent(typeof(CharacterController2D))]
 public class HitPoints : MonoBehaviour
 {
     [Tooltip("Number of hit points when not damaged.")]
@@ -33,6 +34,7 @@ public class HitPoints : MonoBehaviour
 
     // Set about once, probably in Start().
     private Animator animator; // May be null.
+    private CharacterController2D characterController;
 
     // Modified during gameplay.
     private float nextHitAllowedAt = 0f;
@@ -42,6 +44,7 @@ public class HitPoints : MonoBehaviour
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
+        characterController = GetComponent<CharacterController2D>();
         CurrentHitPoints = maxHitPoints;
     }
 
@@ -63,6 +66,7 @@ public class HitPoints : MonoBehaviour
 
     private void Die()
     {
+        characterController.state.isDead = true;
         animator.SetBool("IsDead", true);
         CallHandlers<IDying>(a => a.OnDying());
     }
