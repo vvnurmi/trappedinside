@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Damages things that come in contact with gameObject.
@@ -9,12 +7,6 @@ public class ContactAttack : MonoBehaviour
 {
     [Tooltip("Amount of damage to inflict on hit.")]
     public int hitDamage = 1;
-
-    [Tooltip("Cooldown for inflicting damge, in seconds.")]
-    public float hitCooldown = 1.0f;
-
-    // Modified during gameplay.
-    private float nextHitAllowedTime;
 
     #region MonoBehaviour overrides
 
@@ -25,12 +17,9 @@ public class ContactAttack : MonoBehaviour
 
     private void Hit(Collider2D collision)
     {
-        if (nextHitAllowedTime > Time.time) return;
-
         var victimHp = collision.gameObject.GetComponent<HitPoints>();
         if (victimHp == null) return;
 
         victimHp.Damage(hitDamage);
-        nextHitAllowedTime = Time.time + hitCooldown;
     }
 }
