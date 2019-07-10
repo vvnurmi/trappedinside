@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 /// <summary>
 /// When <see cref="HitPoints"/> signals death, do some UI tricks
@@ -6,9 +7,17 @@
 /// </summary>
 public class DeathRestartsLevel : MonoBehaviour, IDying
 {
+    [Tooltip("Restart level after this many seconds have passed since death.")]
+    public float secondsUntilLevelRestart = 5;
+
     public void OnDying()
     {
-        // TODO: Wait for a couple of seconds first
-        //!!!UIController.Instance.RestartLevel();
+        StartCoroutine(DyingHandler());
+    }
+
+    private IEnumerator DyingHandler()
+    {
+        yield return new WaitForSeconds(secondsUntilLevelRestart);
+        UIController.Instance.RestartLevel();
     }
 }
