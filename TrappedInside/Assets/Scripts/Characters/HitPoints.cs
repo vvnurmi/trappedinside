@@ -70,12 +70,12 @@ public class HitPoints : MonoBehaviour
 
     private void DefaultDamagedHandler()
     {
-        animator?.Play("Damage");
+        animator.TryPlay("Damage");
     }
 
     private void DefaultDyingHandler()
     {
-        animator?.Play("Death");
+        animator.TryPlay("Death");
     }
 
     private void CallHandlersOrDefault<TInterface>(Action<TInterface> invoke, Action defaultt)
