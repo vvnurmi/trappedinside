@@ -56,16 +56,15 @@ public class HitPoints : MonoBehaviour
         nextHitAllowedAt = Time.time + hitDelay;
 
         CurrentHitPoints = Mathf.Max(0, CurrentHitPoints - damage);
-        CallHandlersOrDefault((Action<IDamaged>)(a => a.OnDamaged()), DefaultDamagedHandler);
+        CallHandlers<IDamaged>(a => a.OnDamaged());
         if (CurrentHitPoints == 0)
             Die();
     }
 
     private void Die()
     {
-        // We're dead. Call death handlers if there's any.
-        // If there's no handlers then just destroy the game object.
-        CallHandlersOrDefault<IDying>(a => a.OnDying(), DefaultDyingHandler);
+        animator.SetBool("IsDead", true);
+        CallHandlers<IDying>(a => a.OnDying());
     }
 
     private void DefaultDamagedHandler()
@@ -73,18 +72,10 @@ public class HitPoints : MonoBehaviour
         animator.TryPlay("Damage");
     }
 
-    private void DefaultDyingHandler()
-    {
-        animator.TryPlay("Death");
-    }
-
-    private void CallHandlersOrDefault<TInterface>(Action<TInterface> invoke, Action defaultt)
+    private void CallHandlers<TInterface>(Action<TInterface> invoke)
     {
         var handlers = GetComponents<TInterface>();
-        if (handlers.Length > 0)
-            foreach (var handler in handlers)
-                invoke(handler);
-        else
-            defaultt();
+        foreach (var handler in handlers)
+            invoke(handler);
     }
 }

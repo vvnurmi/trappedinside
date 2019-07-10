@@ -8,6 +8,7 @@ public class DeathRestartsLevel : MonoBehaviour, IDying
 {
     public void OnDying()
     {
-        UIController.Instance.RestartLevel();
+        // TODO: Wait for a couple of seconds first
+        //!!!UIController.Instance.RestartLevel();
     }
 }
