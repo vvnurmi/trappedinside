@@ -55,7 +55,7 @@ public class NarrativeTypist : MonoBehaviour
             var lastCharIsSpace = textComponent.text.Length == 0 ||
                 char.IsWhiteSpace(textComponent.text[textComponent.text.Length - 1]);
             if (!lastCharIsSpace)
-                settings.audioSource.PlayOneShot(settings.characterSound);
+                settings.audioSource.TryPlay(settings.characterSound);
             if (IsDoneTyping)
                 OnTypingFinished();
         }
