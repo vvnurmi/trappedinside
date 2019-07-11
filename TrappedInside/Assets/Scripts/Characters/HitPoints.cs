@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -21,6 +20,7 @@ public interface IDying
 /// <summary>
 /// Makes a game object damageable.
 /// </summary>
+[RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(CharacterController2D))]
 public class HitPoints : MonoBehaviour
 {
@@ -30,10 +30,17 @@ public class HitPoints : MonoBehaviour
     [Tooltip("Seconds after hit until another hit is possible.")]
     public float hitDelay = 1.0f;
 
+    [Tooltip("The sound to play on getting hit.")]
+    public AudioClip hitSound;
+
+    [Tooltip("The sound to play on dying.")]
+    public AudioClip deathSound;
+
     public int CurrentHitPoints { get; private set; }
 
     // Set about once, probably in Start().
     private Animator animator; // May be null.
+    private AudioSource audioSource;
     private CharacterController2D characterController;
 
     // Modified during gameplay.
@@ -44,6 +51,7 @@ public class HitPoints : MonoBehaviour
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
+        audioSource = GetComponent<AudioSource>();
         characterController = GetComponent<CharacterController2D>();
         CurrentHitPoints = maxHitPoints;
     }
@@ -60,6 +68,10 @@ public class HitPoints : MonoBehaviour
 
         CurrentHitPoints = Mathf.Max(0, CurrentHitPoints - damage);
         CallHandlers<IDamaged>(a => a.OnDamaged());
+        var sound = CurrentHitPoints > 0
+            ? hitSound
+            : deathSound;
+        audioSource.TryPlay(sound);
         if (CurrentHitPoints == 0)
             Die();
     }
@@ -69,11 +81,6 @@ public class HitPoints : MonoBehaviour
         characterController.state.isDead = true;
         animator.SetBool("IsDead", true);
         CallHandlers<IDying>(a => a.OnDying());
-    }
-
-    private void DefaultDamagedHandler()
-    {
-        animator.TryPlay("Damage");
     }
 
     private void CallHandlers<TInterface>(Action<TInterface> invoke)
