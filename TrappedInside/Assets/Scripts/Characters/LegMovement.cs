@@ -133,7 +133,7 @@ public class LegMovement : MonoBehaviour
 
         velocity.y = initialJumpSpeed;
         timedAnimTriggers.Set("StartJump");
-        audioSource.PlayOneShot(jumpSound);
+        audioSource.TryPlay(jumpSound);
     }
 
     private void StopJumping()

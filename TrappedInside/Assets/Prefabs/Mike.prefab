@@ -171,6 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHitPoints: 3
   hitDelay: 1
+  hitSound: {fileID: 8300000, guid: e419b77ae02f6604bb89c7789ba4c46e, type: 3}
+  deathSound: {fileID: 8300000, guid: df12f572a419614468bbe7ba5148ecb5, type: 3}
 --- !u!114 &1114513015011594890
 MonoBehaviour:
   m_ObjectHideFlags: 0
