@@ -56,16 +56,14 @@ public class MeleeAttack : MonoBehaviour
     private void HandleFireInput(PlayerInput input)
     {
         if (input.fire1)
-        {
             timedAnimTriggers.Set("StartMelee");
-            audioSource.PlayOneShot(meleeSound);
-        }
     }
 
     public void AnimEvent_StartAttacking()
     {
         characterController.state.isInMelee = true;
         weapon.SetActive(true);
+        audioSource.TryPlay(meleeSound);
     }
 
     public void AnimEvent_StopAttacking()
