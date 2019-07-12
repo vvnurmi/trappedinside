@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 /// <summary>
 /// When <see cref="HitPoints"/> signals death, do some UI tricks
@@ -8,33 +6,13 @@ using UnityEngine.UI;
 /// </summary>
 public class DeathRestartsLevel : MonoBehaviour, IDying
 {
-    [Tooltip("Restart level after this many seconds have passed since death.")]
-    public float secondsUntilLevelRestart = 5;
-
     [Tooltip("Dialog box for displaying game over text.")]
     public GameObject gameOverBox;
 
-    [Tooltip("Quips to display in game over box.")]
-    [TextArea]
-    public string[] gameOverQuips;
-
     public void OnDying()
     {
-        StartCoroutine(DyingHandler());
-    }
-
-    private IEnumerator DyingHandler()
-    {
-        var canvas = GameObject.FindGameObjectWithTag("Canvas");
-        Debug.Assert(canvas != null);
+        var canvas = FindObjectOfType<Canvas>();
+        Debug.Assert(canvas != null, $"Couldn't find a {nameof(Canvas)} to create a game over box");
         Instantiate(gameOverBox, canvas.transform);
-        var quip = GameObject.FindGameObjectWithTag("GameOverQuip");
-        Debug.Assert(quip != null);
-        var quipText = quip.GetComponent<Text>();
-        quipText.text = gameOverQuips[Random.Range(0, gameOverQuips.Length)];
-
-        yield return new WaitForSeconds(secondsUntilLevelRestart);
-
-        UIController.Instance.RestartLevel();
     }
 }
