@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.1" name="moutain-front" tilewidth="16" tileheight="16" tilecount="72" columns="18">
- <image source="mountain-front.png" trans="ff00ff" width="288" height="64"/>
+<tileset version="1.2" tiledversion="1.2.1" name="moutain-front" tilewidth="16" tileheight="16" tilecount="108" columns="18">
+ <image source="mountain-front.png" trans="ff00ff" width="288" height="96"/>
  <tile id="0">
   <objectgroup draworder="index">
    <object id="4" x="0" y="0" width="16" height="16"/>
