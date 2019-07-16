@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.1" name="grass-land-3" tilewidth="16" tileheight="16" tilecount="580" columns="29">
+<tileset version="1.2" tiledversion="1.2.4" name="grass-land-3" tilewidth="16" tileheight="16" tilecount="580" columns="29">
  <image source="grass-land-3.png" trans="ff00ff" width="464" height="320"/>
  <tile id="0">
   <objectgroup draworder="index">
@@ -144,5 +144,35 @@
    <frame tileid="131" duration="200"/>
    <frame tileid="160" duration="200"/>
   </animation>
+ </tile>
+ <tile id="145">
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="3" width="16" height="13"/>
+  </objectgroup>
+ </tile>
+ <tile id="146">
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="3" width="16" height="13"/>
+  </objectgroup>
+ </tile>
+ <tile id="147">
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="3" width="16" height="13"/>
+  </objectgroup>
+ </tile>
+ <tile id="148">
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="0" width="16" height="13"/>
+  </objectgroup>
+ </tile>
+ <tile id="149">
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="0" width="16" height="13"/>
+  </objectgroup>
+ </tile>
+ <tile id="150">
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="0" width="16" height="13"/>
+  </objectgroup>
  </tile>
 </tileset>
