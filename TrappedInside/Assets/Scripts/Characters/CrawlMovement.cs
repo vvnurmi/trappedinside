@@ -1,10 +1,9 @@
-﻿using System;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Implements character movement by adhesively crawling on a surface, orienting along it.
 /// </summary>
+[RequireComponent(typeof(CharacterController2D))]
 public class CrawlMovement : MonoBehaviour
 {
     [Tooltip("Ground collision settings.")]
@@ -13,19 +12,40 @@ public class CrawlMovement : MonoBehaviour
     [Tooltip("Speed of movement along a surface, in world units per second.")]
     public float speed = 0.1f;
 
+    // Set about once, probably in Start().
+    private CharacterController2D characterController;
+
+    // Modified during gameplay.
     private Vector2 movement;
     private Collider2D surface;
     private Multipath2D surfacePaths;
     private Path2DParam surfaceParam;
+
+    // Helpers
     private readonly RaycastHit2D[] hits = new RaycastHit2D[4];
 
     public bool IsCrawling => surface != null;
+
+    private void Start()
+    {
+        characterController = GetComponent<CharacterController2D>();
+    }
 
     private void Update()
     {
         var oldMovement = movement;
         Vector2 deltaPosition;
         Vector2 worldDirection;
+
+        if (IsCrawling && !characterController.state.CanMoveHorizontally)
+        {
+            // If we die on the floor, stop moving.
+            if (surfacePaths.Current.NormalAt(surfaceParam).y > 0)
+                return;
+
+            // Otherwise drop down from the wall or ceiling.
+            DetachFromSurface();
+        }
 
         // When crawling, follow the surface. Otherwise, fall by gravity.
         if (IsCrawling)

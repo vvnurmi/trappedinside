@@ -51,9 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9facbb3b5301cfd4fb2033d3868c422d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitDelay: 1
-  hitSound: {fileID: 0}
-  health: 1
 --- !u!114 &4278651755178404363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,6 +79,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHitPoints: 1
+  hitDelay: 1
+  hitSound: {fileID: 0}
+  deathSound: {fileID: 8300000, guid: 0b354817edfc72f41b8ca3e7311d8603, type: 3}
 --- !u!114 &8883084454530619947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,7 +95,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitDamage: 1
-  hitCooldown: 1
 --- !u!50 &7759201794009633413
 Rigidbody2D:
   serializedVersion: 4

@@ -11,6 +11,7 @@ public class CharacterState
     public bool CanMoveHorizontally => !isDead && !isInMelee;
     public bool CanJump => !isDead && !isInMelee;
     public bool CanChangeDirection => !isDead;
+    public bool CanInflictDamage => !isDead;
 }
 
 /// <summary>
