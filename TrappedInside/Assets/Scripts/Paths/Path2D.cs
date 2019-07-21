@@ -5,6 +5,8 @@
 /// </summary>
 public class Path2D
 {
+    private const double DegenerateSegmentLength = 1e-6;
+
     public Vector2[] points;
 
     public Path2DParam NextPoint(Path2DParam p) =>
@@ -46,6 +48,7 @@ public class Path2D
         Debug.Assert(start.PointIndex >= 0 && start.PointIndex < points.Length);
         var p = start;
         var remainingDistance = worldDistance;
+        var degeneratePathTimeout = points.Length + 1;
         while (true)
         {
             int pointIndex = p.PointIndex;
@@ -61,6 +64,13 @@ public class Path2D
 
             p = NextPoint(p);
             remainingDistance -= remainingSegmentDistance;
+
+            // Break out of walking a degenerate path.
+            degeneratePathTimeout = remainingSegmentDistance > 1e-3
+                ? points.Length
+                : degeneratePathTimeout - 1;
+            if (degeneratePathTimeout <= 0)
+                return start;
         }
     }
 
@@ -72,23 +82,24 @@ public class Path2D
         // Brute force solution: loop over segments to find which is closest to the position.
         var bestParam = (Path2DParam)0;
         var bestDistance2 = float.MaxValue;
-        Path2DParam nextP;
+        var nextP = (Path2DParam)1;
 
-        for (var p = (Path2DParam)0; ; p = nextP)
+        for (var p = (Path2DParam)0; nextP.t > 0; p = nextP)
         {
             nextP = NextPoint(p);
             var segmentStart = At(p);
             var segmentEnd = At(nextP);
+            var segmentLength = Vector2.Distance(segmentEnd, segmentStart);
+            if (segmentLength < DegenerateSegmentLength) continue;
+
             var projection = Geometry.ProjectPointOnLineSegment(segmentStart, segmentEnd, position);
             var distance2 = position.Distance2(projection);
             if (distance2 < bestDistance2)
             {
                 bestDistance2 = distance2;
                 var projectionFromP = Vector2.Distance(projection, segmentStart);
-                var segmentLength = Vector2.Distance(segmentEnd, segmentStart);
                 bestParam = Add(p, projectionFromP / segmentLength);
             }
-            if (nextP.t == 0) break;
         }
 
         return (Path2DParam)(bestParam.t % points.Length);

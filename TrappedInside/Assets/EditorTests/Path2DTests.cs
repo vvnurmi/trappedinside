@@ -18,6 +18,26 @@ namespace Tests
             }
         };
 
+        public static Path2D CreateDegeneratePath() => new Path2D
+        {
+            points = new[]
+            {
+                new Vector2(0, 0),
+                new Vector2(0, 0),
+                new Vector2(0, 0),
+            }
+        };
+
+        public static Path2D CreateSemidegeneratePath() => new Path2D
+        {
+            points = new[]
+            {
+                new Vector2(0, 0),
+                new Vector2(0, 0),
+                new Vector2(2, 0),
+            }
+        };
+
         [Test]
         public void NextPoint()
         {
@@ -140,6 +160,44 @@ namespace Tests
             var p = (Path2DParam)1.9999999f;
             p = path.Walk(p, 0.2f);
             Assert.AreEqual(2.1f, p.t, delta: 1e-6);
+        }
+
+        /// <summary>
+        /// Reproduce a crash when handling degenerate paths.
+        /// </summary>
+        [Test]
+        public void DegeneratePath()
+        {
+            // Find point on a degenerate path.
+            var path = CreateDegeneratePath();
+            var p = path.FindNearest(new Vector2(0, 0));
+            Assert.AreEqual(0, p.t);
+
+            // Walk a degenerate path.
+            p = path.Walk(p, 1);
+            Assert.AreEqual(0, p.t);
+        }
+
+        /// <summary>
+        /// Paths with duplicate points are handled without problems.
+        /// </summary>
+        [Test]
+        public void SemidegeneratePath()
+        {
+            var path = CreateSemidegeneratePath();
+            Path2DParam p;
+
+            p = path.FindNearest(new Vector2(0, 0));
+            Assert.AreEqual(1, p.t);
+
+            p = path.FindNearest(new Vector2(2, 0));
+            Assert.AreEqual(2, p.t);
+
+            p = path.Walk(p, 1);
+            Assert.AreEqual(2.5f, p.t, TestPrecision);
+
+            p = path.Walk(p, 2);
+            Assert.AreEqual(1.5f, p.t, TestPrecision);
         }
     }
 }
