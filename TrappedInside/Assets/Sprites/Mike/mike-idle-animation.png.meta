@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: 8a2c6be564ff6ad418770aa553df7a81
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: mike-idle-animation_0
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: mike-idle-animation_0
   externalObjects: {}
-  serializedVersion: 7
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -93,13 +95,14 @@ TextureImporter:
         width: 20
         height: 38
       alignment: 9
-      pivot: {x: 0.5, y: 0.47368422}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: f1cb8291d747805468b740356579c829
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -108,10 +111,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 35c50c056cefb63409cf43aa0e233344
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
