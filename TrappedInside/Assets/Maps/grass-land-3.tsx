@@ -90,27 +90,27 @@
  </tile>
  <tile id="87">
   <objectgroup draworder="index">
-   <object id="1" x="0" y="0" width="16" height="14"/>
+   <object id="1" x="0" y="0" width="16" height="16"/>
   </objectgroup>
  </tile>
  <tile id="88">
   <objectgroup draworder="index">
-   <object id="1" x="0" y="0" width="16" height="14"/>
+   <object id="1" x="0" y="0" width="16" height="16"/>
   </objectgroup>
  </tile>
  <tile id="89">
   <objectgroup draworder="index">
-   <object id="1" x="0" y="0" width="16" height="14"/>
+   <object id="1" x="0" y="0" width="16" height="16"/>
   </objectgroup>
  </tile>
  <tile id="90">
   <objectgroup draworder="index">
-   <object id="1" x="0" y="0" width="16" height="14"/>
+   <object id="1" x="0" y="0" width="16" height="16"/>
   </objectgroup>
  </tile>
  <tile id="91">
   <objectgroup draworder="index">
-   <object id="1" x="0" y="0" width="16" height="14"/>
+   <object id="1" x="0" y="0" width="16" height="16"/>
   </objectgroup>
  </tile>
  <tile id="116">
