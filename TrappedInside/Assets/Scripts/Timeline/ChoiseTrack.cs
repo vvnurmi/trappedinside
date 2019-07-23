@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Timeline;
 
-[TrackClipType(typeof(TalkAsset))]
+[TrackClipType(typeof(ChoiseAsset))]
 [TrackBindingType(typeof(GameObject))]
-public class TalkTrack : TrackAsset
+public class ChoiseTrack : TrackAsset
 { }
