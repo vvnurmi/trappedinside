@@ -75,28 +75,16 @@ public class ChoiseBehaviour : PlayableBehaviour
                 dialogAcked = jumpReleased;
             }
         }
-        else
-        {
-            if (jumpReleased)
-            {
-                SetSpeed(playable, 2);
-                charsPerSecond *= 2;
-            }
-        }
     }
-
-
 
     private void SetSpeed(Playable playable, double value) => playable.GetGraph().GetRootPlayable(0).SetSpeed(value);
 
-    // Called when the state of the playable is set to Play
     public override void OnBehaviourPlay(Playable playable, FrameData info)
     {
         startTime = Time.time;
         SetSpeed(playable, 1);
     }
 
-    // Called when the state of the playable is set to Paused
     public override void OnBehaviourPause(Playable playable, FrameData info)
     {
         SetSpeed(playable, 1);

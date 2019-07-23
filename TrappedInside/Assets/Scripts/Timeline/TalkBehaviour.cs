@@ -56,43 +56,18 @@ public class TalkBehaviour : PlayableBehaviour
                 dialogAcked = jumpReleased;
             }
         }
-        else
-        {
-            if (jumpReleased)
-            {
-                SetSpeed(playable, 2);
-                charsPerSecond *= 2;
-            }
-        }
     }
 
     private void SetSpeed(Playable playable, double value) => playable.GetGraph().GetRootPlayable(0).SetSpeed(value);
 
-    // Called when the owning graph starts playing
-    public override void OnGraphStart(Playable playable)
-    {
-    }
-
-    // Called when the owning graph stops playing
-    public override void OnGraphStop(Playable playable)
-    {
-    }
-
-    // Called when the state of the playable is set to Play
     public override void OnBehaviourPlay(Playable playable, FrameData info)
     {
         startTime = Time.time;
         SetSpeed(playable, 1);
     }
 
-    // Called when the state of the playable is set to Paused
     public override void OnBehaviourPause(Playable playable, FrameData info)
     {
         SetSpeed(playable, 1);
-    }
-
-    // Called each frame while the state is set to Play
-    public override void PrepareFrame(Playable playable, FrameData info)
-    {
     }
 }
