@@ -64,6 +64,8 @@ public class ChoiseBehaviour : PlayableBehaviour
             if (dialogAcked)
             {
                 SetSpeed(playable, 5);
+                textComponents[2].text = "";
+                textComponents[3].text = "";
             }
             else
             {
