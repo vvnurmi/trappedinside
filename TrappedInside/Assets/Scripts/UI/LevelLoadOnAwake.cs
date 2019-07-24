@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelLoader : MonoBehaviour
+public class LevelLoadOnAwake : MonoBehaviour
 {
     [Tooltip("Which level to load on wakeup.")]
     public string nextLevel;

@@ -760,7 +760,7 @@ GameObject:
   - component: {fileID: 705052528}
   - component: {fileID: 705052527}
   m_Layer: 0
-  m_Name: LevelLoader
+  m_Name: LevelLoadOnAwake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
