@@ -16,7 +16,7 @@ MonoBehaviour:
   m_EdgesPerEllipse: 32
   m_AnimationFramerate: 20
   m_DefaultMaterial: {fileID: 0}
-  m_ObjectTypesXml: {fileID: 0}
+  m_ObjectTypesXml: {fileID: 4900000, guid: b87fa8a5948bb404da8be046788f3f4b, type: 3}
   m_ParseXmlError: 
   m_LayerColors:
   - {r: 0.2901961, g: 0.41198432, b: 0.78431374, a: 1}
@@ -51,5 +51,26 @@ MonoBehaviour:
   - {r: 1, g: 0.64705884, b: 0, a: 1}
   - {r: 0, g: 1, b: 1, a: 1}
   - {r: 0.7372549, g: 0.56078434, b: 0.56078434, a: 1}
-  m_CustomObjectTypes: []
-  m_PrefabReplacements: []
+  m_CustomObjectTypes:
+  - m_Name: LevelLoadTrigger
+    m_Color: {r: 0.8627451, g: 0.8627451, b: 0.8627451, a: 1}
+    m_CustomProperties:
+    - m_Name: nextLevel
+      m_Type: file
+      m_Value: ../Scenes/_DevSandbox.unity
+  - m_Name: Mike Start
+    m_Color: {r: 0, g: 1, b: 0, a: 1}
+    m_CustomProperties: []
+  - m_Name: Spikey
+    m_Color: {r: 1, g: 0.7490196, b: 0, a: 1}
+    m_CustomProperties: []
+  m_PrefabReplacements:
+  - m_TypeName: LevelLoadTrigger
+    m_Prefab: {fileID: 2915721769005700725, guid: 806bc093476974147b841e9daa9db8d1,
+      type: 3}
+  - m_TypeName: Mike Start
+    m_Prefab: {fileID: 7796358727257184592, guid: 774735a8eafb5b347b1b081956c3b34e,
+      type: 3}
+  - m_TypeName: Spikey
+    m_Prefab: {fileID: 2353349583925028531, guid: 8bbb6dce803abb14092e5007ad5f1f2e,
+      type: 3}
