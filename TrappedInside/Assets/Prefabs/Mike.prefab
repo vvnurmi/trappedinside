@@ -96,7 +96,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7796358727257184592}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: -1.85, z: 0}
+  m_LocalPosition: {x: 0, y: 0.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6275633006691022852}
@@ -185,22 +185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8463bcfce92c8b14eb663dc6ed782650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondsUntilLevelRestart: 5
   gameOverBox: {fileID: 8047727219098544103, guid: 66fecd3c42f6b6b4f9d16ae6ed64a4a2,
     type: 3}
-  gameOverQuips:
-  - "MIKE IS DEAD!\r\nLONG LIVE MIKE!\r"
-  - "DO OR DO NOT.\r\nTHERE IS NO DIE.\r"
-  - "FOREVER MIKE,\r\nI WANT TO BE,\r\nFOREVER MIKE.\r"
-  - MIKE NEVER DIES. MIKE ONLY RESTS STILL, NOT BREATHING.
-  - "\u201DKNOCK-KNOCK\u201D\r\nWHO\u2019S THERE?\r\n\u201DDEATH.\u201D\r\nGO AWAY,
-    THIS IS MIKE\u2019S APARTMENT.\r\n\u201DOH, SORRY, MY MISTAKE\u201D\r"
-  - "MIKE, WHAT\u2019S BEST IN LIFE?\r\nTO CRUSH YOUR ENEMIES, SEE THEM DRIVEN BEFORE
-    YOU, AND HEAR THE LAMENTATION OF THE GAME CRITICS.\r"
-  - "STILL I RISE.\r\n- MIKE\r"
-  - "IT\u2019S NOT HOW MANY TIMES YOU GET KILLED THAT COUNT.\r\nIT\u2019S HOW MANY
-    TIMES YOU PRESS CONTINUE.\r"
-  - AND ON THE SEVENTH DAY, MIKE CREATED MIKE.
 --- !u!50 &7796358727257184596
 Rigidbody2D:
   serializedVersion: 4
@@ -238,7 +224,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.47368422}
+    pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.2, y: 0.38}
     newSize: {x: 0.3, y: 0.3}
     adaptiveTilingThreshold: 0.5
