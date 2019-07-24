@@ -1,13 +1,13 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEditor;
+using UnityEngine;
 
 public class LevelLoadOnAwake : MonoBehaviour
 {
-    [Tooltip("Which level to load on wakeup.")]
-    public string nextLevel;
+    [Tooltip("Which level to load.")]
+    public SceneAsset nextLevel;
 
     private void Awake()
     {
-        SceneManager.LoadScene(nextLevel);
+        UIController.Instance.LoadLevel(nextLevel);
     }
 }

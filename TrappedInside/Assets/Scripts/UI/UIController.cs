@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEditor;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public enum UIMode
@@ -20,6 +22,14 @@ public class UIController : MonoBehaviour
     {
         Debug.Assert(mode == UIMode.Gameplay);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    /// <summary>
+    /// Loads a new level and performs any necessary transition.
+    /// </summary>
+    public void LoadLevel(SceneAsset level)
+    {
+        SceneManager.LoadScene(level.name);
     }
 
     #region MonoBehaviour overrides
