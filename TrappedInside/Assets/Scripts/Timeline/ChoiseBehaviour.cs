@@ -8,7 +8,7 @@ public class ChoiseBehaviour : PlayableBehaviour
     // Modified during gameplay.
     private int charsToShow;
     private float startTime;
-    public int charsPerSecond = 10;
+    public int charsPerSecond = 20;
     public string speaker = string.Empty;
     public string text = string.Empty;
     public Color speakerColor = new Color(1, 1, 1);

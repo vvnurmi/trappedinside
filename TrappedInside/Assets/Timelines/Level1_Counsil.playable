@@ -3894,7 +3894,7 @@ MonoBehaviour:
     m_Start: 11.507006723682085
     m_ClipIn: 0
     m_Asset: {fileID: 6132003265752372996}
-    m_Duration: 4.783333333333335
+    m_Duration: 2.9388255213697754
     m_TimeScale: 1
     m_ParentTrack: {fileID: -7869673380968281840}
     m_EaseInDuration: 0
@@ -3956,14 +3956,14 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 29.39299327631791
+    m_PostExtrapolationTime: 31.23750108828147
     m_PreExtrapolationTime: 11.507006723682085
     m_DisplayName: Fan Duil talking
   - m_Version: 1
     m_Start: 45.68333333333333
     m_ClipIn: 0
     m_Asset: {fileID: 5151909989696925169}
-    m_Duration: 1.36666666666666
+    m_Duration: 0.7524997327476797
     m_TimeScale: 1
     m_ParentTrack: {fileID: -7869673380968281840}
     m_EaseInDuration: 0
@@ -4025,14 +4025,14 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 41.36666666666668
+    m_PostExtrapolationTime: 41.98083360058566
     m_PreExtrapolationTime: 0
     m_DisplayName: Fan Duil talking
   - m_Version: 1
     m_Start: 88.41666666666667
     m_ClipIn: 0
     m_Asset: {fileID: 365594530210578042}
-    m_Duration: 2.0500000000000114
+    m_Duration: 1.3666666666666742
     m_TimeScale: 1
     m_ParentTrack: {fileID: -7869673380968281840}
     m_EaseInDuration: 0
@@ -4094,7 +4094,7 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 45.199999999999974
+    m_PostExtrapolationTime: 45.88333333333331
     m_PreExtrapolationTime: 0
     m_DisplayName: Fan Duil talking
   - m_Version: 1
@@ -4170,7 +4170,7 @@ MonoBehaviour:
     m_Start: 169.5
     m_ClipIn: 0
     m_Asset: {fileID: -5960228820142150685}
-    m_Duration: 1.3666666666666742
+    m_Duration: 0.9347460805128094
     m_TimeScale: 1
     m_ParentTrack: {fileID: -7869673380968281840}
     m_EaseInDuration: 0
@@ -4232,7 +4232,7 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 34.333333333333314
+    m_PostExtrapolationTime: 34.76525391948718
     m_PreExtrapolationTime: 0
     m_DisplayName: Fan Duil talking
   - m_Version: 1
@@ -4408,7 +4408,7 @@ MonoBehaviour:
     m_Start: 27.716666666666665
     m_ClipIn: 0
     m_Asset: {fileID: -4521061779448733972}
-    m_Duration: 4.100000000000001
+    m_Duration: 2.7333333333333343
     m_TimeScale: 1
     m_ParentTrack: {fileID: -7259733701215776599}
     m_EaseInDuration: 0
@@ -4470,14 +4470,14 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 17.133333333333336
+    m_PostExtrapolationTime: 18.500000000000004
     m_PreExtrapolationTime: 27.716666666666665
     m_DisplayName: Dwarf King Talking
   - m_Version: 1
     m_Start: 48.95
     m_ClipIn: 0
     m_Asset: {fileID: -8608177195426992075}
-    m_Duration: 1.36666666666666
+    m_Duration: 0.9869576369722637
     m_TimeScale: 1
     m_ParentTrack: {fileID: -7259733701215776599}
     m_EaseInDuration: 0
@@ -4539,13 +4539,82 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 88.23333333333335
+    m_PostExtrapolationTime: 88.61304236302774
     m_PreExtrapolationTime: 0
     m_DisplayName: Dwarf King Talking
   - m_Version: 1
     m_Start: 138.55
     m_ClipIn: 0
     m_Asset: {fileID: 8383792361598650195}
+    m_Duration: 0.5388759375860275
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -7259733701215776599}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: 33.011124062413955
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Dwarf King Talking
+  - m_Version: 1
+    m_Start: 172.1
+    m_ClipIn: 0
+    m_Asset: {fileID: -151044014043344380}
     m_Duration: 0.6833333333333371
     m_TimeScale: 1
     m_ParentTrack: {fileID: -7259733701215776599}
@@ -4608,83 +4677,14 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 32.866666666666646
-    m_PreExtrapolationTime: 0
-    m_DisplayName: Dwarf King Talking
-  - m_Version: 1
-    m_Start: 172.1
-    m_ClipIn: 0
-    m_Asset: {fileID: -151044014043344380}
-    m_Duration: 1.3666666666666742
-    m_TimeScale: 1
-    m_ParentTrack: {fileID: -7259733701215776599}
-    m_EaseInDuration: 0
-    m_EaseOutDuration: 0
-    m_BlendInDuration: -1
-    m_BlendOutDuration: -1
-    m_MixInCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_MixOutCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_BlendInCurveMode: 0
-    m_BlendOutCurveMode: 0
-    m_ExposedParameterNames: []
-    m_AnimationCurves: {fileID: 0}
-    m_Recordable: 0
-    m_PostExtrapolationMode: 1
-    m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 17.683333333333337
+    m_PostExtrapolationTime: 18.366666666666674
     m_PreExtrapolationTime: 0
     m_DisplayName: Dwarf King Talking
   - m_Version: 1
     m_Start: 191.15
     m_ClipIn: 0
     m_Asset: {fileID: -6092965707184364357}
-    m_Duration: 4.78333333333336
+    m_Duration: 2.7333333333333485
     m_TimeScale: 1
     m_ParentTrack: {fileID: -7259733701215776599}
     m_EaseInDuration: 0
@@ -4746,7 +4746,7 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 1.266666666666623
+    m_PostExtrapolationTime: 3.3166666666666345
     m_PreExtrapolationTime: 0
     m_DisplayName: Dwarf King Talking
   - m_Version: 1
@@ -7712,8 +7712,17 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
+        time: 8.233334
+        value: {x: 0.6158143, y: 0.01999998, z: 0}
+        inSlope: {x: 0.66798043, y: 0, z: 0}
+        outSlope: {x: 0.66798043, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+      - serializedVersion: 3
         time: 10.466666
-        value: {x: 2.27, y: 0, z: 0}
+        value: {x: 2.27, y: 0.01999998, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -7862,6 +7871,15 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
+        time: 8.233334
+        value: 0.6158143
+        inSlope: 0.66798043
+        outSlope: 0.66798043
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
         time: 10.466666
         value: 2.27
         inSlope: 0
@@ -7935,8 +7953,17 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
+        time: 8.233334
+        value: 0.01999998
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
         time: 10.466666
-        value: 0
+        value: 0.01999998
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -8000,6 +8027,15 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 7.0833335
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 8.233334
         value: 0
         inSlope: 0
         outSlope: 0
@@ -8617,7 +8653,7 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 7.016666666666667
+    m_Start: 6.3
     m_ClipIn: 0
     m_Asset: {fileID: 114010275480012244}
     m_Duration: 3.45
@@ -8682,427 +8718,13 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 55.16666666666667
-    m_PreExtrapolationTime: 7.016666666666667
+    m_PostExtrapolationTime: 55.88333333333334
+    m_PreExtrapolationTime: 6.3
     m_DisplayName: Mike running
   - m_Version: 1
     m_Start: 65.63333333333334
     m_ClipIn: 0
     m_Asset: {fileID: -6172536134462682080}
-    m_Duration: 3.149999999999949
-    m_TimeScale: 1
-    m_ParentTrack: {fileID: 114023050451755976}
-    m_EaseInDuration: 0
-    m_EaseOutDuration: 0
-    m_BlendInDuration: -1
-    m_BlendOutDuration: -1
-    m_MixInCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_MixOutCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_BlendInCurveMode: 0
-    m_BlendOutCurveMode: 0
-    m_ExposedParameterNames: []
-    m_AnimationCurves: {fileID: 0}
-    m_Recordable: 0
-    m_PostExtrapolationMode: 1
-    m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 4.0666666666667055
-    m_PreExtrapolationTime: 0
-    m_DisplayName: Mike Talking
-  - m_Version: 1
-    m_Start: 72.85
-    m_ClipIn: 0
-    m_Asset: {fileID: -4839623683957311124}
-    m_Duration: 2.099999999999966
-    m_TimeScale: 1
-    m_ParentTrack: {fileID: 114023050451755976}
-    m_EaseInDuration: 0
-    m_EaseOutDuration: 0
-    m_BlendInDuration: -1
-    m_BlendOutDuration: -1
-    m_MixInCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_MixOutCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_BlendInCurveMode: 0
-    m_BlendOutCurveMode: 0
-    m_ExposedParameterNames: []
-    m_AnimationCurves: {fileID: 0}
-    m_Recordable: 0
-    m_PostExtrapolationMode: 1
-    m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 3.150000000000034
-    m_PreExtrapolationTime: 0
-    m_DisplayName: Mike Talking
-  - m_Version: 1
-    m_Start: 78.1
-    m_ClipIn: 0
-    m_Asset: {fileID: 7965114102279119631}
-    m_Duration: 6.649999999999892
-    m_TimeScale: 1
-    m_ParentTrack: {fileID: 114023050451755976}
-    m_EaseInDuration: 0
-    m_EaseOutDuration: 0
-    m_BlendInDuration: -1
-    m_BlendOutDuration: -1
-    m_MixInCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_MixOutCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_BlendInCurveMode: 0
-    m_BlendOutCurveMode: 0
-    m_ExposedParameterNames: []
-    m_AnimationCurves: {fileID: 0}
-    m_Recordable: 0
-    m_PostExtrapolationMode: 1
-    m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 7.666666666666785
-    m_PreExtrapolationTime: 0
-    m_DisplayName: Mike Talking
-  - m_Version: 1
-    m_Start: 92.41666666666667
-    m_ClipIn: 0
-    m_Asset: {fileID: -4852810664898836311}
-    m_Duration: 10.849999999999824
-    m_TimeScale: 1
-    m_ParentTrack: {fileID: 114023050451755976}
-    m_EaseInDuration: 0
-    m_EaseOutDuration: 0
-    m_BlendInDuration: -1
-    m_BlendOutDuration: -1
-    m_MixInCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_MixOutCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_BlendInCurveMode: 0
-    m_BlendOutCurveMode: 0
-    m_ExposedParameterNames: []
-    m_AnimationCurves: {fileID: 0}
-    m_Recordable: 0
-    m_PostExtrapolationMode: 1
-    m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 28.733333333333505
-    m_PreExtrapolationTime: 0
-    m_DisplayName: Mike Talking
-  - m_Version: 1
-    m_Start: 132
-    m_ClipIn: 0
-    m_Asset: {fileID: -212139656140520490}
-    m_Duration: 2.44999999999996
-    m_TimeScale: 1
-    m_ParentTrack: {fileID: 114023050451755976}
-    m_EaseInDuration: 0
-    m_EaseOutDuration: 0
-    m_BlendInDuration: -1
-    m_BlendOutDuration: -1
-    m_MixInCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_MixOutCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_BlendInCurveMode: 0
-    m_BlendOutCurveMode: 0
-    m_ExposedParameterNames: []
-    m_AnimationCurves: {fileID: 0}
-    m_Recordable: 0
-    m_PostExtrapolationMode: 1
-    m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 24.416666666666714
-    m_PreExtrapolationTime: 0
-    m_DisplayName: Mike Talking
-  - m_Version: 1
-    m_Start: 158.86666666666667
-    m_ClipIn: 0
-    m_Asset: {fileID: 3933081826604591258}
-    m_Duration: 3.499999999999943
-    m_TimeScale: 1
-    m_ParentTrack: {fileID: 114023050451755976}
-    m_EaseInDuration: 0
-    m_EaseOutDuration: 0
-    m_BlendInDuration: -1
-    m_BlendOutDuration: -1
-    m_MixInCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_MixOutCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_BlendInCurveMode: 0
-    m_BlendOutCurveMode: 0
-    m_ExposedParameterNames: []
-    m_AnimationCurves: {fileID: 0}
-    m_Recordable: 0
-    m_PostExtrapolationMode: 1
-    m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 4.116666666666703
-    m_PreExtrapolationTime: 0
-    m_DisplayName: Mike Talking
-  - m_Version: 1
-    m_Start: 166.48333333333332
-    m_ClipIn: 0
-    m_Asset: {fileID: 6750676286136409923}
     m_Duration: 1.7499999999999716
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114023050451755976}
@@ -9165,14 +8787,14 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 29.95000005128486
+    m_PostExtrapolationTime: 5.466666666666683
     m_PreExtrapolationTime: 0
     m_DisplayName: Mike Talking
   - m_Version: 1
-    m_Start: 228.93333333333334
+    m_Start: 72.85
     m_ClipIn: 0
-    m_Asset: {fileID: 3055758257730992603}
-    m_Duration: 12.599999999999795
+    m_Asset: {fileID: -4839623683957311124}
+    m_Duration: 1.049999999999983
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114023050451755976}
     m_EaseInDuration: 0
@@ -9234,7 +8856,421 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 10.966666666666868
+    m_PostExtrapolationTime: 4.200000000000017
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Mike Talking
+  - m_Version: 1
+    m_Start: 78.1
+    m_ClipIn: 0
+    m_Asset: {fileID: 7965114102279119631}
+    m_Duration: 3.8319803795466925
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 114023050451755976}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: 10.484686287119985
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Mike Talking
+  - m_Version: 1
+    m_Start: 92.41666666666667
+    m_ClipIn: 0
+    m_Asset: {fileID: -4852810664898836311}
+    m_Duration: 5.599999999999909
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 114023050451755976}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: 33.98333333333342
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Mike Talking
+  - m_Version: 1
+    m_Start: 132
+    m_ClipIn: 0
+    m_Asset: {fileID: -212139656140520490}
+    m_Duration: 1.3999999999999773
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 114023050451755976}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: 25.466666666666697
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Mike Talking
+  - m_Version: 1
+    m_Start: 158.86666666666667
+    m_ClipIn: 0
+    m_Asset: {fileID: 3933081826604591258}
+    m_Duration: 2.099999999999966
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 114023050451755976}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: 5.51666666666668
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Mike Talking
+  - m_Version: 1
+    m_Start: 166.48333333333332
+    m_ClipIn: 0
+    m_Asset: {fileID: 6750676286136409923}
+    m_Duration: 1.049999999999983
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 114023050451755976}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: 30.65000005128485
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Mike Talking
+  - m_Version: 1
+    m_Start: 228.93333333333334
+    m_ClipIn: 0
+    m_Asset: {fileID: 3055758257730992603}
+    m_Duration: 6.999999999999886
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 114023050451755976}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: 16.566666666666777
     m_PreExtrapolationTime: 0
     m_DisplayName: Mike Talking
   - m_Version: 1
@@ -9499,7 +9535,7 @@ MonoBehaviour:
     m_Start: 252.5
     m_ClipIn: 0
     m_Asset: {fileID: 8253821066503424433}
-    m_Duration: 7.0000000000001705
+    m_Duration: 3.849999999999966
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114023050451755976}
     m_EaseInDuration: 0
@@ -10419,7 +10455,7 @@ MonoBehaviour:
     m_Start: 34.3
     m_ClipIn: 0
     m_Asset: {fileID: 6494890177053437067}
-    m_Duration: 8.79999999999984
+    m_Duration: 4.794839909051859
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114963687317006142}
     m_EaseInDuration: 0
@@ -10481,14 +10517,14 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 15.250000000000163
+    m_PostExtrapolationTime: 19.255160090948145
     m_PreExtrapolationTime: 0
     m_DisplayName: Randalf Talking
   - m_Version: 1
     m_Start: 58.35
     m_ClipIn: 0
     m_Asset: {fileID: 7481309302138135173}
-    m_Duration: 5.3166666666665705
+    m_Duration: 2.839885374034445
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114963687317006142}
     m_EaseInDuration: 0
@@ -10550,14 +10586,14 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 43.383333333333425
+    m_PostExtrapolationTime: 45.86011462596555
     m_PreExtrapolationTime: 0
     m_DisplayName: Randalf Talking
   - m_Version: 1
     m_Start: 107.05
     m_ClipIn: 0
     m_Asset: {fileID: 8049641279240649194}
-    m_Duration: 8.25000000000017
+    m_Duration: 4.680883577341831
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114963687317006142}
     m_EaseInDuration: 0
@@ -10619,14 +10655,14 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 26.449999999999832
+    m_PostExtrapolationTime: 30.019116422658172
     m_PreExtrapolationTime: 0
     m_DisplayName: Randalf Talking
   - m_Version: 1
     m_Start: 141.75
     m_ClipIn: 0
     m_Asset: {fileID: -7542274269957589629}
-    m_Duration: 15.216666666666981
+    m_Duration: 8.436691649009788
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114963687317006142}
     m_EaseInDuration: 0
@@ -10688,7 +10724,7 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 6.966666666666356
+    m_PostExtrapolationTime: 13.74664168432355
     m_PreExtrapolationTime: 0
     m_DisplayName: Randalf Talking
   - m_Version: 1
@@ -10764,7 +10800,7 @@ MonoBehaviour:
     m_Start: 179.78333333333333
     m_ClipIn: 0
     m_Asset: {fileID: 3350574055600449014}
-    m_Duration: 9.716666666666868
+    m_Duration: 5.331435727824783
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114963687317006142}
     m_EaseInDuration: 0
@@ -10826,7 +10862,7 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 10.933333333333138
+    m_PostExtrapolationTime: 15.318564272175223
     m_PreExtrapolationTime: 0
     m_DisplayName: Randalf Talking
   - m_Version: 1
@@ -11818,7 +11854,7 @@ MonoBehaviour:
     m_Start: 18.133333333333333
     m_ClipIn: 0
     m_Asset: {fileID: 3567716423906197056}
-    m_Duration: 3.416666666666668
+    m_Duration: 1.9043614371369273
     m_TimeScale: 1
     m_ParentTrack: {fileID: 2391278258039429510}
     m_EaseInDuration: 0
@@ -11880,14 +11916,14 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 30.533333333333335
+    m_PostExtrapolationTime: 32.045638562863076
     m_PreExtrapolationTime: 18.133333333333333
     m_DisplayName: Amazon Talking
   - m_Version: 1
     m_Start: 52.083333333333336
     m_ClipIn: 0
     m_Asset: {fileID: -4475448186584006495}
-    m_Duration: 1.36666666666666
+    m_Duration: 0.8494779888540478
     m_TimeScale: 1
     m_ParentTrack: {fileID: 2391278258039429510}
     m_EaseInDuration: 0
@@ -11949,14 +11985,14 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 16.800000000000004
+    m_PostExtrapolationTime: 17.317188677812617
     m_PreExtrapolationTime: 0
     m_DisplayName: Amazon Talking
   - m_Version: 1
     m_Start: 70.25
     m_ClipIn: 0
     m_Asset: {fileID: -5132490685443743938}
-    m_Duration: 1.3666666666666742
+    m_Duration: 0.7418352019041805
     m_TimeScale: 1
     m_ParentTrack: {fileID: 2391278258039429510}
     m_EaseInDuration: 0
@@ -12018,13 +12054,82 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 68.68333333333334
+    m_PostExtrapolationTime: 69.30816479809583
     m_PreExtrapolationTime: 0
     m_DisplayName: Amazon Talking
   - m_Version: 1
     m_Start: 140.3
     m_ClipIn: 0
     m_Asset: {fileID: 1555565197123631425}
+    m_Duration: 0.3964615873992443
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 2391278258039429510}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: 33.803538412600744
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Amazon Talking
+  - m_Version: 1
+    m_Start: 174.5
+    m_ClipIn: 0
+    m_Asset: {fileID: -114251327753567970}
     m_Duration: 0.6833333333333371
     m_TimeScale: 1
     m_ParentTrack: {fileID: 2391278258039429510}
@@ -12087,83 +12192,14 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 33.51666666666665
-    m_PreExtrapolationTime: 0
-    m_DisplayName: Amazon Talking
-  - m_Version: 1
-    m_Start: 174.5
-    m_ClipIn: 0
-    m_Asset: {fileID: -114251327753567970}
-    m_Duration: 1.0333333333333314
-    m_TimeScale: 1
-    m_ParentTrack: {fileID: 2391278258039429510}
-    m_EaseInDuration: 0
-    m_EaseOutDuration: 0
-    m_BlendInDuration: -1
-    m_BlendOutDuration: -1
-    m_MixInCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_MixOutCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_BlendInCurveMode: 0
-    m_BlendOutCurveMode: 0
-    m_ExposedParameterNames: []
-    m_AnimationCurves: {fileID: 0}
-    m_Recordable: 0
-    m_PostExtrapolationMode: 1
-    m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 33.08333333333334
+    m_PostExtrapolationTime: 33.43333333333334
     m_PreExtrapolationTime: 0
     m_DisplayName: Amazon Talking
   - m_Version: 1
     m_Start: 213.95
     m_ClipIn: 0
     m_Asset: {fileID: -5973917077175037473}
-    m_Duration: 12.983333333333405
+    m_Duration: 6.833333333333371
     m_TimeScale: 1
     m_ParentTrack: {fileID: 2391278258039429510}
     m_EaseInDuration: 0
@@ -12225,7 +12261,7 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 16.566666666666606
+    m_PostExtrapolationTime: 22.71666666666664
     m_PreExtrapolationTime: 0
     m_DisplayName: Amazon Talking
   - m_Version: 1
@@ -12439,7 +12475,7 @@ MonoBehaviour:
     m_Start: 243.5
     m_ClipIn: 0
     m_Asset: {fileID: -4290899938513720745}
-    m_Duration: 7.516666666666708
+    m_Duration: 4.100000000000023
     m_TimeScale: 1
     m_ParentTrack: {fileID: 2391278258039429510}
     m_EaseInDuration: 0
@@ -12501,7 +12537,7 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 10.383333333333269
+    m_PostExtrapolationTime: 13.799999999999955
     m_PreExtrapolationTime: 0
     m_DisplayName: Amazon Talking
   - m_Version: 1
@@ -14609,7 +14645,7 @@ MonoBehaviour:
     m_Start: 23.733333333333334
     m_ClipIn: 0
     m_Asset: {fileID: 8298339690441456358}
-    m_Duration: 1.3333333333333286
+    m_Duration: 0.6438865755995096
     m_TimeScale: 1
     m_ParentTrack: {fileID: 7718131450925135507}
     m_EaseInDuration: 0
@@ -14671,14 +14707,14 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 30.183333333333337
+    m_PostExtrapolationTime: 30.872780091067156
     m_PreExtrapolationTime: 23.733333333333334
     m_DisplayName: Justin Talking
   - m_Version: 1
     m_Start: 55.25
     m_ClipIn: 0
     m_Asset: {fileID: 542089837949103470}
-    m_Duration: 0.7999999999999972
+    m_Duration: 0.5333333333333314
     m_TimeScale: 1
     m_ParentTrack: {fileID: 7718131450925135507}
     m_EaseInDuration: 0
@@ -14740,14 +14776,14 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 19.933333333333337
+    m_PostExtrapolationTime: 20.200000000000003
     m_PreExtrapolationTime: 0
     m_DisplayName: Justin Talking
   - m_Version: 1
     m_Start: 75.98333333333333
     m_ClipIn: 0
     m_Asset: {fileID: 8758603628113322897}
-    m_Duration: 0.7999999999999972
+    m_Duration: 0.5333333333333314
     m_TimeScale: 1
     m_ParentTrack: {fileID: 7718131450925135507}
     m_EaseInDuration: 0
@@ -14809,14 +14845,14 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 9.63333333333334
+    m_PostExtrapolationTime: 9.900000000000006
     m_PreExtrapolationTime: 0
     m_DisplayName: Justin Talking
   - m_Version: 1
     m_Start: 86.41666666666667
     m_ClipIn: 0
     m_Asset: {fileID: 8007479012540688235}
-    m_Duration: 0.7999999999999972
+    m_Duration: 0.5939577519893646
     m_TimeScale: 1
     m_ParentTrack: {fileID: 7718131450925135507}
     m_EaseInDuration: 0
@@ -14878,14 +14914,14 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 17.86666666666666
+    m_PostExtrapolationTime: 18.072708914677293
     m_PreExtrapolationTime: 0
     m_DisplayName: Justin Talking
   - m_Version: 1
     m_Start: 105.08333333333333
     m_ClipIn: 0
     m_Asset: {fileID: 4625917693076650924}
-    m_Duration: 0.7999999999999972
+    m_Duration: 0.5333333333333314
     m_TimeScale: 1
     m_ParentTrack: {fileID: 7718131450925135507}
     m_EaseInDuration: 0
@@ -14947,14 +14983,14 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 10.950000000000003
+    m_PostExtrapolationTime: 11.216666666666669
     m_PreExtrapolationTime: 0
     m_DisplayName: Justin Talking
   - m_Version: 1
     m_Start: 116.83333333333333
     m_ClipIn: 0
     m_Asset: {fileID: 4342408552700965591}
-    m_Duration: 7.999999999999972
+    m_Duration: 7.21224301966528
     m_TimeScale: 1
     m_ParentTrack: {fileID: 7718131450925135507}
     m_EaseInDuration: 0
@@ -15016,7 +15052,7 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 51.88333333333337
+    m_PostExtrapolationTime: 52.67109031366806
     m_PreExtrapolationTime: 0
     m_DisplayName: Justin Talking
   - m_Version: 1
