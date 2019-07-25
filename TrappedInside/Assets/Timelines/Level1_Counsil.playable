@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 0
   text: Unless I defeat the three undefeatable quests?
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &-8816840766625373608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3765,6 +3767,144 @@ MonoBehaviour:
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
     m_DisplayName: Active
+  - m_Version: 1
+    m_Start: 213.95
+    m_ClipIn: 0
+    m_Asset: {fileID: 3326347414124275978}
+    m_Duration: 14.825454571098106
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -8252149838709787911}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Active
+  - m_Version: 1
+    m_Start: 243.5
+    m_ClipIn: 0
+    m_Asset: {fileID: -3420559942915033716}
+    m_Duration: 8.833333333333343
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -8252149838709787911}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Active
   m_Markers:
     m_Objects: []
   m_PostPlaybackState: 3
@@ -3782,6 +3922,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 4
   text: "Rrrrrrrshhhh\u2026"
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &-8095592595576190502
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4368,6 +4510,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 1
   text: "The chosen one, yes. Mike, please, you\u2019ve got to help us."
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &-7288977697204887922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4976,6 +5120,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 5
   text: The omniscient one!
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &-6725161508600744033
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4990,6 +5136,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 0
   text: "Don\u2019t worry Justin. I forgive you."
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &-6665981240293705391
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5003,7 +5151,11 @@ MonoBehaviour:
   m_Name: ChoiseAsset
   m_EditorClassIdentifier: 
   speaker: Amazon Queen
-  speakerColor: {r: 0.8431373, g: 0.454902, b: 0.14117648, a: 1}
+  speakerColor:
+    r: 0.8431373
+    g: 0.454902
+    b: 0.14117648
+    a: 1
   text: "You are the most manly creature I\u2019ve ever witnessed. It would be an
     honor to share with you the most treasured of the amazonian pleasures."
   leftChoise: Yes
@@ -5076,6 +5228,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 3
   text: A true man!
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &-5973917077175037473
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5828,168 +5982,6 @@ AnimationClip:
   m_HasGenericRootTransform: 1
   m_HasMotionFloatCurves: 0
   m_Events: []
---- !u!114 &-5355709517402895498
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21bf7f712d84d26478ebe6a299f21738, type: 3}
-  m_Name: Activation Track (1)
-  m_EditorClassIdentifier: 
-  m_Version: 3
-  m_AnimClip: {fileID: 0}
-  m_Locked: 0
-  m_Muted: 0
-  m_CustomPlayableFullTypename: 
-  m_Curves: {fileID: 0}
-  m_Parent: {fileID: 11400000}
-  m_Children: []
-  m_Clips:
-  - m_Version: 1
-    m_Start: 213.95
-    m_ClipIn: 0
-    m_Asset: {fileID: 3326347414124275978}
-    m_Duration: 14.825454571098106
-    m_TimeScale: 1
-    m_ParentTrack: {fileID: -5355709517402895498}
-    m_EaseInDuration: 0
-    m_EaseOutDuration: 0
-    m_BlendInDuration: 0
-    m_BlendOutDuration: 0
-    m_MixInCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_MixOutCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_BlendInCurveMode: 0
-    m_BlendOutCurveMode: 0
-    m_ExposedParameterNames: []
-    m_AnimationCurves: {fileID: 0}
-    m_Recordable: 0
-    m_PostExtrapolationMode: 0
-    m_PreExtrapolationMode: 0
-    m_PostExtrapolationTime: 0
-    m_PreExtrapolationTime: 0
-    m_DisplayName: Active
-  - m_Version: 1
-    m_Start: 243.5
-    m_ClipIn: 0
-    m_Asset: {fileID: -3420559942915033716}
-    m_Duration: 8.833333333333343
-    m_TimeScale: 1
-    m_ParentTrack: {fileID: -5355709517402895498}
-    m_EaseInDuration: 0
-    m_EaseOutDuration: 0
-    m_BlendInDuration: 0
-    m_BlendOutDuration: 0
-    m_MixInCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_MixOutCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_BlendInCurveMode: 0
-    m_BlendOutCurveMode: 0
-    m_ExposedParameterNames: []
-    m_AnimationCurves: {fileID: 0}
-    m_Recordable: 0
-    m_PostExtrapolationMode: 0
-    m_PreExtrapolationMode: 0
-    m_PostExtrapolationTime: 0
-    m_PreExtrapolationTime: 0
-    m_DisplayName: Active
-  m_Markers:
-    m_Objects: []
-  m_PostPlaybackState: 3
 --- !u!114 &-5351024080407345510
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6004,6 +5996,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 3
   text: The handsome one!
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &-5176049088997472477
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6032,6 +6026,8 @@ MonoBehaviour:
   text: "Best of us, no doubt about it. And that is why we need your help so desperately.
     You see\u2026 the darkest of the lords has arisen. He means business. We are doomed.
     Unless\u2026 "
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &-5132490685443743938
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6732,6 +6728,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 2
   text: "Quiet, woman and Justin. There\u2019s no time for nonsense. "
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &-3854643698197700509
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6759,6 +6757,8 @@ MonoBehaviour:
   character: 1
   text: Brokenshield is right. The fate of the world is at stake. But fear not, our
     saviour has arrived!
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &-3420559942915033716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7185,6 +7185,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 3
   text: Mike, wait!
+  leftChoise: 
+  rightChoise: 
+--- !u!114 &-3006941273205975019
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
+  m_Name: TalkAsset
+  m_EditorClassIdentifier: 
+  character: 3
+  text: Are you sure? The most treasured of the amazonian pleasures is quite quickly
+    given.
+  leftChoise: Yes
+  rightChoise: No
 --- !u!114 &-2888554257831124208
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7235,6 +7254,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 3
   text: The desirable one!
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &-2460494167031534869
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7301,6 +7322,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 2
   text: Take this sword forged by dwarfs to help you on your way.
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &-2018322001125750080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7315,6 +7338,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 0
   text: It is for Justin.
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &-1708927355022926204
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7372,6 +7397,8 @@ MonoBehaviour:
   character: 0
   text: "I\u2019m sorry my Queen, but I need my full strength facing the upcoming
     challenges."
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &-1088141881716859909
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7408,6 +7435,8 @@ MonoBehaviour:
   character: 0
   text: "I\u2019m sorry my Queen, but I\u2019m much too focused on the mission at
     hand - saving the world - to even consider such a precious gift right now."
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &-478170754252646891
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7444,6 +7473,8 @@ MonoBehaviour:
   character: 0
   text: "You once said something I said you\u2019d regret some day. Today could be
     the day."
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &-408508177773435815
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7458,6 +7489,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 4
   text: "Rrrrrrshhhh\u2026"
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &-337348156875465769
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7485,6 +7518,8 @@ MonoBehaviour:
   character: 0
   text: "But I\u2019m willing to let go of the past. If only you tell everyone here
     you were wrong and ask for my forgiveness."
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &-298775996342512628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7499,6 +7534,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 3
   text: Let me fill it!
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &-212139656140520490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7657,7 +7694,6 @@ MonoBehaviour:
   - {fileID: -7132948844766457997}
   - {fileID: 4574651765004956071}
   - {fileID: -8252149838709787911}
-  - {fileID: -5355709517402895498}
   - {fileID: 811143815198627118}
   m_FixedDuration: 0
   m_EditorSettings:
@@ -11013,6 +11049,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 3
   text: You forgot to mention how handsome he is!
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &485234611125924919
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11026,7 +11064,11 @@ MonoBehaviour:
   m_Name: ChoiseAsset
   m_EditorClassIdentifier: 
   speaker: Amazon Queen
-  speakerColor: {r: 0.8431373, g: 0.454902, b: 0.14117648, a: 1}
+  speakerColor:
+    r: 0.8431373
+    g: 0.454902
+    b: 0.14117648
+    a: 1
   text: Are you sure? The most treasured of the amazonian treasures is quite quickly
     given.
   leftChoise: Yes
@@ -11066,6 +11108,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 4
   text: "Rrrrrrshhhh\u2026"
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &811143815198627118
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11655,6 +11699,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 0
   text: "Well, let\u2019s just say I\u2019m\u2026"
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &1460103636196077627
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11775,6 +11821,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 2
   text: 'The stupendous one! '
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &2286884283987853203
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11789,6 +11837,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 4
   text: "Rrrrrrshhhh\u2026"
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &2296457216737581019
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11803,6 +11853,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 2
   text: A better man!
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &2391278258039429510
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11897,7 +11949,7 @@ MonoBehaviour:
     m_Start: 52.083333333333336
     m_ClipIn: 0
     m_Asset: {fileID: -4475448186584006495}
-    m_Duration: 0.8494779888540478
+    m_Duration: 0.68333333333333
     m_TimeScale: 1
     m_ParentTrack: {fileID: 2391278258039429510}
     m_EaseInDuration: 0
@@ -11959,7 +12011,7 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 17.317188677812617
+    m_PostExtrapolationTime: 17.483333333333334
     m_PreExtrapolationTime: 0
     m_DisplayName: Amazon Talking
   - m_Version: 1
@@ -12628,6 +12680,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 2
   text: The astonishing one!
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &3055758257730992603
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13189,6 +13243,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 5
   text: The bright one!
+  leftChoise: 
+  rightChoise: 
+--- !u!114 &3914138954186960294
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
+  m_Name: TalkAsset
+  m_EditorClassIdentifier: 
+  character: 3
+  text: "You are the most manly creature I\u2019ve ever witnessed. It would be an
+    honor to share with you the most treasured of the amazonian pleasures."
+  leftChoise: Yes
+  rightChoise: No
 --- !u!114 &3933081826604591258
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13269,6 +13342,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 5
   text: You truly are a great man!
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &4574651765004956071
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13342,6 +13417,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 0
   text: Sure thing. I only have one request.
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &4836339972832848878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13803,6 +13880,144 @@ MonoBehaviour:
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
     m_DisplayName: TalkAsset
+  - m_Version: 1
+    m_Start: 213.95
+    m_ClipIn: 0
+    m_Asset: {fileID: 3914138954186960294}
+    m_Duration: 14.825454571098106
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 4911017743765092222}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: TalkAsset
+  - m_Version: 1
+    m_Start: 243.5
+    m_ClipIn: 0
+    m_Asset: {fileID: -3006941273205975019}
+    m_Duration: 8.833333333333343
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 4911017743765092222}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: TalkAsset
   m_Markers:
     m_Objects: []
 --- !u!114 &4977671100497593151
@@ -13864,6 +14079,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 4
   text: "Rrrrshhhh\u2026 The enviable one!"
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &5567292317373626995
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13880,6 +14097,8 @@ MonoBehaviour:
   text: "Rrrrrshhh\u2026 I\u2026 am\u2026 sorry\u2026 I made a mistake\u2026 I shouldn\u2019t
     have called you that. It wasn\u2019t true. I was jealous of your talent and looks
     even back then."
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &5695403716455745501
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13917,6 +14136,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 5
   text: You fool! What have you done.
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &6026367514845710727
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13943,6 +14164,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 1
   text: "\u2026 How did you know?!?"
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &6132003265752372996
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14461,7 +14684,6 @@ MonoBehaviour:
   - {fileID: 2391278258039429510}
   - {fileID: -34152067226902636}
   - {fileID: 4911017743765092222}
-  - {fileID: 8927533239795194380}
   m_Clips: []
   m_Markers:
     m_Objects: []
@@ -14536,6 +14758,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 4
   text: "Rrrrrrrshhhh\u2026"
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &7481309302138135173
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14572,6 +14796,8 @@ MonoBehaviour:
   character: 1
   text: "Now is not the time to be a dope, Justin. Just ask for Mike\u2019s forgiveness
     and we can continue."
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &7635513589206295371
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -15189,7 +15415,9 @@ MonoBehaviour:
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
   character: 5
-  text: "Randalf, is this the chosen one you\u2019ve spoken so highly of?"
+  text: "Randolph, is this the chosen one you\u2019ve spoken so highly of?"
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &7916589310387842479
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -15268,6 +15496,8 @@ MonoBehaviour:
   character: 1
   text: Most sophisticated one, no doubt about it. The first of the undefeatable quests
     is the climb to Mount Boom.
+  leftChoise: 
+  rightChoise: 
 --- !u!114 &8049641279240649194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -15406,167 +15636,6 @@ MonoBehaviour:
   m_ApplyFootIK: 1
   m_Version: 1
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
---- !u!114 &8927533239795194380
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8c0717980861b74ea617976eb78c615, type: 3}
-  m_Name: Choise Track
-  m_EditorClassIdentifier: 
-  m_Version: 3
-  m_AnimClip: {fileID: 0}
-  m_Locked: 0
-  m_Muted: 0
-  m_CustomPlayableFullTypename: 
-  m_Curves: {fileID: 0}
-  m_Parent: {fileID: 6750341255844359130}
-  m_Children: []
-  m_Clips:
-  - m_Version: 1
-    m_Start: 213.95
-    m_ClipIn: 0
-    m_Asset: {fileID: -6665981240293705391}
-    m_Duration: 14.825454571098106
-    m_TimeScale: 1
-    m_ParentTrack: {fileID: 8927533239795194380}
-    m_EaseInDuration: 0
-    m_EaseOutDuration: 0
-    m_BlendInDuration: -1
-    m_BlendOutDuration: -1
-    m_MixInCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_MixOutCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_BlendInCurveMode: 0
-    m_BlendOutCurveMode: 0
-    m_ExposedParameterNames: []
-    m_AnimationCurves: {fileID: 0}
-    m_Recordable: 0
-    m_PostExtrapolationMode: 0
-    m_PreExtrapolationMode: 0
-    m_PostExtrapolationTime: 0
-    m_PreExtrapolationTime: 0
-    m_DisplayName: ChoiseAsset
-  - m_Version: 1
-    m_Start: 243.5
-    m_ClipIn: 0
-    m_Asset: {fileID: 485234611125924919}
-    m_Duration: 8.833333333333343
-    m_TimeScale: 1
-    m_ParentTrack: {fileID: 8927533239795194380}
-    m_EaseInDuration: 0
-    m_EaseOutDuration: 0
-    m_BlendInDuration: -1
-    m_BlendOutDuration: -1
-    m_MixInCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_MixOutCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_BlendInCurveMode: 0
-    m_BlendOutCurveMode: 0
-    m_ExposedParameterNames: []
-    m_AnimationCurves: {fileID: 0}
-    m_Recordable: 0
-    m_PostExtrapolationMode: 0
-    m_PreExtrapolationMode: 0
-    m_PostExtrapolationTime: 0
-    m_PreExtrapolationTime: 0
-    m_DisplayName: ChoiseAsset
-  m_Markers:
-    m_Objects: []
 --- !u!114 &9042210232437762536
 MonoBehaviour:
   m_ObjectHideFlags: 1

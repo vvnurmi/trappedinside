@@ -9,12 +9,13 @@ public class TalkBehaviour : PlayableBehaviour
     private int charsToShow;
     private float startTime;
     public int charsPerSecond = 20;
-    public string text = string.Empty;
     public DialogSettings dialogSettings;
     private bool dialogAcked = false;
+    private bool leftChoiseSelected = true;
+    private bool IsSelectionEnabled => dialogSettings.LeftChoise.Length > 0 && dialogSettings.RightChoise.Length > 0;
 
 
-    private bool IsDoneTyping => charsToShow == text.Length;
+    private bool IsDoneTyping => charsToShow == dialogSettings.Text.Length;
 
     public override void ProcessFrame(Playable playable, FrameData info, object playerData) {
         GameObject dialogBox = playerData as GameObject;
@@ -28,10 +29,10 @@ public class TalkBehaviour : PlayableBehaviour
         charsToShow = Mathf.Clamp(
             value: Mathf.RoundToInt((Time.time - startTime) * charsPerSecond),
             min: charsToShow,
-            max: text.Length);
+            max: dialogSettings.Text.Length);
 
         speakerComponent.text = dialogSettings.SpeakerName;
-        textComponent.text = text.Substring(0, charsToShow);
+        textComponent.text = dialogSettings.Text.Substring(0, charsToShow);
 
         // If something more was typed, make noise and react to text end.
         if (oldCharsToShow < charsToShow)
@@ -42,18 +43,36 @@ public class TalkBehaviour : PlayableBehaviour
                 dialogBox.GetComponent<AudioSource>().Play();
         }
 
-        var jumpReleased = Input.GetButtonUp("Jump");
-
         if (IsDoneTyping)
         {
-            if(dialogAcked)
+            var horizontalInput = Input.GetAxis("Horizontal");
+
+            if (horizontalInput < 0)
+            {
+                leftChoiseSelected = true;
+            }
+            if (horizontalInput > 0)
+            {
+                leftChoiseSelected = false;
+            }
+
+            if (dialogAcked)
             {
                 SetSpeed(playable, 5);
+                textComponents[2].text = "";
+                textComponents[3].text = "";
+            }
+            else if (IsSelectionEnabled)
+            {
+                SetSpeed(playable, 0);
+                textComponents[2].text = leftChoiseSelected ? $"[{dialogSettings.LeftChoise}]" : $" {dialogSettings.LeftChoise} ";
+                textComponents[3].text = leftChoiseSelected ? $" {dialogSettings.RightChoise} " : $"[{dialogSettings.RightChoise}]";
+                dialogAcked = Input.GetButtonUp("Jump");
             }
             else
             {
                 SetSpeed(playable, 0);
-                dialogAcked = jumpReleased;
+                dialogAcked = Input.GetButtonUp("Jump");
             }
         }
     }
