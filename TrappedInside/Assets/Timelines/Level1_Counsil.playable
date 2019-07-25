@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Mike
-  speakerColor: {r: 0.13725491, g: 0.10196079, b: 0.70980394, a: 1}
+  character: 0
   text: Unless I defeat the three undefeatable quests?
 --- !u!114 &-8816840766625373608
 MonoBehaviour:
@@ -3781,8 +3780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Justin Finn
-  speakerColor: {r: 0.8352942, g: 0.3921569, b: 0.4784314, a: 1}
+  character: 4
   text: "Rrrrrrrshhhh\u2026"
 --- !u!114 &-8095592595576190502
 MonoBehaviour:
@@ -4368,8 +4366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Randalf
-  speakerColor: {r: 0.427451, g: 0.1137255, b: 0.65882355, a: 1}
+  character: 1
   text: "The chosen one, yes. Mike, please, you\u2019ve got to help us."
 --- !u!114 &-7288977697204887922
 MonoBehaviour:
@@ -4977,8 +4974,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Fan Duil
-  speakerColor: {r: 0.14509805, g: 0.70980394, b: 0.20000002, a: 1}
+  character: 5
   text: The omniscient one!
 --- !u!114 &-6725161508600744033
 MonoBehaviour:
@@ -4992,8 +4988,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Mike
-  speakerColor: {r: 0.13725491, g: 0.10196079, b: 0.70980394, a: 1}
+  character: 0
   text: "Don\u2019t worry Justin. I forgive you."
 --- !u!114 &-6665981240293705391
 MonoBehaviour:
@@ -5079,8 +5074,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Amazon Queen
-  speakerColor: {r: 0.94117653, g: 0.5254902, b: 0.18431373, a: 1}
+  character: 3
   text: A true man!
 --- !u!114 &-5973917077175037473
 MonoBehaviour:
@@ -6008,8 +6002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Amazon Queen
-  speakerColor: {r: 0.94117653, g: 0.5254902, b: 0.18431373, a: 1}
+  character: 3
   text: The handsome one!
 --- !u!114 &-5176049088997472477
 MonoBehaviour:
@@ -6035,8 +6028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Randalf
-  speakerColor: {r: 0.427451, g: 0.1137255, b: 0.65882355, a: 1}
+  character: 1
   text: "Best of us, no doubt about it. And that is why we need your help so desperately.
     You see\u2026 the darkest of the lords has arisen. He means business. We are doomed.
     Unless\u2026 "
@@ -6738,8 +6730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Dwarf
-  speakerColor: {r: 0.6901961, g: 0.14117648, b: 0.0627451, a: 1}
+  character: 2
   text: "Quiet, woman and Justin. There\u2019s no time for nonsense. "
 --- !u!114 &-3854643698197700509
 MonoBehaviour:
@@ -6765,8 +6756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Randalf
-  speakerColor: {r: 0.427451, g: 0.1137255, b: 0.65882355, a: 1}
+  character: 1
   text: Brokenshield is right. The fate of the world is at stake. But fear not, our
     saviour has arrived!
 --- !u!114 &-3420559942915033716
@@ -7193,8 +7183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Amazon Queen
-  speakerColor: {r: 0.94117653, g: 0.5254902, b: 0.18431373, a: 1}
+  character: 3
   text: Mike, wait!
 --- !u!114 &-2888554257831124208
 MonoBehaviour:
@@ -7244,8 +7233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Amazon Queen
-  speakerColor: {r: 0.94117653, g: 0.5254902, b: 0.18431373, a: 1}
+  character: 3
   text: The desirable one!
 --- !u!114 &-2460494167031534869
 MonoBehaviour:
@@ -7311,8 +7299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Dwarf
-  speakerColor: {r: 0.6901961, g: 0.14117648, b: 0.0627451, a: 1}
+  character: 2
   text: Take this sword forged by dwarfs to help you on your way.
 --- !u!114 &-2018322001125750080
 MonoBehaviour:
@@ -7326,8 +7313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Mike
-  speakerColor: {r: 0.13725491, g: 0.10196079, b: 0.70980394, a: 1}
+  character: 0
   text: It is for Justin.
 --- !u!114 &-1708927355022926204
 MonoBehaviour:
@@ -7383,8 +7369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Mike
-  speakerColor: {r: 0.13725491, g: 0.10196079, b: 0.70980394, a: 1}
+  character: 0
   text: "I\u2019m sorry my Queen, but I need my full strength facing the upcoming
     challenges."
 --- !u!114 &-1088141881716859909
@@ -7420,8 +7405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Mike
-  speakerColor: {r: 0.13725491, g: 0.10196079, b: 0.70980394, a: 1}
+  character: 0
   text: "I\u2019m sorry my Queen, but I\u2019m much too focused on the mission at
     hand - saving the world - to even consider such a precious gift right now."
 --- !u!114 &-478170754252646891
@@ -7457,8 +7441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Mike
-  speakerColor: {r: 0.13725491, g: 0.10196079, b: 0.70980394, a: 1}
+  character: 0
   text: "You once said something I said you\u2019d regret some day. Today could be
     the day."
 --- !u!114 &-408508177773435815
@@ -7473,8 +7456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Justin Finn
-  speakerColor: {r: 0.8352942, g: 0.3921569, b: 0.4784314, a: 1}
+  character: 4
   text: "Rrrrrrshhhh\u2026"
 --- !u!114 &-337348156875465769
 MonoBehaviour:
@@ -7500,8 +7482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Mike
-  speakerColor: {r: 0.13725491, g: 0.10196079, b: 0.70980394, a: 1}
+  character: 0
   text: "But I\u2019m willing to let go of the past. If only you tell everyone here
     you were wrong and ask for my forgiveness."
 --- !u!114 &-298775996342512628
@@ -7516,8 +7497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Amazon Queen
-  speakerColor: {r: 0.94117653, g: 0.5254902, b: 0.18431373, a: 1}
+  character: 3
   text: Let me fill it!
 --- !u!114 &-212139656140520490
 MonoBehaviour:
@@ -11031,8 +11011,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Amazon Queen
-  speakerColor: {r: 0.94117653, g: 0.5254902, b: 0.18431373, a: 1}
+  character: 3
   text: You forgot to mention how handsome he is!
 --- !u!114 &485234611125924919
 MonoBehaviour:
@@ -11085,8 +11064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Justin Finn
-  speakerColor: {r: 0.8352942, g: 0.3921569, b: 0.4784314, a: 1}
+  character: 4
   text: "Rrrrrrshhhh\u2026"
 --- !u!114 &811143815198627118
 MonoBehaviour:
@@ -11675,8 +11653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Mike
-  speakerColor: {r: 0.13725491, g: 0.10196079, b: 0.70980394, a: 1}
+  character: 0
   text: "Well, let\u2019s just say I\u2019m\u2026"
 --- !u!114 &1460103636196077627
 MonoBehaviour:
@@ -11796,8 +11773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Dwarf
-  speakerColor: {r: 0.6901961, g: 0.14117648, b: 0.0627451, a: 1}
+  character: 2
   text: 'The stupendous one! '
 --- !u!114 &2286884283987853203
 MonoBehaviour:
@@ -11811,8 +11787,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Justin Finn
-  speakerColor: {r: 0.8352942, g: 0.3921569, b: 0.4784314, a: 1}
+  character: 4
   text: "Rrrrrrshhhh\u2026"
 --- !u!114 &2296457216737581019
 MonoBehaviour:
@@ -11826,8 +11801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Dwarf
-  speakerColor: {r: 0.6901961, g: 0.14117648, b: 0.0627451, a: 1}
+  character: 2
   text: A better man!
 --- !u!114 &2391278258039429510
 MonoBehaviour:
@@ -12652,8 +12626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Dwarf
-  speakerColor: {r: 0.6901961, g: 0.14117648, b: 0.0627451, a: 1}
+  character: 2
   text: The astonishing one!
 --- !u!114 &3055758257730992603
 MonoBehaviour:
@@ -13214,8 +13187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Fan Duil
-  speakerColor: {r: 0.14509805, g: 0.70980394, b: 0.20000002, a: 1}
+  character: 5
   text: The bright one!
 --- !u!114 &3933081826604591258
 MonoBehaviour:
@@ -13295,8 +13267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Fan Duil
-  speakerColor: {r: 0.14509805, g: 0.70980394, b: 0.20000002, a: 1}
+  character: 5
   text: You truly are a great man!
 --- !u!114 &4574651765004956071
 MonoBehaviour:
@@ -13369,8 +13340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Mike
-  speakerColor: {r: 0.13725491, g: 0.10196079, b: 0.70980394, a: 1}
+  character: 0
   text: Sure thing. I only have one request.
 --- !u!114 &4836339972832848878
 MonoBehaviour:
@@ -13892,8 +13862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Justin Finn
-  speakerColor: {r: 0.8352942, g: 0.3921569, b: 0.4784314, a: 1}
+  character: 4
   text: "Rrrrshhhh\u2026 The enviable one!"
 --- !u!114 &5567292317373626995
 MonoBehaviour:
@@ -13907,8 +13876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Justin Finn
-  speakerColor: {r: 0.8352942, g: 0.3921569, b: 0.4784314, a: 1}
+  character: 4
   text: "Rrrrrshhh\u2026 I\u2026 am\u2026 sorry\u2026 I made a mistake\u2026 I shouldn\u2019t
     have called you that. It wasn\u2019t true. I was jealous of your talent and looks
     even back then."
@@ -13947,8 +13915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Fan Duil
-  speakerColor: {r: 0.14509805, g: 0.70980394, b: 0.20000002, a: 1}
+  character: 5
   text: You fool! What have you done.
 --- !u!114 &6026367514845710727
 MonoBehaviour:
@@ -13974,8 +13941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Randalf
-  speakerColor: {r: 0.427451, g: 0.1137255, b: 0.65882355, a: 1}
+  character: 1
   text: "\u2026 How did you know?!?"
 --- !u!114 &6132003265752372996
 MonoBehaviour:
@@ -14568,8 +14534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Justin Finn
-  speakerColor: {r: 0.8352942, g: 0.3921569, b: 0.4784314, a: 1}
+  character: 4
   text: "Rrrrrrrshhhh\u2026"
 --- !u!114 &7481309302138135173
 MonoBehaviour:
@@ -14604,8 +14569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Randalf
-  speakerColor: {r: 0.427451, g: 0.1137255, b: 0.65882355, a: 1}
+  character: 1
   text: "Now is not the time to be a dope, Justin. Just ask for Mike\u2019s forgiveness
     and we can continue."
 --- !u!114 &7635513589206295371
@@ -15224,8 +15188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Fan Duil
-  speakerColor: {r: 0.14509805, g: 0.70980394, b: 0.20000002, a: 1}
+  character: 5
   text: "Randalf, is this the chosen one you\u2019ve spoken so highly of?"
 --- !u!114 &7916589310387842479
 MonoBehaviour:
@@ -15302,8 +15265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c1e3e3e1f9b244b8166a81e1fd70f, type: 3}
   m_Name: TalkAsset
   m_EditorClassIdentifier: 
-  speaker: Randalf
-  speakerColor: {r: 0.427451, g: 0.1137255, b: 0.65882355, a: 1}
+  character: 1
   text: Most sophisticated one, no doubt about it. The first of the undefeatable quests
     is the climb to Mount Boom.
 --- !u!114 &8049641279240649194

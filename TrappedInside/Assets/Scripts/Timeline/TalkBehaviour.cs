@@ -9,10 +9,10 @@ public class TalkBehaviour : PlayableBehaviour
     private int charsToShow;
     private float startTime;
     public int charsPerSecond = 20;
-    public string speaker = string.Empty;
     public string text = string.Empty;
-    public Color speakerColor = new Color(1, 1, 1);
+    public DialogSettings dialogSettings;
     private bool dialogAcked = false;
+
 
     private bool IsDoneTyping => charsToShow == text.Length;
 
@@ -21,7 +21,7 @@ public class TalkBehaviour : PlayableBehaviour
         var textComponents = dialogBox.GetComponentsInChildren<Text>();
 
         var speakerComponent = textComponents[0];
-        speakerComponent.color = speakerColor;
+        speakerComponent.color = dialogSettings.SpeakerColor;
         var textComponent = textComponents[1];
 
         var oldCharsToShow = charsToShow;
@@ -30,7 +30,7 @@ public class TalkBehaviour : PlayableBehaviour
             min: charsToShow,
             max: text.Length);
 
-        speakerComponent.text = speaker;
+        speakerComponent.text = dialogSettings.SpeakerName;
         textComponent.text = text.Substring(0, charsToShow);
 
         // If something more was typed, make noise and react to text end.
