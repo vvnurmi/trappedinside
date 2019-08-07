@@ -10,9 +10,10 @@ public class TalkBehaviour : PlayableBehaviour
     private float startTime;
     public int charsPerSecond = 20;
     public DialogSettings dialogSettings;
+    public GameObject gameObject;
     private bool dialogAcked = false;
-    private bool leftChoiseSelected = true;
-    private bool IsSelectionEnabled => dialogSettings.LeftChoise.Length > 0 && dialogSettings.RightChoise.Length > 0;
+    private bool leftChoiceSelected = true;
+    private bool IsSelectionEnabled => dialogSettings.LeftChoice.Length > 0 && dialogSettings.RightChoice.Length > 0;
 
 
     private bool IsDoneTyping => charsToShow == dialogSettings.Text.Length;
@@ -46,14 +47,15 @@ public class TalkBehaviour : PlayableBehaviour
         if (IsDoneTyping)
         {
             var horizontalInput = Input.GetAxis("Horizontal");
+            PlayIdleAnimation();
 
             if (horizontalInput < 0)
             {
-                leftChoiseSelected = true;
+                leftChoiceSelected = true;
             }
             if (horizontalInput > 0)
             {
-                leftChoiseSelected = false;
+                leftChoiceSelected = false;
             }
 
             if (dialogAcked)
@@ -65,8 +67,8 @@ public class TalkBehaviour : PlayableBehaviour
             else if (IsSelectionEnabled)
             {
                 SetSpeed(playable, 0);
-                textComponents[2].text = leftChoiseSelected ? $"[{dialogSettings.LeftChoise}]" : $" {dialogSettings.LeftChoise} ";
-                textComponents[3].text = leftChoiseSelected ? $" {dialogSettings.RightChoise} " : $"[{dialogSettings.RightChoise}]";
+                textComponents[2].text = leftChoiceSelected ? $"[{dialogSettings.LeftChoice}]" : $" {dialogSettings.LeftChoice} ";
+                textComponents[3].text = leftChoiceSelected ? $" {dialogSettings.RightChoice} " : $"[{dialogSettings.RightChoice}]";
                 dialogAcked = Input.GetButtonUp("Jump");
             }
             else
@@ -75,6 +77,11 @@ public class TalkBehaviour : PlayableBehaviour
                 dialogAcked = Input.GetButtonUp("Jump");
             }
         }
+        else
+        {
+            PlayTalkingAnimation();
+        }
+
     }
 
     private void SetSpeed(Playable playable, double value) => playable.GetGraph().GetRootPlayable(0).SetSpeed(value);
@@ -83,10 +90,17 @@ public class TalkBehaviour : PlayableBehaviour
     {
         startTime = Time.time;
         SetSpeed(playable, 1);
+        PlayTalkingAnimation();
     }
 
     public override void OnBehaviourPause(Playable playable, FrameData info)
     {
         SetSpeed(playable, 1);
+        PlayIdleAnimation();
     }
+
+    private void PlayTalkingAnimation() => PlayAnimation("Talking");
+    private void PlayIdleAnimation() => PlayAnimation("Idle");
+
+    private void PlayAnimation(string animation) => gameObject.GetComponent<Animator>().Play(animation);
 }
