@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UI;
 
@@ -20,7 +21,7 @@ public class TalkBehaviour : PlayableBehaviour
 
     public override void ProcessFrame(Playable playable, FrameData info, object playerData) {
         GameObject dialogBox = playerData as GameObject;
-        var textComponents = dialogBox.GetComponentsInChildren<Text>();
+        var textComponents = dialogBox.GetComponentsInChildren<TextMeshProUGUI>();
 
         var speakerComponent = textComponents[0];
         speakerComponent.color = dialogSettings.SpeakerColor;
