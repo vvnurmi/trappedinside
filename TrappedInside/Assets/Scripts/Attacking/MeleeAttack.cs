@@ -1,13 +1,15 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// Handles melee attacking.
 /// 
-/// Melee is initiated by MeleeAttack and it's phases are controlled by the
+/// Melee is initiated by MeleeAttack and its phases are controlled by the
 /// character's animation.
 /// 
-/// Usage tip: <see cref="weapon"/> should have a collider and a script to
-/// inflict damage on attack collision.
+/// Usage tip: Each possible weapon is a subobject. Subobjects should have
+/// a <see cref="MeleeHit"/> to identify the weapon type and its properties.
+/// Subjects should also have a collider to represent the weapon's impact area.
 /// </summary>
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(AudioSource))]
@@ -17,15 +19,6 @@ public class MeleeAttack : MonoBehaviour
 {
     [Tooltip("The sound to play on melee attack.")]
     public AudioClip meleeSound;
-
-    [Tooltip("Subobject that has the melee collider.")]
-    public GameObject weapon;
-
-    [Tooltip("Is sword attack enabled.")]
-    public bool hasSwordAttack;
-
-    [Tooltip("Is shield bash attack enabled.")]
-    public bool hasShieldBashAttack = true;
 
     // Set about once, probably in Start().
     private Animator animator;
@@ -43,7 +36,7 @@ public class MeleeAttack : MonoBehaviour
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         characterController = GetComponent<CharacterController2D>();
-        weapon.SetActive(false);
+        DeactivateWeapons();
         inputProvider = GetComponent<InputProvider>();
 
         timedAnimTriggers = new TimedAnimationTriggers(animator, 0.1f);
@@ -59,23 +52,46 @@ public class MeleeAttack : MonoBehaviour
 
     #endregion
 
+    private void DeactivateWeapons()
+    {
+        foreach (var weapon in GetComponentsInChildren<MeleeHit>())
+            weapon.gameObject.SetActive(false);
+    }
+
+    private void ActivateWeapon(MeleeAttackType type)
+    {
+        foreach (var weapon in GetComponentsInChildren<MeleeHit>(includeInactive: true))
+            if (weapon.attackType == type)
+                weapon.gameObject.SetActive(true);
+    }
+
     private void HandleFireInput(PlayerInput input)
     {
         if (input.fire1)
             timedAnimTriggers.Set("StartMelee");
     }
 
-    public void AnimEvent_StartAttacking()
+    public void AnimEvent_StartAttacking(MeleeAttackType attack)
     {
-        characterController.state.isInMelee = true;
-        weapon.SetActive(true);
+        switch (attack)
+        {
+            case MeleeAttackType.Sword:
+                characterController.state.isInHorizontalAttackMove = true;
+                characterController.state.isInVerticalAttackMove = true;
+                break;
+            case MeleeAttackType.ShieldBash:
+                characterController.state.isInVerticalAttackMove = true;
+                break;
+        }
+        ActivateWeapon(attack);
         audioSource.TryPlay(meleeSound);
     }
 
     public void AnimEvent_StopAttacking()
     {
-        characterController.state.isInMelee = false;
-        weapon.SetActive(false);
+        characterController.state.isInHorizontalAttackMove = false;
+        characterController.state.isInVerticalAttackMove = false;
+        DeactivateWeapons();
         animator.SetTrigger("StopMelee");
     }
 }

@@ -45,10 +45,10 @@
 </data>
  </layer>
  <objectgroup id="12" name="Enemies">
-  <object id="8" name="Spikey 02" type="Spikey" x="192" y="128">
+  <object id="8" name="Spikey 02" type="Spikey" x="336" y="128">
    <point/>
   </object>
-  <object id="9" name="Spikey 01" type="Spikey" x="64" y="128">
+  <object id="9" name="Spikey 01" type="Spikey" x="208" y="128">
    <point/>
   </object>
  </objectgroup>
@@ -58,9 +58,6 @@
     <property name="Size" type="int" value="10"/>
     <property name="nextLevel" type="file" value="../Scenes/Level1.unity"/>
    </properties>
-  </object>
-  <object id="11" name="Mike" type="Mike Start" x="288" y="128">
-   <point/>
   </object>
  </objectgroup>
 </map>

@@ -4,12 +4,21 @@
 public class CharacterState
 {
     public bool isDead;
-    public bool isInMelee;
+
+    /// <summary>
+    /// Is the character's horizontal movement governed by an attack.
+    /// </summary>
+    public bool isInHorizontalAttackMove;
+
+    /// <summary>
+    /// Is the character's vertical movement governed by an attack.
+    /// </summary>
+    public bool isInVerticalAttackMove;
 
     public CollisionInfo collisions = new CollisionInfo();
 
-    public bool CanMoveHorizontally => !isDead && !isInMelee;
-    public bool CanJump => !isDead && !isInMelee;
+    public bool CanMoveHorizontally => !isDead && !isInHorizontalAttackMove;
+    public bool CanJump => !isDead && !isInVerticalAttackMove;
     public bool CanChangeDirection => !isDead;
     public bool CanInflictDamage => !isDead;
 }

@@ -91,8 +91,10 @@ public class LegMovement : MonoBehaviour
 
     private void HandleVerticalInput(PlayerInput input)
     {
-        if (input.jumpPressed) Jump();
-        if (input.jumpReleased) StopJumping();
+        if (input.jumpPressed)
+            Jump();
+        if (input.jumpReleased || !characterController.state.CanJump)
+            StopJumping();
 
         velocity.y += gravity * Time.deltaTime;
 
