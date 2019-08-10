@@ -21,6 +21,12 @@ public class MeleeAttack : MonoBehaviour
     [Tooltip("Subobject that has the melee collider.")]
     public GameObject weapon;
 
+    [Tooltip("Is sword attack enabled.")]
+    public bool hasSwordAttack;
+
+    [Tooltip("Is shield bash attack enabled.")]
+    public bool hasShieldBashAttack = true;
+
     // Set about once, probably in Start().
     private Animator animator;
     private AudioSource audioSource;
