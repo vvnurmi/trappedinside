@@ -1,7 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
-using UnityEngine.UI;
 
 // A behaviour that is attached to a playable
 public class TalkBehaviour : PlayableBehaviour
@@ -16,7 +15,6 @@ public class TalkBehaviour : PlayableBehaviour
     private bool leftChoiceSelected = true;
     private bool IsSelectionEnabled => dialogSettings.LeftChoice.Length > 0 && dialogSettings.RightChoice.Length > 0;
 
-
     private bool IsDoneTyping => charsToShow == dialogSettings.Text.Length;
 
     public override void ProcessFrame(Playable playable, FrameData info, object playerData) {
@@ -27,23 +25,6 @@ public class TalkBehaviour : PlayableBehaviour
         speakerComponent.color = dialogSettings.SpeakerColor;
         var textComponent = textComponents[1];
 
-        var oldCharsToShow = charsToShow;
-        charsToShow = Mathf.Clamp(
-            value: Mathf.RoundToInt((Time.time - startTime) * charsPerSecond),
-            min: charsToShow,
-            max: dialogSettings.Text.Length);
-
-        speakerComponent.text = dialogSettings.SpeakerName;
-        textComponent.text = dialogSettings.Text.Substring(0, charsToShow);
-
-        // If something more was typed, make noise and react to text end.
-        if (oldCharsToShow < charsToShow)
-        {
-            var lastCharIsSpace = textComponent.text.Length == 0 ||
-                char.IsWhiteSpace(textComponent.text[textComponent.text.Length - 1]);
-            if (!lastCharIsSpace)
-                dialogBox.GetComponent<AudioSource>().Play();
-        }
 
         if (IsDoneTyping)
         {
@@ -61,7 +42,7 @@ public class TalkBehaviour : PlayableBehaviour
 
             if (dialogAcked)
             {
-                SetSpeed(playable, 5);
+                SetSpeed(playable, 50);
                 textComponents[2].text = "";
                 textComponents[3].text = "";
             }
@@ -80,6 +61,30 @@ public class TalkBehaviour : PlayableBehaviour
         }
         else
         {
+            var oldCharsToShow = charsToShow;
+            if (Input.GetButtonUp("Jump"))
+            {
+                charsToShow = dialogSettings.Text.Length;
+            }
+            else
+            {
+                charsToShow = Mathf.Clamp(
+                    value: Mathf.RoundToInt((Time.time - startTime) * charsPerSecond),
+                    min: charsToShow,
+                    max: dialogSettings.Text.Length);
+            }
+
+            speakerComponent.text = dialogSettings.SpeakerName;
+            textComponent.text = dialogSettings.Text.Substring(0, charsToShow);
+
+            // If something more was typed, make noise and react to text end.
+            if (oldCharsToShow < charsToShow)
+            {
+                var lastCharIsSpace = textComponent.text.Length == 0 ||
+                    char.IsWhiteSpace(textComponent.text[textComponent.text.Length - 1]);
+                if (!lastCharIsSpace)
+                    dialogBox.GetComponent<AudioSource>().Play();
+            }
             PlayTalkingAnimation();
         }
 
