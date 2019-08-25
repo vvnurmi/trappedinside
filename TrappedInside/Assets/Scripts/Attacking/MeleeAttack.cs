@@ -47,7 +47,7 @@ public class MeleeAttack : MonoBehaviour
         timedAnimTriggers.Update();
 
         var input = inputProvider.GetInput();
-        HandleFireInput(input);
+        HandleInput(input);
     }
 
     #endregion
@@ -65,8 +65,9 @@ public class MeleeAttack : MonoBehaviour
                 weapon.gameObject.SetActive(true);
     }
 
-    private void HandleFireInput(PlayerInput input)
+    private void HandleInput(PlayerInput input)
     {
+        animator.SetBool("IsPrepUp", input.vertical > 0.5f);
         if (input.fire1)
             timedAnimTriggers.Set("StartMelee");
     }
@@ -76,11 +77,15 @@ public class MeleeAttack : MonoBehaviour
         switch (attack)
         {
             case MeleeAttackType.Sword:
+            case MeleeAttackType.SwordSwingUp:
                 characterController.state.isInHorizontalAttackMove = true;
                 characterController.state.isInVerticalAttackMove = true;
                 break;
             case MeleeAttackType.ShieldBash:
                 characterController.state.isInVerticalAttackMove = true;
+                break;
+            default:
+                Debug.LogError($"Unhandled {nameof(MeleeAttackType)} {attack}");
                 break;
         }
         ActivateWeapon(attack);
