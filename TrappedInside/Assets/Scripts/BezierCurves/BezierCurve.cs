@@ -31,7 +31,7 @@ public class BezierCurve : MonoBehaviour {
 	/// <value>
 	/// <c>true</c> if dirty; otherwise, <c>false</c>.
 	/// </value>
-	public bool dirty { get; private set; }
+	public bool Dirty { get; private set; }
 	
 	/// <summary>
 	/// 	- color this curve will be drawn with in the editor
@@ -50,14 +50,14 @@ public class BezierCurve : MonoBehaviour {
 	/// 	- setting this value will cause the curve to become dirty
 	/// </summary>
 	[SerializeField] private bool _close;
-	public bool close
+	public bool Close
 	{
 		get { return _close; }
 		set
 		{
 			if(_close == value) return;
 			_close = value;
-			dirty = true;
+			Dirty = true;
 		}
 	}
 	
@@ -82,7 +82,7 @@ public class BezierCurve : MonoBehaviour {
 	/// <value>
 	/// 	- The point count
 	/// </value>
-	public int pointCount
+	public int PointCount
 	{
 		get { return points.Length; }
 	}
@@ -92,20 +92,20 @@ public class BezierCurve : MonoBehaviour {
 	/// 	- recalculates if the curve is "dirty"
 	/// </summary>
 	private float _length;
-	public float length
+	public float Length
 	{
 		get
 		{
-			if(dirty)
+			if(Dirty)
 			{
 				_length = 0;
 				for(int i = 0; i < points.Length - 1; i++){
 					_length += ApproximateLength(points[i], points[i + 1], resolution);
 				}
 				
-				if(close) _length += ApproximateLength(points[points.Length - 1], points[0], resolution);
+				if(Close) _length += ApproximateLength(points[points.Length - 1], points[0], resolution);
 				
-				dirty = false;
+				Dirty = false;
 			}
 			
 			return _length;
@@ -134,12 +134,12 @@ public class BezierCurve : MonoBehaviour {
 				DrawCurve(points[i], points[i+1], resolution);
 			}
 			
-			if (close) DrawCurve(points[points.Length - 1], points[0], resolution);
+			if (Close) DrawCurve(points[points.Length - 1], points[0], resolution);
 		}
 	}
 	
 	void Awake(){
-		dirty = true;
+		Dirty = true;
 	}
 
 	#endregion
@@ -154,10 +154,9 @@ public class BezierCurve : MonoBehaviour {
 	/// </param>
 	public void AddPoint(BezierPoint point)
 	{
-		List<BezierPoint> tempArray = new List<BezierPoint>(points);
-		tempArray.Add(point);
-		points = tempArray.ToArray();
-		dirty = true;
+        List<BezierPoint> tempArray = new List<BezierPoint>(points) { point };
+        points = tempArray.ToArray();
+		Dirty = true;
 	}
 	
 	/// <summary>
@@ -171,7 +170,7 @@ public class BezierCurve : MonoBehaviour {
 	/// </param>
 	public BezierPoint AddPointAt(Vector3 position)
 	{
-		GameObject pointObject = new GameObject("Point "+pointCount);
+		GameObject pointObject = new GameObject("Point "+PointCount);
 
 		pointObject.transform.parent = transform;
 		pointObject.transform.position = position;
@@ -193,7 +192,7 @@ public class BezierCurve : MonoBehaviour {
 		List<BezierPoint> tempArray = new List<BezierPoint>(points);
 		tempArray.Remove(point);
 		points = tempArray.ToArray();
-		dirty = false;
+		Dirty = false;
 	}
 	
 	/// <summary>
@@ -229,7 +228,7 @@ public class BezierCurve : MonoBehaviour {
 		
 		for(int i = 0; i < points.Length - 1; i++)
 		{
-			curvePercent = ApproximateLength(points[i], points[i + 1], 10) / length;
+			curvePercent = ApproximateLength(points[i], points[i + 1], 10) / Length;
 			if(totalPercent + curvePercent > t)
 			{
 				p1 = points[i];
@@ -240,7 +239,7 @@ public class BezierCurve : MonoBehaviour {
 			else totalPercent += curvePercent;
 		}
 		
-		if(close && p1 == null)
+		if(Close && p1 == null)
 		{
 			p1 = points[points.Length - 1];
 			p2 = points[0];
@@ -281,7 +280,7 @@ public class BezierCurve : MonoBehaviour {
 	/// </summary>
 	public void SetDirty()
 	{
-		dirty = true;
+		Dirty = true;
 	}
 	
 	#endregion

@@ -159,7 +159,7 @@ public class BezierPoint : MonoBehaviour{
 	
 	void Update()
 	{
-		if(!_curve.dirty && transform.position != lastPosition)
+		if(!_curve.Dirty && transform.position != lastPosition)
 		{
 			_curve.SetDirty();
 			lastPosition = transform.position;

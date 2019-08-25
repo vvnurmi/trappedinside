@@ -69,7 +69,7 @@ public class BezierCurveEditor : Editor
 	
 	void OnSceneGUI()
 	{
-		for(int i = 0; i < curve.pointCount; i++)
+		for(int i = 0; i < curve.PointCount; i++)
 		{
 			DrawPointSceneGUI(curve[i]);
 		}
@@ -88,7 +88,7 @@ public class BezierCurveEditor : Editor
 		if(GUILayout.Button("X", GUILayout.Width(20)))
 		{
 			Undo.RegisterSceneUndo("Remove Point");
-			pointsProp.MoveArrayElement(curve.GetPointIndex(point), curve.pointCount - 1);
+			pointsProp.MoveArrayElement(curve.GetPointIndex(point), curve.PointCount - 1);
 			pointsProp.arraySize--;
 			DestroyImmediate(point.gameObject);
 			return;
@@ -258,6 +258,6 @@ public class BezierCurveEditor : Editor
 		p4.handleStyle = BezierPoint.HandleStyle.Connected;
 		p4.handle1 = new Vector3(0, 0, -0.28f);
 		
-		curve.close = true;
+		curve.Close = true;
 	}
 }
