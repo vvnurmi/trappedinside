@@ -1,0 +1,15 @@
+{
+    "name": "ScriptsEditor",
+    "references": [
+        "GUID:2714444089d4610449a395dda5147c55"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}
