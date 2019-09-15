@@ -29,6 +29,9 @@ public class MeleeAttack : MonoBehaviour
     // Helpers
     private TimedAnimationTriggers timedAnimTriggers;
 
+    // Modified during gameplay.
+    MeleeAttackType? activeAttack;
+
     #region MonoBehaviour overrides
 
     private void Start()
@@ -74,10 +77,14 @@ public class MeleeAttack : MonoBehaviour
 
     public void AnimEvent_StartAttacking(MeleeAttackType attack)
     {
+        Debug.Assert(!activeAttack.HasValue);
+        activeAttack = attack;
+
         switch (attack)
         {
             case MeleeAttackType.Sword:
             case MeleeAttackType.SwordSwingUp:
+            case MeleeAttackType.ShieldThrow:
                 characterController.state.isInHorizontalAttackMove = true;
                 characterController.state.isInVerticalAttackMove = true;
                 break;
@@ -94,9 +101,12 @@ public class MeleeAttack : MonoBehaviour
 
     public void AnimEvent_StopAttacking()
     {
+        Debug.Assert(activeAttack.HasValue);
+
         characterController.state.isInHorizontalAttackMove = false;
         characterController.state.isInVerticalAttackMove = false;
         DeactivateWeapons();
         animator.SetTrigger("StopMelee");
+        activeAttack = null;
     }
 }

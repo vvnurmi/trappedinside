@@ -3,4 +3,5 @@
     Sword,
     SwordSwingUp,
     ShieldBash,
+    ShieldThrow,
 }
