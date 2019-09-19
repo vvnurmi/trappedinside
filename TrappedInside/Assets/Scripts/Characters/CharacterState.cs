@@ -15,6 +15,9 @@ public class CharacterState
     /// </summary>
     public bool isInVerticalAttackMove;
 
+    public bool canClimb;
+    public bool isClimbing;
+
     public CollisionInfo collisions = new CollisionInfo();
 
     public bool CanMoveHorizontally => !isDead && !isInHorizontalAttackMove;

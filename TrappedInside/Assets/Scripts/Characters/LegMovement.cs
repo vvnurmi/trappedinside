@@ -156,4 +156,25 @@ public class LegMovement : MonoBehaviour
 
         transform.Translate(moveAmount);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (IsLadderLayer(collision))
+        {
+            characterController.state.canClimb = true;
+            Debug.Log("Ladder enter.");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (IsLadderLayer(collision))
+        {
+            characterController.state.canClimb = false;
+            Debug.Log("Ladder exit.");
+        }
+    }
+
+    private bool IsLadderLayer(Collider2D collision) =>
+        collision.gameObject.layer == LayerMask.NameToLayer("Ladder");
 }

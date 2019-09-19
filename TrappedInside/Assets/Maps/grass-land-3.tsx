@@ -174,6 +174,16 @@
    <object id="1" x="0" y="0" width="16" height="13"/>
   </objectgroup>
  </tile>
+ <tile id="151">
+  <objectgroup draworder="index">
+   <object id="1" x="13" y="0" width="3" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="152">
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="0" width="3" height="16"/>
+  </objectgroup>
+ </tile>
  <tile id="408">
   <objectgroup draworder="index">
    <object id="1" x="0" y="0" width="16" height="16"/>
