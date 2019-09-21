@@ -91,18 +91,42 @@ public class LegMovement : MonoBehaviour
 
     private void HandleVerticalInput(PlayerInput input)
     {
-        if (input.jumpPressed)
-            Jump();
-        if (input.jumpReleased || !characterController.state.CanJump)
-            StopJumping();
+        if (characterController.state.isClimbing)
+        {
+            velocity.y = input.vertical * movement.maxSpeed / 2;
+            velocity.x = 0;
 
-        velocity.y += gravity * Time.deltaTime;
+            if (input.jumpPressed || HasReachedLadderBottom(input))
+                characterController.state.isClimbing = false;
 
-        animator.SetBool("Jumping", !characterController.state.collisions.below);
+        }
+        else
+        {
+            if (input.jumpPressed)
+                Jump();
+
+            if (input.jumpReleased || !characterController.state.CanJump)
+                StopJumping();
+
+            velocity.y += gravity * Time.deltaTime;
+            animator.SetBool("Jumping", !characterController.state.collisions.below);
+
+
+            if ( Mathf.Abs(input.vertical) > 0.8 && characterController.state.canClimb)
+            {
+                characterController.state.isClimbing = true;
+            }
+
+        }
     }
+
+    private bool HasReachedLadderBottom(PlayerInput input) => input.vertical < 0 && characterController.state.collisions.below;
 
     private void HandleHorizontalInput(PlayerInput input)
     {
+        if (characterController.state.isClimbing)
+            return;
+
         var inputRequiresFlip =
             (input.horizontal < 0 && IsFacingRight) ||
             (input.horizontal > 0 && !IsFacingRight);
