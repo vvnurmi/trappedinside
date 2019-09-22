@@ -29,6 +29,7 @@ public class LegMovement : MonoBehaviour
     private InputProvider inputProvider;
     private RaycastCollider groundCollider;
     private SpriteRenderer spriteRenderer;
+    private float ladderCenterPosition;
     private float gravity;
     private float initialJumpSpeed;
     private float dampedJumpSpeed; // What jump speed becomes after Jump button is released.
@@ -119,8 +120,11 @@ public class LegMovement : MonoBehaviour
 
             if (Mathf.Abs(input.vertical) > 0.8 && characterController.state.canClimb)
             {
-                if(!characterController.state.collisions.below || input.vertical > 0)
+                if (!characterController.state.collisions.below || input.vertical > 0)
+                {
                     characterController.state.isClimbing = true;
+                    transform.position = new Vector2(ladderCenterPosition, transform.position.y);
+                }
             }
 
         }
@@ -193,6 +197,7 @@ public class LegMovement : MonoBehaviour
     {
         if (IsLadderLayer(collision))
         {
+            ladderCenterPosition = collision.bounds.center.x;
             characterController.state.canClimb = true;
             Debug.Log("Ladder enter.");
         }
