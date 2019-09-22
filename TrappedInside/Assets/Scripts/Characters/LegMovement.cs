@@ -96,11 +96,14 @@ public class LegMovement : MonoBehaviour
             velocity.y = input.vertical * movement.maxSpeed / 2;
             velocity.x = 0;
 
-            if (input.jumpPressed || HasReachedLadderBottom(input))
+            if (input.jumpPressed)
             {
                 Jump(0.3f * initialJumpSpeed);
                 characterController.state.isClimbing = false;
             }
+
+            if (HasReachedLadderBottom(input))
+                characterController.state.isClimbing = false;
 
         }
         else
@@ -114,12 +117,14 @@ public class LegMovement : MonoBehaviour
             velocity.y += gravity * Time.deltaTime;
             animator.SetBool("Jumping", !characterController.state.collisions.below);
 
-            if ( Mathf.Abs(input.vertical) > 0.8 && characterController.state.canClimb)
+            if (Mathf.Abs(input.vertical) > 0.8 && characterController.state.canClimb)
             {
-                characterController.state.isClimbing = true;
+                if(!characterController.state.collisions.below || input.vertical > 0)
+                    characterController.state.isClimbing = true;
             }
 
         }
+        animator.SetBool("Climbing", characterController.state.isClimbing);
     }
 
     private bool HasReachedLadderBottom(PlayerInput input) => input.vertical < 0 && characterController.state.collisions.below;
