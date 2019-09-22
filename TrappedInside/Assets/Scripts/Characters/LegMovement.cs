@@ -97,20 +97,22 @@ public class LegMovement : MonoBehaviour
             velocity.x = 0;
 
             if (input.jumpPressed || HasReachedLadderBottom(input))
+            {
+                Jump(0.3f * initialJumpSpeed);
                 characterController.state.isClimbing = false;
+            }
 
         }
         else
         {
             if (input.jumpPressed)
-                Jump();
+                Jump(initialJumpSpeed);
 
-            if (input.jumpReleased || !characterController.state.CanJump)
+            if (input.jumpReleased)
                 StopJumping();
 
             velocity.y += gravity * Time.deltaTime;
             animator.SetBool("Jumping", !characterController.state.collisions.below);
-
 
             if ( Mathf.Abs(input.vertical) > 0.8 && characterController.state.canClimb)
             {
@@ -153,13 +155,14 @@ public class LegMovement : MonoBehaviour
             transform.localScale.z);
     }
 
-    private void Jump()
+    private void Jump(float jumpSpeed)
     {
-        if (!characterController.state.collisions.below || !characterController.state.CanJump) return;
-
-        velocity.y = initialJumpSpeed;
-        timedAnimTriggers.Set("StartJump");
-        audioSource.TryPlay(jumpSound);
+        if (characterController.state.CanJump)
+        {
+            velocity.y = jumpSpeed;
+            timedAnimTriggers.Set("StartJump");
+            audioSource.TryPlay(jumpSound);
+        }
     }
 
     private void StopJumping()

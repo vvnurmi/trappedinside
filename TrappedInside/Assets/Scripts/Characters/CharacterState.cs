@@ -21,7 +21,7 @@ public class CharacterState
     public CollisionInfo collisions = new CollisionInfo();
 
     public bool CanMoveHorizontally => !isDead && !isInHorizontalAttackMove;
-    public bool CanJump => !isDead && !isInVerticalAttackMove;
+    public bool CanJump => !isDead && !isInVerticalAttackMove && (collisions.below || isClimbing);
     public bool CanChangeDirection => !isDead;
     public bool CanInflictDamage => !isDead;
 }
