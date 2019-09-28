@@ -123,7 +123,7 @@ public class LegMovement : MonoBehaviour
                 if (!characterController.state.collisions.below || input.vertical > 0)
                 {
                     characterController.state.isClimbing = true;
-                    transform.position = new Vector2(ladderCenterPosition, transform.position.y);
+                    //transform.position = new Vector2(ladderCenterPosition, transform.position.y);
                 }
             }
 
