@@ -15,7 +15,8 @@ public class ContactAttack : MonoBehaviour
 
     private void Start()
     {
-        characterController = GetComponent<CharacterController2D>();
+        characterController = GetComponentInParent<CharacterController2D>();
+        Debug.Assert(characterController != null, $"{nameof(CharacterController2D)} not found in parents of {name}");
     }
 
     private void OnTriggerEnter2D(Collider2D collision) => Hit(collision);

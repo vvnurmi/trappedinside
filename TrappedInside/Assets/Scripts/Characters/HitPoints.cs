@@ -21,7 +21,6 @@ public interface IDying
 /// Makes a game object damageable.
 /// </summary>
 [RequireComponent(typeof(AudioSource))]
-[RequireComponent(typeof(CharacterController2D))]
 public class HitPoints : MonoBehaviour
 {
     [Tooltip("Number of hit points when not damaged.")]
@@ -52,7 +51,8 @@ public class HitPoints : MonoBehaviour
     {
         animator = GetComponentInChildren<Animator>();
         audioSource = GetComponent<AudioSource>();
-        characterController = GetComponent<CharacterController2D>();
+        characterController = GetComponentInParent<CharacterController2D>();
+        Debug.Assert(characterController != null, $"{nameof(CharacterController2D)} not found in parents of {name}");
         CurrentHitPoints = maxHitPoints;
     }
 

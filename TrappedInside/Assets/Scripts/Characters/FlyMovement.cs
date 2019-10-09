@@ -21,7 +21,7 @@ public class FlyMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (proximityTrigger.PlayerInProximity)
+        if (proximityTrigger.PlayerInProximity && characterController.state.CanMoveHorizontally)
         {
             Debug.Assert(player != null, "Player was null in FlyMovement.cs");
             var direction = player.transform.position - transform.position;
