@@ -12,7 +12,7 @@ public interface ILaunchable
 /// <summary>
 /// Launches a clone of <see cref="projectile"/> along <see cref="flightPath"/>.
 /// </summary>
-public class LaunchObject : MonoBehaviour
+public class LaunchObject : MonoBehaviour, IAttack
 {
     [Tooltip("Object to clone and launch.")]
     public GameObject projectile;
@@ -38,7 +38,9 @@ public class LaunchObject : MonoBehaviour
         liveFlightPath = new Lazy<BezierCurve>(() => Instantiate(flightPath));
     }
 
-    private void OnEnable()
+    #endregion
+
+    public void OnAttack()
     {
         LiveFlightPath.transform.SetPositionAndRotation(transform.position, transform.rotation);
 
@@ -52,6 +54,4 @@ public class LaunchObject : MonoBehaviour
         var launchable = projectileClone.GetComponent<ILaunchable>();
         launchable.SetFlightPath(LiveFlightPath);
     }
-
-    #endregion
 }

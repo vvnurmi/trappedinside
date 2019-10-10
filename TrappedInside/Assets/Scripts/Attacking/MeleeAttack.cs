@@ -65,7 +65,11 @@ public class MeleeAttack : MonoBehaviour
     {
         foreach (var weapon in GetComponentsInChildren<MeleeHit>(includeInactive: true))
             if (weapon.attackType == type)
+            {
                 weapon.gameObject.SetActive(true);
+                var attack = weapon.gameObject.GetComponent<IAttack>();
+                attack?.OnAttack();
+            }
     }
 
     private void HandleInput(PlayerInput input)
