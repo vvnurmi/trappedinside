@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 2970453136097432339}
   - component: {fileID: 1036893419211792455}
   - component: {fileID: 1114513015011594890}
+  - component: {fileID: 6982326769349969158}
   - component: {fileID: 7796358727257184596}
   - component: {fileID: 7796358727257184597}
   - component: {fileID: 7796358727257184598}
@@ -332,6 +333,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverBox: {fileID: 8047727219098544103, guid: 66fecd3c42f6b6b4f9d16ae6ed64a4a2,
     type: 3}
+--- !u!114 &6982326769349969158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7796358727257184592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d8a8e9477b7cab40b7e47ac36490e64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameplayHud: {fileID: 3381257584531052204, guid: 0606a6c1a07709b439956ff8be2f21b5,
+    type: 3}
+  hitPointImages:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  fullHeart: {fileID: 21300000, guid: 2b01bdbb18e6a574a9683238a12a47f4, type: 3}
+  emptyHeart: {fileID: 21300004, guid: 2b01bdbb18e6a574a9683238a12a47f4, type: 3}
 --- !u!50 &7796358727257184596
 Rigidbody2D:
   serializedVersion: 4
@@ -375,9 +396,9 @@ BoxCollider2D:
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_AutoTiling: 1
   serializedVersion: 2
-  m_Size: {x: 0.12, y: 0.36}
+  m_Size: {x: 0.12, y: 0.38}
   m_EdgeRadius: 0
 --- !u!212 &7796358727257184598
 SpriteRenderer:
@@ -415,7 +436,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 12
   m_Sprite: {fileID: 21300000, guid: 8a2c6be564ff6ad418770aa553df7a81, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

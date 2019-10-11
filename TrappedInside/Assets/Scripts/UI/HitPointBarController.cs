@@ -6,14 +6,20 @@ using UnityEngine.UI;
 /// </summary>
 public class HitPointBarController : MonoBehaviour
 {
-    public Image[] hitPointImages;
+    [Tooltip("HUD for gameplay.")]
+    public GameObject gameplayHud;
+
     public Sprite fullHeart;
     public Sprite emptyHeart;
 
+    private Image[] hitPointImages;
     private HitPoints hitPoints;
 
     private void Awake()
     {
+        var hud = Instantiate(gameplayHud);
+        hitPointImages = hud.transform.GetComponentsInChildren<Image>();
+
         var playerTag = "Player";
         var player = GameObject.FindWithTag(playerTag);
         Debug.Assert(player != null, $"{nameof(HitPointBarController)} couldn't find anything tagged {playerTag}");
