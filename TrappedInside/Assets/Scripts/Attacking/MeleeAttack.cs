@@ -75,7 +75,7 @@ public class MeleeAttack : MonoBehaviour
     private void HandleInput(PlayerInput input)
     {
         animator.SetBool("IsPrepUp", input.vertical > 0.5f);
-        if (input.fire1)
+        if (input.fire1 && characterController.state.CanInflictDamage)
             timedAnimTriggers.Set("StartMelee");
     }
 
