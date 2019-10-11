@@ -48,7 +48,7 @@ public class UIController : MonoBehaviour
         // A simple heuristic to determine if we loaded a gameplay or title scene.
         if (scene.name == "Title")
             mode = UIMode.Title;
-        else if (scene.name.StartsWith("Level") || scene.name == "_DevSandbox")
+        else if (scene.name.StartsWith("Level") || scene.path.Contains("Demo scenes"))
             mode = UIMode.Gameplay;
         else
         {
