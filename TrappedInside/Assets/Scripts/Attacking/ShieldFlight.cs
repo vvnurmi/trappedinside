@@ -17,14 +17,13 @@ public class ShieldFlight : MonoBehaviour, ILaunchable
     public void SetFlightPath(BezierCurve path)
     {
         flightPath = path;
+        flightStart = Time.time;
     }
 
     #region MonoBehaviour overrides
 
     private void Awake()
     {
-        flightStart = Time.time;
-
         // Disown the shield object so that it will fly independently
         // of Mike's movement.
         transform.parent = null;
