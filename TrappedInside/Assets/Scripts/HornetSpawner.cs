@@ -7,6 +7,7 @@ public class HornetSpawner : MonoBehaviour
 
     public GameObject hornet;
     public float instantiateTimeout = 5.0f;
+    public int maxNumberOfHornets = 5;
 
     private float previousInstantiateTime = 0.0f;
 
@@ -21,8 +22,12 @@ public class HornetSpawner : MonoBehaviour
     {
         if (Time.time - previousInstantiateTime > instantiateTimeout)
         {
-            Instantiate(hornet, transform.position + new Vector3(0, -0.5f, 0), Quaternion.identity);
-            previousInstantiateTime = Time.time;
+            var numberOfHornets = GameObject.FindGameObjectsWithTag("Hornet").Length;
+            if (numberOfHornets < maxNumberOfHornets)
+            {
+                Instantiate(hornet, transform.position + new Vector3(0, -0.5f, 0), Quaternion.identity);
+                previousInstantiateTime = Time.time;
+            }
         }
     }
 }
