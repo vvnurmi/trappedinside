@@ -47,7 +47,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.5
+  m_Radius: 2.5
 --- !u!114 &63836951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 562093993172783851}
   m_Layer: 10
   m_Name: Hornet
-  m_TagString: Untagged
+  m_TagString: Hornet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -374,7 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4660389a0f2f1b48a3407ea749b988d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.3
+  speed: 0.5
 --- !u!50 &562093993172783851
 Rigidbody2D:
   serializedVersion: 4
