@@ -222,6 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flightPath: {fileID: 0}
   flightSeconds: 1.2
+  homingSeconds: 0.5
 --- !u!50 &1766784957631625745
 Rigidbody2D:
   serializedVersion: 4

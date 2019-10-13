@@ -9,15 +9,20 @@ public class ShieldFlight : MonoBehaviour, ILaunchable
     public BezierCurve flightPath;
 
     [Tooltip("Time of flight in seconds.")]
-    public float flightSeconds;
+    public float flightSeconds = 2;
 
-    // Initialized on wakeup.
+    [Tooltip("How many seconds of the end of the flight is reserved for returning home.")]
+    public float homingSeconds = 1;
+
+    // Modified at run-time.
     private float flightStart;
+    private GameObject homingTarget;
 
-    public void SetFlightPath(BezierCurve path)
+    public void SetFlightPath(BezierCurve path, GameObject home)
     {
         flightPath = path;
         flightStart = Time.time;
+        homingTarget = home;
     }
 
     #region MonoBehaviour overrides
@@ -33,7 +38,13 @@ public class ShieldFlight : MonoBehaviour, ILaunchable
     {
         float flightTime = Time.time - flightStart;
         float curveParam = flightTime / flightSeconds;
-        var position = flightPath.GetPointAt(curveParam);
+        float homingTime = flightTime - (flightSeconds - homingSeconds);
+        float homingFactor = Mathf.Clamp(homingTime / homingSeconds, 0, 1);
+
+        var pathPosition = flightPath.GetPointAt(curveParam);
+        var homePosition = homingTarget.transform.position;
+        var position = Vector3.Lerp(pathPosition, homePosition, homingFactor);
+
         transform.SetPositionAndRotation(position, transform.rotation);
     }
 

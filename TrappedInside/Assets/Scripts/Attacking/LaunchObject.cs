@@ -6,7 +6,7 @@ public interface ILaunchable
     /// <summary>
     /// Follow a flight path.
     /// </summary>
-    void SetFlightPath(BezierCurve path);
+    void SetFlightPath(BezierCurve path, GameObject home);
 }
 
 /// <summary>
@@ -59,6 +59,6 @@ public class LaunchObject : MonoBehaviour, IAttack
 
         liveProjectile.SetActive(true);
         var launchable = liveProjectile.GetComponent<ILaunchable>();
-        launchable.SetFlightPath(LiveFlightPath);
+        launchable.SetFlightPath(LiveFlightPath, gameObject);
     }
 }
