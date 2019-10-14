@@ -25,7 +25,7 @@ public class CollectShield : MonoBehaviour
         if (Time.time < collectWarmupEnd) return;
         if (!collision.CompareTag("Player")) return;
 
-        Destroy(shieldRoot);
+        shieldRoot.SetActive(false);
     }
 
     #endregion
