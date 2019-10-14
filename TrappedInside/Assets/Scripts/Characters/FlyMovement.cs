@@ -27,7 +27,7 @@ public class FlyMovement : MonoBehaviour
             Debug.Assert(player != null, "Player was null in FlyMovement.cs");
             var direction = player.transform.position - transform.position;
             var deltaPosition = direction.normalized * speed * Time.deltaTime;
-            var randomComponent = deltaPosition.magnitude * new Vector3(0, (float)random.NextDouble());
+            var randomComponent = deltaPosition.magnitude * new Vector3(0, (float)random.NextDouble() - 0.5f);
             transform.Translate(deltaPosition + randomComponent, Space.World);
 
             if ((deltaPosition.x < 0 && IsFacingRight) ||  (deltaPosition.x > 0 && !IsFacingRight))
