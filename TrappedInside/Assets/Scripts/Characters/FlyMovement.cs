@@ -6,6 +6,10 @@ public class FlyMovement : MonoBehaviour
     [Tooltip("Speed of fly movement, in world units per second.")]
     public float speed = 0.5f;
 
+    private readonly float directionUpdateDelay = 0.3f;
+    private float latestMovementUpdateTime = -1.0f;
+    private Vector3 movementDirection = Vector3.zero;
+
     private CharacterController2D characterController;
     private bool IsFacingRight => characterController.state.collisions.faceDir == 1;
     private ProximityTrigger proximityTrigger;
@@ -22,18 +26,31 @@ public class FlyMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (proximityTrigger.PlayerInProximity && characterController.state.CanMoveHorizontally)
+        if (TimeToUpdateDirection())
         {
-            Debug.Assert(player != null, "Player was null in FlyMovement.cs");
-            var direction = player.transform.position - transform.position;
-            var deltaPosition = direction.normalized * speed * Time.deltaTime;
-            var randomComponent = deltaPosition.magnitude * new Vector3(0, (float)random.NextDouble() - 0.5f);
-            transform.Translate(deltaPosition + randomComponent, Space.World);
+            latestMovementUpdateTime = Time.realtimeSinceStartup;
+            if (proximityTrigger.PlayerInProximity && characterController.state.CanMoveHorizontally)
+            {
+                Debug.Assert(player != null, "Player was null in FlyMovement.cs");
+                var direction = (player.transform.position - transform.position).normalized;
 
-            if ((deltaPosition.x < 0 && IsFacingRight) ||  (deltaPosition.x > 0 && !IsFacingRight))
-                Flip();
+                if ((direction.x < 0 && IsFacingRight) || (direction.x > 0 && !IsFacingRight))
+                    Flip();
+
+                var randomComponent = 2 * new Vector3(0, (float)random.NextDouble() - 0.5f);
+                movementDirection = direction + randomComponent;
+            }
+            else
+            {
+                movementDirection = Vector3.zero;
+            }
         }
+
+        transform.Translate(movementDirection.normalized * speed * Time.deltaTime, Space.World);
     }
+
+    private bool TimeToUpdateDirection() =>
+        Time.realtimeSinceStartup - latestMovementUpdateTime > directionUpdateDelay;
 
     public void Flip()
     {
