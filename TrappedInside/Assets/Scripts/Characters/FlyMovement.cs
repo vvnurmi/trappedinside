@@ -3,54 +3,42 @@
 [RequireComponent(typeof(CharacterController2D))]
 public class FlyMovement : MonoBehaviour
 {
-    [Tooltip("Speed of fly movement, in world units per second.")]
-    public float speed = 0.5f;
-
-    private readonly float directionUpdateDelay = 0.3f;
-    private float latestMovementUpdateTime = -1.0f;
-    private Vector3 movementDirection = Vector3.zero;
-
     private CharacterController2D characterController;
-    private bool IsFacingRight => characterController.state.collisions.faceDir == 1;
     private ProximityTrigger proximityTrigger;
-    private GameObject player;
-    private System.Random random = new System.Random();
+    private AttackTrigger attackTrigger;
+    private FlyState state;
+
+    public bool IsFacingRight => characterController.state.collisions.faceDir == 1;
+    public GameObject Player { get; private set; }
+    public bool PlayerInProximity => proximityTrigger.PlayerInProximity;
+    public bool PlayerInAttackRange => attackTrigger.PlayerInAttackRange;
+    public Vector3 NormalizedMovementDirection { get; set; }
 
     void Start()
     {
         characterController = GetComponent<CharacterController2D>();
         proximityTrigger = GetComponentInChildren<ProximityTrigger>();
-        player = GameObject.FindWithTag("Player");
+        attackTrigger = GetComponentInChildren<AttackTrigger>();
+        Player = GameObject.FindWithTag("Player");
         characterController.state.collisions.faceDir = -1;
+        TransitionTo(new Idle());
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        if (TimeToUpdateDirection())
+        if (!characterController.state.CanMoveHorizontally)
         {
-            latestMovementUpdateTime = Time.realtimeSinceStartup;
-            if (proximityTrigger.PlayerInProximity && characterController.state.CanMoveHorizontally)
-            {
-                Debug.Assert(player != null, "Player was null in FlyMovement.cs");
-                var direction = (player.transform.position - transform.position).normalized;
-
-                if ((direction.x < 0 && IsFacingRight) || (direction.x > 0 && !IsFacingRight))
-                    Flip();
-
-                var randomComponent = 2 * new Vector3(0, (float)random.NextDouble() - 0.5f);
-                movementDirection = direction + randomComponent;
-            }
-            else
-            {
-                movementDirection = Vector3.zero;
-            }
+            return;
         }
-
-        transform.Translate(movementDirection.normalized * speed * Time.deltaTime, Space.World);
+        state.Handle();
+        transform.Translate(NormalizedMovementDirection * Time.deltaTime, Space.World);
     }
 
-    private bool TimeToUpdateDirection() =>
-        Time.realtimeSinceStartup - latestMovementUpdateTime > directionUpdateDelay;
+    public void TransitionTo(FlyState state)
+    {
+        this.state = state;
+        state.Context = this;
+    }
 
     public void Flip()
     {
@@ -61,5 +49,115 @@ public class FlyMovement : MonoBehaviour
             transform.localScale.y,
             transform.localScale.z);
     }
+
+}
+
+public abstract class FlyState
+{
+    public FlyMovement Context { get; set; }
+    public abstract void Handle();
+}
+
+public class Idle : FlyState
+{
+    public override void Handle()
+    {
+        if (Context.PlayerInProximity)
+        {
+            Context.TransitionTo(new Move());
+        }
+        Context.NormalizedMovementDirection = Vector3.zero;
+    }
+}
+
+public class Move : FlyState
+{
+    private System.Random random = new System.Random();
+    private float latestMovementUpdateTime = -1.0f;
+    private readonly float directionUpdateDelay = 0.3f;
+    private readonly float speed = 0.5f;
+
+    public override void Handle()
+    {
+        if (!Context.PlayerInProximity)
+        {
+            Context.TransitionTo(new Idle());
+        }
+
+        if (Context.PlayerInAttackRange)
+        {
+            Context.TransitionTo(new PrepareAttack());
+        }
+
+        if (TimeToUpdateMovement())
+        {
+            latestMovementUpdateTime = Time.realtimeSinceStartup;
+            Debug.Assert(Context.Player != null, "Player was null in FlyMovement.cs");
+            var direction = (Context.Player.transform.position - Context.transform.position).normalized;
+
+            if ((direction.x < 0 && Context.IsFacingRight) || (direction.x > 0 && !Context.IsFacingRight))
+                Context.Flip();
+
+            var randomComponent = 2 * new Vector3(0, (float)random.NextDouble() - 0.5f);
+            Context.NormalizedMovementDirection = speed * (direction + randomComponent).normalized;
+        }
+    }
+
+    private bool TimeToUpdateMovement() =>
+        Time.realtimeSinceStartup - latestMovementUpdateTime > directionUpdateDelay;
+
+}
+
+public class PrepareAttack : FlyState
+{
+    private readonly float attackPreparationTime = 0.5f;
+    private readonly float prepareStartTime;
+
+    public PrepareAttack()
+    {
+        prepareStartTime = Time.realtimeSinceStartup;
+    }
+
+    public override void Handle()
+    {
+        if (TimeToUpdateState())
+        {
+            var attackDirection = (Context.Player.transform.position - Context.transform.position).normalized;
+            Context.TransitionTo(new Attack(attackDirection));
+        }
+        Context.NormalizedMovementDirection = Vector3.zero;
+    }
+
+    private bool TimeToUpdateState() =>
+        Time.realtimeSinceStartup - prepareStartTime > attackPreparationTime;
+}
+
+public class Attack : FlyState
+{
+    private readonly Vector3 attackDirection;
+    private readonly float attackSpeed = 2.0f;
+    private readonly float attackTime = 0.75f;
+    private readonly float attackStartTime;
+
+    public Attack(Vector3 attackDirection)
+    {
+        this.attackDirection = attackDirection;
+        attackStartTime = Time.realtimeSinceStartup;
+    }
+
+    public override void Handle()
+    {
+
+        if (TimeToUpdateState())
+        {
+            Context.TransitionTo(new Idle());
+        }
+
+        Context.NormalizedMovementDirection = attackSpeed * attackDirection;
+            
+    }
+
+    private bool TimeToUpdateState() =>
+        Time.realtimeSinceStartup - attackStartTime > attackTime;
 
 }
