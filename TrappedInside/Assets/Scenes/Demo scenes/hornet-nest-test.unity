@@ -152,6 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hornet: {fileID: 562093993172783840, guid: db46d160b61c29c459e09a44514f522e, type: 3}
   instantiateTimeout: 5
+  maxNumberOfHornets: 5
 --- !u!212 &419821857
 SpriteRenderer:
   m_ObjectHideFlags: 0

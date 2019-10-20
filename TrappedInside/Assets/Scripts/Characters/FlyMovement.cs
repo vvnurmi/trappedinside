@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
 [RequireComponent(typeof(CharacterController2D))]
 public class FlyMovement : MonoBehaviour
@@ -6,7 +8,9 @@ public class FlyMovement : MonoBehaviour
     private CharacterController2D characterController;
     private ProximityTrigger proximityTrigger;
     private AttackTrigger attackTrigger;
+    private Animator animator;
     private FlyState state;
+    private readonly List<string> animationStates = new List<string> { "IsFlying", "IsPreparingAttack", "IsAttacking" };
 
     public bool IsFacingRight => characterController.state.collisions.faceDir == 1;
     public GameObject Player { get; private set; }
@@ -19,6 +23,7 @@ public class FlyMovement : MonoBehaviour
         characterController = GetComponent<CharacterController2D>();
         proximityTrigger = GetComponentInChildren<ProximityTrigger>();
         attackTrigger = GetComponentInChildren<AttackTrigger>();
+        animator = GetComponentInChildren<Animator>();
         Player = GameObject.FindWithTag("Player");
         characterController.state.collisions.faceDir = -1;
         TransitionTo(new Idle());
@@ -38,6 +43,8 @@ public class FlyMovement : MonoBehaviour
     {
         this.state = state;
         state.Context = this;
+        animationStates.ForEach(str => animator.SetBool(str, false));
+        animator.SetBool(state.AnimationTransitionTrigger, true);
     }
 
     public void Flip()
@@ -56,10 +63,13 @@ public abstract class FlyState
 {
     public FlyMovement Context { get; set; }
     public abstract void Handle();
+    public abstract string AnimationTransitionTrigger { get; }
 }
 
 public class Idle : FlyState
 {
+    public override string AnimationTransitionTrigger => "IsFlying";
+
     public override void Handle()
     {
         if (Context.PlayerInProximity)
@@ -76,6 +86,8 @@ public class Move : FlyState
     private float latestMovementUpdateTime = -1.0f;
     private readonly float directionUpdateDelay = 0.3f;
     private readonly float speed = 0.5f;
+
+    public override string AnimationTransitionTrigger => "IsFlying";
 
     public override void Handle()
     {
@@ -113,6 +125,8 @@ public class PrepareAttack : FlyState
     private readonly float attackPreparationTime = 0.5f;
     private readonly float prepareStartTime;
 
+    public override string AnimationTransitionTrigger => "IsPreparingAttack";
+
     public PrepareAttack()
     {
         prepareStartTime = Time.realtimeSinceStartup;
@@ -138,6 +152,8 @@ public class Attack : FlyState
     private readonly float attackSpeed = 2.0f;
     private readonly float attackTime = 0.75f;
     private readonly float attackStartTime;
+
+    public override string AnimationTransitionTrigger => "IsAttacking";
 
     public Attack(Vector3 attackDirection)
     {
