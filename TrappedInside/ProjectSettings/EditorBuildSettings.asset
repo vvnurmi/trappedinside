@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level1_Council.unity
     guid: b57e7867dc0922f47879141e54d4cede
+  - enabled: 1
+    path: Assets/Scenes/Level1_Bee_Hive.unity
+    guid: 2ff4b61ca0d5a604ebff4f5975831877
   m_configObjects: {}
