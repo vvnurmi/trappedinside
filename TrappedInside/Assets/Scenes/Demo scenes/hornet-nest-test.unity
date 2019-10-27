@@ -349,6 +349,8 @@ MonoBehaviour:
   numberOfHornets: 5
   angularVelocity: 1
   circleRadius: 1
+  firstHornetMovementStartTime: 3
+  movementStartTimeDiffBetweenHornets: 0.3
 --- !u!4 &836170255
 Transform:
   m_ObjectHideFlags: 0
