@@ -16,15 +16,22 @@ public class BossHornetMovements : MonoBehaviour
     public float firstHornetMovementStartTime = 5.0f;
     public float movementStartTimeDiffBetweenHornets = 0.5f;
 
-    private List<BossHornetData> bossHornets =  new List<BossHornetData>();
+    private BossHornetState _state;
+    private List<BossHornetData> _bossHornets =  new List<BossHornetData>();
+
+    public List<BossHornetData> GetBossHornets() => _bossHornets;
 
     void Start()
     {
         Debug.Assert(bossHornetPrefab != null, "Boss Hornet Prefab is null");
+
+        _state = new StartWait(firstHornetMovementStartTime);
+        _state.SetContext(this);
+
         var position = transform.position + new Vector3(circleRadius, 0, 0);
         for (int i = 0; i < numberOfHornets; i++)
         {
-            bossHornets.Add(new BossHornetData
+            _bossHornets.Add(new BossHornetData
             {
                 hornet = Instantiate(bossHornetPrefab, position, Quaternion.identity),
                 isFacingLeft = true
@@ -34,9 +41,57 @@ public class BossHornetMovements : MonoBehaviour
 
     void FixedUpdate()
     {
+        _state.Handle();
+    }
+
+    public void TransitionTo(BossHornetState state)
+    {
+        _state = state;
+        _state.SetContext(this);
+    }
+
+}
+
+public abstract class BossHornetState
+{
+    protected BossHornetMovements _context;
+
+    public void SetContext(BossHornetMovements context)
+    {
+        _context = context;
+    }
+
+    public abstract void Handle();
+}
+
+class StartWait : BossHornetState
+{
+    private readonly float _waitTime;
+    private readonly float _waitStartTime;
+
+    public StartWait(float waitTime)
+    {
+        _waitTime = waitTime;
+        _waitStartTime = Time.realtimeSinceStartup;
+    }
+
+    public override void Handle()
+    {
+        if (Time.realtimeSinceStartup - _waitStartTime > _waitTime)
+        {
+            _context.TransitionTo(new FlyInCircle());
+        }
+    }
+}
+
+class FlyInCircle : BossHornetState
+{
+    public override void Handle()
+    {
+        var bossHornets = _context.GetBossHornets();
         for (int i = 0; i < bossHornets.Count; i++)
         {
-            UpdateHornetPosition(bossHornets[i], firstHornetMovementStartTime + movementStartTimeDiffBetweenHornets * i);
+            UpdateHornetPosition(bossHornets[i], _context.firstHornetMovementStartTime + _context.movementStartTimeDiffBetweenHornets * i);
         }
     }
 
@@ -47,9 +102,10 @@ public class BossHornetMovements : MonoBehaviour
 
         if (Time.timeSinceLevelLoad > movementStartTime)
         {
-            var angle = (Time.timeSinceLevelLoad - movementStartTime) * angularVelocity;
-            var xCoordinate = transform.position.x + circleRadius * Mathf.Cos(angle);
-            var yCoordinate = transform.position.y + circleRadius * Mathf.Sin(angle);
+            var transform = _context.transform;
+            var angle = (Time.timeSinceLevelLoad - movementStartTime) * _context.angularVelocity;
+            var xCoordinate = transform.position.x + _context.circleRadius * Mathf.Cos(angle);
+            var yCoordinate = transform.position.y + _context.circleRadius * Mathf.Sin(angle);
 
             hornetData.hornet.transform.position = new Vector3(xCoordinate, yCoordinate, 0);
 
@@ -67,4 +123,7 @@ public class BossHornetMovements : MonoBehaviour
         hornetData.hornet.transform.localScale = new Vector3(-originalScale.x, originalScale.y, originalScale.z);
     }
 
+
 }
+
+
