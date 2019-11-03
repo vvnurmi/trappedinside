@@ -74,11 +74,11 @@ public class BossHornetMovements : MonoBehaviour
     {
         _state = state;
         _state.SetContext(this);
-        _bossHornets.ForEach(bossHornet => 
+        foreach(var bossHornet in ActiveBossHornets)
         {
             bossHornet.ReadyToTransition = false;
             bossHornet.AnimationState = animationState;
-        } );
+        }
     }
 
     public bool ReadyToStateTransition => ActiveBossHornets.All(bossHornet => bossHornet.ReadyToTransition);
