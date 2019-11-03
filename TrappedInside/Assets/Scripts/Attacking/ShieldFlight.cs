@@ -23,6 +23,8 @@ public class ShieldFlight : MonoBehaviour, ILaunchable
         flightPath = path;
         flightStart = Time.time;
         homingTarget = home;
+
+        RepositionOnFlightPath();
     }
 
     #region MonoBehaviour overrides
@@ -36,6 +38,13 @@ public class ShieldFlight : MonoBehaviour, ILaunchable
 
     private void Update()
     {
+        RepositionOnFlightPath();
+    }
+
+    #endregion
+
+    private void RepositionOnFlightPath()
+    {
         float flightTime = Time.time - flightStart;
         float curveParam = flightTime / flightSeconds;
         float homingTime = flightTime - (flightSeconds - homingSeconds);
@@ -47,6 +56,4 @@ public class ShieldFlight : MonoBehaviour, ILaunchable
 
         transform.SetPositionAndRotation(position, transform.rotation);
     }
-
-    #endregion
 }
