@@ -2,6 +2,16 @@
 using System.Linq;
 using UnityEngine;
 
+
+[System.Serializable]
+public class BossHornetWave
+{
+    public int numberOfHornets;
+    public float attackVelocity;
+    public float angularVelocity;
+    public float numberOfCircles;
+}
+
 public class BossHornetData
 {
     private static readonly List<string> AnimationStates = new List<string> { "IsAttacking", "IsFlying" };
@@ -34,41 +44,59 @@ public class BossHornetData
 public class BossHornetMovements : MonoBehaviour
 {
     public GameObject bossHornetPrefab;
-    public int numberOfHornets = 5;
-    public float angularVelocity = 1.0f;
-    public float linearVelocity = 2.0f;
     public float circleRadius = 2.0f;
     public float firstHornetMovementStartTime = 5.0f;
     public float movementStartTimeDiffBetweenHornets = 0.5f;
-    public float circleAngle = Mathf.PI;
+    public BossHornetWave[] bossHornetWaves;
 
     private BossHornetState _state;
-    private List<BossHornetData> _bossHornets =  new List<BossHornetData>();
+    private List<BossHornetData> _bossHornets = new List<BossHornetData>();
+    private int _waveNumber = 0;
 
     void Start()
+    {
+        InitWave();
+    }
+
+    void FixedUpdate()
+    {
+        if (AllHornetsInCurrentWaveDead)
+            InitNextWave();
+        _state.Handle();
+    }
+
+    void InitNextWave()
+    {
+        if (_waveNumber + 1 < bossHornetWaves.Length)
+        {
+            _waveNumber++;
+            InitWave();
+        }
+    }
+
+    void InitWave()
     {
         Debug.Assert(bossHornetPrefab != null, "Boss Hornet Prefab is null");
 
         _state = new BossHornetStartWait(firstHornetMovementStartTime);
         _state.SetContext(this);
 
+        _bossHornets.Clear();
+
         var position = transform.position + new Vector3(circleRadius, 0, 0);
-        for (int i = 0; i < numberOfHornets; i++)
+        for (int i = 0; i < bossHornetWaves[_waveNumber].numberOfHornets; i++)
         {
             _bossHornets.Add(
                 new BossHornetData(
-                    hornet: Instantiate(bossHornetPrefab, position, Quaternion.identity), 
+                    hornet: Instantiate(bossHornetPrefab, position, Quaternion.identity),
                     isFacingLeft: true,
                     flyingPosition: i));
         }
-    }
 
-    void FixedUpdate()
-    {
-        _state.Handle();
     }
 
     public IEnumerable<BossHornetData> ActiveBossHornets => _bossHornets.Where(h => h.Hornet != null);
+    public bool AllHornetsInCurrentWaveDead => _bossHornets.All(h => h.Hornet == null);
 
     public void TransitionTo(BossHornetState state, string animationState)
     {
@@ -82,6 +110,9 @@ public class BossHornetMovements : MonoBehaviour
     }
 
     public bool ReadyToStateTransition => ActiveBossHornets.All(bossHornet => bossHornet.ReadyToTransition);
+    public float CurrentCircleAngle => bossHornetWaves[_waveNumber].numberOfCircles * 2.0f * Mathf.PI;
+    public float CurrentAngularVelocity => bossHornetWaves[_waveNumber].angularVelocity;
+    public float CurrentAttackVelocity => bossHornetWaves[_waveNumber].attackVelocity;
 
 }
 
@@ -112,7 +143,7 @@ class BossHornetStartWait : BossHornetState
     {
         if (Time.realtimeSinceStartup - _waitStartTime > _waitTime)
         {
-            _context.TransitionTo(new BossHornetFlyInCircle(), "IsFlying");
+            _context.TransitionTo(new BossHornetFlyInCircle(0.0f), "IsFlying");
         }
     }
 }
@@ -120,10 +151,12 @@ class BossHornetStartWait : BossHornetState
 class BossHornetFlyInCircle : BossHornetState
 {
     private readonly float _stateStartTime;
+    private readonly float _startAngle;
 
-    public BossHornetFlyInCircle()
+    public BossHornetFlyInCircle(float startAngle)
     {
         _stateStartTime = Time.realtimeSinceStartup;
+        _startAngle = startAngle;
     }
 
     public override void Handle()
@@ -143,9 +176,9 @@ class BossHornetFlyInCircle : BossHornetState
         if (Time.realtimeSinceStartup > movementStartTime)
         {
             var transform = _context.transform;
-            var angle = (Time.realtimeSinceStartup - movementStartTime) * _context.angularVelocity;
+            var angle = _startAngle + (Time.realtimeSinceStartup - movementStartTime) * _context.CurrentAngularVelocity;
 
-            if (angle > _context.circleAngle)
+            if (angle - _startAngle > _context.CurrentCircleAngle)
             {
                 hornetData.ReadyToTransition = true;
                 return;
@@ -190,7 +223,7 @@ class BossHornetAttack : BossHornetState
         }
 
         if (_context.ReadyToStateTransition)
-            _context.TransitionTo(new BossHornetFlyInCircle(), "IsFlying");
+            _context.TransitionTo(new BossHornetFlyInCircle(CurrentCircleAngle), "IsFlying");
     }
 
     void UpdateHornetPosition(BossHornetData hornetData, float movementStartTime)
@@ -200,18 +233,34 @@ class BossHornetAttack : BossHornetState
 
         if (Time.realtimeSinceStartup > movementStartTime)
         {
-            var transform = _context.transform;
-            var finalX = transform.position.x + _context.circleRadius;
-
-            if (hornetData.Hornet.transform.position.x > finalX * _attackDirection)
+            if (HornetReachedFinalPosition(hornetData))
             {
                 hornetData.ReadyToTransition = true;
                 return;
             }
 
-            hornetData.Hornet.transform.Translate(new Vector3(_attackDirection.Value * _context.linearVelocity * Time.deltaTime, 0, 0));
+            hornetData.Hornet.transform.Translate(new Vector3(_attackDirection.Value * _context.CurrentAttackVelocity * Time.deltaTime, 0, 0));
         }
     }
 
+    float CurrentCircleAngle => _attackDirection > 0 ? 0.0f : Mathf.PI;
+
+    bool HornetReachedFinalPosition(BossHornetData hornetData)
+    {
+        var hornetX = hornetData.Hornet.transform.position.x;
+        if (_attackDirection > 0)
+        {
+            return hornetX > FinalX;
+        }
+        else
+        {
+            return hornetX < FinalX;
+        }
+    }
+
+    float FinalX =>
+        _attackDirection > 0
+        ? _context.transform.position.x + _context.circleRadius
+        : _context.transform.position.x - _context.circleRadius;
 }
 

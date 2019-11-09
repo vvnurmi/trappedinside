@@ -346,11 +346,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossHornetPrefab: {fileID: 562093993172783840, guid: 83a706d9178a0734eb990e93e2176139,
     type: 3}
-  numberOfHornets: 5
-  angularVelocity: 1
   circleRadius: 1
   firstHornetMovementStartTime: 3
   movementStartTimeDiffBetweenHornets: 0.3
+  bossHornetWaves:
+  - numberOfHornets: 5
+    attackVelocity: 2
+    angularVelocity: 1
+    numberOfCircles: 0.5
+  - numberOfHornets: 5
+    attackVelocity: 2
+    angularVelocity: 1.5
+    numberOfCircles: 1
 --- !u!4 &836170255
 Transform:
   m_ObjectHideFlags: 0
