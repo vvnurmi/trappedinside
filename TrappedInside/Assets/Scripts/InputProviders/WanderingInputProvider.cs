@@ -31,7 +31,8 @@ public class WanderingInputProvider : InputProvider
     {
         return new PlayerInput(
             fire1: false,
-            fire2: false,
+            fire2Pressed: false,
+            fire2Released: false,
             jumpPressed: false,
             jumpReleased: false,
             horizontal: horizontalMove,

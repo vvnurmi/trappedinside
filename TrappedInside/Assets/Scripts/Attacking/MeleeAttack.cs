@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -76,8 +77,21 @@ public class MeleeAttack : MonoBehaviour
     {
         animator.SetBool("IsPrepUp", input.vertical > 0.5f);
         animator.SetBool("IsPrepDown", input.vertical < -0.5f);
-        if (input.fire1 && characterController.state.CanInflictDamage)
-            timedAnimTriggers.Set("StartMelee");
+        if (characterController.state.CanInflictDamage)
+        {
+            if (input.fire1)
+                timedAnimTriggers.Set("StartMelee");
+            else if (input.fire2Pressed)
+            {
+                animator.SetBool("IsShielding", true);
+                AnimEvent_StartAttacking(MeleeAttackType.Shield);
+            }
+            else if (input.fire2Released)
+            {
+                StopAttacking(() => animator.SetBool("IsShielding", false));
+
+            }
+        }
     }
 
     public void AnimEvent_StartAttacking(MeleeAttackType attack)
@@ -87,11 +101,10 @@ public class MeleeAttack : MonoBehaviour
 
         switch (attack)
         {
-            case MeleeAttackType.Sword:
+            case MeleeAttackType.Shield:
             case MeleeAttackType.SwordSwingUp:
             case MeleeAttackType.ShieldThrow:
-                characterController.state.isInHorizontalAttackMove = true;
-                characterController.state.isInVerticalAttackMove = true;
+                SetCharacterHorzontalAndVerticalAttackState(true);
                 break;
             case MeleeAttackType.ShieldBash:
                 characterController.state.isInVerticalAttackMove = true;
@@ -106,12 +119,21 @@ public class MeleeAttack : MonoBehaviour
 
     public void AnimEvent_StopAttacking()
     {
-        Debug.Assert(activeAttack.HasValue);
+        StopAttacking(() => animator.SetTrigger("StopMelee"));
+    }
 
-        characterController.state.isInHorizontalAttackMove = false;
-        characterController.state.isInVerticalAttackMove = false;
+    private void StopAttacking(Action animatorAction)
+    {
+        Debug.Assert(activeAttack.HasValue);
+        SetCharacterHorzontalAndVerticalAttackState(false);
         DeactivateWeapons();
-        animator.SetTrigger("StopMelee");
+        animatorAction();
         activeAttack = null;
+    }
+
+    private void SetCharacterHorzontalAndVerticalAttackState(bool state)
+    {
+        characterController.state.isInHorizontalAttackMove = state;
+        characterController.state.isInVerticalAttackMove = state;
     }
 }

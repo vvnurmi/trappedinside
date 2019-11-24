@@ -1,6 +1,6 @@
 ﻿public enum MeleeAttackType
 {
-    Sword,
+    Shield,
     SwordSwingUp,
     ShieldBash,
     ShieldThrow,

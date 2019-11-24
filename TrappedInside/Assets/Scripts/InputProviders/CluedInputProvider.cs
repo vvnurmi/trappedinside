@@ -82,7 +82,8 @@ public class CluedInputProvider : InputProvider
     public override PlayerInput GetInput() => 
         new PlayerInput(
             fire1: false,
-            fire2: false,
+            fire2Pressed: false,
+            fire2Released: false,
             jumpPressed: false,
             jumpReleased: false,
             horizontal: HorizontalMove,
