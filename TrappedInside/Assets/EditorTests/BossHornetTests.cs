@@ -33,7 +33,7 @@ namespace Tests
             _context = Substitute.For<IBossHornetMovements>();
             _time = Substitute.For<ITime>();
             _time.RealtimeSinceStartup.Returns(32.0f);
-            _bossHornetStartWait = new BossHornetStartWait(time: _time, waitTime: 1.0f);
+            _bossHornetStartWait = new BossHornetStartWait(time: _time, waitTime: 1.0f, attackType: AttackType.FlyInCircle);
             _bossHornetStartWait.SetContext(_context);
         }
 
@@ -68,7 +68,7 @@ namespace Tests
             _context.CurrentAngularVelocity.Returns(1.0f);
             _time = Substitute.For<ITime>();
             _time.RealtimeSinceStartup.Returns(0.0f);
-            _state = new BossHornetFlyInCircle(time: _time, startAngle: 0.0f);
+            _state = new BossHornetFlyInCircle(time: _time, hornetPositionUpdater: new CirclePositionUpdater(), startAngle: 0.0f);
             _state.SetContext(_context);
         }
 
@@ -85,7 +85,7 @@ namespace Tests
         public void TestThatHornetPositionIsNotUpdatedIfMovementStartTimeNotReached()
         {
             _time.RealtimeSinceStartup.Returns(0.0f);
-            _state.UpdateHornetPosition(Substitute.For<IBossHornet>(), 1.0f);
+            _state.UpdateHornetPosition(Substitute.For<IBossHornet>());
             var temp = _context.DidNotReceive().CurrentAngularVelocity;
         }
 
@@ -96,7 +96,7 @@ namespace Tests
             _context.CurrentCircleAngle.Returns(Mathf.PI / 2.0f);
             _time.RealtimeSinceStartup.Returns(10.0f);
             var bossHornet = Substitute.For<IBossHornet>();
-            _state.UpdateHornetPosition(bossHornet, 0);
+            _state.UpdateHornetPosition(bossHornet);
             Assert.That(bossHornet.ReadyToTransition, Is.True);
         }
 
@@ -106,7 +106,7 @@ namespace Tests
             _context.CurrentCircleAngle.Returns(Mathf.PI);
             _time.RealtimeSinceStartup.Returns(2.0f);
             var bossHornet = Substitute.For<IBossHornet>();
-            _state.UpdateHornetPosition(bossHornet, 0);
+            _state.UpdateHornetPosition(bossHornet);
             Assert.That(bossHornet.ReadyToTransition, Is.False);
             Assert.That(bossHornet.Position.x, Is.EqualTo(-0.83).Within(0.01));
             Assert.That(bossHornet.Position.y, Is.EqualTo(1.81).Within(0.01));

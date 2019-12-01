@@ -2,6 +2,11 @@
 using System.Linq;
 using UnityEngine;
 
+public enum AttackType
+{
+    FlyInCircle,
+    FlyInDividedCircle
+}
 
 [System.Serializable]
 public class BossHornetWave
@@ -10,6 +15,7 @@ public class BossHornetWave
     public float attackVelocity;
     public float angularVelocity;
     public float numberOfCircles;
+    public AttackType attackType;
 }
 
 public interface IBossHornet
@@ -115,7 +121,7 @@ public class BossHornetMovements : MonoBehaviour, IBossHornetMovements
     {
         Debug.Assert(bossHornetPrefab != null, "Boss Hornet Prefab is null");
 
-        _state = new BossHornetStartWait(new TimeData(), firstHornetMovementStartTime);
+        _state = new BossHornetStartWait(new TimeData(), firstHornetMovementStartTime, bossHornetWaves[_waveNumber].attackType);
         _state.SetContext(this);
 
         _bossHornets.Clear();
@@ -203,18 +209,24 @@ public class BossHornetStartWait : BossHornetState
 {
     private readonly float _waitTime;
     private readonly float _waitStartTime;
+    private readonly AttackType _attackType;
 
-    public BossHornetStartWait(ITime time, float waitTime) : base(time)
+    public BossHornetStartWait(ITime time, float waitTime, AttackType attackType) : base(time)
     {
         _waitTime = waitTime;
         _waitStartTime = time.RealtimeSinceStartup;
+        _attackType = attackType;
     }
 
     public override void Handle()
     {
         if (_time.RealtimeSinceStartup - _waitStartTime > _waitTime)
         {
-            _context.TransitionTo(new BossHornetFlyInCircle(_time, 0.0f), "IsFlying");
+            if (_attackType == AttackType.FlyInCircle)
+                _context.TransitionTo(new BossHornetFlyInCircle(_time, new CirclePositionUpdater(), 0), "IsFlying");
+            else
+                _context.TransitionTo(new BossHornetFlyInCircle(_time, new DividedCirclePositionUpdater(), 0), "IsFlying");
+
         }
     }
 }
@@ -222,31 +234,34 @@ public class BossHornetStartWait : BossHornetState
 public class BossHornetFlyInCircle : BossHornetState
 {
     private readonly float _stateStartTime;
+    private readonly IHornetPositionUpdater _hornetPositionUpdater;
     private readonly float _startAngle;
 
-    public BossHornetFlyInCircle(ITime time, float startAngle) : base(time)
+    public BossHornetFlyInCircle(ITime time, IHornetPositionUpdater hornetPositionUpdater, float startAngle) : base(time)
     {
         _stateStartTime = time.RealtimeSinceStartup;
+        _hornetPositionUpdater = hornetPositionUpdater;
         _startAngle = startAngle;
+
     }
 
     public override void Handle()
     {
         foreach (var bossHornet in _context.ActiveBossHornets)
         {
-            UpdateHornetPosition(bossHornet, _stateStartTime + _context.MovementStartTimeDiffBetweenHornets * bossHornet.FlyingPosition);
+            UpdateHornetPosition(bossHornet);
         }
 
         if (_context.ReadyToStateTransition)
-            _context.TransitionTo(new BossHornetAttack(_time), "IsAttacking");
+            _context.TransitionTo(new BossHornetAttack(_time, AttackType.FlyInCircle), "IsAttacking");
             
     }
 
-    public void UpdateHornetPosition(IBossHornet bossHornet, float movementStartTime)
+    public void UpdateHornetPosition(IBossHornet bossHornet)
     {
-        if (_time.RealtimeSinceStartup > movementStartTime)
+        if (_time.RealtimeSinceStartup > MovementStartTime(bossHornet))
         {
-            var angle = _startAngle + (_time.RealtimeSinceStartup - movementStartTime) * _context.CurrentAngularVelocity;
+            var angle = _startAngle + (_time.RealtimeSinceStartup - MovementStartTime(bossHornet)) * _context.CurrentAngularVelocity;
 
             if (angle - _startAngle > _context.CurrentCircleAngle)
             {
@@ -254,29 +269,57 @@ public class BossHornetFlyInCircle : BossHornetState
                 return;
             }
 
-            bossHornet.Position = new Vector3(
-                _context.Position.x + _context.CircleRadius * Mathf.Cos(angle),
-                _context.Position.y + _context.CircleRadius * Mathf.Sin(angle), 
-                0);
+            bossHornet.Position = _hornetPositionUpdater.CalculateNewPosition(_context, bossHornet, angle);
 
             if (FlipRequired(bossHornet))
                 bossHornet.Flip();
         }
     }
 
+    public float MovementStartTime(IBossHornet bossHornet) =>
+        _stateStartTime + _context.MovementStartTimeDiffBetweenHornets * bossHornet.FlyingPosition;
+
     public bool FlipRequired(IBossHornet bossHornet) =>
         bossHornet.Position.x < _context.Position.x && bossHornet.IsFacingLeft ||
         bossHornet.Position.x >= _context.Position.x && !bossHornet.IsFacingLeft;
+}
+
+
+public interface IHornetPositionUpdater
+{
+    Vector3 CalculateNewPosition(IBossHornetMovements bossHornetMovements, IBossHornet bossHornet, float angle);
+}
+
+public class DividedCirclePositionUpdater : IHornetPositionUpdater
+{
+    public Vector3 CalculateNewPosition(IBossHornetMovements bossHornetMovements, IBossHornet bossHornet, float angle) => 
+        new Vector3(
+            bossHornetMovements.Position.x + bossHornetMovements.CircleRadius* Mathf.Cos(angle),
+            bossHornetMovements.Position.y + bossHornetMovements.CircleRadius* Mathf.Sin(angle) * BossHornetFlyingDirection(bossHornet), 0);
+
+    public float BossHornetFlyingDirection(IBossHornet bossHornet) =>
+        bossHornet.FlyingPosition % 2 == 0 ? 1 : -1;
+
+}
+
+public class CirclePositionUpdater : IHornetPositionUpdater
+{
+    public Vector3 CalculateNewPosition(IBossHornetMovements bossHornetMovements, IBossHornet bossHornet, float angle) =>
+        new Vector3(
+            bossHornetMovements.Position.x + bossHornetMovements.CircleRadius * Mathf.Cos(angle),
+            bossHornetMovements.Position.y + bossHornetMovements.CircleRadius * Mathf.Sin(angle), 0);
 }
 
 public class BossHornetAttack : BossHornetState
 {
     private readonly float _stateStartTime;
     private float? _attackDirection;
+    private AttackType _attackType;
 
-    public BossHornetAttack(ITime time) : base(time)
+    public BossHornetAttack(ITime time, AttackType attackType) : base(time)
     {
         _stateStartTime = time.RealtimeSinceStartup;
+        _attackType = attackType;
     }
 
     public override void Handle()
@@ -287,7 +330,12 @@ public class BossHornetAttack : BossHornetState
         }
 
         if (_context.ReadyToStateTransition)
-            _context.TransitionTo(new BossHornetFlyInCircle(_time, CurrentCircleAngle), "IsFlying");
+        {
+            if(_attackType == AttackType.FlyInCircle)
+                _context.TransitionTo(new BossHornetFlyInCircle(_time, new CirclePositionUpdater() ,CurrentCircleAngle), "IsFlying");
+            else
+                _context.TransitionTo(new BossHornetFlyInCircle(_time, new DividedCirclePositionUpdater(), CurrentCircleAngle), "IsFlying");
+        }
     }
 
     void UpdateHornetPosition(IBossHornet bossHornet, float movementStartTime)
