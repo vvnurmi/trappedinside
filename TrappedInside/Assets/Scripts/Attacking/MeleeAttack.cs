@@ -79,18 +79,9 @@ public class MeleeAttack : MonoBehaviour
         animator.SetBool("IsPrepDown", input.vertical < -0.5f);
         if (characterController.state.CanInflictDamage)
         {
-            if (input.fire1)
+            if (input.fire1Pressed)
                 timedAnimTriggers.Set("StartMelee");
-            else if (input.fire2Pressed)
-            {
-                animator.SetBool("IsShielding", true);
-                AnimEvent_StartAttacking(MeleeAttackType.Shield);
-            }
-            else if (input.fire2Released)
-            {
-                StopAttacking(() => animator.SetBool("IsShielding", false));
-
-            }
+            animator.SetBool("WantsToShield", input.fire2Active);
         }
     }
 
