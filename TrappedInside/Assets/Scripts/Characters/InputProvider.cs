@@ -18,6 +18,7 @@ public class InputProvider : MonoBehaviour
             ? overrideControls
             : new PlayerInput(
                 fire1Pressed: Input.GetButtonDown("Fire1"),
+                fire2Pressed: Input.GetButtonDown("Fire2"),
                 fire2Active: Input.GetButton("Fire2"),
                 jumpPressed: Input.GetButtonDown("Jump"),
                 jumpReleased: Input.GetButtonUp("Jump"),

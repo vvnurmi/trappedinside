@@ -81,6 +81,8 @@ public class MeleeAttack : MonoBehaviour
         {
             if (input.fire1Pressed)
                 timedAnimTriggers.Set("StartMelee");
+            if (input.fire2Pressed)
+                timedAnimTriggers.Set("StartShielding");
             animator.SetBool("WantsToShield", input.fire2Active);
         }
     }
