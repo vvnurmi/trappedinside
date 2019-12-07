@@ -59,6 +59,6 @@ public class LaunchObject : MonoBehaviour, IAttack
 
         liveProjectile.SetActive(true);
         var launchable = liveProjectile.GetComponent<ILaunchable>();
-        launchable.SetFlightPath(LiveFlightPath, gameObject);
+        launchable.SetFlightPath(LiveFlightPath, launcher.gameObject);
     }
 }
