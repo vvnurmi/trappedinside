@@ -378,18 +378,9 @@ MonoBehaviour:
   - numberOfHornets: 5
     attackVelocity: 2
     angularVelocity: 1
-    numberOfCircles: 0.5
-    attackType: 1
-  - numberOfHornets: 5
-    attackVelocity: 2
-    angularVelocity: 1.5
     numberOfCircles: 1
+    circleRadius: 1.2
     attackType: 0
-  - numberOfHornets: 10
-    attackVelocity: 3
-    angularVelocity: 2
-    numberOfCircles: 2
-    attackType: 1
 --- !u!4 &836170255
 Transform:
   m_ObjectHideFlags: 0
