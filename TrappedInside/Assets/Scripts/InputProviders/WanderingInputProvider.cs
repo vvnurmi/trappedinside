@@ -30,9 +30,9 @@ public class WanderingInputProvider : InputProvider
     public override PlayerInput GetInput()
     {
         return new PlayerInput(
-            fire1: false,
+            fire1Pressed: false,
             fire2Pressed: false,
-            fire2Released: false,
+            fire2Active: false,
             jumpPressed: false,
             jumpReleased: false,
             horizontal: horizontalMove,

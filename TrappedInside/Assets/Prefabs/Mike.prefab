@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 7909697706649069053}
   - component: {fileID: 8480575396405387988}
   m_Layer: 9
-  m_Name: Sword
+  m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,7 +203,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.21, y: 0.02}
   serializedVersion: 2
-  m_Radius: 0.08
+  m_Radius: 0.14
 --- !u!1 &7796358727257184592
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 7299336620777147519}
   - component: {fileID: 2970453136097432339}
   - component: {fileID: 1036893419211792455}
+  - component: {fileID: 1068101902652668370}
   - component: {fileID: 1114513015011594890}
   - component: {fileID: 6982326769349969158}
   - component: {fileID: 7796358727257184596}
@@ -319,6 +320,18 @@ MonoBehaviour:
   hitDelay: 1
   hitSound: {fileID: 8300000, guid: e419b77ae02f6604bb89c7789ba4c46e, type: 3}
   deathSound: {fileID: 8300000, guid: df12f572a419614468bbe7ba5148ecb5, type: 3}
+--- !u!114 &1068101902652668370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7796358727257184592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 348f951c1ef352140a0f31435ec83fac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1114513015011594890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,10 +360,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameplayHud: {fileID: 3381257584531052204, guid: 0606a6c1a07709b439956ff8be2f21b5,
     type: 3}
-  hitPointImages:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   fullHeart: {fileID: 21300000, guid: 2b01bdbb18e6a574a9683238a12a47f4, type: 3}
   emptyHeart: {fileID: 21300004, guid: 2b01bdbb18e6a574a9683238a12a47f4, type: 3}
 --- !u!50 &7796358727257184596
