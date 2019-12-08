@@ -146,7 +146,6 @@ public class BossHornetCreator
 public class BossHornetMovements : MonoBehaviour
 {
     public GameObject bossHornetPrefab;
-    public float circleRadius = 2.0f;
     public float firstHornetMovementStartTime = 5.0f;
     public float movementStartTimeDiffBetweenHornets = 0.5f;
     public BossHornetWaveSettings[] bossHornetWaves;
@@ -235,10 +234,10 @@ public class BossHornetMovements : MonoBehaviour
 
         _bossHornets.Clear();
 
-        var hornetStartingPosition = transform.position + new Vector3(circleRadius, 0, 0);
 
         for (int i = 0; i < bossHornetWaves[_waveNumber].numberOfHornets; i++)
         {
+            var hornetStartingPosition = transform.position + new Vector3(bossHornetWaves[_waveNumber].circleRadius, 0, 0);
             _bossHornets.Add(_bossHornetCreator.CreateBossHornet(
                              bossHornet: Instantiate(bossHornetPrefab, hornetStartingPosition, Quaternion.identity),
                              centerPosition: transform.position,
@@ -249,13 +248,6 @@ public class BossHornetMovements : MonoBehaviour
 
     public IEnumerable<BossHornet> ActiveBossHornets => _bossHornets.Where(h => h.IsActive);
     public bool AllHornetsInCurrentWaveDead => _bossHornets.All(h => !h.IsActive);
-
     public bool ReadyToStateTransition => ActiveBossHornets.All(bossHornet => bossHornet.FinalPositionReached);
-    public float CurrentCircleFinalAngle => bossHornetWaves[_waveNumber].numberOfCircles * 2.0f * Mathf.PI;
-    public float CurrentAngularVelocity => bossHornetWaves[_waveNumber].angularVelocity;
-    public float CurrentAttackVelocity => bossHornetWaves[_waveNumber].attackVelocity;
-    public float MovementStartTimeDiffBetweenHornets => movementStartTimeDiffBetweenHornets;
-    public float CircleRadius => circleRadius;
-    public Vector3 Position => transform.position;
 }
 
