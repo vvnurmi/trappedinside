@@ -29,7 +29,7 @@ public class ContactAttack : MonoBehaviour
         if (characterController?.state?.CanInflictDamage == false) return;
 
         var victimHp = collision.gameObject.GetComponent<HitPoints>();
-        if (victimHp == null) return;
+        if (victimHp == null || collision.gameObject.layer == LayerMask.NameToLayer("Enemy")) return;
 
         victimHp.Damage(hitDamage);
     }
