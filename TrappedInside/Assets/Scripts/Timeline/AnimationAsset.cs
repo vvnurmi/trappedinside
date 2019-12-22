@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Playables;
 
-public enum AnimationState
+public enum TIAnimationState
 {
     Idle, Talking, Walking, Running, GettingHit, Reaching
 }
@@ -9,8 +9,8 @@ public enum AnimationState
 [System.Serializable]
 public class AnimationAsset : PlayableAsset
 {
-    public AnimationState animationState;
-    public AnimationState endAnimationState = AnimationState.Idle;
+    public TIAnimationState animationState;
+    public TIAnimationState endAnimationState = TIAnimationState.Idle;
 
     // Factory method that generates a playable based on this asset
     public override Playable CreatePlayable(PlayableGraph graph, GameObject go)

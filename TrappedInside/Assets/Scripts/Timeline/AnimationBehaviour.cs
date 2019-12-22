@@ -5,8 +5,8 @@ using UnityEngine.Playables;
 public class AnimationBehaviour : PlayableBehaviour
 {
     private Animator animator;
-    public AnimationState animationState;
-    public AnimationState endAnimationState;
+    public TIAnimationState animationState;
+    public TIAnimationState endAnimationState;
 
     // Called when the owning graph starts playing
     public override void OnGraphStart(Playable playable)
