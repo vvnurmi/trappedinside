@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
     public float upperBound = 0;
 
     private GameObject player;
-    private new Camera camera;
+    private Camera cameraComponent;
     private float cameraWidth;
     private float cameraHeight;
 
@@ -29,8 +29,8 @@ public class CameraController : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         Debug.Assert(player != null);
-        camera = GetComponent<Camera>();
-        var bottomLeftCorner = camera.ViewportToWorldPoint(new Vector3(0f, 0f));
+        cameraComponent = GetComponent<Camera>();
+        var bottomLeftCorner = cameraComponent.ViewportToWorldPoint(new Vector3(0f, 0f));
         cameraWidth = transform.position.x - bottomLeftCorner.x;
         cameraHeight = transform.position.y - bottomLeftCorner.y;
     }
