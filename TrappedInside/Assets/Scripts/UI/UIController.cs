@@ -27,9 +27,9 @@ public class UIController : MonoBehaviour
     /// <summary>
     /// Loads a new level and performs any necessary transition.
     /// </summary>
-    public void LoadLevel(SceneAsset level)
+    public void LoadLevel(SceneReference level)
     {
-        SceneManager.LoadScene(level.name);
+        SceneManager.LoadScene(level.ScenePath);
     }
 
     #region MonoBehaviour overrides

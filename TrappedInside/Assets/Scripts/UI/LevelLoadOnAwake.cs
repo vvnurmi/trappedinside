@@ -1,10 +1,9 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LevelLoadOnAwake : MonoBehaviour
 {
     [Tooltip("Which level to load.")]
-    public SceneAsset nextLevel;
+    public SceneReference nextLevel;
 
     private void Awake()
     {
