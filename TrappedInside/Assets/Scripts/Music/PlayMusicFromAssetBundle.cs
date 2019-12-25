@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.Networking;
 
-[RequireComponent(typeof(AudioSource))]
 public class PlayMusicFromAssetBundle : MonoBehaviour
 {
     [Tooltip("Asset bundle to load the audio clip from.")]
@@ -11,10 +10,13 @@ public class PlayMusicFromAssetBundle : MonoBehaviour
     [Tooltip("Name of the audio clip to load from the asset bundle.")]
     public string audioClipName;
 
+    [Tooltip("Audio source to play the music.")]
+    public AudioSource audioSource;
+
     private void Start()
     {
-        var audioSource = GetComponent<AudioSource>();
-        StartCoroutine(PlayAudioClip(audioSource, assetBundle.uri, audioClipName));
+        var instantiatedAudioSource = Instantiate(audioSource, transform);
+        StartCoroutine(PlayAudioClip(instantiatedAudioSource, assetBundle.uri, audioClipName));
     }
 
     private static IEnumerator PlayAudioClip(AudioSource audioSource, string assetBundleUri, string audioClipName)
