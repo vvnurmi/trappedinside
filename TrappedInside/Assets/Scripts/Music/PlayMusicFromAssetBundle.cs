@@ -14,11 +14,10 @@ public class PlayMusicFromAssetBundle : MonoBehaviour
     private void Start()
     {
         var audioSource = GetComponent<AudioSource>();
-        var assetBundleUri = "http://assaultwing.com/TrappedInside/AssetBundles/music";
-        StartCoroutine(PlayAudioClip(audioSource, assetBundleUri, "Level1 Boss"));
+        StartCoroutine(PlayAudioClip(audioSource, assetBundle.uri, audioClipName));
     }
 
-    private IEnumerator PlayAudioClip(AudioSource audioSource, string assetBundleUri, string audioClipName)
+    private static IEnumerator PlayAudioClip(AudioSource audioSource, string assetBundleUri, string audioClipName)
     {
         var request = UnityWebRequestAssetBundle.GetAssetBundle(assetBundleUri, 0);
         yield return request.SendWebRequest();
@@ -31,6 +30,12 @@ public class PlayMusicFromAssetBundle : MonoBehaviour
 
         var bundle = DownloadHandlerAssetBundle.GetContent(request);
         var audioClip = bundle.LoadAsset<AudioClip>(audioClipName);
+        if (audioClip == null)
+        {
+            Debug.LogError($"Couldn't load audio clip '{audioClipName}' from asset bundle '{assetBundleUri}'");
+            yield break;
+        }
+
         audioSource.clip = audioClip;
         audioSource.Play();
     }
