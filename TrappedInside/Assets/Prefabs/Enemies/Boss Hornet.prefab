@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitDamage: 1
+  damagedSelfOnHit: 1
 --- !u!82 &7985906617373082099
 AudioSource:
   m_ObjectHideFlags: 0
