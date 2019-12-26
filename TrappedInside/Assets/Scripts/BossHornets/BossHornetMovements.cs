@@ -6,7 +6,8 @@ public enum AttackType
 {
     FlyInCircle,
     FlyInDividedCircle,
-    EverySecondHornetStopsEarlierUpdated
+    EverySecondHornetStopsEarlierUpdated,
+    AttackFromMultipleDirections
 }
 
 [System.Serializable]
@@ -56,17 +57,16 @@ public class BossHornet
     public Vector3 CurrentPosition => _hornet.transform.position;
     public bool IsActive => _hornet != null;
     public float CurrentCircleAngle { get; set; }
-    public int AttackDirection { get; set; }
+
+    public Vector3 AttackDirection { get; set; }
+
     public float StartingCircleAngle { get; set; }
     public bool FinalPositionReached
     {
         get {
             if (InAttackState)
             {
-                if (AttackDirection > 0)
-                    return _hornet.transform.position.x - CenterPoint.x > CircleRadius;
-                else
-                    return CenterPoint.x - _hornet.transform.position.x > CircleRadius;
+                return (CurrentPosition - CenterPoint).magnitude < 0.05;
             }
             else
             {
@@ -88,7 +88,7 @@ public class BossHornet
 
         if (InAttackState)
         {
-            _hornet.transform.Translate(new Vector3(AttackVelocity * AttackDirection * deltaTime, 0, 0));
+            _hornet.transform.Translate( AttackDirection * AttackVelocity * deltaTime);
         }
         else
         {
@@ -128,8 +128,13 @@ public class BossHornetCreator
         }
         else if (bossHornetWave.attackType == AttackType.EverySecondHornetStopsEarlierUpdated)
         {
-            if(flyingPosition % 2 == 0)
+            if (flyingPosition % 2 == 0)
                 numberOfCircles = bossHornetWave.numberOfCircles + 0.5f;
+        }
+        else if (bossHornetWave.attackType == AttackType.AttackFromMultipleDirections)
+        {
+            var step = 0.5f / (bossHornetWave.numberOfHornets - 1);
+            numberOfCircles = flyingPosition * step;
         }
         return new BossHornet(
             hornet: bossHornet,
@@ -183,27 +188,14 @@ public class BossHornetMovements : MonoBehaviour
 
         if (ReadyToStateTransition)
         {
-            if (_hornetsAttacking)
+            foreach (var bossHornet in ActiveBossHornets)
             {
-                foreach (var bossHornet in ActiveBossHornets)
-                {
-                    bossHornet.InAttackState = false;
-                    bossHornet.StartingCircleAngle = bossHornet.CurrentCircleAngle = bossHornet.AttackDirection < 0 ? Mathf.PI : 0.0f;
-                    bossHornet.AnimationState = "IsFlying";
-                    _hornetsAttacking = false;
-                }
+                bossHornet.InAttackState = true;
+                bossHornet.AttackDirection = (bossHornet.CenterPoint - bossHornet.CurrentPosition).normalized;
+                bossHornet.AnimationState = "IsAttacking";
+                _hornetsAttacking = true;
             }
-            else
-            {
-                foreach (var bossHornet in ActiveBossHornets)
-                {
-                    bossHornet.InAttackState = true;
-                    bossHornet.AttackDirection = (int)Mathf.Sign(bossHornet.CenterPoint.x - bossHornet.CurrentPosition.x);
-                    bossHornet.AnimationState = "IsAttacking";
-                    _hornetsAttacking = true;
-                }
-            }
-            _stateStartTime = Time.realtimeSinceStartup;
+        _stateStartTime = Time.realtimeSinceStartup;
         }
 
     }

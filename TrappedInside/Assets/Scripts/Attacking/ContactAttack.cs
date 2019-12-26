@@ -8,6 +8,9 @@ public class ContactAttack : MonoBehaviour
     [Tooltip("Amount of damage to inflict on hit.")]
     public int hitDamage = 1;
 
+    [Tooltip("Amount of damage to self on hit")]
+    public bool damagedSelfOnHit = false;
+
     // Set about once, probably in Start().
     private CharacterController2D characterController; // May be null.
 
@@ -29,7 +32,13 @@ public class ContactAttack : MonoBehaviour
 
         var victimHp = collision.gameObject.GetComponent<HitPoints>();
         if (victimHp == null) return;
-
         victimHp.Damage(hitDamage);
+
+        if (damagedSelfOnHit)
+        {
+            var ownHp = gameObject.GetComponent<HitPoints>();
+            if (ownHp == null) return;
+            ownHp.Damage(hitDamage);
+        }
     }
 }

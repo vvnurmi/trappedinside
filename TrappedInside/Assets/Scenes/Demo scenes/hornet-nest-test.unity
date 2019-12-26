@@ -374,12 +374,12 @@ MonoBehaviour:
   firstHornetMovementStartTime: 3
   movementStartTimeDiffBetweenHornets: 0.4
   bossHornetWaves:
-  - numberOfHornets: 6
+  - numberOfHornets: 5
     attackVelocity: 2
     angularVelocity: 1
     numberOfCircles: 1
     circleRadius: 1.2
-    attackType: 0
+    attackType: 3
   - numberOfHornets: 8
     attackVelocity: 4
     angularVelocity: 1.5
