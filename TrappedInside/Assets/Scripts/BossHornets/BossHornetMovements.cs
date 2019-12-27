@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -10,7 +11,12 @@ public enum AttackType
     AttackFromMultipleDirections
 }
 
-[System.Serializable]
+public enum HornetState
+{
+    Flying, Attacking
+}
+
+[Serializable]
 public class BossHornetWaveSettings
 {
     public int numberOfHornets;
@@ -23,12 +29,13 @@ public class BossHornetWaveSettings
 
 public class BossHornet
 {
-    private static readonly List<string> AnimationStates = new List<string> { "IsAttacking", "IsFlying" };
+    private static readonly List<string> AnimationStates = new List<string> { "IsAttacking", "IsPreparingAttack" };
     private GameObject _hornet;
     private Animator _animator;
     private bool _isFacingLeft;
+    private readonly float _timeDiffBetweenHornets;
 
-    public BossHornet(GameObject hornet, Vector3 centerPoint, float finalCircleAngle, float circleRadius, float angularVelocity, float attackVelocity, int flyingPosition)
+    public BossHornet(GameObject hornet, Vector3 centerPoint, float finalCircleAngle, float circleRadius, float angularVelocity, float attackVelocity, int flyingPosition, float timeDiffBetweenHornets)
     {
         _hornet = hornet;
         _animator = hornet.GetComponentInChildren<Animator>();
@@ -39,14 +46,18 @@ public class BossHornet
         AttackVelocity = attackVelocity;
         FlyingPosition = flyingPosition;
         _isFacingLeft = true;
+        _timeDiffBetweenHornets = timeDiffBetweenHornets;
     }
 
     public string AnimationState
     {
         set
         {
-            AnimationStates.ForEach(s => _animator.SetBool(s, false));
-            _animator.SetBool(value, true);
+            if (!_animator.GetBool(value))
+            {
+                AnimationStates.ForEach(s => _animator.SetBool(s, false));
+                _animator.SetBool(value, true);
+            }
         }
     }
     public Vector3 CenterPoint { get; }
@@ -61,10 +72,10 @@ public class BossHornet
     public Vector3 AttackDirection { get; set; }
 
     public float StartingCircleAngle { get; set; }
-    public bool FinalPositionReached
+    public bool IsReadyForStateTransition
     {
         get {
-            if (InAttackState)
+            if (CurrentState == HornetState.Attacking)
             {
                 return (CurrentPosition - CenterPoint).magnitude < 0.05;
             }
@@ -79,26 +90,38 @@ public class BossHornet
     } 
      
     public int FlyingPosition { get; }
-    public bool InAttackState { get; set; }
+    public HornetState CurrentState { get; set; }
 
-    public void Move(float deltaTime)
+    public void Move(float stateStartTime, float deltaTime)
     {
-        if (FinalPositionReached)
+        if (IsReadyForStateTransition)
             return;
 
-        if (InAttackState)
+        if (CurrentState == HornetState.Attacking)
         {
-            _hornet.transform.Translate( AttackDirection * AttackVelocity * deltaTime);
-        }
-        else
-        {
-            CurrentCircleAngle += AngularVelocity * deltaTime;
-            _hornet.transform.position = new Vector3(
-                CenterPoint.x + CircleRadius * Mathf.Cos(CurrentCircleAngle),
-                CenterPoint.y + CircleRadius * Mathf.Sin(CurrentCircleAngle), 0);
 
-            if (FlipRequired)
-                Flip();
+            if (Time.time > MovementStartTime(stateStartTime))
+            {
+                AnimationState = "IsAttacking";
+                _hornet.transform.Translate(AttackDirection * AttackVelocity * deltaTime);
+            }
+            else if (Time.time > BlinkingStartTime(stateStartTime))
+            {
+                AnimationState = "IsPreparingAttack";
+            }
+        }
+        else if (CurrentState == HornetState.Flying)
+        {
+            if (Time.time > MovementStartTime(stateStartTime))
+            {
+                CurrentCircleAngle += AngularVelocity * deltaTime;
+                _hornet.transform.position = new Vector3(
+                    CenterPoint.x + CircleRadius * Mathf.Cos(CurrentCircleAngle),
+                    CenterPoint.y + CircleRadius * Mathf.Sin(CurrentCircleAngle), 0);
+
+                if (FlipRequired)
+                    Flip();
+            }
         }
     }
 
@@ -112,11 +135,26 @@ public class BossHornet
         var originalScale = _hornet.transform.localScale;
         _hornet.transform.localScale = new Vector3(-originalScale.x, originalScale.y, originalScale.z);
     }
+
+    internal void UpdateState(float stateStartTime, float movementStartTimeDiffBetweenHornets)
+    {
+        if (CurrentState == HornetState.Flying)
+        {
+            CurrentState = HornetState.Attacking;
+            AttackDirection = (CenterPoint - CurrentPosition).normalized;
+        }
+    }
+
+    private float BlinkingStartTime(float stateStartTime) => MovementStartTime(stateStartTime) - 0.5f;
+
+    private float MovementStartTime(float stateStartTime) =>
+        stateStartTime + _timeDiffBetweenHornets * (FlyingPosition + 1);
+
 }
 
 public class BossHornetCreator
 {
-    public BossHornet CreateBossHornet(GameObject bossHornet, Vector3 centerPosition, BossHornetWaveSettings bossHornetWave, int flyingPosition)
+    public BossHornet CreateBossHornet(GameObject bossHornet, Vector3 centerPosition, BossHornetWaveSettings bossHornetWave, int flyingPosition, float timeDiffBetweenHornets)
     {
         var numberOfCircles = bossHornetWave.numberOfCircles;
         var angularVelocity = bossHornetWave.angularVelocity;
@@ -143,7 +181,8 @@ public class BossHornetCreator
             circleRadius: bossHornetWave.circleRadius,
             angularVelocity: angularVelocity,
             attackVelocity: bossHornetWave.attackVelocity,
-            flyingPosition: flyingPosition);
+            flyingPosition: flyingPosition,
+            timeDiffBetweenHornets: timeDiffBetweenHornets);
 
     }
 }
@@ -151,7 +190,7 @@ public class BossHornetCreator
 public class BossHornetMovements : MonoBehaviour
 {
     public GameObject bossHornetPrefab;
-    public float firstHornetMovementStartTime = 5.0f;
+    public float firstHornetMovementStartTime = 3.0f;
     public float movementStartTimeDiffBetweenHornets = 0.5f;
     public BossHornetWaveSettings[] bossHornetWaves;
 
@@ -159,7 +198,6 @@ public class BossHornetMovements : MonoBehaviour
     private int _waveNumber = 0;
     private BossHornetCreator _bossHornetCreator = new BossHornetCreator();
     private float _waitStartTime;
-    private bool _hornetsAttacking = false;
     private float _stateStartTime = -1.0f;
 
     void Start()
@@ -183,32 +221,22 @@ public class BossHornetMovements : MonoBehaviour
 
         foreach (var bossHornet in ActiveBossHornets)
         {
-            UpdateHornetPosition(bossHornet);
+            bossHornet.Move(_stateStartTime, Time.deltaTime);
         }
 
         if (ReadyToStateTransition)
         {
-            foreach (var bossHornet in ActiveBossHornets)
-            {
-                bossHornet.InAttackState = true;
-                bossHornet.AttackDirection = (bossHornet.CenterPoint - bossHornet.CurrentPosition).normalized;
-                bossHornet.AnimationState = "IsAttacking";
-                _hornetsAttacking = true;
-            }
-        _stateStartTime = Time.realtimeSinceStartup;
+            UpdateHornetStates();
+            _stateStartTime = Time.realtimeSinceStartup;
         }
 
     }
 
-    public void UpdateHornetPosition(BossHornet bossHornet)
+    private void UpdateHornetStates()
     {
-        if (Time.realtimeSinceStartup > MovementStartTime(bossHornet))
-            bossHornet.Move(Time.deltaTime);
+        foreach (var bossHornet in ActiveBossHornets)
+            bossHornet.UpdateState(_stateStartTime, movementStartTimeDiffBetweenHornets);
     }
-
-    public float MovementStartTime(BossHornet bossHornet) =>
-        _stateStartTime + movementStartTimeDiffBetweenHornets * bossHornet.FlyingPosition;
-
 
     void InitNextWave()
     {
@@ -234,12 +262,13 @@ public class BossHornetMovements : MonoBehaviour
                              bossHornet: Instantiate(bossHornetPrefab, hornetStartingPosition, Quaternion.identity),
                              centerPosition: transform.position,
                              bossHornetWave: bossHornetWaves[_waveNumber],
-                             flyingPosition: i));
+                             flyingPosition: i,
+                             timeDiffBetweenHornets: movementStartTimeDiffBetweenHornets));
         }
     }
 
     public IEnumerable<BossHornet> ActiveBossHornets => _bossHornets.Where(h => h.IsActive);
     public bool AllHornetsInCurrentWaveDead => _bossHornets.All(h => !h.IsActive);
-    public bool ReadyToStateTransition => ActiveBossHornets.All(bossHornet => bossHornet.FinalPositionReached);
+    public bool ReadyToStateTransition => ActiveBossHornets.All(bossHornet => bossHornet.IsReadyForStateTransition);
 }
 
