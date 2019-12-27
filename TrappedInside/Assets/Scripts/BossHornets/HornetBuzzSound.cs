@@ -12,6 +12,9 @@ public class HornetBuzzSound : MonoBehaviour, IDying
     [Tooltip("How many seconds until the buzz sound has completely faded out at death.")]
     public float fadeOutSeconds = 0.5f;
 
+    [Tooltip("Base volumemultiplier.")]
+    public float baseVolume = 1.0f;
+
     [Tooltip("Base pitch multiplier.")]
     public float basePitch = 1.0f;
 
@@ -62,7 +65,7 @@ public class HornetBuzzSound : MonoBehaviour, IDying
         var randomSeed = Mathf.InverseLerp(int.MinValue, int.MaxValue, GetHashCode());
 
         var volumeFadeIn = Mathf.InverseLerp(startTime, startTime + fadeInSeconds, Time.time);
-        var finalVolume = volumeFadeIn * GetVolumeFadeOut();
+        var finalVolume = baseVolume * volumeFadeIn * GetVolumeFadeOut();
 
         var randomizedPitch = basePitch + basePitchRandom * randomSeed;
         var pitchFluctuationParam = Mathf.PerlinNoise(Time.time, GetHashCode());

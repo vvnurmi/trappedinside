@@ -215,6 +215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeInSeconds: 1
   fadeOutSeconds: 0.5
+  baseVolume: 0.6
   basePitch: 0.8
   basePitchRandom: 0.2
   pitchFluctuationMaxMultiplier: 0.1
