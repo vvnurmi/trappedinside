@@ -14,7 +14,7 @@ using UnityEngine;
 /// </summary>
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(AudioSource))]
-[RequireComponent(typeof(CharacterController2D))]
+[RequireComponent(typeof(CharacterState))]
 [RequireComponent(typeof(InputProvider))]
 public class MeleeAttack : MonoBehaviour
 {
@@ -24,7 +24,7 @@ public class MeleeAttack : MonoBehaviour
     // Set about once, probably in Start().
     private Animator animator;
     private AudioSource audioSource;
-    private CharacterController2D characterController;
+    private CharacterState characterState;
     private InputProvider inputProvider;
 
     // Helpers
@@ -39,7 +39,7 @@ public class MeleeAttack : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-        characterController = GetComponent<CharacterController2D>();
+        characterState = GetComponent<CharacterState>();
         DeactivateWeapons();
         inputProvider = GetComponent<InputProvider>();
 
@@ -77,7 +77,7 @@ public class MeleeAttack : MonoBehaviour
     {
         animator.SetBool("IsPrepUp", input.vertical > 0.5f);
         animator.SetBool("IsPrepDown", input.vertical < -0.5f);
-        if (characterController.state.CanInflictDamage)
+        if (characterState.CanInflictDamage)
         {
             if (input.fire1Pressed)
                 timedAnimTriggers.Set("StartMelee");
@@ -100,7 +100,7 @@ public class MeleeAttack : MonoBehaviour
                 SetCharacterHorzontalAndVerticalAttackState(true);
                 break;
             case MeleeAttackType.ShieldBash:
-                characterController.state.isInVerticalAttackMove = true;
+                characterState.isInVerticalAttackMove = true;
                 break;
             default:
                 Debug.LogError($"Unhandled {nameof(MeleeAttackType)} {attack}");
@@ -126,7 +126,7 @@ public class MeleeAttack : MonoBehaviour
 
     private void SetCharacterHorzontalAndVerticalAttackState(bool state)
     {
-        characterController.state.isInHorizontalAttackMove = state;
-        characterController.state.isInVerticalAttackMove = state;
+        characterState.isInHorizontalAttackMove = state;
+        characterState.isInVerticalAttackMove = state;
     }
 }

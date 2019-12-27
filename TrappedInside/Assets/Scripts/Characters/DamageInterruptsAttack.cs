@@ -7,7 +7,7 @@ public class DamageInterruptsAttack : MonoBehaviour, IDamaged
 {
     // Set about once, probably in Start().
     private Animator animator;
-    private CharacterController2D characterController;
+    private CharacterState characterController;
 
     // Helpers
     private TimedAnimationTriggers timedAnimTriggers;
@@ -18,8 +18,8 @@ public class DamageInterruptsAttack : MonoBehaviour, IDamaged
     {
         animator = GetComponentInChildren<Animator>();
         Debug.Assert(animator != null, $"{nameof(Animator)} not found in children of {name}");
-        characterController = GetComponentInParent<CharacterController2D>();
-        Debug.Assert(characterController != null, $"{nameof(CharacterController2D)} not found in parents of {name}");
+        characterController = GetComponentInParent<CharacterState>();
+        Debug.Assert(characterController != null, $"{nameof(CharacterState)} not found in parents of {name}");
 
         timedAnimTriggers = new TimedAnimationTriggers(animator, 0.1f);
     }

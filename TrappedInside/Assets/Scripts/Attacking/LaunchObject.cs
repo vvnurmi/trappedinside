@@ -22,7 +22,7 @@ public class LaunchObject : MonoBehaviour, IAttack
     public BezierCurve flightPath;
 
     [Tooltip("Who is launching the object.")]
-    public CharacterController2D launcher;
+    public CharacterState launcher;
 
     /// <summary>
     /// Copy of the flight path in the game world.
@@ -31,7 +31,7 @@ public class LaunchObject : MonoBehaviour, IAttack
 
     private GameObject liveProjectile;
     private BezierCurve LiveFlightPath => liveFlightPath.Value;
-    private bool IsLaunchingRight => launcher.state.collisions.faceDir == 1;
+    private bool IsLaunchingRight => launcher.collisions.faceDir == 1;
 
     #region MonoBehaviour overrides
 
