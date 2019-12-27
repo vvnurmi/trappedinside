@@ -2,28 +2,28 @@
 /// <summary>
 /// Makes a character walk aimlessly forward and turn around on collision.
 /// </summary>
-[RequireComponent(typeof(CharacterController2D))]
+[RequireComponent(typeof(CharacterState))]
 public class WanderingInputProvider : InputProvider
 {
     [Tooltip("Start walking right at start?")]
     public bool startRight = true;
 
     // Set about once, probably in Start().
-    private CharacterController2D characterController;
+    private CharacterState characterState;
 
     // Modified during gameplay.
     private float horizontalMove;
 
     private void Start()
     {
-        characterController = GetComponent<CharacterController2D>();
+        characterState = GetComponent<CharacterState>();
 
         horizontalMove = startRight ? 1.0f : -1.0f;
     }
 
     private void FixedUpdate()
     {
-        if (characterController.state.collisions.HasHorizontalCollisions)
+        if (characterState  .collisions.HasHorizontalCollisions)
             horizontalMove = -horizontalMove;
     }
 

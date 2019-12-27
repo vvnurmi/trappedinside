@@ -2,14 +2,14 @@
 
 public enum Direction { Left, Right, Down, Up }
 
-[RequireComponent(typeof(CharacterController2D))]
+[RequireComponent(typeof(CharacterState))]
 public class CluedInputProvider : InputProvider
 {
     public Direction walkingDirection = Direction.Right;
 
     public Direction wallDirection = Direction.Down;
 
-    private CharacterController2D characterController;
+    private CharacterState characterState;
 
     private float HorizontalMove {
         get {
@@ -36,9 +36,9 @@ public class CluedInputProvider : InputProvider
 
     private bool MovingHorizontally => !MovingVertically;
 
-    private bool HasHorizontalCollisions => characterController.state.collisions.HasHorizontalCollisions;
+    private bool HasHorizontalCollisions => characterState.collisions.HasHorizontalCollisions;
 
-    private bool HasVerticalCollisions => characterController.state.collisions.HasVerticalCollisions;
+    private bool HasVerticalCollisions => characterState.collisions.HasVerticalCollisions;
 
     private bool HasCollisions => HasHorizontalCollisions || HasVerticalCollisions;
 
@@ -51,7 +51,7 @@ public class CluedInputProvider : InputProvider
 
     private void Start()
     {
-        characterController = GetComponent<CharacterController2D>();
+        characterState = GetComponent<CharacterState>();
     }
 
     private void FixedUpdate()

@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitDamage: 1
+  damagedSelfOnHit: 0
 --- !u!1 &157382610
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,6 +260,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: level-1-forest
       objectReference: {fileID: 0}
+    - target: {fileID: -1615323539872654887, guid: b6ea4e7e6d4845f4ab566848146f0f2d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: -1239794010972851201, guid: b6ea4e7e6d4845f4ab566848146f0f2d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b6ea4e7e6d4845f4ab566848146f0f2d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -308,17 +319,7 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: -1239794010972851201, guid: b6ea4e7e6d4845f4ab566848146f0f2d,
-        type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
     - target: {fileID: 337624732471720763, guid: b6ea4e7e6d4845f4ab566848146f0f2d,
-        type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: -1615323539872654887, guid: b6ea4e7e6d4845f4ab566848146f0f2d,
         type: 3}
       propertyPath: m_Layer
       value: 12

@@ -40,7 +40,7 @@ public class HitPoints : MonoBehaviour
     // Set about once, probably in Start().
     private Animator animator; // May be null.
     private AudioSource audioSource;
-    private CharacterController2D characterController;
+    private CharacterState characterState;
 
     // Modified during gameplay.
     private float nextHitAllowedAt = 0f;
@@ -51,8 +51,8 @@ public class HitPoints : MonoBehaviour
     {
         animator = GetComponentInChildren<Animator>();
         audioSource = GetComponent<AudioSource>();
-        characterController = GetComponentInParent<CharacterController2D>();
-        Debug.Assert(characterController != null, $"{nameof(CharacterController2D)} not found in parents of {name}");
+        characterState = GetComponentInParent<CharacterState>();
+        Debug.Assert(characterState != null, $"{nameof(CharacterState)} not found in parents of {name}");
         CurrentHitPoints = maxHitPoints;
     }
 
@@ -78,7 +78,7 @@ public class HitPoints : MonoBehaviour
 
     private void Die()
     {
-        characterController.state.isDead = true;
+        characterState.isDead = true;
         animator.SetBool("IsDead", true);
         CallHandlers<IDying>(a => a.OnDying());
     }

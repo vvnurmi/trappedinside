@@ -12,13 +12,13 @@ public class ContactAttack : MonoBehaviour
     public bool damagedSelfOnHit = false;
 
     // Set about once, probably in Start().
-    private CharacterController2D characterController; // May be null.
+    private CharacterState characterState; // May be null.
 
     #region MonoBehaviour overrides
 
     private void Start()
     {
-        characterController = GetComponentInParent<CharacterController2D>();
+        characterState = GetComponentInParent<CharacterState>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision) => Hit(collision);
@@ -28,7 +28,7 @@ public class ContactAttack : MonoBehaviour
 
     private void Hit(Collider2D collision)
     {
-        if (characterController?.state?.CanInflictDamage == false) return;
+        if (characterState?.CanInflictDamage == false) return;
 
         var victimHp = collision.gameObject.GetComponent<HitPoints>();
         if (victimHp == null) return;

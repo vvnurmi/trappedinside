@@ -9,7 +9,7 @@
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(BoxCollider2D))]
-[RequireComponent(typeof(CharacterController2D))]
+[RequireComponent(typeof(CharacterState))]
 [RequireComponent(typeof(InputProvider))]
 public class LegMovement : MonoBehaviour
 {
@@ -25,7 +25,7 @@ public class LegMovement : MonoBehaviour
     // Set about once, probably in Start().
     private Animator animator;
     private AudioSource audioSource;
-    private CharacterController2D characterController;
+    private CharacterState characterState;
     private InputProvider inputProvider;
     private RaycastCollider groundCollider;
     private SpriteRenderer spriteRenderer;
@@ -41,7 +41,7 @@ public class LegMovement : MonoBehaviour
     private Vector2 velocity;
     private float velocityXSmoothing;
 
-    private bool IsFacingRight => characterController.state.collisions.faceDir == 1;
+    private bool IsFacingRight => characterState.collisions.faceDir == 1;
 
     #region MonoBehaviour overrides
 
@@ -49,14 +49,14 @@ public class LegMovement : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-        characterController = GetComponent<CharacterController2D>();
+        characterState = GetComponent<CharacterState>();
         inputProvider = GetComponent<InputProvider>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         var boxCollider = GetComponent<BoxCollider2D>();
         groundCollider = new RaycastCollider(
             groundColliderConfig,
             boxCollider,
-            characterController.state.collisions);
+            characterState.collisions);
 
         timedAnimTriggers = new TimedAnimationTriggers(animator, 0.1f);
 
@@ -79,7 +79,7 @@ public class LegMovement : MonoBehaviour
         Move(averageVelocity * Time.deltaTime);
 
         // Stop movement in directions where we have collided.
-        CollisionInfo collisions = characterController.state.collisions;
+        CollisionInfo collisions = characterState.collisions;
         if (collisions.HasVerticalCollisions)
             velocity.y = 0;
         if (collisions.HasHorizontalCollisions)
@@ -92,7 +92,7 @@ public class LegMovement : MonoBehaviour
 
     private void HandleVerticalInput(PlayerInput input)
     {
-        if (characterController.state.isClimbing)
+        if (characterState.isClimbing)
         {
             velocity.y = input.vertical * movement.maxSpeed / 2;
             velocity.x = 0;
@@ -100,11 +100,11 @@ public class LegMovement : MonoBehaviour
             if (input.jumpPressed)
             {
                 Jump(0.3f * initialJumpSpeed);
-                characterController.state.isClimbing = false;
+                characterState.isClimbing = false;
             }
 
             if (HasReachedLadderBottom(input))
-                characterController.state.isClimbing = false;
+                characterState.isClimbing = false;
 
         }
         else
@@ -116,35 +116,35 @@ public class LegMovement : MonoBehaviour
                 StopJumping();
 
             velocity.y += gravity * Time.deltaTime;
-            animator.SetBool("Jumping", !characterController.state.collisions.below);
+            animator.SetBool("Jumping", !characterState.collisions.below);
 
-            if (Mathf.Abs(input.vertical) > 0.8 && characterController.state.canClimb)
+            if (Mathf.Abs(input.vertical) > 0.8 && characterState.canClimb)
             {
-                if (!characterController.state.collisions.below || input.vertical > 0)
+                if (!characterState.collisions.below || input.vertical > 0)
                 {
-                    characterController.state.isClimbing = true;
+                    characterState.isClimbing = true;
                     //transform.position = new Vector2(ladderCenterPosition, transform.position.y);
                 }
             }
 
         }
-        animator.SetBool("Climbing", characterController.state.isClimbing);
+        animator.SetBool("Climbing", characterState.isClimbing);
     }
 
-    private bool HasReachedLadderBottom(PlayerInput input) => input.vertical < 0 && characterController.state.collisions.below;
+    private bool HasReachedLadderBottom(PlayerInput input) => input.vertical < 0 && characterState.collisions.below;
 
     private void HandleHorizontalInput(PlayerInput input)
     {
-        if (characterController.state.isClimbing)
+        if (characterState.isClimbing)
             return;
 
         var inputRequiresFlip =
             (input.horizontal < 0 && IsFacingRight) ||
             (input.horizontal > 0 && !IsFacingRight);
-        if (inputRequiresFlip && characterController.state.CanChangeDirection)
+        if (inputRequiresFlip && characterState.CanChangeDirection)
             Flip();
 
-        float targetVelocityX = characterController.state.CanMoveHorizontally
+        float targetVelocityX = characterState.CanMoveHorizontally
             ? input.horizontal * movement.maxSpeed
             : 0;
         float smoothTime = velocity.x * (targetVelocityX - velocity.x) < 0
@@ -156,7 +156,7 @@ public class LegMovement : MonoBehaviour
 
     public void Flip()
     {
-        var collisions = characterController.state.collisions;
+        var collisions = characterState.collisions;
         collisions.faceDir = -collisions.faceDir;
         transform.localScale = new Vector3(
             -transform.localScale.x,
@@ -166,7 +166,7 @@ public class LegMovement : MonoBehaviour
 
     private void Jump(float jumpSpeed)
     {
-        if (characterController.state.CanJump)
+        if (characterState.CanJump)
         {
             velocity.y = jumpSpeed;
             timedAnimTriggers.Set("StartJump");
@@ -183,7 +183,7 @@ public class LegMovement : MonoBehaviour
     {
         groundCollider.UpdateRaycastOrigins();
 
-        CollisionInfo collisions = characterController.state.collisions;
+        CollisionInfo collisions = characterState.collisions;
         collisions.Reset();
 
         groundCollider.HorizontalCollisions(ref moveAmount);
@@ -198,7 +198,7 @@ public class LegMovement : MonoBehaviour
         if (IsLadderLayer(collision))
         {
             ladderCenterPosition = collision.bounds.center.x;
-            characterController.state.canClimb = true;
+            characterState.canClimb = true;
             Debug.Log("Ladder enter.");
         }
     }
@@ -207,7 +207,7 @@ public class LegMovement : MonoBehaviour
     {
         if (IsLadderLayer(collision))
         {
-            characterController.state.canClimb = false;
+            characterState.canClimb = false;
             Debug.Log("Ladder exit.");
         }
     }

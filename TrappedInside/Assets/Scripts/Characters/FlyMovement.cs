@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 
-[RequireComponent(typeof(CharacterController2D))]
+[RequireComponent(typeof(CharacterState))]
 public class FlyMovement : MonoBehaviour
 {
-    private CharacterController2D characterController;
+    private CharacterState characterState;
     private ProximityTrigger proximityTrigger;
     private AttackTrigger attackTrigger;
     private Animator animator;
     private FlyState state;
     private readonly List<string> animationStates = new List<string> { "IsFlying", "IsPreparingAttack", "IsAttacking" };
 
-    public bool IsFacingRight => characterController.state.collisions.faceDir == 1;
+    public bool IsFacingRight => characterState.collisions.faceDir == 1;
     public GameObject Player { get; private set; }
     public bool PlayerInProximity => proximityTrigger.PlayerInProximity;
     public bool PlayerInAttackRange => attackTrigger.PlayerInAttackRange;
@@ -20,18 +20,18 @@ public class FlyMovement : MonoBehaviour
 
     void Start()
     {
-        characterController = GetComponent<CharacterController2D>();
+        characterState = GetComponent<CharacterState>();
         proximityTrigger = GetComponentInChildren<ProximityTrigger>();
         attackTrigger = GetComponentInChildren<AttackTrigger>();
         animator = GetComponentInChildren<Animator>();
         Player = GameObject.FindWithTag("Player");
-        characterController.state.collisions.faceDir = -1;
+        characterState.collisions.faceDir = -1;
         TransitionTo(new Idle());
     }
 
     void Update()
     {
-        if (!characterController.state.CanMoveHorizontally)
+        if (!characterState.CanMoveHorizontally)
         {
             return;
         }
@@ -49,7 +49,7 @@ public class FlyMovement : MonoBehaviour
 
     public void Flip()
     {
-        var collisions = characterController.state.collisions;
+        var collisions = characterState.collisions;
         collisions.faceDir = -collisions.faceDir;
         transform.localScale = new Vector3(
             -transform.localScale.x,

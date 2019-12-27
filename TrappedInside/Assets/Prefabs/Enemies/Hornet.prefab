@@ -136,6 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitDamage: 1
+  damagedSelfOnHit: 0
 --- !u!82 &7985906617373082099
 AudioSource:
   m_ObjectHideFlags: 0
@@ -374,9 +375,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 562093993172783840}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9facbb3b5301cfd4fb2033d3868c422d, type: 3}
+  m_Script: {fileID: 11500000, guid: 845356ee11e82664ba012c5ad2b931bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
+  isInHorizontalAttackMove: 0
+  isInVerticalAttackMove: 0
+  canClimb: 0
+  isClimbing: 0
 --- !u!114 &8470357558976005313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,7 +395,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4660389a0f2f1b48a3407ea749b988d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.5
 --- !u!50 &562093993172783851
 Rigidbody2D:
   serializedVersion: 4

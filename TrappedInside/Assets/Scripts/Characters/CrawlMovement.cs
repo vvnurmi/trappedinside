@@ -3,7 +3,7 @@
 /// <summary>
 /// Implements character movement by adhesively crawling on a surface, orienting along it.
 /// </summary>
-[RequireComponent(typeof(CharacterController2D))]
+[RequireComponent(typeof(CharacterState))]
 public class CrawlMovement : MonoBehaviour
 {
     [Tooltip("Ground collision settings.")]
@@ -13,7 +13,7 @@ public class CrawlMovement : MonoBehaviour
     public float speed = 0.1f;
 
     // Set about once, probably in Start().
-    private CharacterController2D characterController;
+    private CharacterState characterState;
 
     // Modified during gameplay.
     private Vector2 movement;
@@ -28,7 +28,7 @@ public class CrawlMovement : MonoBehaviour
 
     private void Start()
     {
-        characterController = GetComponent<CharacterController2D>();
+        characterState = GetComponent<CharacterState>();
     }
 
     private void Update()
@@ -37,7 +37,7 @@ public class CrawlMovement : MonoBehaviour
         Vector2 deltaPosition;
         Vector2 worldDirection;
 
-        if (IsCrawling && !characterController.state.CanMoveHorizontally)
+        if (IsCrawling && !characterState.CanMoveHorizontally)
         {
             // If we die on the floor, stop moving.
             if (surfacePaths.Current.NormalAt(surfaceParam).y > 0)
