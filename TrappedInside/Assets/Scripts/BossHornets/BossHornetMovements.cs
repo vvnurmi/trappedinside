@@ -34,6 +34,7 @@ public class BossHornet
     private Animator _animator;
     private bool _isFacingLeft;
     private readonly float _timeDiffBetweenHornets;
+    private System.Random _random;
 
     public BossHornet(GameObject hornet, Vector3 centerPoint, float finalCircleAngle, float circleRadius, float angularVelocity, float attackVelocity, int flyingPosition, float timeDiffBetweenHornets)
     {
@@ -47,6 +48,7 @@ public class BossHornet
         FlyingPosition = flyingPosition;
         _isFacingLeft = true;
         _timeDiffBetweenHornets = timeDiffBetweenHornets;
+        _random = new System.Random(flyingPosition);
     }
 
     public string AnimationState
@@ -77,7 +79,7 @@ public class BossHornet
         get {
             if (CurrentState == HornetState.Attacking)
             {
-                return (CurrentPosition - CenterPoint).magnitude < 0.05;
+                return (CurrentPosition - CenterPoint).magnitude < 0.1;
             }
             else
             {
@@ -94,11 +96,10 @@ public class BossHornet
 
     public void Move(float stateStartTime, float deltaTime)
     {
-        if (IsReadyForStateTransition)
-            return;
-
         if (CurrentState == HornetState.Attacking)
         {
+            if (IsReadyForStateTransition)
+                return;
 
             if (Time.time > MovementStartTime(stateStartTime))
             {
@@ -109,20 +110,40 @@ public class BossHornet
             {
                 AnimationState = "IsPreparingAttack";
             }
+            else
+            {
+                RandomMovement(deltaTime);
+            }
         }
         else if (CurrentState == HornetState.Flying)
         {
+            if (IsReadyForStateTransition)
+            {
+                RandomMovement(deltaTime);
+                return;
+            }
+
             if (Time.time > MovementStartTime(stateStartTime))
             {
                 CurrentCircleAngle += AngularVelocity * deltaTime;
-                _hornet.transform.position = new Vector3(
+                _hornet.transform.position = Vector3.Lerp(CurrentPosition, new Vector3(
                     CenterPoint.x + CircleRadius * Mathf.Cos(CurrentCircleAngle),
-                    CenterPoint.y + CircleRadius * Mathf.Sin(CurrentCircleAngle), 0);
+                    CenterPoint.y + CircleRadius * Mathf.Sin(CurrentCircleAngle), 0), 0.5f);
 
                 if (FlipRequired)
                     Flip();
             }
+            else
+            {
+                RandomMovement(deltaTime);
+            }
         }
+    }
+
+    public void RandomMovement(float deltaTime)
+    {
+        var direction = new Vector3((float)_random.NextDouble() - 0.5f, (float)_random.NextDouble() - 0.5f);
+        _hornet.transform.position += 0.5f * direction * deltaTime;
     }
 
     private bool FlipRequired =>
@@ -214,15 +235,17 @@ public class BossHornetMovements : MonoBehaviour
         }
 
         if (Time.realtimeSinceStartup - _waitStartTime < firstHornetMovementStartTime)
+        {
+            foreach (var bossHornet in ActiveBossHornets)
+                bossHornet.RandomMovement(Time.deltaTime);
             return;
+        }
 
         if (_stateStartTime < 0.0)
             _stateStartTime = Time.realtimeSinceStartup;
 
         foreach (var bossHornet in ActiveBossHornets)
-        {
             bossHornet.Move(_stateStartTime, Time.deltaTime);
-        }
 
         if (ReadyToStateTransition)
         {
