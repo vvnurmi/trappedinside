@@ -479,11 +479,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7226107627772768022, guid: 774735a8eafb5b347b1b081956c3b34e,
-        type: 3}
-      propertyPath: m_Name
-      value: Shield
-      objectReference: {fileID: 0}
     - target: {fileID: 8480575396405387988, guid: 774735a8eafb5b347b1b081956c3b34e,
         type: 3}
       propertyPath: m_Offset.x
@@ -595,6 +590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitDamage: 1
+  damagedSelfOnHit: 0
 --- !u!1 &1812274227
 GameObject:
   m_ObjectHideFlags: 0
