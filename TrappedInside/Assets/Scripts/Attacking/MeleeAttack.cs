@@ -75,9 +75,9 @@ public class MeleeAttack : MonoBehaviour
 
     private void HandleInput(PlayerInput input)
     {
-        animator.SetBool("IsPrepUp", input.vertical > 0.5f);
-        animator.SetBool("IsPrepDown", input.vertical < -0.5f);
-        animator.SetBool("IsPrepSide", Math.Abs(input.horizontal) > 0.5f);
+        animator.SetBool("IsPrepUp", input.vertical > 0.5f && characterState.CanInflictDamage);
+        animator.SetBool("IsPrepDown", input.vertical < -0.5f && characterState.CanInflictDamage);
+        animator.SetBool("IsPrepSide", Math.Abs(input.horizontal) > 0.5f && characterState.CanInflictDamage);
         animator.SetBool("WantsToShield", input.fire2Active && characterState.CanInflictDamage);
         if (characterState.CanInflictDamage)
         {
@@ -90,10 +90,12 @@ public class MeleeAttack : MonoBehaviour
 
     public void AnimEvent_StartAttacking(MeleeAttackType attack)
     {
+        var playMeleeSound = true;
         if (activeAttack.HasValue)
         {
             if (activeAttack.Value == attack) return;
             StopAttacking(animatorAction: () => { });
+            playMeleeSound = false;
         }
 
         activeAttack = attack;
@@ -114,7 +116,9 @@ public class MeleeAttack : MonoBehaviour
                 break;
         }
         ActivateWeapon(attack);
-        audioSource.TryPlay(meleeSound);
+
+        if (playMeleeSound)
+            audioSource.TryPlay(meleeSound);
     }
 
     public void AnimEvent_StopAttacking()
@@ -124,7 +128,6 @@ public class MeleeAttack : MonoBehaviour
 
     private void StopAttacking(Action animatorAction)
     {
-        Debug.Assert(activeAttack.HasValue);
         SetCharacterHorzontalAndVerticalAttackState(false);
         DeactivateWeapons();
         animatorAction();
