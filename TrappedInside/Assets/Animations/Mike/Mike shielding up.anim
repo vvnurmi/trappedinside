@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mike shielding end
+  m_Name: Mike shielding up
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,7 +20,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -4039398895030830290, guid: e10d4e490e81b104c9e9b7653011377c,
+      value: {fileID: -2325257550103352369, guid: e10d4e490e81b104c9e9b7653011377c,
         type: 3}
     attribute: m_Sprite
     path: 
@@ -41,7 +41,7 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -4039398895030830290, guid: e10d4e490e81b104c9e9b7653011377c, type: 3}
+    - {fileID: -2325257550103352369, guid: e10d4e490e81b104c9e9b7653011377c, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -68,7 +68,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: AnimEvent_StopAttacking
+    functionName: AnimEvent_StartAttacking
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

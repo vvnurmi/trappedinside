@@ -1,7 +1,8 @@
 ﻿public enum MeleeAttackType
 {
-    Shield,
-    SwordSwingUp,
+    ShieldUp,
+    ShieldDiagonal,
+    ShieldSide,
     ShieldBash,
     ShieldThrow,
 }

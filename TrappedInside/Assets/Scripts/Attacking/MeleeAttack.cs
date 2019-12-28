@@ -77,25 +77,32 @@ public class MeleeAttack : MonoBehaviour
     {
         animator.SetBool("IsPrepUp", input.vertical > 0.5f);
         animator.SetBool("IsPrepDown", input.vertical < -0.5f);
+        animator.SetBool("IsPrepSide", Math.Abs(input.horizontal) > 0.5f);
+        animator.SetBool("WantsToShield", input.fire2Active && characterState.CanInflictDamage);
         if (characterState.CanInflictDamage)
         {
             if (input.fire1Pressed)
                 timedAnimTriggers.Set("StartMelee");
             if (input.fire2Pressed)
                 timedAnimTriggers.Set("StartShielding");
-            animator.SetBool("WantsToShield", input.fire2Active);
         }
     }
 
     public void AnimEvent_StartAttacking(MeleeAttackType attack)
     {
-        Debug.Assert(!activeAttack.HasValue);
+        if (activeAttack.HasValue)
+        {
+            if (activeAttack.Value == attack) return;
+            StopAttacking(animatorAction: () => { });
+        }
+
         activeAttack = attack;
 
         switch (attack)
         {
-            case MeleeAttackType.Shield:
-            case MeleeAttackType.SwordSwingUp:
+            case MeleeAttackType.ShieldUp:
+            case MeleeAttackType.ShieldDiagonal:
+            case MeleeAttackType.ShieldSide:
             case MeleeAttackType.ShieldThrow:
                 SetCharacterHorzontalAndVerticalAttackState(true);
                 break;
