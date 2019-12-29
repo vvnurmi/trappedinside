@@ -234,7 +234,7 @@ public class BossHornetMovements : MonoBehaviour
             _stateStartTime = -1;
         }
 
-        if (Time.realtimeSinceStartup - _waitStartTime < firstHornetMovementStartTime)
+        if (Time.time - _waitStartTime < firstHornetMovementStartTime)
         {
             foreach (var bossHornet in ActiveBossHornets)
                 bossHornet.RandomMovement(Time.deltaTime);
@@ -242,7 +242,7 @@ public class BossHornetMovements : MonoBehaviour
         }
 
         if (_stateStartTime < 0.0)
-            _stateStartTime = Time.realtimeSinceStartup;
+            _stateStartTime = Time.time;
 
         foreach (var bossHornet in ActiveBossHornets)
             bossHornet.Move(_stateStartTime, Time.deltaTime);
@@ -250,7 +250,7 @@ public class BossHornetMovements : MonoBehaviour
         if (ReadyToStateTransition)
         {
             UpdateHornetStates();
-            _stateStartTime = Time.realtimeSinceStartup;
+            _stateStartTime = Time.time;
         }
 
     }
@@ -273,7 +273,7 @@ public class BossHornetMovements : MonoBehaviour
     void InitWave()
     {
         Debug.Assert(bossHornetPrefab != null, "Boss Hornet Prefab is null");
-        _waitStartTime = Time.realtimeSinceStartup;
+        _waitStartTime = Time.time;
 
         _bossHornets.Clear();
 
