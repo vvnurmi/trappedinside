@@ -79,7 +79,7 @@ public class BossHornet
         get {
             if (CurrentState == HornetState.Attacking)
             {
-                return (CurrentPosition - CenterPoint).magnitude < 0.1;
+                return (CurrentPosition - CenterPoint).magnitude < 0.07;
             }
             else
             {
