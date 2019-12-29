@@ -19,11 +19,12 @@ public class CharacterState : MonoBehaviour
 
     public bool canClimb;
     public bool isClimbing;
+    public bool isStuck;
 
     public CollisionInfo collisions = new CollisionInfo();
 
-    public bool CanMoveHorizontally => !isDead && !isInHorizontalAttackMove;
-    public bool CanJump => !isDead && !isInVerticalAttackMove && (collisions.below || isClimbing);
+    public bool CanMoveHorizontally => !isDead && !isStuck && !isInHorizontalAttackMove;
+    public bool CanJump => !isDead && !isStuck && !isInVerticalAttackMove && (collisions.below || isClimbing);
     public bool CanChangeDirection => !isDead;
     public bool CanInflictDamage => !isDead;
 }

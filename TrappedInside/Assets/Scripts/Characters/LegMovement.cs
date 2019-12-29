@@ -85,7 +85,8 @@ public class LegMovement : MonoBehaviour
         if (collisions.HasHorizontalCollisions)
             velocity.x = 0;
 
-        animator.SetFloat("VerticalSpeed", velocity.y);
+        var relativeSpeed = Mathf.InverseLerp(0, movement.maxSpeed, Mathf.Abs(velocity.y));
+        animator.SetFloat("VerticalSpeed", relativeSpeed);
     }
 
     #endregion
@@ -151,7 +152,9 @@ public class LegMovement : MonoBehaviour
             ? movement.maxSpeedStopTime
             : movement.maxSpeedReachTime;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, smoothTime);
-        animator.SetFloat("Speed", Mathf.Abs(input.horizontal));
+
+        var relativeSpeed = Mathf.InverseLerp(0, movement.maxSpeed, Mathf.Abs(velocity.x));
+        animator.SetFloat("Speed", relativeSpeed);
     }
 
     public void Flip()
