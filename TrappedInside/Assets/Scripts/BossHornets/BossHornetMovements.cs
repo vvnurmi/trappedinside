@@ -143,7 +143,7 @@ public class BossHornet
     public void RandomMovement(float deltaTime)
     {
         var direction = new Vector3((float)_random.NextDouble() - 0.5f, (float)_random.NextDouble() - 0.5f);
-        _hornet.transform.position += 0.5f * direction * deltaTime;
+        _hornet.transform.position += 0.25f * direction * deltaTime;
     }
 
     private bool FlipRequired =>
