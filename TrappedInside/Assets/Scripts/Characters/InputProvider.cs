@@ -22,8 +22,8 @@ public class InputProvider : MonoBehaviour
                 fire2Active: Input.GetButton("Fire2"),
                 jumpPressed: Input.GetButtonDown("Jump"),
                 jumpReleased: Input.GetButtonUp("Jump"),
-                horizontal: Input.GetAxis("Horizontal"),
-                vertical: Input.GetAxis("Vertical"));
+                horizontal: Input.GetAxisRaw("Horizontal"),
+                vertical: Input.GetAxisRaw("Vertical"));
     }
 
     /// <summary>
