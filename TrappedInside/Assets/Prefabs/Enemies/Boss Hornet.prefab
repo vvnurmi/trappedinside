@@ -235,7 +235,7 @@ MonoBehaviour:
   maxHitPoints: 1
   hitDelay: 1
   hitSound: {fileID: 0}
-  deathSound: {fileID: 0}
+  deathSound: {fileID: 8300000, guid: 8c5979076fd5a4c4db4420c9a02b85dd, type: 3}
 --- !u!95 &8664520282838793888
 Animator:
   serializedVersion: 3
@@ -367,6 +367,7 @@ MonoBehaviour:
   isInVerticalAttackMove: 0
   canClimb: 0
   isClimbing: 0
+  isStuck: 0
 --- !u!50 &562093993172783851
 Rigidbody2D:
   serializedVersion: 4
