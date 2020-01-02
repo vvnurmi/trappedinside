@@ -46,6 +46,9 @@ public class ImageFade : MonoBehaviour
     private void Awake()
     {
         image = GetComponent<Image>();
+
+        // Start from transparent cover image to avoid unintended screen flicker to black.
+        image.canvasRenderer.SetAlpha(0);
     }
 
     private void Update()
