@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public enum UIMode
@@ -12,10 +10,12 @@ public enum UIMode
 
 public class UIController : MonoBehaviour
 {
-    public const string FirstLevelName = "Level1a_Start";
-
     private static GameObject host;
 
+    // Set once at startup.
+    private UIControllerConfig config;
+
+    // Modified throughout lifetime.
     private UIMode mode = UIMode.Title;
 
     public static UIController Instance => host.GetComponent<UIController>();
@@ -45,6 +45,12 @@ public class UIController : MonoBehaviour
         SceneManager.sceneLoaded += host.GetComponent<UIController>().OnSceneLoaded;
     }
 
+    private void Awake()
+    {
+        config = Resources.Load<UIControllerConfig>("UIControllerConfig");
+        Debug.Assert(config != null);
+    }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode sceneMode)
     {
         // A simple heuristic to determine if we loaded a gameplay or title scene.
@@ -68,7 +74,7 @@ public class UIController : MonoBehaviour
                     Input.GetButtonDown("Fire1") ||
                     Input.GetButtonDown("Jump");
                 if (promptPressed)
-                    SceneManager.LoadScene(FirstLevelName);
+                    SceneManager.LoadScene(config.gameStartScene);
                 break;
         }
     }
