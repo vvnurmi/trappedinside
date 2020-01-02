@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3471300404223552235}
   - component: {fileID: 3471300404223552234}
   m_Layer: 5
-  m_Name: ScreenOverlayCanvas
+  m_Name: ScreenFadeOverlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -186,3 +186,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfd02d0d8914db0478fb5b528b1eb274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeOutSeconds: 0.5
+  fadeInSeconds: 2

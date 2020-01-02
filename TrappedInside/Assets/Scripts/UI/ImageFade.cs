@@ -14,10 +14,10 @@ public class ImageFade : MonoBehaviour
         Out,
     }
 
-    [Tooltip("How many seconds to fade out.")]
+    [Tooltip("How many seconds to fade the image out.")]
     public float fadeOutSeconds = 1.0f;
 
-    [Tooltip("How many seconds to fade in.")]
+    [Tooltip("How many seconds to fade the image in.")]
     public float fadeInSeconds = 0.5f;
 
     public bool IsFadeComplete => fadeMode == FadeMode.None;
@@ -52,18 +52,7 @@ public class ImageFade : MonoBehaviour
     {
         if (fadeMode == FadeMode.None) return;
 
-        float lerpParam = 0;
-        float alpha = 0;
-        if (fadeMode == FadeMode.In)
-        {
-            lerpParam = Mathf.InverseLerp(fadeStartSeconds, fadeStartSeconds + fadeInSeconds, Time.unscaledTime);
-            alpha = Mathf.Lerp(0, 1, lerpParam);
-        }
-        if (fadeMode == FadeMode.Out)
-        {
-            lerpParam = Mathf.InverseLerp(fadeStartSeconds, fadeStartSeconds + fadeOutSeconds, Time.unscaledTime);
-            alpha = Mathf.Lerp(1, 0, lerpParam);
-        }
+        (float alpha, float lerpParam) = GetAlphaAndLerpParam();
 
         image.canvasRenderer.SetAlpha(alpha);
 
@@ -72,4 +61,25 @@ public class ImageFade : MonoBehaviour
     }
 
     #endregion
+
+    private (float alpha, float lerpParam) GetAlphaAndLerpParam()
+    {
+        switch (fadeMode)
+        {
+            case FadeMode.In:
+                return GetAlphaAndLerpParam(fadeInSeconds, 0, 1);
+            case FadeMode.Out:
+                return GetAlphaAndLerpParam(fadeOutSeconds, 1, 0);
+            default:
+                Debug.LogAssertion($"Unhandled {nameof(FadeMode)} {fadeMode}");
+                return (0, 0);
+        }
+    }
+
+    private (float alpha, float lerpParam) GetAlphaAndLerpParam(float fadeSeconds, float alphaBegin, float alphaEnd)
+    {
+        var lerpParam = Mathf.InverseLerp(fadeStartSeconds, fadeStartSeconds + fadeSeconds, Time.unscaledTime);
+        var alpha = Mathf.Lerp(alphaBegin, alphaEnd, lerpParam);
+        return (alpha, lerpParam);
+    }
 }

@@ -92,7 +92,8 @@ public class UIController : MonoBehaviour
         while (!imageFade.IsFadeComplete)
             yield return null;
 
-        Debug.Log("Screen fade in complete");
+        Debug.Log("Screen fade in complete, destroying fader");
+        Destroy(screenCover);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode sceneMode)
