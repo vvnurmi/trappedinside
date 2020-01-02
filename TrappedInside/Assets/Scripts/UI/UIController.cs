@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public enum UIMode
@@ -31,7 +32,7 @@ public class UIController : MonoBehaviour
     /// </summary>
     public void LoadLevel(SceneReference level)
     {
-        SceneManager.LoadScene(level.ScenePath);
+        StartCoroutine(LoadLevel_Coroutine(level));
     }
 
     #region MonoBehaviour overrides
@@ -51,6 +52,49 @@ public class UIController : MonoBehaviour
         Debug.Assert(config != null);
     }
 
+    private void FixedUpdate()
+    {
+        switch (mode)
+        {
+            case UIMode.Title:
+                bool promptPressed =
+                    Input.GetButtonDown("Fire1") ||
+                    Input.GetButtonDown("Jump");
+                if (promptPressed)
+                    LoadLevel(config.gameStartScene);
+                break;
+        }
+    }
+
+    #endregion
+
+    private IEnumerator LoadLevel_Coroutine(SceneReference level)
+    {
+        Debug.Assert(config.screenCover != null);
+
+        Debug.Log("Screen fade out starting");
+        var screenCover = Instantiate(config.screenCover);
+        var imageFade = screenCover.GetComponentInChildren<ImageFade>();
+        Debug.Assert(imageFade != null);
+        imageFade.FadeImageIn();
+        while (!imageFade.IsFadeComplete)
+            yield return null;
+
+        Debug.Log($"Screen fade out complete, loading scene {level.ScenePath}");
+        SceneManager.LoadScene(level.ScenePath);
+        yield return null;
+
+        Debug.Log("Screen fade in starting");
+        screenCover = Instantiate(config.screenCover);
+        imageFade = screenCover.GetComponentInChildren<ImageFade>();
+        Debug.Assert(imageFade != null);
+        imageFade.FadeImageOut();
+        while (!imageFade.IsFadeComplete)
+            yield return null;
+
+        Debug.Log("Screen fade in complete");
+    }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode sceneMode)
     {
         // A simple heuristic to determine if we loaded a gameplay or title scene.
@@ -64,20 +108,4 @@ public class UIController : MonoBehaviour
             Debug.Assert(false, $"Scene name heuristic couldn't identify scene '{scene.name}'");
         }
     }
-
-    private void FixedUpdate()
-    {
-        switch (mode)
-        {
-            case UIMode.Title:
-                bool promptPressed =
-                    Input.GetButtonDown("Fire1") ||
-                    Input.GetButtonDown("Jump");
-                if (promptPressed)
-                    SceneManager.LoadScene(config.gameStartScene);
-                break;
-        }
-    }
-
-    #endregion
 }
