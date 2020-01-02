@@ -12,6 +12,8 @@ public enum UIMode
 
 public class UIController : MonoBehaviour
 {
+    public const string FirstLevelName = "Level1a_Start";
+
     private static GameObject host;
 
     private UIMode mode = UIMode.Title;
@@ -66,7 +68,7 @@ public class UIController : MonoBehaviour
                     Input.GetButtonDown("Fire1") ||
                     Input.GetButtonDown("Jump");
                 if (promptPressed)
-                    SceneManager.LoadScene("Level1_Start");
+                    SceneManager.LoadScene(FirstLevelName);
                 break;
         }
     }
