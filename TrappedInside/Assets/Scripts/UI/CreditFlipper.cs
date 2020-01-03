@@ -70,5 +70,8 @@ public class CreditFlipper : MonoBehaviour
 
         // Clear the text at the end for safety.
         textField.text = "";
+
+        // Deactivate parent at the end.
+        gameObject.SetActive(false);
     }
 }
