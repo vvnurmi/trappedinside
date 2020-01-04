@@ -108,9 +108,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3471300404229198770}
+  - component: {fileID: 130632063770684823}
   - component: {fileID: 3471300404229198768}
   - component: {fileID: 3471300404229198771}
-  - component: {fileID: 130632063770684823}
   m_Layer: 5
   m_Name: Covering Panel
   m_TagString: Untagged
@@ -137,6 +137,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &130632063770684823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3471300404229198773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd02d0d8914db0478fb5b528b1eb274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeOutSeconds: 0.5
+  fadeInSeconds: 2
 --- !u!222 &3471300404229198768
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -174,17 +188,3 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &130632063770684823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3471300404229198773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfd02d0d8914db0478fb5b528b1eb274, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeOutSeconds: 0.5
-  fadeInSeconds: 2

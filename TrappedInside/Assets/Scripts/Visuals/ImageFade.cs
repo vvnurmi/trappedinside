@@ -33,12 +33,18 @@ public class ImageFade : MonoBehaviour
     {
         fadeMode = FadeMode.In;
         fadeStartSeconds = Time.unscaledTime;
+
+        // Make cover image transparent right away to avoid unintended momentary screen disappearance.
+        image.canvasRenderer.SetAlpha(0);
     }
 
     public void FadeImageOut()
     {
         fadeMode = FadeMode.Out;
         fadeStartSeconds = Time.unscaledTime;
+
+        // Make cover image opaque right away to avoid unintended momentary screen appearance.
+        image.canvasRenderer.SetAlpha(1);
     }
 
     #region MonoBehaviour overrides
@@ -46,9 +52,6 @@ public class ImageFade : MonoBehaviour
     private void Awake()
     {
         image = GetComponent<Image>();
-
-        // Start from transparent cover image to avoid unintended screen flicker to black.
-        image.canvasRenderer.SetAlpha(0);
     }
 
     private void Update()
