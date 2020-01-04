@@ -424,7 +424,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1677012577}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -477,7 +477,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1677012577}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -619,25 +619,82 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3539d285eab095b4eaa1adf5299c8e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeSeconds: 1
+  fadeSecondsDefault: 1
+  visibleSecondsDefault: 2
   phases:
   - text: Mike presents
-    visibleSeconds: 3
+    visibleSecondsOverride:
+      value: 3
+      hasValue: 1
+    fadeInSecondsOverride:
+      value: 0
+      hasValue: 0
+    fadeOutSecondsOverride:
+      value: 0
+      hasValue: 0
   - text: Design by Mike
-    visibleSeconds: 2
+    visibleSecondsOverride:
+      value: 0
+      hasValue: 0
+    fadeInSecondsOverride:
+      value: 0
+      hasValue: 0
+    fadeOutSecondsOverride:
+      value: 0
+      hasValue: 0
   - text: Story by Mike
-    visibleSeconds: 2
+    visibleSecondsOverride:
+      value: 0
+      hasValue: 0
+    fadeInSecondsOverride:
+      value: 0
+      hasValue: 0
+    fadeOutSecondsOverride:
+      value: 0
+      hasValue: 0
   - text: Development by Mike
-    visibleSeconds: 2
+    visibleSecondsOverride:
+      value: 0
+      hasValue: 0
+    fadeInSecondsOverride:
+      value: 0
+      hasValue: 0
+    fadeOutSecondsOverride:
+      value: 0
+      hasValue: 0
   - text: Starring Mike
-    visibleSeconds: 2
+    visibleSecondsOverride:
+      value: 0
+      hasValue: 0
+    fadeInSecondsOverride:
+      value: 0
+      hasValue: 0
+    fadeOutSecondsOverride:
+      value: 0
+      hasValue: 0
   - text: In the video game sensation called
-    visibleSeconds: 2
+    visibleSecondsOverride:
+      value: 0
+      hasValue: 0
+    fadeInSecondsOverride:
+      value: 0
+      hasValue: 0
+    fadeOutSecondsOverride:
+      value: 0
+      hasValue: 0
   - text: 'Mike''s Story of Going Somewhere and then Coming Back
 
 
       (It''s a working title, we can change it later)'
-    visibleSeconds: 5
+    visibleSecondsOverride:
+      value: 5
+      hasValue: 1
+    fadeInSecondsOverride:
+      value: 0
+      hasValue: 0
+    fadeOutSecondsOverride:
+      value: 0
+      hasValue: 0
 --- !u!1 &1316162345
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,10 +1061,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 1070747076}
   - {fileID: 2034375130}
   - {fileID: 2130859311}
   - {fileID: 927667873}
+  - {fileID: 1070747076}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1060,7 +1117,7 @@ RectTransform:
   m_Children:
   - {fileID: 212353340}
   m_Father: {fileID: 1677012577}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1234,7 +1291,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1677012577}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1376,7 +1433,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3539d285eab095b4eaa1adf5299c8e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeSeconds: 1
+  fadeSecondsDefault: 1
+  visibleSecondsDefault: 3
   phases:
+  - text: You shall be called
+    visibleSecondsOverride:
+      value: 0
+      hasValue: 0
+    fadeInSecondsOverride:
+      value: 0
+      hasValue: 0
+    fadeOutSecondsOverride:
+      value: 0
+      hasValue: 1
   - text: You shall be called Mike
-    visibleSeconds: 3
+    visibleSecondsOverride:
+      value: 0
+      hasValue: 0
+    fadeInSecondsOverride:
+      value: 0
+      hasValue: 1
+    fadeOutSecondsOverride:
+      value: 0
+      hasValue: 0
