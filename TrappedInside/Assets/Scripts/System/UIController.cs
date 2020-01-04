@@ -52,20 +52,6 @@ public class UIController : MonoBehaviour
         Debug.Assert(config != null);
     }
 
-    private void FixedUpdate()
-    {
-        switch (mode)
-        {
-            case UIMode.Title:
-                bool promptPressed =
-                    Input.GetButtonDown("Fire1") ||
-                    Input.GetButtonDown("Jump");
-                if (promptPressed)
-                    LoadLevel(config.gameStartScene);
-                break;
-        }
-    }
-
     #endregion
 
     private IEnumerator LoadLevel_Coroutine(SceneReference level)
