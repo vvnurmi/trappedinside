@@ -26,7 +26,16 @@ public class BackgroundStarsController : MonoBehaviour
                     gridX + Random.Range(0, density),
                     gridY + Random.Range(0, density),
                     0);
-                Instantiate(prefab, pos, Quaternion.identity, transform);
+                var star = Instantiate(prefab, pos, Quaternion.identity, transform);
+
+                // Randomize star animation phase and speed a bit.
+                var animator = star.GetComponent<Animator>();
+                if (animator != null)
+                {
+                    var stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                    animator.playbackTime = Random.Range(0, stateInfo.length);
+                    animator.speed = Random.Range(0.8f, 1.2f);
+                }
             }
     }
 }
