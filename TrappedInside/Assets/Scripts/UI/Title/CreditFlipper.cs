@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -62,37 +63,18 @@ public class CreditFlipper : MonoBehaviour
             var fadeOutSeconds = phase.fadeOutSecondsOverride.GetValueOrDefault(fadeSecondsDefault);
             var visibleSeconds = phase.visibleSecondsOverride.GetValueOrDefault(visibleSecondsDefault);
 
-            {
-                // Fade in a new phase.
-                textField.text = phase.text;
-                var fadeStartTime = Time.time;
-                var fadeEndTime = fadeStartTime + fadeInSeconds;
-                while (true)
-                {
-                    var nowTime = Time.time;
-                    textField.alpha = Mathf.InverseLerp(fadeStartTime, fadeEndTime, nowTime);
-                    if (nowTime >= fadeEndTime) break;
-                    yield return null;
-                }
-                // Ensure the text is visible (in case fade time is 0).
-                textField.alpha = 1;
-            }
+            // Fade in a new phase.
+            textField.text = phase.text;
+            yield return FadeCreditsPhase(fadeInSeconds, paramToAlpha: t => t);
+
+            // Ensure the text is visible (in case fade time is 0).
+            textField.alpha = 1;
 
             // Keep the phase visible for some time.
             yield return new WaitForSeconds(visibleSeconds);
 
-            {
-                // Fade out the old phase.
-                var fadeStartTime = Time.time;
-                var fadeEndTime = fadeStartTime + fadeOutSeconds;
-                while (true)
-                {
-                    var nowTime = Time.time;
-                    textField.alpha = 1 - Mathf.InverseLerp(fadeStartTime, fadeEndTime, nowTime);
-                    if (nowTime >= fadeEndTime) break;
-                    yield return null;
-                }
-            }
+            // Fade out the old phase.
+            yield return FadeCreditsPhase(fadeOutSeconds, paramToAlpha: t => 1 - t);
         }
 
         // Clear the text at the end for safety.
@@ -100,5 +82,19 @@ public class CreditFlipper : MonoBehaviour
 
         // Deactivate parent at the end.
         gameObject.SetActive(false);
+    }
+
+    private IEnumerator FadeCreditsPhase(float fadeSeconds, Func<float, float> paramToAlpha)
+    {
+        var fadeStartTime = Time.time;
+        var fadeEndTime = fadeStartTime + fadeSeconds;
+        while (true)
+        {
+            var nowTime = Time.time;
+            var lerpParam = Mathf.InverseLerp(fadeStartTime, fadeEndTime, nowTime);
+            textField.alpha = paramToAlpha(lerpParam);
+            if (nowTime >= fadeEndTime) break;
+            yield return null;
+        }
     }
 }
