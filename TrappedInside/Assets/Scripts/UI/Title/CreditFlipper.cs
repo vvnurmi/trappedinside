@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -74,8 +73,9 @@ public class CreditFlipper : MonoBehaviour
             // Keep the phase visible for some time.
             yield return new WaitForSeconds(visibleSeconds);
 
-            // Fade out the old phase.
-            yield return FadeCreditsPhase(fadeOutSeconds, 1, 0);
+            // Fade out the old phase unless there is no fade.
+            if (fadeOutSeconds > 0)
+                yield return FadeCreditsPhase(fadeOutSeconds, 1, 0);
         }
 
         // Clear the text at the end for safety.
