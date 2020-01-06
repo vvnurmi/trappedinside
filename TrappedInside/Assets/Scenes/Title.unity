@@ -487,8 +487,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextLevel:
-    sceneAsset: {fileID: 102900000, guid: e8787d288d82b374c93163e373b779bf, type: 3}
-    scenePath: Assets/Scenes/Level1a_Start.unity
+    sceneAsset: {fileID: 102900000, guid: 1caf441125488c041b4afa67542ab7e4, type: 3}
+    scenePath: Assets/Scenes/Level1a_Intro.unity
 --- !u!1 &1070747075
 GameObject:
   m_ObjectHideFlags: 0
