@@ -730,7 +730,6 @@ MonoBehaviour:
   - text: 'Mike''s Story of Going Somewhere and then Coming Back
 
 
-
       <size=50%>(It''s a working title, we can change it later)</size>'
     visibleSecondsOverride:
       value: 5
