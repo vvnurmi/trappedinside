@@ -432,6 +432,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   density: 0.8
+  spawnDelaySecondsMin: 0.8
+  spawnDelaySecondsMax: 1.5
   prefabs:
   - {fileID: 3995598443743254835, guid: 13d296601f10af642b2e7ac51aff9766, type: 3}
   - {fileID: 3112549739068175169, guid: ad8f509317a49a144b9829fe044aec58, type: 3}
