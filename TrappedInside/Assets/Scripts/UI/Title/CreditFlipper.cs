@@ -45,6 +45,7 @@ public class CreditFlipper : MonoBehaviour
     public CreditPhase[] phases;
 
     private TextMeshProUGUI textField;
+    private AlphaFader alphaFader = new AlphaFader();
 
     private void Start()
     {
@@ -65,7 +66,7 @@ public class CreditFlipper : MonoBehaviour
 
             // Fade in a new phase.
             textField.text = phase.text;
-            yield return FadeCreditsPhase(fadeInSeconds, paramToAlpha: t => t);
+            yield return FadeCreditsPhase(fadeInSeconds, 0, 1);
 
             // Ensure the text is visible (in case fade time is 0).
             textField.alpha = 1;
@@ -74,7 +75,7 @@ public class CreditFlipper : MonoBehaviour
             yield return new WaitForSeconds(visibleSeconds);
 
             // Fade out the old phase.
-            yield return FadeCreditsPhase(fadeOutSeconds, paramToAlpha: t => 1 - t);
+            yield return FadeCreditsPhase(fadeOutSeconds, 1, 0);
         }
 
         // Clear the text at the end for safety.
@@ -84,16 +85,12 @@ public class CreditFlipper : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private IEnumerator FadeCreditsPhase(float fadeSeconds, Func<float, float> paramToAlpha)
+    private IEnumerator FadeCreditsPhase(float fadeSeconds, float beginAlpha, float endAlpha)
     {
-        var fadeStartTime = Time.time;
-        var fadeEndTime = fadeStartTime + fadeSeconds;
-        while (true)
+        alphaFader.StartFade(fadeSeconds, beginAlpha, endAlpha, alpha => textField.alpha = alpha);
+        while (!alphaFader.IsDone)
         {
-            var nowTime = Time.time;
-            var lerpParam = Mathf.InverseLerp(fadeStartTime, fadeEndTime, nowTime);
-            textField.alpha = paramToAlpha(lerpParam);
-            if (nowTime >= fadeEndTime) break;
+            alphaFader.Update();
             yield return null;
         }
     }

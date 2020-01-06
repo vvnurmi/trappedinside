@@ -23,15 +23,16 @@ public class AlphaFader
         float endAlpha,
         Action<float> setAlpha)
     {
-        IsDone = false;
-
         startTime = Time.time;
         endTime = startTime + fadeSeconds;
         this.beginAlpha = beginAlpha;
         this.endAlpha = endAlpha;
         this.setAlpha = setAlpha;
 
-        setAlpha(beginAlpha);
+        // If there is no fade, set alpha to end state.
+        // Otherwise set alpha to begin state.
+        setAlpha(fadeSeconds <= 0 ? endAlpha : beginAlpha);
+        IsDone = fadeSeconds <= 0;
     }
 
     /// <summary>
@@ -39,6 +40,8 @@ public class AlphaFader
     /// </summary>
     public void Update()
     {
+        if (IsDone) return;
+
         var lerpParam = Mathf.InverseLerp(startTime, endTime, Time.time);
         var alpha = Mathf.Lerp(beginAlpha, endAlpha, lerpParam);
         setAlpha(alpha);
