@@ -54,16 +54,7 @@ public class BackgroundStarsController : MonoBehaviour
         foreach (var pos in positions)
         {
             var prefab = prefabs[Random.Range(0, prefabs.Length)];
-            var star = Instantiate(prefab, pos, Quaternion.identity, transform);
-
-            // Randomize star animation phase and speed a bit.
-            var animator = star.GetComponent<Animator>();
-            if (animator != null)
-            {
-                var stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-                animator.playbackTime = Random.Range(0, stateInfo.length);
-                animator.speed = Random.Range(0.8f, 1.2f);
-            }
+            Instantiate(prefab, pos, Quaternion.identity, transform);
 
             var spawnInterval = Random.Range(spawnDelaySecondsMin, spawnDelaySecondsMax);
             yield return new WaitForSeconds(spawnInterval);
