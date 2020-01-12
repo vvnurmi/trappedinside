@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -18,6 +17,10 @@ using UnityEngine;
 [RequireComponent(typeof(InputProvider))]
 public class MeleeAttack : MonoBehaviour
 {
+    [EnumFlag("Capabilities")]
+    [Tooltip("What kind of attacks are enabled.")]
+    public MeleeAttackCapabilities capabilities;
+
     [Tooltip("The sound to play on melee attack.")]
     public AudioClip meleeSound;
 
@@ -31,7 +34,7 @@ public class MeleeAttack : MonoBehaviour
     private TimedAnimationTriggers timedAnimTriggers;
 
     // Modified during gameplay.
-    MeleeAttackType? activeAttack;
+    private MeleeAttackType? activeAttack;
 
     #region MonoBehaviour overrides
 
@@ -49,6 +52,8 @@ public class MeleeAttack : MonoBehaviour
     private void Update()
     {
         timedAnimTriggers.Update();
+
+        RelayWeaponCapabilities();
 
         var input = inputProvider.GetInput();
         HandleInput(input);
@@ -71,6 +76,13 @@ public class MeleeAttack : MonoBehaviour
                 var attack = weapon.gameObject.GetComponent<IAttack>();
                 attack?.OnAttack();
             }
+    }
+
+    private void RelayWeaponCapabilities()
+    {
+        foreach (MeleeAttackCapabilities capability in Enum.GetValues(typeof(MeleeAttackCapabilities)))
+            if (capability != MeleeAttackCapabilities.None)
+                animator.SetBool(capability.ToString(), capabilities.HasFlag(capability));
     }
 
     private void HandleInput(PlayerInput input)
