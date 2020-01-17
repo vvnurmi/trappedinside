@@ -96,6 +96,9 @@ public class BossHornet
 
     public void Move(float stateStartTime, float deltaTime)
     {
+        if (_hornet.GetComponent<CharacterState>().isDead)
+            return;
+
         if (CurrentState == HornetState.Attacking)
         {
             if (IsReadyForStateTransition)
