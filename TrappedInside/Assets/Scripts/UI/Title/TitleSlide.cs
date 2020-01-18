@@ -12,6 +12,9 @@ public class TitleSlide : MonoBehaviour
     [Tooltip("How many seconds to keep it visible after the mask slide has finished.")]
     public float visibleSeconds = 5;
 
+    [Tooltip("Slide X coordinate will be updated to this variable.")]
+    public FloatVariable outSlideX;
+
     // Modified at start.
     private float startTime;
     private RectTransform mask;
@@ -59,6 +62,8 @@ public class TitleSlide : MonoBehaviour
             finalAnchoredPositionContent - startDisplacement,
             finalAnchoredPositionContent,
             lerpParam);
+
+        outSlideX.value = mask.anchoredPosition.x;
     }
 
     private void ActivateNextChildSequentially()
