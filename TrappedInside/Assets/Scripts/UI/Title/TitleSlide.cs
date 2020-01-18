@@ -33,9 +33,21 @@ public class TitleSlide : MonoBehaviour
         var camera = FindObjectOfType<Camera>();
         Debug.Assert(camera != null);
         startDisplacement = new Vector2(-camera.scaledPixelWidth, 0);
+
+        UpdateMaskPosition();
     }
 
     private void Update()
+    {
+        UpdateMaskPosition();
+
+        // After a while, disable the game object to signal parent object's script
+        // ActivateChildrenSequentially to activate the next sibling.
+        if (Time.time >= startTime + slideSeconds + visibleSeconds)
+            ActivateNextChildSequentially();
+    }
+
+    private void UpdateMaskPosition()
     {
         var lerpParam = Mathf.InverseLerp(startTime, startTime + slideSeconds, Time.time);
 
@@ -47,6 +59,7 @@ public class TitleSlide : MonoBehaviour
             finalAnchoredPositionContent - startDisplacement,
             finalAnchoredPositionContent,
             lerpParam);
+    }
 
         // After a while, disable the game object to signal parent object's script
         // ActivateChildrenSequentially to activate the next sibling.
