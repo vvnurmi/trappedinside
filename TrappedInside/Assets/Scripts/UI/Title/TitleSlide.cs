@@ -61,9 +61,21 @@ public class TitleSlide : MonoBehaviour
             lerpParam);
     }
 
-        // After a while, disable the game object to signal parent object's script
-        // ActivateChildrenSequentially to activate the next sibling.
-        if (Time.time >= startTime + slideSeconds + visibleSeconds)
-            gameObject.SetActive(false);
+    private void ActivateNextChildSequentially()
+    {
+        // The game object hierarchy looks like A -> B -> ... -> C, where
+        //   C = the game object with this script
+        //   A = the game object with ActivateChildrenSequentially
+        //   B = the immediate child of A under which C is.
+        // We deactivate B so that A knows to activate the next child in sequence.
+        var objToDeactivate = gameObject;
+        while (true)
+        {
+            var parent = objToDeactivate.transform.parent.gameObject;
+            if (parent?.GetComponent<ActivateChildrenSequentially>() != null)
+                break;
+            objToDeactivate = parent;
+        }
+        objToDeactivate?.SetActive(false);
     }
 }
