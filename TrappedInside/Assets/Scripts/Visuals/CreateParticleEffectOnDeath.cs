@@ -1,14 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class CreateParticleEffectOnDeath : MonoBehaviour, IDying
 {
-    public GameObject particleEffect;
+
+    public GameObject[] particleEffects;
 
     public void OnDying()
     {
-        if (particleEffect != null)
+        if (particleEffects != null)
         {
-            Instantiate(particleEffect, transform.position, Quaternion.identity);
+            foreach(var particleEffect in particleEffects)
+                Instantiate(particleEffect, transform.position, Quaternion.identity);
         }
     }
 

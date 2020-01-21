@@ -281,6 +281,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -330,8 +331,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df30e485dcda65c4aa50c29f8e37434b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleEffect: {fileID: 4197919772393596077, guid: 3814542f46bbe484e968810bbe857bd2,
-    type: 3}
+  particleEffects:
+  - {fileID: 4197919772393596077, guid: 3814542f46bbe484e968810bbe857bd2, type: 3}
+  - {fileID: 2241617567622869340, guid: 23e681692976eab48af005faf9b3e4a4, type: 3}
 --- !u!1 &562093993172783840
 GameObject:
   m_ObjectHideFlags: 0

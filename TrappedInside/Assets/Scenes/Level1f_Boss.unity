@@ -94,8 +94,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
-    m_ShowResolutionOverlay: 1
     m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -189,6 +189,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -311,10 +312,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7796358727257184592, guid: 774735a8eafb5b347b1b081956c3b34e,
+    - target: {fileID: 2970453136097432339, guid: 774735a8eafb5b347b1b081956c3b34e,
         type: 3}
-      propertyPath: m_Name
-      value: Mike
+      propertyPath: capabilities
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6901900929751491745, guid: 774735a8eafb5b347b1b081956c3b34e,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 6901900929751491745, guid: 774735a8eafb5b347b1b081956c3b34e,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 7250377705301250815, guid: 774735a8eafb5b347b1b081956c3b34e,
+        type: 3}
+      propertyPath: isStuck
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7796358727257184555, guid: 774735a8eafb5b347b1b081956c3b34e,
         type: 3}
@@ -371,15 +387,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7250377705301250815, guid: 774735a8eafb5b347b1b081956c3b34e,
+    - target: {fileID: 7796358727257184592, guid: 774735a8eafb5b347b1b081956c3b34e,
         type: 3}
-      propertyPath: isStuck
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2970453136097432339, guid: 774735a8eafb5b347b1b081956c3b34e,
-        type: 3}
-      propertyPath: capabilities
-      value: 1
+      propertyPath: m_Name
+      value: Mike
       objectReference: {fileID: 0}
     - target: {fileID: 7796358727257184598, guid: 774735a8eafb5b347b1b081956c3b34e,
         type: 3}
@@ -391,16 +402,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingOrder
       value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6901900929751491745, guid: 774735a8eafb5b347b1b081956c3b34e,
-        type: 3}
-      propertyPath: m_Offset.y
-      value: -0.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 6901900929751491745, guid: 774735a8eafb5b347b1b081956c3b34e,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.22
       objectReference: {fileID: 0}
     - target: {fileID: 8480575396405387988, guid: 774735a8eafb5b347b1b081956c3b34e,
         type: 3}
@@ -421,6 +422,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3900431249405736857, guid: 1d90356818b19c94bab7dd689f3e2624,
+        type: 3}
+      propertyPath: orthographic size
+      value: 1.12
+      objectReference: {fileID: 0}
     - target: {fileID: 3900431249405736859, guid: 1d90356818b19c94bab7dd689f3e2624,
         type: 3}
       propertyPath: m_Name
@@ -455,11 +461,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: -8.37
-      objectReference: {fileID: 0}
-    - target: {fileID: 3900431249405736857, guid: 1d90356818b19c94bab7dd689f3e2624,
-        type: 3}
-      propertyPath: orthographic size
-      value: 1.12
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3900431249405736863, guid: 1d90356818b19c94bab7dd689f3e2624, type: 3}
@@ -579,6 +580,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -623,11 +625,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1424536784089353197, guid: 2df9e39be4688ab45b89d28452d4e7de,
-        type: 3}
-      propertyPath: m_Name
-      value: Hornet larva
-      objectReference: {fileID: 0}
     - target: {fileID: 1424536784089353192, guid: 2df9e39be4688ab45b89d28452d4e7de,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -683,6 +680,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1424536784089353197, guid: 2df9e39be4688ab45b89d28452d4e7de,
+        type: 3}
+      propertyPath: m_Name
+      value: Hornet larva
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2df9e39be4688ab45b89d28452d4e7de, type: 3}
 --- !u!1001 &5518648258030075554
@@ -692,11 +694,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5518648259054835194, guid: f310e76212ee1c04da5a9476023f3be8,
-        type: 3}
-      propertyPath: m_Name
-      value: Hornet larva 2
-      objectReference: {fileID: 0}
     - target: {fileID: 5518648259054835193, guid: f310e76212ee1c04da5a9476023f3be8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -751,6 +748,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5518648259054835194, guid: f310e76212ee1c04da5a9476023f3be8,
+        type: 3}
+      propertyPath: m_Name
+      value: Hornet larva 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f310e76212ee1c04da5a9476023f3be8, type: 3}
