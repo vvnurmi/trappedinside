@@ -16,7 +16,7 @@ public class DeerMovement : MonoBehaviour
 
     private readonly List<string> animatorStates = new List<string> { alerted, running };
 
-    public float runningSpeed = 2.0f;
+    public float runningSpeed = 1.5f;
     public float gravity = -5.0f;
 
     private CharacterState characterState;
@@ -24,6 +24,7 @@ public class DeerMovement : MonoBehaviour
     private Vector2 velocity;
     private AttackTrigger attackTrigger;
     private AlertTrigger alertTrigger;
+    private HitPoints hitPoints;
     private Animator animator;
     private bool attackStarted = false;
 
@@ -39,13 +40,15 @@ public class DeerMovement : MonoBehaviour
         velocity = Vector2.zero;
         attackTrigger = GetComponentInChildren<AttackTrigger>();
         alertTrigger = GetComponentInChildren<AlertTrigger>();
+        hitPoints = GetComponent<HitPoints>();
         animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        var oldYSpeed = velocity.y;
+        var oldVelocity = velocity;
+        float xSpeed = oldVelocity.x;
 
         if (!attackStarted)
         {
@@ -53,32 +56,31 @@ public class DeerMovement : MonoBehaviour
             {
                 SetAnimatorState(running);
                 attackStarted = true;
-                if (attackTrigger.PlayerInLeft)
-                    velocity = new Vector2(-runningSpeed, 0);
-                else
-                    velocity = new Vector2(runningSpeed, 0);
+                xSpeed = attackTrigger.PlayerInLeft ? -runningSpeed : runningSpeed;
             }
             else if (alertTrigger.PlayerInVisionRange)
             {
                 SetAnimatorState(alerted);
-                velocity = new Vector2(0, 0);
             }
             else
             {
                 ClearAnimatorState();
-                velocity = new Vector2(0, 0);
             }
         }
-        velocity.y = oldYSpeed + gravity * Time.deltaTime;
 
-        Move(velocity * Time.deltaTime);
+        velocity = new Vector2(xSpeed, oldVelocity.y + gravity * Time.deltaTime);
+        var averageVelocity = Vector2.Lerp(oldVelocity, velocity, 0.5f);
+        Move(averageVelocity * Time.deltaTime);
 
         // Stop movement in directions where we have collided.
         var collisions = characterState.collisions;
         if (collisions.HasVerticalCollisions)
             velocity.y = 0;
         if (collisions.HasHorizontalCollisions)
+        {
+            hitPoints.Damage(1);
             velocity.x = 0;
+        }
     }
 
 
