@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Deer running
+  m_Name: Deer walking
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,13 +20,13 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -2124072206746684474, guid: a7fbcc275a763ae4aa03bdde0663f4d3,
-        type: 3}
-    - time: 0.16666667
-      value: {fileID: -8195952979083742673, guid: a7fbcc275a763ae4aa03bdde0663f4d3,
+      value: {fileID: 8853832997727273734, guid: a7fbcc275a763ae4aa03bdde0663f4d3,
         type: 3}
     - time: 0.33333334
-      value: {fileID: -8195952979083742673, guid: a7fbcc275a763ae4aa03bdde0663f4d3,
+      value: {fileID: -248245607904806026, guid: a7fbcc275a763ae4aa03bdde0663f4d3,
+        type: 3}
+    - time: 0.65
+      value: {fileID: 8853832997727273734, guid: a7fbcc275a763ae4aa03bdde0663f4d3,
         type: 3}
     attribute: m_Sprite
     path: 
@@ -47,15 +47,15 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -2124072206746684474, guid: a7fbcc275a763ae4aa03bdde0663f4d3, type: 3}
-    - {fileID: -8195952979083742673, guid: a7fbcc275a763ae4aa03bdde0663f4d3, type: 3}
-    - {fileID: -8195952979083742673, guid: a7fbcc275a763ae4aa03bdde0663f4d3, type: 3}
+    - {fileID: 8853832997727273734, guid: a7fbcc275a763ae4aa03bdde0663f4d3, type: 3}
+    - {fileID: -248245607904806026, guid: a7fbcc275a763ae4aa03bdde0663f4d3, type: 3}
+    - {fileID: 8853832997727273734, guid: a7fbcc275a763ae4aa03bdde0663f4d3, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.35000002
+    m_StopTime: 0.6666666
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

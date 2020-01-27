@@ -13,8 +13,10 @@ public class DeerMovement : MonoBehaviour
 
     private static readonly string alerted = "Alerted";
     private static readonly string running = "Running";
+    private static readonly string prepareAttack = "PrepareAttack";
+    private static readonly string walking = "Walking";
 
-    private readonly List<string> animatorStates = new List<string> { alerted, running };
+    private readonly List<string> animatorStates = new List<string> { alerted, running, prepareAttack, walking };
 
     public float runningSpeed = 1.5f;
     public float gravity = -5.0f;
@@ -26,6 +28,8 @@ public class DeerMovement : MonoBehaviour
     private AlertTrigger alertTrigger;
     private HitPoints hitPoints;
     private Animator animator;
+    private Vector2 initialPosition;
+
     private bool attackStarted = false;
 
     private void Start()
@@ -42,6 +46,7 @@ public class DeerMovement : MonoBehaviour
         alertTrigger = GetComponentInChildren<AlertTrigger>();
         hitPoints = GetComponent<HitPoints>();
         animator = GetComponent<Animator>();
+        initialPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -50,21 +55,46 @@ public class DeerMovement : MonoBehaviour
         var oldVelocity = velocity;
         float xSpeed = oldVelocity.x;
 
-        if (!attackStarted)
+        if (attackStarted)
+        {
+            SetAnimatorState(running);
+            if(xSpeed == 0)
+                xSpeed = attackTrigger.PlayerInLeft ? -runningSpeed : runningSpeed;
+        }
+        else
         {
             if (attackTrigger.PlayerInAttackRange)
             {
-                SetAnimatorState(running);
-                attackStarted = true;
-                xSpeed = attackTrigger.PlayerInLeft ? -runningSpeed : runningSpeed;
+                xSpeed = 0;
+                SetAnimatorState(prepareAttack);
             }
             else if (alertTrigger.PlayerInVisionRange)
             {
+                xSpeed = 0;
                 SetAnimatorState(alerted);
             }
             else
             {
-                ClearAnimatorState();
+                int roundedTime = (int)Time.realtimeSinceStartup;
+                if (roundedTime % 10 < 1)
+                {
+                    SetAnimatorState(walking);
+                    if (transform.position.x < initialPosition.x)
+                    {
+                        if(xSpeed == 0)
+                            xSpeed = 0.03f;
+                    }
+                    else
+                    {
+                        if(xSpeed == 0)
+                            xSpeed = -0.03f;
+                    }
+                }
+                else
+                {
+                    xSpeed = 0;
+                    ClearAnimatorState();
+                }
             }
         }
 
@@ -96,6 +126,10 @@ public class DeerMovement : MonoBehaviour
             animator.SetBool(animatorState, false);
     }
 
+    private void StartRunning()
+    {
+        attackStarted = true;
+    }
 
     private void Move(Vector2 moveAmount)
     {

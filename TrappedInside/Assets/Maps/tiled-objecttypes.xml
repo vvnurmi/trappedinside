@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objecttypes>
+ <objecttype name="Deer" color="#0000ff"/>
  <objecttype name="LevelLoadTrigger" color="#dcdcdc">
   <property name="nextLevel" type="file" default="../Scenes/_DevSandbox.unity"/>
  </objecttype>
