@@ -41,4 +41,22 @@ public static class GameObjectExtensions
         }
         outFullName.Append(ancestors[0].name);
     }
+
+    /// <summary>
+    /// Returns a child (or deeper descendant) of <see cref="obj"/> that has <see cref="name"/>.
+    /// Returns null if none such child was found.
+    /// </summary>
+    public static GameObject FindChildByName(this GameObject obj, string name)
+    {
+        if (obj.name == name) return obj;
+
+        foreach (Transform child in obj.transform)
+        {
+            var result = child.gameObject.FindChildByName(name);
+            if (result != null)
+                return result;
+        }
+
+        return null;
+    }
 }
