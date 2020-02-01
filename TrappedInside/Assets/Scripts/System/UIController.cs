@@ -89,6 +89,11 @@ public class UIController : MonoBehaviour
             mode = UIMode.Title;
         else if (scene.name.StartsWith("Level") || scene.path.Contains("Demo scenes"))
             mode = UIMode.Gameplay;
+        else if (scene.name.StartsWith("InitTestScene"))
+        {
+            // Unity Play Mode test scene
+            mode = UIMode.Gameplay;
+        }
         else
         {
             mode = UIMode.Unknown;
