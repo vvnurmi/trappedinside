@@ -51,5 +51,140 @@ namespace Tests
             yield return new WaitForSeconds(1);
             Assert.IsFalse(testObject.activeSelf);
         }
+
+        [UnityTest]
+        public IEnumerator SimultaneousActors()
+        {
+            var tiaRoot = new GameObject("TIA root");
+            var testObject1 = new GameObject("test object 1");
+            var testObject2 = new GameObject("test object 2");
+            testObject1.transform.parent = tiaRoot.transform;
+            testObject2.transform.parent = tiaRoot.transform;
+
+            var script = tiaRoot.AddComponent<TiaScript>();
+            script.scriptName = "Test Script";
+            script.playOnStart = true;
+            script.steps = new[]
+            {
+                new TiaStep
+                {
+                    sequences = new[]
+                    {
+                        new TiaActionSequence
+                        {
+                            actor = new TiaActor { gameObjectName = testObject1.name },
+                            actions = new ITiaAction[]
+                            {
+                                new TiaPause { durationSeconds = 2 },
+                                new TiaActivation { activated = true },
+                            }
+                        },
+                        new TiaActionSequence
+                        {
+                            actor = new TiaActor { gameObjectName = testObject2.name },
+                            actions = new ITiaAction[]
+                            {
+                                new TiaPause { durationSeconds = 1 },
+                                new TiaActivation { activated = true },
+                            }
+                        },
+                    }
+                }
+            };
+
+            yield return new EnterPlayMode();
+            testObject1.SetActive(false);
+            testObject2.SetActive(false);
+
+            yield return new WaitForSeconds(0.5f);
+            Assert.IsFalse(testObject1.activeSelf);
+            Assert.IsFalse(testObject2.activeSelf);
+
+            yield return new WaitForSeconds(1);
+            Assert.IsFalse(testObject1.activeSelf);
+            Assert.IsTrue(testObject2.activeSelf);
+
+            yield return new WaitForSeconds(1);
+            Assert.IsTrue(testObject1.activeSelf);
+            Assert.IsTrue(testObject2.activeSelf);
+        }
+
+        [UnityTest]
+        public IEnumerator ThrowsIfActorNotFoundUnderRoot()
+        {
+            var tiaRoot = new GameObject("TIA root");
+            var fakeObject = new GameObject("not under TIA root");
+
+            var script = tiaRoot.AddComponent<TiaScript>();
+            script.scriptName = "Test Script";
+            script.playOnStart = true;
+            script.steps = new[]
+            {
+                new TiaStep
+                {
+                    sequences = new[]
+                    {
+                        new TiaActionSequence
+                        {
+                            actor = new TiaActor { gameObjectName = fakeObject.name },
+                            actions = new ITiaAction[0],
+                        }
+                    }
+                }
+            };
+
+            yield return new EnterPlayMode();
+
+            LogAssert.Expect(LogType.Assert, new Regex($"{nameof(TiaActor)} couldn't find '{fakeObject.name}' under .*"));
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        [UnityTest]
+        public IEnumerator Move()
+        {
+            const float Epsilon = 0.5f;
+
+            var tiaRoot = new GameObject("TIA root");
+            var testObject = new GameObject("test object");
+            testObject.transform.parent = tiaRoot.transform;
+
+            var curve = tiaRoot.AddComponent<BezierCurve>();
+            curve.AddPointAt(new Vector3(10, 0));
+            curve.AddPointAt(new Vector3(0, 10));
+
+            var script = tiaRoot.AddComponent<TiaScript>();
+            script.scriptName = "Test Script";
+            script.playOnStart = true;
+            script.steps = new[]
+            {
+                new TiaStep
+                {
+                    sequences = new[]
+                    {
+                        new TiaActionSequence
+                        {
+                            actor = new TiaActor { gameObjectName = testObject.name },
+                            actions = new ITiaAction[]
+                            {
+                                new TiaMove
+                                {
+                                    durationSeconds = 2,
+                                    curve = curve,
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            yield return new EnterPlayMode();
+            AssertEx.AreEqual(new Vector3(10, 0), testObject.transform.position, Epsilon);
+
+            yield return new WaitForSeconds(1);
+            AssertEx.AreEqual(new Vector3(5, 5), testObject.transform.position, Epsilon);
+
+            yield return new WaitForSeconds(1);
+            AssertEx.AreEqual(new Vector3(0, 10), testObject.transform.position, Epsilon);
+        }
     }
 }
