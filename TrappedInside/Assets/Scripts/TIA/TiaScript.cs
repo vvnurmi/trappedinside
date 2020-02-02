@@ -139,7 +139,7 @@ public class TiaActor
     public void Initialize(GameObject tiaRoot)
     {
         gameObject = tiaRoot.FindChildByName(gameObjectName);
-        Debug.Assert(gameObject != null, $"{nameof(TiaActor)} couldn't find '{gameObjectName}' under '{tiaRoot.GetFullName()}'");
+        Debug.Assert(gameObject != null, $"{nameof(TiaActor)} couldn't find '{gameObjectName}' under {tiaRoot.GetFullName()}");
     }
 }
 
@@ -189,18 +189,32 @@ public class TiaActivation : ITiaAction
 public class TiaMove : ITiaAction
 {
     public BezierCurve curve;
-    public float duration;
+    public float durationSeconds;
 
-    public bool IsDone => throw new NotImplementedException();
+    public bool IsDone { get; private set; }
+
+    private float startTime;
 
     public void Start()
     {
-        throw new NotImplementedException();
+        IsDone = false;
+        startTime = Time.time;
     }
 
     public void Update(TiaActor actor)
     {
-        throw new NotImplementedException();
+        RepositionOnCurve(actor.GameObject);
+
+        IsDone = Time.time >= startTime + durationSeconds;
+    }
+
+    private void RepositionOnCurve(GameObject obj)
+    {
+        float flightTime = Time.time - startTime;
+        float curveParam = Mathf.InverseLerp(0, durationSeconds, flightTime);
+        var pathPosition = curve.GetPointAt(curveParam);
+
+        obj.transform.SetPositionAndRotation(pathPosition, obj.transform.rotation);
     }
 }
 

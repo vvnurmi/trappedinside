@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System.Collections;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.TestTools;
 
@@ -18,25 +19,25 @@ namespace Tests
             script.scriptName = "Test Script";
             script.playOnStart = true;
             script.steps = new[]
+            {
+                new TiaStep
                 {
-                    new TiaStep
+                    sequences = new[]
                     {
-                        sequences = new[]
+                        new TiaActionSequence
                         {
-                            new TiaActionSequence
+                            actor = new TiaActor { gameObjectName = testObject.name },
+                            actions = new ITiaAction[]
                             {
-                                actor = new TiaActor { gameObjectName = testObject.name },
-                                actions = new ITiaAction[]
-                                {
-                                    new TiaPause { durationSeconds = 1 },
-                                    new TiaActivation { activated = true },
-                                    new TiaPause { durationSeconds = 1 },
-                                    new TiaActivation { activated = false },
-                                }
+                                new TiaPause { durationSeconds = 1 },
+                                new TiaActivation { activated = true },
+                                new TiaPause { durationSeconds = 1 },
+                                new TiaActivation { activated = false },
                             }
                         }
                     }
-                };
+                }
+            };
 
             yield return new EnterPlayMode();
             testObject.SetActive(false);
