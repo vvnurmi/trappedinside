@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System.Collections;
 using System.Text.RegularExpressions;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.TestTools;
 
@@ -185,6 +186,69 @@ namespace Tests
 
             yield return new WaitForSeconds(1);
             AssertEx.AreEqual(new Vector3(0, 10), testObject.transform.position, Epsilon);
+        }
+
+        [UnityTest]
+        public IEnumerator Animation()
+        {
+            const string DefaultStateName = "state1";
+            const string AnotherStateName = "state2";
+
+            var tiaRoot = new GameObject("TIA root");
+            var testObject = new GameObject("test object");
+            testObject.transform.parent = tiaRoot.transform;
+            var animator = testObject.AddComponent<Animator>();
+            var animatorController = new AnimatorController();
+            var defaultAnimatorState = new ChildAnimatorState { state = new AnimatorState { name = DefaultStateName } };
+            var anotherAnimatorState = new ChildAnimatorState { state = new AnimatorState { name = AnotherStateName } };
+            var animatorControllerLayer = new AnimatorControllerLayer
+            {
+                name = "Base Layer",
+                stateMachine = new AnimatorStateMachine
+                {
+                    states = new[]
+                    {
+                        defaultAnimatorState,
+                        anotherAnimatorState,
+                    },
+                    defaultState = defaultAnimatorState.state,
+                },
+                
+            };
+            animatorController.AddLayer(animatorControllerLayer);
+            animator.runtimeAnimatorController = animatorController;
+
+            var script = tiaRoot.AddComponent<TiaScript>();
+            script.scriptName = "Test Script";
+            script.playOnStart = true;
+            script.steps = new[]
+            {
+                new TiaStep
+                {
+                    sequences = new[]
+                    {
+                        new TiaActionSequence
+                        {
+                            actor = new TiaActor { gameObjectName = testObject.name },
+                            actions = new ITiaAction[]
+                            {
+                                new TiaAnimation { animationName = AnotherStateName },
+                            }
+                        }
+                    }
+                }
+            };
+
+            void AssertAnimationState(string expectedStateName) =>
+                Assert.That(
+                    animator.GetCurrentAnimatorStateInfo(0).IsName(expectedStateName),
+                    $"Expected animator state '{expectedStateName}' but was hash {animator.GetCurrentAnimatorStateInfo(0).shortNameHash}.");
+
+            AssertAnimationState(DefaultStateName);
+            yield return new EnterPlayMode();
+            
+            yield return new WaitForSeconds(0.5f);
+            AssertAnimationState(AnotherStateName);
         }
     }
 }
