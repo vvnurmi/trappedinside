@@ -1,5 +1,7 @@
 ﻿using NUnit.Framework;
 
+using Scalar = TI.Scalar;
+
 namespace Tests
 {
     public class ScalarTests

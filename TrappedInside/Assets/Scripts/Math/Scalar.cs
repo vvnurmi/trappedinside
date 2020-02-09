@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 
-public static class Scalar
+namespace TI
 {
-    /// <summary>
-    /// Lerps from <paramref name="value"/> towards <paramref name="target"/>
-    /// at most <paramref name="step"/> amount.
-    /// </summary>
-    public static float LerpTowards(float value, float target, float step)
+    public static class Scalar
     {
-        return Mathf.Abs(target - value) <= step
-            ? target
-            : value + step * Mathf.Sign(target - value);
+        /// <summary>
+        /// Lerps from <paramref name="value"/> towards <paramref name="target"/>
+        /// at most <paramref name="step"/> amount.
+        /// </summary>
+        public static float LerpTowards(float value, float target, float step)
+        {
+            return Mathf.Abs(target - value) <= step
+                ? target
+                : value + step * Mathf.Sign(target - value);
+        }
     }
 }

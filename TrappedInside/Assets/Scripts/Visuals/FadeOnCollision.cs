@@ -1,5 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using Scalar = TI.Scalar;
 
 /// <summary>
 /// Fades the game object on collision. Good for creating secret areas whose
