@@ -13,7 +13,7 @@ public class DestroyObjectOnDeath : MonoBehaviour, IDying
     private void DestroyGameObject(GameObject gObject)
     {
         var parent = gObject.transform.parent;
-        if (parent != null)
+        if (parent != null && IsOnSameLayer(parent.gameObject))
         {
             DestroyGameObject(parent.gameObject);
         }
@@ -23,4 +23,6 @@ public class DestroyObjectOnDeath : MonoBehaviour, IDying
         }
 
     }
+
+    private bool IsOnSameLayer(GameObject other) => gameObject.layer == other.layer;
 }
