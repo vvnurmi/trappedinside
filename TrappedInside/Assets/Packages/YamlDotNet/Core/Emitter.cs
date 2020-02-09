@@ -253,18 +253,15 @@ namespace YamlDotNet.Core
             tagData.handle = null;
             tagData.suffix = null;
 
-            var alias = evt as AnchorAlias;
-            if (alias != null)
+            if (evt is AnchorAlias alias)
             {
                 AnalyzeAnchor(alias.Value, true);
                 return;
             }
 
-            var nodeEvent = evt as NodeEvent;
-            if (nodeEvent != null)
+            if (evt is NodeEvent nodeEvent)
             {
-                var scalar = evt as Scalar;
-                if (scalar != null)
+                if (evt is Scalar scalar)
                 {
                     AnalyzeScalar(scalar);
                 }
@@ -555,8 +552,7 @@ namespace YamlDotNet.Core
 
         private void StateMachine(ParsingEvent evt)
         {
-            var comment = evt as Comment;
-            if (comment != null)
+            if (evt is Comment comment)
             {
                 EmitComment(comment);
                 return;
@@ -681,8 +677,7 @@ namespace YamlDotNet.Core
         /// </summary>
         private void EmitDocumentStart(ParsingEvent evt, bool isFirst)
         {
-            var documentStart = evt as DocumentStart;
-            if (documentStart != null)
+            if (evt is DocumentStart documentStart)
             {
                 var isImplicit = documentStart.IsImplicit && isFirst && !isCanonical;
 
@@ -980,7 +975,6 @@ namespace YamlDotNet.Core
             for (var index = 0; index < value.Length; ++index)
             {
                 var character = value[index];
-                char breakCharacter;
                 if (IsSpace(character))
                 {
                     if (allowBreaks && !previousSpace && column > bestWidth && index + 1 < value.Length && value[index + 1] != ' ')
@@ -993,7 +987,7 @@ namespace YamlDotNet.Core
                     }
                     previousSpace = true;
                 }
-                else if (IsBreak(character, out breakCharacter))
+                else if (IsBreak(character, out char breakCharacter))
                 {
                     if (!previousBreak && character == '\n')
                     {
@@ -1035,7 +1029,6 @@ namespace YamlDotNet.Core
             for (var index = 0; index < value.Length; ++index)
             {
                 var character = value[index];
-                char breakCharacter;
 
                 if (character == ' ')
                 {
@@ -1050,7 +1043,7 @@ namespace YamlDotNet.Core
                     }
                     previousSpace = true;
                 }
-                else if (IsBreak(character, out breakCharacter))
+                else if (IsBreak(character, out char breakCharacter))
                 {
                     if (!previousBreak && character == '\n')
                     {
@@ -1092,8 +1085,7 @@ namespace YamlDotNet.Core
             {
                 var character = value[index];
 
-                char breakCharacter;
-                if (!IsPrintable(character) || IsBreak(character, out breakCharacter) || character == '"' || character == '\\')
+                if (!IsPrintable(character) || IsBreak(character, out char breakCharacter) || character == '"' || character == '\\')
                 {
                     Write('\\');
 
@@ -1236,8 +1228,7 @@ namespace YamlDotNet.Core
                     continue;
                 }
 
-                char breakCharacter;
-                if (IsBreak(character, out breakCharacter))
+                if (IsBreak(character, out char breakCharacter))
                 {
                     WriteBreak(breakCharacter);
                     isIndentation = true;
@@ -1271,8 +1262,8 @@ namespace YamlDotNet.Core
             for (var i = 0; i < value.Length; ++i)
             {
                 var character = value[i];
-                char breakCharacter, ignoredBreak;
-                if (IsBreak(character, out breakCharacter))
+                char ignoredBreak;
+                if (IsBreak(character, out char breakCharacter))
                 {
                     if (!previousBreak && !leadingSpaces && character == '\n')
                     {
@@ -1444,8 +1435,7 @@ namespace YamlDotNet.Core
         /// </summary>
         private void EmitDocumentEnd(ParsingEvent evt)
         {
-            var documentEnd = evt as DocumentEnd;
-            if (documentEnd != null)
+            if (evt is DocumentEnd documentEnd)
             {
                 WriteIndent();
                 if (!documentEnd.IsImplicit)
@@ -1676,8 +1666,7 @@ namespace YamlDotNet.Core
                 index++;
                 if (index == 2)
                 {
-                    var scalar = parsingEvent as Scalar;
-                    if (scalar != null)
+                    if (parsingEvent is Scalar scalar)
                     {
                         return string.IsNullOrEmpty(scalar.Value);
                     }
