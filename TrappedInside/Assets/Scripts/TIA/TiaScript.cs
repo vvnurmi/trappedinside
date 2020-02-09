@@ -226,16 +226,17 @@ public class TiaAnimation : ITiaAction
 {
     public string animationName;
 
-    public bool IsDone => throw new NotImplementedException();
+    public bool IsDone { get; private set; }
 
     public void Start()
     {
-        throw new NotImplementedException();
     }
 
     public void Update(TiaActor actor)
     {
-        throw new NotImplementedException();
+        var animator = actor.GameObject.GetComponent<Animator>();
+        animator.Play(animationName);
+        IsDone = true;
     }
 }
 
