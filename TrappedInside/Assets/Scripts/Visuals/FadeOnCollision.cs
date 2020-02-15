@@ -18,7 +18,6 @@ public class FadeOnCollision : MonoBehaviour
 
     private float alpha = 1;
     private float alphaTarget = 1;
-    private float alphaVelocity;
 
     #region MonoBehaviour overrides
 
