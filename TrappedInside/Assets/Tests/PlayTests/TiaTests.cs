@@ -16,24 +16,27 @@ namespace Tests
             var testObject = new GameObject("test object");
             testObject.transform.parent = tiaRoot.transform;
 
-            var script = tiaRoot.AddComponent<TiaScript>();
-            script.scriptName = "Test Script";
-            script.playOnStart = true;
-            script.steps = new[]
+            var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
+            tiaPlayer.script = new TiaScript
             {
-                new TiaStep
+                scriptName = "Test Script",
+                playOnStart = true,
+                steps = new[]
                 {
-                    sequences = new[]
+                    new TiaStep
                     {
-                        new TiaActionSequence
+                        sequences = new[]
                         {
-                            actor = new TiaActor { gameObjectName = testObject.name },
-                            actions = new ITiaAction[]
+                            new TiaActionSequence
                             {
-                                new TiaPause { durationSeconds = 1 },
-                                new TiaActivation { activated = true },
-                                new TiaPause { durationSeconds = 1 },
-                                new TiaActivation { activated = false },
+                                actor = new TiaActor { gameObjectName = testObject.name },
+                                actions = new ITiaAction[]
+                                {
+                                    new TiaPause { durationSeconds = 1 },
+                                    new TiaActivation { activated = true },
+                                    new TiaPause { durationSeconds = 1 },
+                                    new TiaActivation { activated = false },
+                                }
                             }
                         }
                     }
@@ -62,33 +65,36 @@ namespace Tests
             testObject1.transform.parent = tiaRoot.transform;
             testObject2.transform.parent = tiaRoot.transform;
 
-            var script = tiaRoot.AddComponent<TiaScript>();
-            script.scriptName = "Test Script";
-            script.playOnStart = true;
-            script.steps = new[]
+            var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
+            tiaPlayer.script = new TiaScript
             {
-                new TiaStep
+                scriptName = "Test Script",
+                playOnStart = true,
+                steps = new[]
                 {
-                    sequences = new[]
+                    new TiaStep
                     {
-                        new TiaActionSequence
+                        sequences = new[]
                         {
-                            actor = new TiaActor { gameObjectName = testObject1.name },
-                            actions = new ITiaAction[]
+                            new TiaActionSequence
                             {
-                                new TiaPause { durationSeconds = 2 },
-                                new TiaActivation { activated = true },
-                            }
-                        },
-                        new TiaActionSequence
-                        {
-                            actor = new TiaActor { gameObjectName = testObject2.name },
-                            actions = new ITiaAction[]
+                                actor = new TiaActor { gameObjectName = testObject1.name },
+                                actions = new ITiaAction[]
+                                {
+                                    new TiaPause { durationSeconds = 2 },
+                                    new TiaActivation { activated = true },
+                                }
+                            },
+                            new TiaActionSequence
                             {
-                                new TiaPause { durationSeconds = 1 },
-                                new TiaActivation { activated = true },
-                            }
-                        },
+                                actor = new TiaActor { gameObjectName = testObject2.name },
+                                actions = new ITiaAction[]
+                                {
+                                    new TiaPause { durationSeconds = 1 },
+                                    new TiaActivation { activated = true },
+                                }
+                            },
+                        }
                     }
                 }
             };
@@ -116,19 +122,22 @@ namespace Tests
             var tiaRoot = new GameObject("TIA root");
             var fakeObject = new GameObject("not under TIA root");
 
-            var script = tiaRoot.AddComponent<TiaScript>();
-            script.scriptName = "Test Script";
-            script.playOnStart = true;
-            script.steps = new[]
+            var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
+            tiaPlayer.script = new TiaScript
             {
-                new TiaStep
+                scriptName = "Test Script",
+                playOnStart = true,
+                steps = new[]
                 {
-                    sequences = new[]
+                    new TiaStep
                     {
-                        new TiaActionSequence
+                        sequences = new[]
                         {
-                            actor = new TiaActor { gameObjectName = fakeObject.name },
-                            actions = new ITiaAction[0],
+                            new TiaActionSequence
+                            {
+                                actor = new TiaActor { gameObjectName = fakeObject.name },
+                                actions = new ITiaAction[0],
+                            }
                         }
                     }
                 }
@@ -153,24 +162,27 @@ namespace Tests
             curve.AddPointAt(new Vector3(10, 0));
             curve.AddPointAt(new Vector3(0, 10));
 
-            var script = tiaRoot.AddComponent<TiaScript>();
-            script.scriptName = "Test Script";
-            script.playOnStart = true;
-            script.steps = new[]
+            var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
+            tiaPlayer.script = new TiaScript
             {
-                new TiaStep
+                scriptName = "Test Script",
+                playOnStart = true,
+                steps = new[]
                 {
-                    sequences = new[]
+                    new TiaStep
                     {
-                        new TiaActionSequence
+                        sequences = new[]
                         {
-                            actor = new TiaActor { gameObjectName = testObject.name },
-                            actions = new ITiaAction[]
+                            new TiaActionSequence
                             {
-                                new TiaMove
+                                actor = new TiaActor { gameObjectName = testObject.name },
+                                actions = new ITiaAction[]
                                 {
-                                    durationSeconds = 2,
-                                    curve = curve,
+                                    new TiaMove
+                                    {
+                                        durationSeconds = 2,
+                                        curve = curve,
+                                    }
                                 }
                             }
                         }
@@ -218,21 +230,24 @@ namespace Tests
             animatorController.AddLayer(animatorControllerLayer);
             animator.runtimeAnimatorController = animatorController;
 
-            var script = tiaRoot.AddComponent<TiaScript>();
-            script.scriptName = "Test Script";
-            script.playOnStart = true;
-            script.steps = new[]
+            var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
+            tiaPlayer.script = new TiaScript
             {
-                new TiaStep
+                scriptName = "Test Script",
+                playOnStart = true,
+                steps = new[]
                 {
-                    sequences = new[]
+                    new TiaStep
                     {
-                        new TiaActionSequence
+                        sequences = new[]
                         {
-                            actor = new TiaActor { gameObjectName = testObject.name },
-                            actions = new ITiaAction[]
+                            new TiaActionSequence
                             {
-                                new TiaAnimation { animationName = AnotherStateName },
+                                actor = new TiaActor { gameObjectName = testObject.name },
+                                actions = new ITiaAction[]
+                                {
+                                    new TiaAnimation { animationName = AnotherStateName },
+                                }
                             }
                         }
                     }

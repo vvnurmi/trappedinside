@@ -1,60 +1,87 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using UnityEngine;
+using YamlDotNet.Serialization;
 
 /// <summary>
-/// Plays steps in sequence.
+/// Plays <see cref="TiaScript"/> step by step in sequence.
 /// TIA = Trapped Inside Animation
 /// </summary>
-public class TiaScript : MonoBehaviour
+public class TiaPlayer : MonoBehaviour
 {
-    [Tooltip("Human-readable name for identification.")]
-    public string scriptName;
-
-    [Tooltip("If true then start executing steps immediately.")]
-    public bool playOnStart;
-
-    public TiaStep[] steps;
+    public TiaScript script;
 
     public bool IsPlaying { get; private set; }
 
     private int stepIndex;
 
+    #region MonoBehaviour overrides
+
     private void Start()
     {
-        IsPlaying = playOnStart;
+        IsPlaying = script.playOnStart;
         stepIndex = 0;
-        if (stepIndex < steps.Length)
-            steps[stepIndex].Start(tiaRoot: gameObject);
+        if (stepIndex < script.steps.Length)
+            script.steps[stepIndex].Start(tiaRoot: gameObject);
     }
 
     private void Update()
     {
         if (!IsPlaying) return;
 
-        while (stepIndex < steps.Length)
+        while (stepIndex < script.steps.Length)
         {
-            if (!steps[stepIndex].IsDone)
-                steps[stepIndex].Update();
-            if (!steps[stepIndex].IsDone)
+            if (!script.steps[stepIndex].IsDone)
+                script.steps[stepIndex].Update();
+            if (!script.steps[stepIndex].IsDone)
                 break;
 
             stepIndex++;
-            if (stepIndex < steps.Length)
-                steps[stepIndex].Start(tiaRoot: gameObject);
+            if (stepIndex < script.steps.Length)
+                script.steps[stepIndex].Start(tiaRoot: gameObject);
         }
 
-        IsPlaying = stepIndex < steps.Length;
+        IsPlaying = stepIndex < script.steps.Length;
+    }
+
+    #endregion
+}
+
+public class TiaScript
+{
+    /// <summary>
+    /// Human-readable name for identification.
+    /// </summary>
+    public string scriptName { get; set; }
+
+    /// <summary>
+    /// If true then start executing steps immediately.
+    /// </summary>
+    public bool playOnStart { get; set; }
+
+    public TiaStep[] steps { get; set; }
+
+    /// <summary>
+    /// Creates a new <see cref="TiaScript"/> for serialized form.
+    /// </summary>
+    public static TiaScript Read(string serialized)
+    {
+        var input = new StringReader(serialized);
+
+        var deserializer = new DeserializerBuilder()
+            .Build();
+
+        return deserializer.Deserialize<TiaScript>(input);
     }
 }
 
 /// <summary>
 /// Plays all actions simultaneously, then waits.
 /// </summary>
-[Serializable]
 public class TiaStep
 {
-    public TiaActionSequence[] sequences;
+    public TiaActionSequence[] sequences { get; set; }
 
     public bool IsDone => sequences.All(seq => seq.IsDone);
 
@@ -74,12 +101,11 @@ public class TiaStep
 /// <summary>
 /// A sequence of actions that one actor does.
 /// </summary>
-[Serializable]
 public class TiaActionSequence
 {
-    public TiaActor actor;
+    public TiaActor actor { get; set; }
 
-    public ITiaAction[] actions;
+    public ITiaAction[] actions { get; set; }
 
     public bool IsDone => actionIndex >= actions.Length;
 
@@ -116,10 +142,9 @@ public class TiaActionSequence
 /// GameObject may need Animator component.
 /// Serialized as a name string.
 /// </summary>
-[Serializable]
 public class TiaActor
 {
-    public string gameObjectName;
+    public string gameObjectName { get; set; }
 
     public GameObject GameObject
     {
@@ -164,10 +189,9 @@ public interface ITiaAction
 /// <summary>
 /// Activates or deactivates the actor.
 /// </summary>
-[Serializable]
 public class TiaActivation : ITiaAction
 {
-    public bool activated;
+    public bool activated { get; set; }
 
     public bool IsDone { get; private set; }
 
@@ -185,11 +209,10 @@ public class TiaActivation : ITiaAction
 /// <summary>
 /// Moves actor along a curve over a given time
 /// </summary>
-[Serializable]
 public class TiaMove : ITiaAction
 {
-    public BezierCurve curve;
-    public float durationSeconds;
+    public BezierCurve curve { get; set; }
+    public float durationSeconds { get; set; }
 
     public bool IsDone { get; private set; }
 
@@ -221,10 +244,9 @@ public class TiaMove : ITiaAction
 /// <summary>
 /// Makes actor use this animation.
 /// </summary>
-[Serializable]
 public class TiaAnimation : ITiaAction
 {
-    public string animationName;
+    public string animationName { get; set; }
 
     public bool IsDone { get; private set; }
 
@@ -243,13 +265,17 @@ public class TiaAnimation : ITiaAction
 /// <summary>
 /// Types text in a speech bubble on top of actor.
 /// </summary>
-[Serializable]
 public class TiaSpeech : ITiaAction
 {
-    public string tmpRichText;
-    public float typingSpeedMultiplier;
+    /// <summary>
+    /// TextMesh Pro rich text to display in the speech bubble.
+    /// </summary>
+    public string tmpRichText { get; set; }
+    public float typingSpeedMultiplier { get; set; }
 
-    [Tooltip("If true then prompt player after text, otherwise just wait for a while.")]
+    /// <summary>
+    /// If true then prompt player after text, otherwise just wait for a while.
+    /// </summary>
     public bool modal;
 
     public bool IsDone => throw new NotImplementedException();
@@ -268,10 +294,9 @@ public class TiaSpeech : ITiaAction
 /// <summary>
 /// Waits for given time until continuing to the next action.
 /// </summary>
-[Serializable]
 public class TiaPause : ITiaAction
 {
-    public float durationSeconds;
+    public float durationSeconds { get; set; }
 
     public bool IsDone { get; private set; }
 
@@ -293,10 +318,9 @@ public class TiaPause : ITiaAction
 /// <summary>
 /// Starts to play another TIA script in the same root TIA game object.
 /// </summary>
-[Serializable]
 public class TiaPlayScript : ITiaAction
 {
-    public string scriptName;
+    public string scriptName { get; set; }
 
     public bool IsDone => throw new NotImplementedException();
 
