@@ -5,15 +5,19 @@ namespace Tests
     public class TiaSerializationTests
     {
         [Test]
-        public void Basic()
+        public void BasicProperties()
         {
-            var ScriptName = "Test Script";
+            var scriptName = "Test Script";
+            var playOnStart = true;
+
             var serialized = $@"
 ---
-scriptName: {ScriptName}";
+ScriptName: {scriptName}
+PlayOnStart: {playOnStart}";
 
             var tiaScript = TiaScript.Read(serialized);
-            Assert.AreEqual(ScriptName, tiaScript.scriptName);
+            Assert.AreEqual(scriptName, tiaScript.ScriptName);
+            Assert.AreEqual(playOnStart, tiaScript.PlayOnStart);
         }
     }
 }
