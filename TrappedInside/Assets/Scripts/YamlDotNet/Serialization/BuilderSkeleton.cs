@@ -43,8 +43,10 @@ namespace YamlDotNet.Serialization
         {
             overrides = new YamlAttributeOverrides();
 
-            typeConverterFactories = new LazyComponentRegistrationList<Nothing, IYamlTypeConverter>();
-            typeConverterFactories.Add(typeof(GuidConverter), _ => new GuidConverter(false));
+            typeConverterFactories = new LazyComponentRegistrationList<Nothing, IYamlTypeConverter>
+            {
+                { typeof(GuidConverter), _ => new GuidConverter(false) }
+            };
 
             typeInspectorFactories = new LazyComponentRegistrationList<ITypeInspector, ITypeInspector>();
         }
@@ -63,12 +65,7 @@ namespace YamlDotNet.Serialization
         /// </summary>
         public TBuilder WithNamingConvention(INamingConvention namingConvention)
         {
-            if (namingConvention == null)
-            {
-                throw new ArgumentNullException("namingConvention");
-            }
-
-            this.namingConvention = namingConvention;
+            this.namingConvention = namingConvention ?? throw new ArgumentNullException("namingConvention");
             return Self;
         }
 
@@ -77,12 +74,7 @@ namespace YamlDotNet.Serialization
         /// </summary>
         public TBuilder WithTypeResolver(ITypeResolver typeResolver)
         {
-            if (typeResolver == null)
-            {
-                throw new ArgumentNullException("typeResolver");
-            }
-
-            this.typeResolver = typeResolver;
+            this.typeResolver = typeResolver ?? throw new ArgumentNullException("typeResolver");
             return Self;
         }
 

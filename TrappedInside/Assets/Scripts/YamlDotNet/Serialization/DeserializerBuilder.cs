@@ -98,12 +98,7 @@ namespace YamlDotNet.Serialization
         /// </summary>
         public DeserializerBuilder WithObjectFactory(IObjectFactory objectFactory)
         {
-            if (objectFactory == null)
-            {
-                throw new ArgumentNullException("objectFactory");
-            }
-
-            this.objectFactory = objectFactory;
+            this.objectFactory = objectFactory ?? throw new ArgumentNullException("objectFactory");
             return this;
         }
 
@@ -295,8 +290,7 @@ namespace YamlDotNet.Serialization
                 throw new ArgumentNullException("type");
             }
 
-            Type alreadyRegisteredType;
-            if (tagMappings.TryGetValue(tag, out alreadyRegisteredType))
+            if (tagMappings.TryGetValue(tag, out Type alreadyRegisteredType))
             {
                 throw new ArgumentException(string.Format("Type already has a registered type '{0}' for tag '{1}'", alreadyRegisteredType.FullName, tag), "tag");
             }

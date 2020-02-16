@@ -71,8 +71,7 @@ namespace YamlDotNet.Serialization
 
             public override bool Equals(object obj)
             {
-                var other = obj as AttributeMapping;
-                return other != null
+                return obj is AttributeMapping other
                     && RegisteredType.Equals(other.RegisteredType)
                     && Attribute.Equals(other.Attribute);
             }
@@ -113,8 +112,7 @@ namespace YamlDotNet.Serialization
 
         public T GetAttribute<T>(Type type, string member) where T : Attribute
         {
-            List<AttributeMapping> mappings;
-            if (overrides.TryGetValue(new AttributeKey(typeof(T), member), out mappings))
+            if (overrides.TryGetValue(new AttributeKey(typeof(T), member), out List<AttributeMapping> mappings))
             {
                 int bestMatchPriority = 0;
                 AttributeMapping bestMatch = null;
@@ -148,9 +146,8 @@ namespace YamlDotNet.Serialization
         {
             var mapping = new AttributeMapping(type, attribute);
 
-            List<AttributeMapping> mappings;
             var attributeKey = new AttributeKey(attribute.GetType(), member);
-            if (!overrides.TryGetValue(attributeKey, out mappings))
+            if (!overrides.TryGetValue(attributeKey, out List<AttributeMapping> mappings))
             {
                 mappings = new List<AttributeMapping>();
                 overrides.Add(attributeKey, mappings);

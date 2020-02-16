@@ -55,40 +55,11 @@ namespace YamlDotNet.Serialization
             ObjectSerializer nestedObjectSerializer
         )
         {
-            if (innerVisitor == null)
-            {
-                throw new ArgumentNullException("innerVisitor");
-            }
-
-            InnerVisitor = innerVisitor;
-
-            if (eventEmitter == null)
-            {
-                throw new ArgumentNullException("eventEmitter");
-            }
-
-            EventEmitter = eventEmitter;
-
-            if (preProcessingPhaseVisitors == null)
-            {
-                throw new ArgumentNullException("preProcessingPhaseVisitors");
-            }
-
-            this.preProcessingPhaseVisitors = preProcessingPhaseVisitors;
-
-            if (typeConverters == null)
-            {
-                throw new ArgumentNullException("typeConverters");
-            }
-
-            TypeConverters = typeConverters;
-
-            if (nestedObjectSerializer == null)
-            {
-                throw new ArgumentNullException("nestedObjectSerializer");
-            }
-
-            NestedObjectSerializer = nestedObjectSerializer;
+            InnerVisitor = innerVisitor ?? throw new ArgumentNullException("innerVisitor");
+            EventEmitter = eventEmitter ?? throw new ArgumentNullException("eventEmitter");
+            this.preProcessingPhaseVisitors = preProcessingPhaseVisitors ?? throw new ArgumentNullException("preProcessingPhaseVisitors");
+            TypeConverters = typeConverters ?? throw new ArgumentNullException("typeConverters");
+            NestedObjectSerializer = nestedObjectSerializer ?? throw new ArgumentNullException("nestedObjectSerializer");
         }
 
         /// <summary>

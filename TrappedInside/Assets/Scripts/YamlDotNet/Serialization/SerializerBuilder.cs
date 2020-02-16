@@ -53,21 +53,31 @@ namespace YamlDotNet.Serialization
             typeInspectorFactories.Add(typeof(YamlAttributesTypeInspector), inner => new YamlAttributesTypeInspector(inner));
             typeInspectorFactories.Add(typeof(YamlAttributeOverridesInspector), inner => overrides != null ? new YamlAttributeOverridesInspector(inner, overrides.Clone()) : inner);
 
-            preProcessingPhaseObjectGraphVisitorFactories = new LazyComponentRegistrationList<IEnumerable<IYamlTypeConverter>, IObjectGraphVisitor<Nothing>>();
-            preProcessingPhaseObjectGraphVisitorFactories.Add(typeof(AnchorAssigner), typeConverters => new AnchorAssigner(typeConverters));
+            preProcessingPhaseObjectGraphVisitorFactories = new LazyComponentRegistrationList<IEnumerable<IYamlTypeConverter>, IObjectGraphVisitor<Nothing>>
+            {
+                { typeof(AnchorAssigner), typeConverters => new AnchorAssigner(typeConverters) }
+            };
 
-            emissionPhaseObjectGraphVisitorFactories = new LazyComponentRegistrationList<EmissionPhaseObjectGraphVisitorArgs, IObjectGraphVisitor<IEmitter>>();
-            emissionPhaseObjectGraphVisitorFactories.Add(typeof(CustomSerializationObjectGraphVisitor),
-                args => new CustomSerializationObjectGraphVisitor(args.InnerVisitor, args.TypeConverters, args.NestedObjectSerializer));
+            emissionPhaseObjectGraphVisitorFactories = new LazyComponentRegistrationList<EmissionPhaseObjectGraphVisitorArgs, IObjectGraphVisitor<IEmitter>>
+            {
+                {
+                    typeof(CustomSerializationObjectGraphVisitor),
+                    args => new CustomSerializationObjectGraphVisitor(args.InnerVisitor, args.TypeConverters, args.NestedObjectSerializer)
+                },
+                {
+                    typeof(AnchorAssigningObjectGraphVisitor),
+                    args => new AnchorAssigningObjectGraphVisitor(args.InnerVisitor, args.EventEmitter, args.GetPreProcessingPhaseObjectGraphVisitor<AnchorAssigner>())
+                },
+                {
+                    typeof(DefaultExclusiveObjectGraphVisitor),
+                    args => new DefaultExclusiveObjectGraphVisitor(args.InnerVisitor)
+                }
+            };
 
-            emissionPhaseObjectGraphVisitorFactories.Add(typeof(AnchorAssigningObjectGraphVisitor),
-                args => new AnchorAssigningObjectGraphVisitor(args.InnerVisitor, args.EventEmitter, args.GetPreProcessingPhaseObjectGraphVisitor<AnchorAssigner>()));
-
-            emissionPhaseObjectGraphVisitorFactories.Add(typeof(DefaultExclusiveObjectGraphVisitor),
-                args => new DefaultExclusiveObjectGraphVisitor(args.InnerVisitor));
-
-            eventEmitterFactories = new LazyComponentRegistrationList<IEventEmitter, IEventEmitter>();
-            eventEmitterFactories.Add(typeof(TypeAssigningEventEmitter), inner => new TypeAssigningEventEmitter(inner, false));
+            eventEmitterFactories = new LazyComponentRegistrationList<IEventEmitter, IEventEmitter>
+            {
+                { typeof(TypeAssigningEventEmitter), inner => new TypeAssigningEventEmitter(inner, false) }
+            };
 
             objectGraphTraversalStrategyFactory = (typeInspector, typeResolver, typeConverters) => new FullObjectGraphTraversalStrategy(typeInspector, typeResolver, 50, namingConvention ?? new NullNamingConvention());
 
@@ -175,8 +185,7 @@ namespace YamlDotNet.Serialization
                 throw new ArgumentNullException("type");
             }
 
-            string alreadyRegisteredTag;
-            if (tagMappings.TryGetValue(type, out alreadyRegisteredTag))
+            if (tagMappings.TryGetValue(type, out string alreadyRegisteredTag))
             {
                 throw new ArgumentException(string.Format("Type already has a registered tag '{0}' for type '{1}'", alreadyRegisteredTag, type.FullName), "type");
             }
@@ -495,7 +504,7 @@ namespace YamlDotNet.Serialization
 
             public void SerializeValue(IEmitter emitter, object value, Type type)
             {
-                var actualType = type != null ? type : value != null ? value.GetType() : typeof(object);
+                var actualType = type ?? (value != null ? value.GetType() : typeof(object));
                 var staticType = type ?? typeof(object);
 
                 var graph = new ObjectDescriptor(value, actualType, staticType);
@@ -506,7 +515,7 @@ namespace YamlDotNet.Serialization
                     traversalStrategy.Traverse(graph, visitor, null);
                 }
 
-                ObjectSerializer nestedObjectSerializer = (v, t) => SerializeValue(emitter, v, t);
+                void nestedObjectSerializer(object v, Type t = null) => SerializeValue(emitter, v, t);
 
                 var emittingVisitor = emissionPhaseObjectGraphVisitorFactories.BuildComponentChain(
                     new EmittingObjectGraphVisitor(eventEmitter),

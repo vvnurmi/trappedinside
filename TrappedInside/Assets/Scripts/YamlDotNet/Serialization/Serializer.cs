@@ -53,8 +53,10 @@ namespace YamlDotNet.Serialization
                 this.namingConvention = namingConvention ?? new NullNamingConvention();
                 this.overrides = overrides;
 
-                Converters = new List<IYamlTypeConverter>();
-                Converters.Add(new GuidConverter(IsOptionSet(SerializationOptions.JsonCompatible)));
+                Converters = new List<IYamlTypeConverter>
+                {
+                    new GuidConverter(IsOptionSet(SerializationOptions.JsonCompatible))
+                };
 
                 typeResolver = IsOptionSet(SerializationOptions.DefaultToStaticType)
                     ? (ITypeResolver)new StaticTypeResolver()
@@ -70,7 +72,7 @@ namespace YamlDotNet.Serialization
             {
                 IObjectGraphVisitor<IEmitter> emittingVisitor = new EmittingObjectGraphVisitor(eventEmitter);
 
-                ObjectSerializer nestedObjectSerializer = (v, t) => SerializeValue(emitter, v, t);
+                void nestedObjectSerializer(object v, Type t = null) => SerializeValue(emitter, v, t);
 
                 emittingVisitor = new CustomSerializationObjectGraphVisitor(emittingVisitor, Converters, nestedObjectSerializer);
 
@@ -201,12 +203,7 @@ namespace YamlDotNet.Serialization
         /// </remarks>
         private Serializer(IValueSerializer valueSerializer)
         {
-            if (valueSerializer == null)
-            {
-                throw new ArgumentNullException("valueSerializer");
-            }
-
-            this.valueSerializer = valueSerializer;
+            this.valueSerializer = valueSerializer ?? throw new ArgumentNullException("valueSerializer");
         }
 
         /// <summary>

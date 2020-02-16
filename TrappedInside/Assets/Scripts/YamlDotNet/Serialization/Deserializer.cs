@@ -105,28 +105,31 @@ namespace YamlDotNet.Serialization
                         )
                     );
 
-                converters = new List<IYamlTypeConverter>();
-                converters.Add(new GuidConverter(false));
+                converters = new List<IYamlTypeConverter> { new GuidConverter(false) };
 
-                NodeDeserializers = new List<INodeDeserializer>();
-                NodeDeserializers.Add(new YamlConvertibleNodeDeserializer(objectFactory));
-                NodeDeserializers.Add(new YamlSerializableNodeDeserializer(objectFactory));
-                NodeDeserializers.Add(new TypeConverterNodeDeserializer(converters));
-                NodeDeserializers.Add(new NullNodeDeserializer());
-                NodeDeserializers.Add(new ScalarNodeDeserializer());
-                NodeDeserializers.Add(new ArrayNodeDeserializer());
-                NodeDeserializers.Add(new DictionaryNodeDeserializer(objectFactory));
-                NodeDeserializers.Add(new CollectionNodeDeserializer(objectFactory));
-                NodeDeserializers.Add(new EnumerableNodeDeserializer());
-                NodeDeserializers.Add(new ObjectNodeDeserializer(objectFactory, typeDescriptor, ignoreUnmatched));
+                NodeDeserializers = new List<INodeDeserializer>
+                {
+                    new YamlConvertibleNodeDeserializer(objectFactory),
+                    new YamlSerializableNodeDeserializer(objectFactory),
+                    new TypeConverterNodeDeserializer(converters),
+                    new NullNodeDeserializer(),
+                    new ScalarNodeDeserializer(),
+                    new ArrayNodeDeserializer(),
+                    new DictionaryNodeDeserializer(objectFactory),
+                    new CollectionNodeDeserializer(objectFactory),
+                    new EnumerableNodeDeserializer(),
+                    new ObjectNodeDeserializer(objectFactory, typeDescriptor, ignoreUnmatched)
+                };
 
                 tagMappings = new Dictionary<string, Type>(predefinedTagMappings);
-                TypeResolvers = new List<INodeTypeResolver>();
-                TypeResolvers.Add(new YamlConvertibleTypeResolver());
-                TypeResolvers.Add(new YamlSerializableTypeResolver());
-                TypeResolvers.Add(new TagNodeTypeResolver(tagMappings));
-                TypeResolvers.Add(new TypeNameInTagNodeTypeResolver());
-                TypeResolvers.Add(new DefaultContainersNodeTypeResolver());
+                TypeResolvers = new List<INodeTypeResolver>
+                {
+                    new YamlConvertibleTypeResolver(),
+                    new YamlSerializableTypeResolver(),
+                    new TagNodeTypeResolver(tagMappings),
+                    new TypeNameInTagNodeTypeResolver(),
+                    new DefaultContainersNodeTypeResolver()
+                };
 
                 valueDeserializer =
                     new AliasValueDeserializer(
@@ -226,12 +229,7 @@ namespace YamlDotNet.Serialization
         /// </remarks>
         private Deserializer(IValueDeserializer valueDeserializer)
         {
-            if (valueDeserializer == null)
-            {
-                throw new ArgumentNullException("valueDeserializer");
-            }
-
-            this.valueDeserializer = valueDeserializer;
+            this.valueDeserializer = valueDeserializer ?? throw new ArgumentNullException("valueDeserializer");
         }
 
         /// <summary>

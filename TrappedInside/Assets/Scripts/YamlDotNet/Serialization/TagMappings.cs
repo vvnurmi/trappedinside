@@ -65,8 +65,7 @@ namespace YamlDotNet.Serialization
         /// <returns></returns>
         internal Type GetMapping(string tag)
         {
-            Type mapping;
-            if (mappings.TryGetValue(tag, out mapping))
+            if (mappings.TryGetValue(tag, out Type mapping))
             {
                 return mapping;
             }

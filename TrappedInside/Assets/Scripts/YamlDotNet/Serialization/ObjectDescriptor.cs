@@ -39,20 +39,8 @@ namespace YamlDotNet.Serialization
         public ObjectDescriptor(object value, Type type, Type staticType, ScalarStyle scalarStyle)
         {
             Value = value;
-
-            if (type == null)
-            {
-                throw new ArgumentNullException("type");
-            }
-
-            Type = type;
-
-            if (staticType == null)
-            {
-                throw new ArgumentNullException("staticType");
-            }
-
-            StaticType = staticType;
+            Type = type ?? throw new ArgumentNullException("type");
+            StaticType = staticType ?? throw new ArgumentNullException("staticType");
 
             ScalarStyle = scalarStyle;
         }
