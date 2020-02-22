@@ -1,14 +1,17 @@
 ﻿using System;
 using UnityEngine;
+using YamlDotNet.Core;
+using YamlDotNet.Core.Events;
+using YamlDotNet.Serialization;
 
 /// <summary>
 /// Associated with a Unity GameObject under the root TIA game object by name.
 /// GameObject may need Animator component.
 /// Serialized as a name string.
 /// </summary>
-public class TiaActor
+public class TiaActor : IYamlConvertible
 {
-    public string gameObjectName { get; set; }
+    public string GameObjectName { get; set; }
 
     public GameObject GameObject
     {
@@ -27,7 +30,17 @@ public class TiaActor
     /// </summary>
     public void Initialize(GameObject tiaRoot)
     {
-        gameObject = tiaRoot.FindChildByName(gameObjectName);
-        Debug.Assert(gameObject != null, $"{nameof(TiaActor)} couldn't find '{gameObjectName}' under {tiaRoot.GetFullName()}");
+        gameObject = tiaRoot.FindChildByName(GameObjectName);
+        Debug.Assert(gameObject != null, $"{nameof(TiaActor)} couldn't find '{GameObjectName}' under {tiaRoot.GetFullName()}");
+    }
+
+    public void Read(IParser parser, Type expectedType, ObjectDeserializer nestedObjectDeserializer)
+    {
+        GameObjectName = parser.Expect<Scalar>().Value;
+    }
+
+    public void Write(IEmitter emitter, ObjectSerializer nestedObjectSerializer)
+    {
+        emitter.Emit(new Scalar(GameObjectName));
     }
 }

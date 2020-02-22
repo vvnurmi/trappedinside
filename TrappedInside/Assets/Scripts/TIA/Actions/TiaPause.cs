@@ -5,6 +5,7 @@
 /// </summary>
 public class TiaPause : ITiaAction
 {
+    [YamlDotNet.Serialization.YamlMember(Alias = "Seconds")]
     public float DurationSeconds { get; set; }
 
     public bool IsDone { get; private set; }

@@ -29,7 +29,7 @@ namespace Tests
                         {
                             new TiaActionSequence
                             {
-                                Actor = new TiaActor { gameObjectName = testObject.name },
+                                Actor = new TiaActor { GameObjectName = testObject.name },
                                 Actions = new ITiaAction[]
                                 {
                                     new TiaPause { DurationSeconds = 1 },
@@ -78,7 +78,7 @@ namespace Tests
                         {
                             new TiaActionSequence
                             {
-                                Actor = new TiaActor { gameObjectName = testObject1.name },
+                                Actor = new TiaActor { GameObjectName = testObject1.name },
                                 Actions = new ITiaAction[]
                                 {
                                     new TiaPause { DurationSeconds = 2 },
@@ -87,7 +87,7 @@ namespace Tests
                             },
                             new TiaActionSequence
                             {
-                                Actor = new TiaActor { gameObjectName = testObject2.name },
+                                Actor = new TiaActor { GameObjectName = testObject2.name },
                                 Actions = new ITiaAction[]
                                 {
                                     new TiaPause { DurationSeconds = 1 },
@@ -135,7 +135,7 @@ namespace Tests
                         {
                             new TiaActionSequence
                             {
-                                Actor = new TiaActor { gameObjectName = fakeObject.name },
+                                Actor = new TiaActor { GameObjectName = fakeObject.name },
                                 Actions = new ITiaAction[0],
                             }
                         }
@@ -175,7 +175,7 @@ namespace Tests
                         {
                             new TiaActionSequence
                             {
-                                Actor = new TiaActor { gameObjectName = testObject.name },
+                                Actor = new TiaActor { GameObjectName = testObject.name },
                                 Actions = new ITiaAction[]
                                 {
                                     new TiaMove
@@ -243,7 +243,7 @@ namespace Tests
                         {
                             new TiaActionSequence
                             {
-                                Actor = new TiaActor { gameObjectName = testObject.name },
+                                Actor = new TiaActor { GameObjectName = testObject.name },
                                 Actions = new ITiaAction[]
                                 {
                                     new TiaAnimation { AnimationName = AnotherStateName },
