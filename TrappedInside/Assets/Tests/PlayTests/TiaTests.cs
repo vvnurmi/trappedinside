@@ -33,9 +33,9 @@ namespace Tests
                                 Actions = new ITiaAction[]
                                 {
                                     new TiaPause { DurationSeconds = 1 },
-                                    new TiaActivation { activated = true },
+                                    new TiaActivate(),
                                     new TiaPause { DurationSeconds = 1 },
-                                    new TiaActivation { activated = false },
+                                    new TiaDeactivate(),
                                 }
                             }
                         }
@@ -82,7 +82,7 @@ namespace Tests
                                 Actions = new ITiaAction[]
                                 {
                                     new TiaPause { DurationSeconds = 2 },
-                                    new TiaActivation { activated = true },
+                                    new TiaActivate(),
                                 }
                             },
                             new TiaActionSequence
@@ -91,7 +91,7 @@ namespace Tests
                                 Actions = new ITiaAction[]
                                 {
                                     new TiaPause { DurationSeconds = 1 },
-                                    new TiaActivation { activated = true },
+                                    new TiaDeactivate(),
                                 }
                             },
                         }

@@ -1,10 +1,14 @@
-﻿/// <summary>
-/// Activates or deactivates the actor.
-/// </summary>
-public class TiaActivation : ITiaAction
-{
-    public bool activated { get; set; }
+﻿using System;
+using YamlDotNet.Core;
+using YamlDotNet.Core.Events;
+using YamlDotNet.Serialization;
 
+/// <summary>
+/// Activates the actor.
+/// </summary>
+/// <seealso cref="TiaDeactivate"/>
+public class TiaActivate : ITiaAction, IYamlConvertible
+{
     public bool IsDone { get; private set; }
 
     public void Start()
@@ -13,7 +17,52 @@ public class TiaActivation : ITiaAction
 
     public void Update(TiaActor actor)
     {
-        actor.GameObject.SetActive(activated);
+        actor.GameObject.SetActive(true);
         IsDone = true;
     }
+
+    #region IYamlConvertible implementation
+
+    public void Read(IParser parser, Type expectedType, ObjectDeserializer nestedObjectDeserializer)
+    {
+        parser.Expect<Scalar>();
+    }
+
+    public void Write(IEmitter emitter, ObjectSerializer nestedObjectSerializer)
+    {
+    }
+
+    #endregion
+}
+
+/// <summary>
+/// Deactivates the actor.
+/// </summary>
+/// <seealso cref="TiaActivate"/>
+public class TiaDeactivate : ITiaAction, IYamlConvertible
+{
+    public bool IsDone { get; private set; }
+
+    public void Start()
+    {
+    }
+
+    public void Update(TiaActor actor)
+    {
+        actor.GameObject.SetActive(false);
+        IsDone = true;
+    }
+
+    #region IYamlConvertible implementation
+
+    public void Read(IParser parser, Type expectedType, ObjectDeserializer nestedObjectDeserializer)
+    {
+        parser.Expect<Scalar>();
+    }
+
+    public void Write(IEmitter emitter, ObjectSerializer nestedObjectSerializer)
+    {
+    }
+
+    #endregion
 }

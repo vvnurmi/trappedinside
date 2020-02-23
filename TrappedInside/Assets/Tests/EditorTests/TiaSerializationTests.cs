@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Globalization;
 
 namespace Tests
@@ -22,18 +23,43 @@ AutoPlay: {playOnStart}";
         }
 
         [Test]
+        public void ActivationStep()
+        {
+            AssertActionStep<TiaActivate>("!Activate", step => { });
+            AssertActionStep<TiaDeactivate>("!Deactivate", step => { });
+        }
+
+        [Test]
         public void PauseStep()
         {
-            var actor = "Test Actor";
             var pauseSeconds = 2.5f;
+            var deserializedAction = $@"
+!Pause
+Seconds: {pauseSeconds.ToString(CultureInfo.InvariantCulture)}";
+            void AssertProperties(TiaPause tiaPause) =>
+                Assert.AreEqual(pauseSeconds, tiaPause.DurationSeconds);
+            AssertActionStep<TiaPause>(deserializedAction, AssertProperties);
+        }
+
+        /// <summary>
+        /// Formulates a small TIA script that contains an action of type
+        /// <typeparamref name="TAction"/> and asserts that the script deserializes
+        /// well. You can assert the action's own property serialization in
+        /// <paramref name="assertProperties"/>.
+        /// </summary>
+        private void AssertActionStep<TAction>(
+            string deserializedAction,
+            Action<TAction> assertProperties)
+            where TAction : ITiaAction
+        {
+            var actor = "Test Actor";
             var serialized = $@"
 ---
 Steps:
 - Sequences:
   - Actor: {actor}
     Actions:
-    - !Pause
-      Seconds: {pauseSeconds.ToString(CultureInfo.InvariantCulture)}";
+    - {deserializedAction.Replace("\n", "\n      ")}"; // Ensure proper YAML indentation.
             var tiaScript = TiaScript.Read(serialized);
             Assert.AreEqual(1, tiaScript.Steps.Length);
 
@@ -44,10 +70,9 @@ Steps:
             Assert.AreEqual(actor, tiaSequence.Actor.GameObjectName);
             Assert.NotNull(tiaSequence.Actions, nameof(tiaSequence.Actions));
             Assert.AreEqual(1, tiaSequence.Actions.Length, nameof(tiaSequence.Actions));
-            Assert.IsInstanceOf<TiaPause>(tiaSequence.Actions[0]);
+            Assert.IsInstanceOf<TAction>(tiaSequence.Actions[0]);
 
-            var tiaPause = (TiaPause)tiaSequence.Actions[0];
-            Assert.AreEqual(2.5f, tiaPause.DurationSeconds);
+            assertProperties((TAction)tiaSequence.Actions[0]);
         }
     }
 }
