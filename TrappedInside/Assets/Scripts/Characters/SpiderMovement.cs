@@ -14,10 +14,11 @@ public class SpiderMovement : MonoBehaviour
     private Animator animator;
     private State state = State.ReadyForAttack;
     private Vector2 startingPosition;
+    private LineRenderer webRendered;
 
-    private static readonly string moving = "Moving";
+    private static readonly string biting = "Biting";
     private static readonly string still = "Still";
-    private readonly List<string> animatorStates = new List<string> { moving, still };
+    private readonly List<string> animatorStates = new List<string> { biting, still };
 
 
     void Start()
@@ -25,6 +26,7 @@ public class SpiderMovement : MonoBehaviour
         attackTrigger = GetComponentInChildren<AttackTrigger>();
         contactTrigger = GetComponentInChildren<ContactTrigger>();
         animator = GetComponent<Animator>();
+        webRendered = GetComponent<LineRenderer>();
         startingPosition = transform.position;
     }
 
@@ -34,7 +36,7 @@ public class SpiderMovement : MonoBehaviour
         {
             if (attackTrigger.PlayerInAttackRange)
             {
-                SetAnimatorState(moving);
+                SetAnimatorState(biting);
                 state = State.Attacking;
             }
         }
@@ -55,6 +57,8 @@ public class SpiderMovement : MonoBehaviour
                 SetAnimatorState(still);
             }
         }
+
+        webRendered.SetPosition(1, new Vector2(-0.005f, startingPosition.y - transform.position.y));
     }
 
 
