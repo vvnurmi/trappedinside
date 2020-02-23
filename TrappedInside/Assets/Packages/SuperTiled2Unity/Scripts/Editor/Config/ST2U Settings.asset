@@ -70,6 +70,9 @@ MonoBehaviour:
   - m_Name: Spikey
     m_Color: {r: 1, g: 0.7490196, b: 0, a: 1}
     m_CustomProperties: []
+  - m_Name: Spider
+    m_Color: {r: 1, g: 0, b: 0, a: 1}
+    m_CustomProperties: []
   m_PrefabReplacements:
   - m_TypeName: Deer
     m_Prefab: {fileID: 8929465601594787292, guid: 1199157c6d5e8664586077a3ad501788,
@@ -85,4 +88,7 @@ MonoBehaviour:
       type: 3}
   - m_TypeName: Spikey
     m_Prefab: {fileID: 2353349583925028531, guid: 8bbb6dce803abb14092e5007ad5f1f2e,
+      type: 3}
+  - m_TypeName: Spider
+    m_Prefab: {fileID: 7365972083834557574, guid: 4adabf1e16a804c48a32d7583a4f1233,
       type: 3}

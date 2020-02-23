@@ -3,8 +3,9 @@
   <objecttype name="Deer" color="#0000ff"/>
   <objecttype name="Hedgehog" color="#ff5500"/>
   <objecttype name="LevelLoadTrigger" color="#dcdcdc">
-  <property name="nextLevel" type="file" default="../Scenes/_DevSandbox.unity"/>
- </objecttype>
- <objecttype name="Mike Start" color="#00ff00"/>
- <objecttype name="Spikey" color="#ffbf00"/>
+    <property name="nextLevel" type="file" default="../Scenes/_DevSandbox.unity"/>
+  </objecttype>
+  <objecttype name="Mike Start" color="#00ff00"/>
+  <objecttype name="Spikey" color="#ffbf00"/>
+  <objecttype name="Spider" color="#ff0000"/>
 </objecttypes>
