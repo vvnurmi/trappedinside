@@ -30,6 +30,19 @@ AutoPlay: {playOnStart}";
         }
 
         [Test]
+        public void AnimationStep()
+        {
+            var animationName = "Test Animation";
+            var deserializedAction = $@"
+!Animation
+Name: {animationName}";
+            AssertActionStep<TiaAnimation>(deserializedAction, step =>
+            {
+                Assert.AreEqual(animationName, step.AnimationName);
+            });
+        }
+
+        [Test]
         public void PauseStep()
         {
             var pauseSeconds = 2.5f;

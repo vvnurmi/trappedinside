@@ -5,6 +5,7 @@
 /// </summary>
 public class TiaAnimation : ITiaAction
 {
+    [YamlDotNet.Serialization.YamlMember(Alias = "Name")]
     public string AnimationName { get; set; }
 
     public bool IsDone { get; private set; }
