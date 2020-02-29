@@ -8,6 +8,7 @@ public class SpiderMovement : MonoBehaviour
 
     public float attackSpeed = 2.0f;
     public float returnSpeed = 0.5f;
+    
 
     private AttackTrigger attackTrigger;
     private ContactTrigger contactTrigger;
@@ -40,27 +41,34 @@ public class SpiderMovement : MonoBehaviour
                 state = State.Attacking;
             }
         }
-        else if (state == State.Attacking)
+        else
         {
-            transform.Translate(new Vector3(0, -attackSpeed * Time.deltaTime));
-            if (contactTrigger.Contact)
+            var x = 0.02f * WebLength * Mathf.Sin(2f * Time.time);
+            transform.position = new Vector3(startingPosition.x + x, transform.position.y);
+            if (state == State.Attacking)
             {
-                state = State.GettingUp;
+                transform.Translate(new Vector3(0, -attackSpeed * Time.deltaTime));
+                if (contactTrigger.Contact)
+                {
+                    state = State.GettingUp;
+                }
             }
-        }
-        else if (state == State.GettingUp)
-        {
-            transform.Translate(new Vector3(0, returnSpeed * Time.deltaTime));
-            if (Vector2.Distance(transform.position, startingPosition) < 0.01)
+            else if (state == State.GettingUp)
             {
-                state = State.ReadyForAttack;
-                SetAnimatorState(still);
+                transform.Translate(new Vector3(0, returnSpeed * Time.deltaTime));
+                if (Mathf.Abs(transform.position.y - startingPosition.y) < 0.01)
+                {
+                    state = State.ReadyForAttack;
+                    transform.position = startingPosition;
+                    SetAnimatorState(still);
+                }
             }
         }
 
-        webRendered.SetPosition(1, new Vector2(-0.005f, startingPosition.y - transform.position.y));
+        webRendered.SetPosition(1, new Vector2(-0.005f + startingPosition.x - transform.position.x, startingPosition.y - transform.position.y));
     }
 
+    private float WebLength => Mathf.Abs(startingPosition.y - transform.position.y);
 
     private void SetAnimatorState(string state)
     {
