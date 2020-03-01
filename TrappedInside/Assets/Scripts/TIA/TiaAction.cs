@@ -1,4 +1,6 @@
-﻿/// <summary>
+﻿using UnityEngine;
+
+/// <summary>
 /// An action that an actor can take as part of an action sequence.
 /// </summary>
 public interface ITiaAction
@@ -8,7 +10,7 @@ public interface ITiaAction
     /// <summary>
     /// Called when the action starts.
     /// </summary>
-    void Start();
+    void Start(GameObject tiaRoot);
 
     /// <summary>
     /// Called regularly after start until <see cref="IsDone"/>

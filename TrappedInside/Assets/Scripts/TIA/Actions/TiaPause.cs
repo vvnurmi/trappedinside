@@ -12,7 +12,7 @@ public class TiaPause : ITiaAction
 
     private float finishTime;
 
-    public void Start()
+    public void Start(GameObject tiaRoot)
     {
         finishTime = Time.time + DurationSeconds;
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using YamlDotNet.Core;
 using YamlDotNet.Core.Events;
 using YamlDotNet.Serialization;
@@ -11,7 +12,7 @@ public class TiaActivate : ITiaAction, IYamlConvertible
 {
     public bool IsDone { get; private set; }
 
-    public void Start()
+    public void Start(GameObject tiaRoot)
     {
     }
 
@@ -43,7 +44,7 @@ public class TiaDeactivate : ITiaAction, IYamlConvertible
 {
     public bool IsDone { get; private set; }
 
-    public void Start()
+    public void Start(GameObject tiaRoot)
     {
     }
 
