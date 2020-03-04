@@ -1,15 +1,16 @@
 ﻿using System;
+using UnityEngine;
 
 /// <summary>
 /// Starts to play another TIA script in the same root TIA game object.
 /// </summary>
 public class TiaPlayScript : ITiaAction
 {
-    public string scriptName { get; set; }
+    public string ScriptName { get; set; }
 
     public bool IsDone => throw new NotImplementedException();
 
-    public void Start()
+    public void Start(GameObject tiaRoot)
     {
         throw new NotImplementedException();
     }

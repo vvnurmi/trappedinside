@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -9,11 +10,40 @@ namespace Tests
 {
     public class TiaTests
     {
+        private int gameObjectsAtSetup;
+        private List<GameObject> createdGameObjects = new List<GameObject>();
+
+        private GameObject NewGameObject(string name)
+        {
+            var gameObject = new GameObject(name);
+            createdGameObjects.Add(gameObject);
+            return gameObject;
+        }
+
+        [SetUp]
+        public void Setup()
+        {
+            gameObjectsAtSetup = Object.FindObjectsOfType<GameObject>().Length;
+        }
+
+        [TearDown]
+        public void Teardown()
+        {
+            Debug.Log($"Deleting {createdGameObjects.Count} game objects that were created during the test.");
+            foreach (var gameObject in createdGameObjects)
+                Object.DestroyImmediate(gameObject);
+            createdGameObjects.Clear();
+
+            // Object count safety check to guard against leaking objects that could break tests.
+            var gameObjectsAtTeardown = Object.FindObjectsOfType<GameObject>().Length;
+            Assert.AreEqual(gameObjectsAtSetup, gameObjectsAtTeardown, "Game objects may be leaking from test to another");
+        }
+
         [UnityTest]
         public IEnumerator ActivationAndPause()
         {
-            var tiaRoot = new GameObject("TIA root");
-            var testObject = new GameObject("test object");
+            var tiaRoot = NewGameObject("TIA root");
+            var testObject = NewGameObject("test object");
             testObject.transform.parent = tiaRoot.transform;
 
             var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
@@ -43,7 +73,6 @@ namespace Tests
                 }
             };
 
-            yield return new EnterPlayMode();
             testObject.SetActive(false);
 
             yield return new WaitForSeconds(0.5f);
@@ -59,9 +88,9 @@ namespace Tests
         [UnityTest]
         public IEnumerator SimultaneousActors()
         {
-            var tiaRoot = new GameObject("TIA root");
-            var testObject1 = new GameObject("test object 1");
-            var testObject2 = new GameObject("test object 2");
+            var tiaRoot = NewGameObject("TIA root");
+            var testObject1 = NewGameObject("test object 1");
+            var testObject2 = NewGameObject("test object 2");
             testObject1.transform.parent = tiaRoot.transform;
             testObject2.transform.parent = tiaRoot.transform;
 
@@ -91,7 +120,7 @@ namespace Tests
                                 Actions = new ITiaAction[]
                                 {
                                     new TiaPause { DurationSeconds = 1 },
-                                    new TiaDeactivate(),
+                                    new TiaActivate(),
                                 }
                             },
                         }
@@ -99,7 +128,6 @@ namespace Tests
                 }
             };
 
-            yield return new EnterPlayMode();
             testObject1.SetActive(false);
             testObject2.SetActive(false);
 
@@ -119,8 +147,8 @@ namespace Tests
         [UnityTest]
         public IEnumerator ThrowsIfActorNotFoundUnderRoot()
         {
-            var tiaRoot = new GameObject("TIA root");
-            var fakeObject = new GameObject("not under TIA root");
+            var tiaRoot = NewGameObject("TIA root");
+            var fakeObject = NewGameObject("not under TIA root");
 
             var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
             tiaPlayer.script = new TiaScript
@@ -143,8 +171,6 @@ namespace Tests
                 }
             };
 
-            yield return new EnterPlayMode();
-
             LogAssert.Expect(LogType.Assert, new Regex($"{nameof(TiaActor)} couldn't find '{fakeObject.name}' under .*"));
             yield return new WaitForSeconds(0.5f);
         }
@@ -154,11 +180,14 @@ namespace Tests
         {
             const float Epsilon = 0.5f;
 
-            var tiaRoot = new GameObject("TIA root");
-            var testObject = new GameObject("test object");
+            var tiaRoot = NewGameObject("TIA root");
+
+            var testObject = NewGameObject("test object");
             testObject.transform.parent = tiaRoot.transform;
 
-            var curve = tiaRoot.AddComponent<BezierCurve>();
+            var curveObject = NewGameObject("Test Curve");
+            curveObject.transform.parent = tiaRoot.transform;
+            var curve = curveObject.AddComponent<BezierCurve>();
             curve.AddPointAt(new Vector3(10, 0));
             curve.AddPointAt(new Vector3(0, 10));
 
@@ -181,7 +210,7 @@ namespace Tests
                                     new TiaMove
                                     {
                                         DurationSeconds = 2,
-                                        Curve = curve,
+                                        CurveName = curveObject.name,
                                     }
                                 }
                             }
@@ -206,8 +235,8 @@ namespace Tests
             const string DefaultStateName = "state1";
             const string AnotherStateName = "state2";
 
-            var tiaRoot = new GameObject("TIA root");
-            var testObject = new GameObject("test object");
+            var tiaRoot = NewGameObject("TIA root");
+            var testObject = NewGameObject("test object");
             testObject.transform.parent = tiaRoot.transform;
             var animator = testObject.AddComponent<Animator>();
             var animatorController = new AnimatorController();
@@ -260,7 +289,6 @@ namespace Tests
                     $"Expected animator state '{expectedStateName}' but was hash {animator.GetCurrentAnimatorStateInfo(0).shortNameHash}.");
 
             AssertAnimationState(DefaultStateName);
-            yield return new EnterPlayMode();
             
             yield return new WaitForSeconds(0.5f);
             AssertAnimationState(AnotherStateName);

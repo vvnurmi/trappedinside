@@ -16,9 +16,9 @@ public class TiaStep
             seq.Start(tiaRoot);
     }
 
-    public void Update()
+    public void Update(GameObject tiaRoot)
     {
         foreach (var seq in Sequences)
-            seq.Update();
+            seq.Update(tiaRoot);
     }
 }

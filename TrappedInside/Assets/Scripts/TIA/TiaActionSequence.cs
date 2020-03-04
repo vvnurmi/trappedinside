@@ -18,10 +18,10 @@ public class TiaActionSequence
         Actor.Initialize(tiaRoot);
         actionIndex = 0;
         if (actionIndex < Actions.Length)
-            Actions[actionIndex].Start();
+            Actions[actionIndex].Start(tiaRoot);
     }
 
-    public void Update()
+    public void Update(GameObject tiaRoot)
     {
         if (IsDone) return;
 
@@ -34,7 +34,7 @@ public class TiaActionSequence
 
             actionIndex++;
             if (actionIndex < Actions.Length)
-                Actions[actionIndex].Start();
+                Actions[actionIndex].Start(tiaRoot);
         }
     }
 }

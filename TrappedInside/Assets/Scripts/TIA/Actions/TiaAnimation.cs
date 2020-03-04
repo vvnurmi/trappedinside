@@ -10,7 +10,7 @@ public class TiaAnimation : ITiaAction
 
     public bool IsDone { get; private set; }
 
-    public void Start()
+    public void Start(GameObject tiaRoot)
     {
     }
 
