@@ -15,7 +15,6 @@ public class SpiderMovement : MonoBehaviour
     private Animator animator;
     private State state = State.ReadyForAttack;
     private Vector2 startingPosition;
-    private LineRenderer webRendered;
 
     private static readonly string biting = "Biting";
     private static readonly string still = "Still";
@@ -27,7 +26,6 @@ public class SpiderMovement : MonoBehaviour
         attackTrigger = GetComponentInChildren<AttackTrigger>();
         contactTrigger = GetComponentInChildren<ContactTrigger>();
         animator = GetComponent<Animator>();
-        webRendered = GetComponent<LineRenderer>();
         startingPosition = transform.position;
     }
 
@@ -64,8 +62,6 @@ public class SpiderMovement : MonoBehaviour
                 }
             }
         }
-
-        webRendered.SetPosition(1, new Vector2(-0.005f + startingPosition.x - transform.position.x, startingPosition.y - transform.position.y));
     }
 
     private float WebLength => Mathf.Abs(startingPosition.y - transform.position.y);
