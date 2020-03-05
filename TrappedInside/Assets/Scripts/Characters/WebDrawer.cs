@@ -16,7 +16,10 @@ public class WebDrawer : MonoBehaviour
 
     void Start()
     {
-        texture = new Texture2D(imgWidth, imgHeight);
+        texture = new Texture2D(imgWidth, imgHeight)
+        {
+            filterMode = FilterMode.Point
+        };
         spriteRenderer = GetComponent<SpriteRenderer>();
         startingPosition = transform.position;
         xOffset = imgWidth / 2;
@@ -30,17 +33,15 @@ public class WebDrawer : MonoBehaviour
     {
         texture.SetPixels(transparentPixels);
 
+        var xMovementInPixels = pixelsPerUnit * (transform.position.x - startingPosition.x);
+        var yMovementInPixels = pixelsPerUnit * (transform.position.y - startingPosition.y);
 
-        var xMovementInPixels = (int)(pixelsPerUnit * (transform.position.x - startingPosition.x));
-        var yMovementInPixels = (int)(pixelsPerUnit * (transform.position.y - startingPosition.y));
-
-
-        DrawLine(xOffset, 0, xMovementInPixels + xOffset, yMovementInPixels);
+        DrawLine(xOffset, 0, (int)xMovementInPixels + xOffset, (int)yMovementInPixels);
 
         texture.Apply();
 
-        float xMovementInRatio = xMovementInPixels / (float)imgWidth;
-        float yMovementInRatio = yMovementInPixels / (float)imgHeight;
+        float xMovementInRatio = xMovementInPixels / imgWidth;
+        float yMovementInRatio = yMovementInPixels / imgHeight;
 
         spriteRenderer.sprite = Sprite.Create(texture, new Rect(0, 0, imgWidth, imgHeight), new Vector2(0.5f + xMovementInRatio, 1.0f + yMovementInRatio));
     }
@@ -135,7 +136,7 @@ public class WebDrawer : MonoBehaviour
 
     void DrawPixel(int x, int y)
     {
-        texture.SetPixel(x, y, Color.white);
+        texture.SetPixel(x, y, Color.gray);
     }
 
 }
