@@ -20,6 +20,32 @@ namespace Tests
             return gameObject;
         }
 
+        /// <summary>
+        /// Creates a test <see cref="TiaScript"/> with one <see cref="TiaStep"/>
+        /// that contains one <see cref="TiaActionSequence"/> that contains the
+        /// given <paramref name="actions"/>.
+        /// </summary>
+        private TiaScript NewSimpleScript(GameObject actor, params ITiaAction[] actions) =>
+            new TiaScript
+            {
+                ScriptName = "Test Script",
+                PlayOnStart = true,
+                Steps = new[]
+                {
+                    new TiaStep
+                    {
+                        Sequences = new[]
+                        {
+                            new TiaActionSequence
+                            {
+                                Actor = new TiaActor { GameObjectName = actor.name },
+                                Actions = actions,
+                            }
+                        }
+                    }
+                }
+            };
+
         [SetUp]
         public void Setup()
         {
@@ -47,31 +73,11 @@ namespace Tests
             testObject.transform.parent = tiaRoot.transform;
 
             var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
-            tiaPlayer.script = new TiaScript
-            {
-                ScriptName = "Test Script",
-                PlayOnStart = true,
-                Steps = new[]
-                {
-                    new TiaStep
-                    {
-                        Sequences = new[]
-                        {
-                            new TiaActionSequence
-                            {
-                                Actor = new TiaActor { GameObjectName = testObject.name },
-                                Actions = new ITiaAction[]
-                                {
-                                    new TiaPause { DurationSeconds = 1 },
-                                    new TiaActivate(),
-                                    new TiaPause { DurationSeconds = 1 },
-                                    new TiaDeactivate(),
-                                }
-                            }
-                        }
-                    }
-                }
-            };
+            tiaPlayer.script = NewSimpleScript(testObject, 
+                new TiaPause { DurationSeconds = 1 },
+                new TiaActivate(),
+                new TiaPause { DurationSeconds = 1 },
+                new TiaDeactivate());
 
             testObject.SetActive(false);
 
@@ -151,25 +157,7 @@ namespace Tests
             var fakeObject = NewGameObject("not under TIA root");
 
             var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
-            tiaPlayer.script = new TiaScript
-            {
-                ScriptName = "Test Script",
-                PlayOnStart = true,
-                Steps = new[]
-                {
-                    new TiaStep
-                    {
-                        Sequences = new[]
-                        {
-                            new TiaActionSequence
-                            {
-                                Actor = new TiaActor { GameObjectName = fakeObject.name },
-                                Actions = new ITiaAction[0],
-                            }
-                        }
-                    }
-                }
-            };
+            tiaPlayer.script = NewSimpleScript(fakeObject);
 
             LogAssert.Expect(LogType.Assert, new Regex($"{nameof(TiaActor)} couldn't find '{fakeObject.name}' under .*"));
             yield return new WaitForSeconds(0.5f);
@@ -192,32 +180,12 @@ namespace Tests
             curve.AddPointAt(new Vector3(0, 10));
 
             var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
-            tiaPlayer.script = new TiaScript
-            {
-                ScriptName = "Test Script",
-                PlayOnStart = true,
-                Steps = new[]
+            tiaPlayer.script = NewSimpleScript(testObject,
+                new TiaMove
                 {
-                    new TiaStep
-                    {
-                        Sequences = new[]
-                        {
-                            new TiaActionSequence
-                            {
-                                Actor = new TiaActor { GameObjectName = testObject.name },
-                                Actions = new ITiaAction[]
-                                {
-                                    new TiaMove
-                                    {
-                                        DurationSeconds = 2,
-                                        CurveName = curveObject.name,
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            };
+                    DurationSeconds = 2,
+                    CurveName = curveObject.name,
+                });
 
             yield return new EnterPlayMode();
             AssertEx.AreEqual(new Vector3(10, 0), testObject.transform.position, Epsilon);
@@ -260,28 +228,8 @@ namespace Tests
             animator.runtimeAnimatorController = animatorController;
 
             var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
-            tiaPlayer.script = new TiaScript
-            {
-                ScriptName = "Test Script",
-                PlayOnStart = true,
-                Steps = new[]
-                {
-                    new TiaStep
-                    {
-                        Sequences = new[]
-                        {
-                            new TiaActionSequence
-                            {
-                                Actor = new TiaActor { GameObjectName = testObject.name },
-                                Actions = new ITiaAction[]
-                                {
-                                    new TiaAnimation { AnimationName = AnotherStateName },
-                                }
-                            }
-                        }
-                    }
-                }
-            };
+            tiaPlayer.script = NewSimpleScript(testObject,
+                new TiaAnimation { AnimationName = AnotherStateName });
 
             void AssertAnimationState(string expectedStateName) =>
                 Assert.That(
