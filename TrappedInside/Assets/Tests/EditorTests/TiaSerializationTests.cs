@@ -36,10 +36,31 @@ AutoPlay: {playOnStart}";
             var deserializedAction = $@"
 !Animation
 Name: {animationName}";
-            AssertActionStep<TiaAnimation>(deserializedAction, step =>
+
+            void AssertProperties(TiaAnimation step)
             {
                 Assert.AreEqual(animationName, step.AnimationName);
-            });
+            }
+            AssertActionStep<TiaAnimation>(deserializedAction, AssertProperties);
+        }
+
+        [Test]
+        public void MoveStep()
+        {
+            var CloseEnough = 1e-6;
+            var durationSeconds = 2.5f;
+            var curveName = "Test Curve";
+            var deserializedAction = $@"
+!Move
+Curve: {curveName}
+Seconds: {durationSeconds.ToString(CultureInfo.InvariantCulture)}";
+
+            void AssertProperties(TiaMove step)
+            {
+                Assert.AreEqual(curveName, step.CurveName);
+                Assert.AreEqual(durationSeconds, step.DurationSeconds, CloseEnough);
+            }
+            AssertActionStep<TiaMove>(deserializedAction, AssertProperties);
         }
 
         [Test]
@@ -49,8 +70,11 @@ Name: {animationName}";
             var deserializedAction = $@"
 !Pause
 Seconds: {pauseSeconds.ToString(CultureInfo.InvariantCulture)}";
-            void AssertProperties(TiaPause tiaPause) =>
-                Assert.AreEqual(pauseSeconds, tiaPause.DurationSeconds);
+
+            void AssertProperties(TiaPause step)
+            {
+                Assert.AreEqual(pauseSeconds, step.DurationSeconds);
+            }
             AssertActionStep<TiaPause>(deserializedAction, AssertProperties);
         }
 
