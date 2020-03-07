@@ -78,6 +78,20 @@ Seconds: {pauseSeconds.ToString(CultureInfo.InvariantCulture)}";
             AssertActionStep<TiaPause>(deserializedAction, AssertProperties);
         }
 
+        [Test]
+        public void PlayScriptStep()
+        {
+            var scriptName = "Script To Play";
+            var deserializedAction = $@"
+!PlayScript
+Name: {scriptName}";
+            void AssertProperties(TiaPlayScript step)
+            {
+                Assert.AreEqual(scriptName, step.ScriptName);
+            }
+            AssertActionStep<TiaPlayScript>(deserializedAction, AssertProperties);
+        }
+
         /// <summary>
         /// Formulates a small TIA script that contains an action of type
         /// <typeparamref name="TAction"/> and asserts that the script deserializes
