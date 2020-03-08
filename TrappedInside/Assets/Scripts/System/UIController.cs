@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 
 public enum UIMode
@@ -14,7 +16,8 @@ public class UIController : MonoBehaviour
     private static GameObject host;
 
     // Set once at startup.
-    private UIControllerConfig config;
+    private AsyncOperationHandle<UIControllerConfig> configLoadTask;
+    private UIControllerConfig Config => configLoadTask.Result;
 
     // Modified throughout lifetime.
     private UIMode mode = UIMode.Title;
@@ -48,18 +51,17 @@ public class UIController : MonoBehaviour
 
     private void Awake()
     {
-        config = Resources.Load<UIControllerConfig>("UIControllerConfig");
-        Debug.Assert(config != null);
+        configLoadTask = Addressables.LoadAssetAsync<UIControllerConfig>("UIControllerConfig");
     }
 
     #endregion
 
     private IEnumerator LoadLevel_Coroutine(SceneReference level)
     {
-        Debug.Assert(config.screenCover != null);
+        Debug.Assert(Config.screenCover != null);
 
         Debug.Log("Screen fade out starting");
-        var screenCover = Instantiate(config.screenCover);
+        var screenCover = Instantiate(Config.screenCover);
         var imageFade = screenCover.GetComponentInChildren<ImageFade>();
         Debug.Assert(imageFade != null);
         imageFade.FadeImageIn();
@@ -71,7 +73,7 @@ public class UIController : MonoBehaviour
         yield return null;
 
         Debug.Log("Screen fade in starting");
-        screenCover = Instantiate(config.screenCover);
+        screenCover = Instantiate(Config.screenCover);
         imageFade = screenCover.GetComponentInChildren<ImageFade>();
         Debug.Assert(imageFade != null);
         imageFade.FadeImageOut();
