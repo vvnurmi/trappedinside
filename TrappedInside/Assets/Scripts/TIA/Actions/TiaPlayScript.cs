@@ -6,6 +6,7 @@ using UnityEngine;
 /// </summary>
 public class TiaPlayScript : ITiaAction
 {
+    [YamlDotNet.Serialization.YamlMember(Alias = "Name")]
     public string ScriptName { get; set; }
 
     public bool IsDone => throw new NotImplementedException();
