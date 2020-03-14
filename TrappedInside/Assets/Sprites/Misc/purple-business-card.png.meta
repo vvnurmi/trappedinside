@@ -14,6 +14,21 @@ TextureImporter:
   - first:
       213: -2646996380161989074
     second: golden-business-card_3
+  - first:
+      213: -6767315366534358054
+    second: purple-business-card_0
+  - first:
+      213: -376665049464666898
+    second: purple-business-card_1
+  - first:
+      213: -5300428469754178979
+    second: purple-business-card_2
+  - first:
+      213: 5235626031312862571
+    second: purple-business-card_3
+  - first:
+      213: 6405013206045674056
+    second: purple-business-card_4
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -98,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: golden-business-card_0
+      name: purple-business-card_0
       rect:
         serializedVersion: 2
         x: 0
@@ -112,14 +127,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4b9051b9e7b04ac40ab36e6572b10454
-      internalID: 2274830929263974025
+      spriteID: 3a2c77f3f6fc14e429583b4f490b59a1
+      internalID: -6767315366534358054
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: golden-business-card_1
+      name: purple-business-card_1
       rect:
         serializedVersion: 2
         x: 18
@@ -133,14 +148,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 75629f15e2ad47841beef207ae0afedf
-      internalID: 1537751602690814506
+      spriteID: 66b4de9725a7c914b86da22c528a225a
+      internalID: -376665049464666898
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: golden-business-card_2
+      name: purple-business-card_2
       rect:
         serializedVersion: 2
         x: 36
@@ -154,14 +169,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4572e5bea0002fa479a0fc4a0ffdd7b3
-      internalID: -1367367443882150276
+      spriteID: 57a3a04cbb190e642bef7d730d076eba
+      internalID: -5300428469754178979
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: golden-business-card_3
+      name: purple-business-card_3
       rect:
         serializedVersion: 2
         x: 54
@@ -175,8 +190,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f95d9012e9a0b6746ad075f33f940cf3
-      internalID: -2646996380161989074
+      spriteID: 70f82a596880e754499a92efd4fe0520
+      internalID: 5235626031312862571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: purple-business-card_4
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 0
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73e75f90c1cd659498f00e67774b9a0b
+      internalID: 6405013206045674056
       vertices: []
       indices: 
       edges: []
