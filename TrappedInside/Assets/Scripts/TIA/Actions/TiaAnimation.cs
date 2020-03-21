@@ -3,25 +3,15 @@
 /// <summary>
 /// Makes actor use this animation.
 /// </summary>
-public class TiaAnimation : ITiaAction, ITiaActionNew
+public class TiaAnimation : ITiaAction
 {
     [YamlDotNet.Serialization.YamlMember(Alias = "Name")]
     public string AnimationName { get; set; }
 
     public bool IsDone { get; private set; }
 
-    public void Start(GameObject tiaRoot)
-    {
-        throw new System.NotImplementedException();
-    }
-
     public void Start(ITiaActionContext context)
     {
-    }
-
-    public void Update(TiaActor actor)
-    {
-        throw new System.NotImplementedException();
     }
 
     public void Update(ITiaActionContext context)

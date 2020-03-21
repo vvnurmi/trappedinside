@@ -5,7 +5,7 @@ using YamlDotNet.Serialization;
 /// <summary>
 /// Moves actor along a curve over a given time
 /// </summary>
-public class TiaMove : ITiaAction, ITiaActionNew
+public class TiaMove : ITiaAction
 {
     [YamlMember(Alias = "Curve")]
     public string CurveName { get; set; }
@@ -21,16 +21,6 @@ public class TiaMove : ITiaAction, ITiaActionNew
     private BezierCurve curve;
 
     private float startTime;
-
-    public void Start(GameObject tiaRoot)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Update(TiaActor actor)
-    {
-        throw new NotImplementedException();
-    }
 
     public void Start(ITiaActionContext context)
     {

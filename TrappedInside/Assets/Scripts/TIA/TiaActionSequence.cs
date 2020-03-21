@@ -18,14 +18,7 @@ public class TiaActionSequence
 
         actionIndex = 0;
         if (actionIndex < Actions.Length)
-        {
-            // TODO !!! This is in transition. Remove the old TiaAction interface in
-            // favor of the new interface that uses a context object. !!!
-            if (Actions[actionIndex] is ITiaActionNew action)
-                action.Start(context);
-            else
-                Actions[actionIndex].Start(context.TiaRoot);
-        }
+            Actions[actionIndex].Start(context);
     }
 
     public void Update(ITiaActionContext context)
@@ -36,27 +29,13 @@ public class TiaActionSequence
         while (actionIndex < Actions.Length)
         {
             if (!Actions[actionIndex].IsDone)
-            {
-                // TODO !!! This is in transition. Remove the old TiaAction interface in
-                // favor of the new interface that uses a context object. !!!
-                if (Actions[actionIndex] is ITiaActionNew action)
-                    action.Update(context);
-                else
-                    Actions[actionIndex].Update(Actor);
-            }
+                Actions[actionIndex].Update(context);
             if (!Actions[actionIndex].IsDone)
                 break;
 
             actionIndex++;
             if (actionIndex < Actions.Length)
-            {
-                // TODO !!! This is in transition. Remove the old TiaAction interface in
-                // favor of the new interface that uses a context object. !!!
-                if (Actions[actionIndex] is ITiaActionNew action)
-                    action.Start(context);
-                else
-                    Actions[actionIndex].Start(context.TiaRoot);
-            }
+                Actions[actionIndex].Start(context);
         }
     }
 }
