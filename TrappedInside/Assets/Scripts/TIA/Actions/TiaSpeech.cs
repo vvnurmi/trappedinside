@@ -5,7 +5,7 @@ using YamlDotNet.Serialization;
 /// <summary>
 /// Types text in a speech bubble on top of actor.
 /// </summary>
-public class TiaSpeech : ITiaAction
+public class TiaSpeech : ITiaAction, ITiaActionNew
 {
     /// <summary>
     /// TextMesh Pro rich text to display in the speech bubble.
@@ -41,6 +41,16 @@ public class TiaSpeech : ITiaAction
     }
 
     public void Update(TiaActor actor)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Start(ITiaActionContext context)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Update(ITiaActionContext context)
     {
         throw new NotImplementedException();
     }
