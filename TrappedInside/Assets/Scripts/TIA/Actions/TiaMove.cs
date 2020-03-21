@@ -5,7 +5,7 @@ using YamlDotNet.Serialization;
 /// <summary>
 /// Moves actor along a curve over a given time
 /// </summary>
-public class TiaMove : ITiaAction
+public class TiaMove : ITiaAction, ITiaActionNew
 {
     [YamlMember(Alias = "Curve")]
     public string CurveName { get; set; }
@@ -24,11 +24,21 @@ public class TiaMove : ITiaAction
 
     public void Start(GameObject tiaRoot)
     {
+        throw new NotImplementedException();
+    }
+
+    public void Update(TiaActor actor)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Start(ITiaActionContext context)
+    {
         IsDone = false;
         startTime = Time.time;
 
         // TODO: Extract component finding into a method.
-        var curveObject = tiaRoot.FindChildByName(CurveName);
+        var curveObject = context.TiaRoot.FindChildByName(CurveName);
         Debug.Assert(curveObject != null);
         if (curveObject != null)
         {
@@ -37,9 +47,9 @@ public class TiaMove : ITiaAction
         }
     }
 
-    public void Update(TiaActor actor)
+    public void Update(ITiaActionContext context)
     {
-        RepositionOnCurve(actor.GameObject);
+        RepositionOnCurve(context.Actor.GameObject);
 
         IsDone = Time.time >= startTime + DurationSeconds;
     }
