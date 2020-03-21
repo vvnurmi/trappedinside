@@ -8,17 +8,27 @@ using YamlDotNet.Serialization;
 /// Activates the actor.
 /// </summary>
 /// <seealso cref="TiaDeactivate"/>
-public class TiaActivate : ITiaAction, IYamlConvertible
+public class TiaActivate : ITiaAction, ITiaActionNew, IYamlConvertible
 {
     public bool IsDone { get; private set; }
 
     public void Start(GameObject tiaRoot)
     {
+        throw new System.NotImplementedException();
     }
 
     public void Update(TiaActor actor)
     {
-        actor.GameObject.SetActive(true);
+        throw new System.NotImplementedException();
+    }
+
+    public void Start(ITiaActionContext context)
+    {
+    }
+
+    public void Update(ITiaActionContext context)
+    {
+        context.Actor.GameObject.SetActive(true);
         IsDone = true;
     }
 
@@ -40,17 +50,27 @@ public class TiaActivate : ITiaAction, IYamlConvertible
 /// Deactivates the actor.
 /// </summary>
 /// <seealso cref="TiaActivate"/>
-public class TiaDeactivate : ITiaAction, IYamlConvertible
+public class TiaDeactivate : ITiaAction, ITiaActionNew, IYamlConvertible
 {
     public bool IsDone { get; private set; }
 
     public void Start(GameObject tiaRoot)
     {
+        throw new NotImplementedException();
     }
 
     public void Update(TiaActor actor)
     {
-        actor.GameObject.SetActive(false);
+        throw new NotImplementedException();
+    }
+
+    public void Start(ITiaActionContext context)
+    {
+    }
+
+    public void Update(ITiaActionContext context)
+    {
+        context.Actor.GameObject.SetActive(false);
         IsDone = true;
     }
 

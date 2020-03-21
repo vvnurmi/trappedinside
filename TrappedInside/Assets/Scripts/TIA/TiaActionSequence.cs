@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-/// <summary>
+﻿/// <summary>
 /// A sequence of actions that one actor does.
 /// </summary>
 public class TiaActionSequence
@@ -13,28 +11,52 @@ public class TiaActionSequence
 
     private int actionIndex;
 
-    public void Start(GameObject tiaRoot)
+    public void Start(ITiaActionContext context)
     {
-        Actor.Initialize(tiaRoot);
+        context.SetActionSequence(this);
+        Actor.Initialize(context.TiaRoot);
+
         actionIndex = 0;
         if (actionIndex < Actions.Length)
-            Actions[actionIndex].Start(tiaRoot);
+        {
+            // TODO !!! This is in transition. Remove the old TiaAction interface in
+            // favor of the new interface that uses a context object. !!!
+            if (Actions[actionIndex] is ITiaActionNew action)
+                action.Start(context);
+            else
+                Actions[actionIndex].Start(context.TiaRoot);
+        }
     }
 
-    public void Update(GameObject tiaRoot)
+    public void Update(ITiaActionContext context)
     {
         if (IsDone) return;
 
+        context.SetActionSequence(this);
         while (actionIndex < Actions.Length)
         {
             if (!Actions[actionIndex].IsDone)
-                Actions[actionIndex].Update(Actor);
+            {
+                // TODO !!! This is in transition. Remove the old TiaAction interface in
+                // favor of the new interface that uses a context object. !!!
+                if (Actions[actionIndex] is ITiaActionNew action)
+                    action.Update(context);
+                else
+                    Actions[actionIndex].Update(Actor);
+            }
             if (!Actions[actionIndex].IsDone)
                 break;
 
             actionIndex++;
             if (actionIndex < Actions.Length)
-                Actions[actionIndex].Start(tiaRoot);
+            {
+                // TODO !!! This is in transition. Remove the old TiaAction interface in
+                // favor of the new interface that uses a context object. !!!
+                if (Actions[actionIndex] is ITiaActionNew action)
+                    action.Start(context);
+                else
+                    Actions[actionIndex].Start(context.TiaRoot);
+            }
         }
     }
 }

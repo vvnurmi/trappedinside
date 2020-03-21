@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using UnityEngine;
 
 /// <summary>
 /// Plays all actions simultaneously, then waits.
@@ -10,15 +9,15 @@ public class TiaStep
 
     public bool IsDone => Sequences.All(seq => seq.IsDone);
 
-    public void Start(GameObject tiaRoot)
+    public void Start(ITiaActionContext context)
     {
         foreach (var seq in Sequences)
-            seq.Start(tiaRoot);
+            seq.Start(context);
     }
 
-    public void Update(GameObject tiaRoot)
+    public void Update(ITiaActionContext context)
     {
         foreach (var seq in Sequences)
-            seq.Update(tiaRoot);
+            seq.Update(context);
     }
 }
