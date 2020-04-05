@@ -6,6 +6,7 @@
 /// </summary>
 public class TiaPlayer : MonoBehaviour
 {
+    public string scriptName;
     public TiaScript script;
 
     public bool IsPlaying { get; private set; }
@@ -15,8 +16,11 @@ public class TiaPlayer : MonoBehaviour
 
     #region MonoBehaviour overrides
 
-    private void Start()
+    private async void Start()
     {
+        Debug.Assert(script != null || !string.IsNullOrEmpty(scriptName), $"No script assigned to {nameof(TiaPlayer)}");
+        script = script ?? await TiaScriptManager.Instance.Get(scriptName);
+
         context = new TiaActionContext(
             scriptRunner: this,
             tiaRoot: gameObject);
