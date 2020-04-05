@@ -40,6 +40,9 @@ public class TiaScript
         }
 
         var deserializer = deserializerBuilder.Build();
-        return deserializer.Deserialize<TiaScript>(serialized);
+        var tiaScript = deserializer.Deserialize<TiaScript>(serialized);
+
+        tiaScript.Steps = tiaScript.Steps ?? new TiaStep[0];
+        return tiaScript;
     }
 }
