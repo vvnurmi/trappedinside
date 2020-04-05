@@ -17,7 +17,7 @@ public class UIController : MonoBehaviour
 
     // Set once at startup.
     private AsyncOperationHandle<UIControllerConfig> configLoadTask;
-    private UIControllerConfig Config => configLoadTask.Result;
+    private UIControllerConfig Config => configLoadTask.Task.Result;
 
     // Modified throughout lifetime.
     private UIMode mode = UIMode.Title;
