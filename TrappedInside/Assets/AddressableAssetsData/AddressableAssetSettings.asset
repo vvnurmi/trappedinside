@@ -65,6 +65,7 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - default
+    - TiaScript
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: b96b5b7ff9fb5ce4aad8b1ffa28e29ef, type: 2}
