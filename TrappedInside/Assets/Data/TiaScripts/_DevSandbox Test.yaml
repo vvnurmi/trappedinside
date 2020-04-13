@@ -1,0 +1,10 @@
+---
+Name: _DevSandbox Test
+AutoPlay: true
+Steps:
+- Sequences:
+  - Actor: Flaming purple business card
+    Actions:
+    - !Move
+      Curve: Business card swirl
+      Seconds: 3
