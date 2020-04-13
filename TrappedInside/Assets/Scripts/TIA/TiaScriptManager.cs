@@ -11,25 +11,34 @@ public class TiaScriptManager : MonoBehaviour
 {
     private static GameObject host;
 
-    private Task loadTask;
-    private Dictionary<string, TiaScriptText> scriptTexts;
+    private Task<IList<TextAsset>> loadTask;
+    private Dictionary<string, string> scriptYamls; // TIA script name => TIA script as YAML
 
     public static TiaScriptManager Instance => host.GetComponent<TiaScriptManager>();
 
     public async Task<TiaScript> Get(string name)
     {
         await loadTask;
-        Debug.Assert(scriptTexts != null, "TIA script loading failed");
-        if (scriptTexts.TryGetValue(name, out TiaScriptText scriptText))
-            return Get(scriptText);
+        if (loadTask.Status != TaskStatus.RanToCompletion)
+        {
+            Debug.LogWarning($"TIA script loading is {loadTask.Status}");
+            return TiaScript.Empty;
+        }
+
+        scriptYamls = loadTask.Result.ToDictionary(
+            textAsset => TiaScript.Read(textAsset.text).ScriptName,
+            textAsset => textAsset.text);
+
+        if (scriptYamls.TryGetValue(name, out string scriptYaml))
+            return GetFromYaml(scriptYaml);
 
         Debug.LogWarning($"TIA script '{name}' not found, using empty script instead");
         return TiaScript.Empty;
     }
 
-    public TiaScript Get(TiaScriptText scriptText)
+    public TiaScript GetFromYaml(string scriptYaml)
     {
-        var script = TiaScript.Read(scriptText.text);
+        var script = TiaScript.Read(scriptYaml);
         return script;
     }
 
@@ -45,13 +54,8 @@ public class TiaScriptManager : MonoBehaviour
 
     private void Awake()
     {
-        loadTask = Addressables.LoadAssetsAsync<TiaScriptText>("TiaScript", null)
-            .Task.ContinueWith(scripts =>
-            {
-                scriptTexts = scripts.Result.ToDictionary(
-                    script => TiaScript.Read(script.text).ScriptName,
-                    script => script);
-            });
+        var asyncOperation = Addressables.LoadAssetsAsync<TextAsset>("TiaScript", null);
+        loadTask = asyncOperation.Task;
     }
 
     #endregion
