@@ -5,6 +5,15 @@ using YamlDotNet.Serialization.NamingConventions;
 public class TiaScript
 {
     /// <summary>
+    /// A TIA script that does nothing.
+    /// </summary>
+    public static readonly TiaScript Empty = new TiaScript
+    {
+        ScriptName = "<Empty Script>",
+        Steps = new TiaStep[0],
+    };
+
+    /// <summary>
     /// Human-readable name for identification.
     /// </summary>
     [YamlMember(Alias = "Name")]

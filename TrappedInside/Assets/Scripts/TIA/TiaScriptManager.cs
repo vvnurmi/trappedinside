@@ -20,8 +20,11 @@ public class TiaScriptManager : MonoBehaviour
     {
         await loadTask;
         Debug.Assert(scriptTexts != null, "TIA script loading failed");
-        Debug.Assert(scriptTexts.ContainsKey(name), $"TIA script '{name}' not found");
-        return Get(scriptTexts[name]);
+        if (scriptTexts.TryGetValue(name, out TiaScriptText scriptText))
+            return Get(scriptText);
+
+        Debug.LogWarning($"TIA script '{name}' not found, using empty script instead");
+        return TiaScript.Empty;
     }
 
     public TiaScript Get(TiaScriptText scriptText)
@@ -43,14 +46,12 @@ public class TiaScriptManager : MonoBehaviour
     private void Awake()
     {
         loadTask = Addressables.LoadAssetsAsync<TiaScriptText>("TiaScript", null)
-        .Task.ContinueWith(scripts =>
-        {
-            scriptTexts = scripts.Result.ToDictionary(
-                script => TiaScript.Read(script.text).ScriptName,
-                script => script);
-            foreach (var x in scriptTexts)
-                Debug.Log("!!! Found " + x.Key);
-        });
+            .Task.ContinueWith(scripts =>
+            {
+                scriptTexts = scripts.Result.ToDictionary(
+                    script => TiaScript.Read(script.text).ScriptName,
+                    script => script);
+            });
     }
 
     #endregion
