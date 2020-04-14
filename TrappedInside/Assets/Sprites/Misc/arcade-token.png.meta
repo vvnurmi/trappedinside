@@ -26,6 +26,30 @@ TextureImporter:
   - first:
       213: 4962143420102646365
     second: arcade-token_7
+  - first:
+      213: 514219547402117944
+    second: arcade-token_8
+  - first:
+      213: -2536667600507273598
+    second: arcade-token_9
+  - first:
+      213: 6899293348711117074
+    second: arcade-token_10
+  - first:
+      213: 337344502269104970
+    second: arcade-token_11
+  - first:
+      213: -3858516670235923562
+    second: arcade-token_12
+  - first:
+      213: 3094061957890456915
+    second: arcade-token_13
+  - first:
+      213: -756070341914498518
+    second: arcade-token_14
+  - first:
+      213: -5975221765043727972
+    second: arcade-token_15
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -124,7 +148,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d57674e5c31a29046931f1ed9df19e9f
+      spriteID: 943e128b55907d64ea991cf838c2f2a2
       internalID: 123364109179998471
       vertices: []
       indices: 
@@ -145,7 +169,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3b2622b5b89dd54408d8108fa0ba88c8
+      spriteID: c31f3c46235459f4e878ea2939a05632
       internalID: 2939923583841644427
       vertices: []
       indices: 
@@ -166,7 +190,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 72fe72de33ff7574eb4461db4bf468ab
+      spriteID: 476ca39467906ef4484bdbfca19086d8
       internalID: 4448581140373338032
       vertices: []
       indices: 
@@ -187,7 +211,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a1352c1437a20147a44bad7e6a10457
+      spriteID: 404d88049ac55cd4380ed3b1a76b61e5
       internalID: 6400304212345192051
       vertices: []
       indices: 
@@ -208,7 +232,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5593d57312191694da0f0c0450bf9940
+      spriteID: 4ecefac15fb01d249b9f25eebe5d471c
       internalID: -7360999952830071647
       vertices: []
       indices: 
@@ -229,7 +253,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c110804b4adfd95428da72c6d07b53b0
+      spriteID: 8351602eda0cef545bc3c273fc41dc26
       internalID: -8359783753864404298
       vertices: []
       indices: 
@@ -250,7 +274,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f036bbb1f9bc6b42967d24a72b2b0f5
+      spriteID: 441d08e127cd09b48ab2bc7e74cfd6a5
       internalID: -66507647247714022
       vertices: []
       indices: 
@@ -271,8 +295,176 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5db26f9536f5b8b4c8673a6d71ffc347
+      spriteID: ef5a419d227d67a4cb53165fe7c8620b
       internalID: 4962143420102646365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arcade-token_8
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51fafa7c8a80e2b419d2324d4d9c4fc9
+      internalID: 514219547402117944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arcade-token_9
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19ff90d3676ec984192173054ac8ec0b
+      internalID: -2536667600507273598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arcade-token_10
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ac3576dca010f54999764238edc3457
+      internalID: 6899293348711117074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arcade-token_11
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6127981ec0da55e439ebea30261396c5
+      internalID: 337344502269104970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arcade-token_12
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01f26e7d425025047ba375cf38b3a716
+      internalID: -3858516670235923562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arcade-token_13
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1940416d9f673ad40af68e7e2d2d6e2a
+      internalID: 3094061957890456915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arcade-token_14
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ae1bb87c3311e44f9ae744f22244f26
+      internalID: -756070341914498518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arcade-token_15
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41bbbfb5bcd9dcd4da30e80eb7fa977a
+      internalID: -5975221765043727972
       vertices: []
       indices: 
       edges: []

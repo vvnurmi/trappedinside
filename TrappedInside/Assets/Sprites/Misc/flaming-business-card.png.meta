@@ -100,8 +100,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 24
-        height: 30
+        width: 30
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -109,7 +109,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d7cf0db83e6b4ae4bae4eff846b6ef20
+      spriteID: e56b625bec232234b966c15ce9b52cb7
       internalID: 4475060194058373700
       vertices: []
       indices: 
@@ -119,10 +119,10 @@ TextureImporter:
       name: flaming-business-card_1
       rect:
         serializedVersion: 2
-        x: 24
+        x: 30
         y: 0
-        width: 24
-        height: 30
+        width: 30
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,7 +130,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9429dadcb70a7af4f91eb9c5d43ef2f5
+      spriteID: 9f9cadfbd6cbfc540a6237dcbaecff53
       internalID: -8452030529100551044
       vertices: []
       indices: 
@@ -140,10 +140,10 @@ TextureImporter:
       name: flaming-business-card_2
       rect:
         serializedVersion: 2
-        x: 48
+        x: 60
         y: 0
-        width: 24
-        height: 30
+        width: 30
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -151,7 +151,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 30e6c13c5f87fc148b3bf1789fb623fb
+      spriteID: 1d6cad889696aa740877e984b0355957
       internalID: -1013806741545647032
       vertices: []
       indices: 
