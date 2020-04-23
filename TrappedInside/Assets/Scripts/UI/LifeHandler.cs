@@ -5,14 +5,14 @@ public class LifeHandler : MonoBehaviour
 {
     private Image[] hearts;
 
-    private void Start()
+    private void Awake()
     {
         hearts = GetComponentsInChildren<Image>();
     }
 
     public void SetNumberOfHearts(int value)
     {
-        Debug.Assert(hearts.Length <= value);
+        Debug.Assert(value <= hearts.Length);
         DisableHearts();
         for (int i = 0; i < value; i++)
         {

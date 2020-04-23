@@ -35,6 +35,9 @@ public class HitPoints : MonoBehaviour
     [Tooltip("The sound to play on dying.")]
     public AudioClip deathSound;
 
+    [Tooltip("Reference to status bar to show hit points (can be null).")]
+    public StatusBarController statusBarController;
+
     public int CurrentHitPoints { get; private set; }
 
     // Set about once, probably in Start().
@@ -54,6 +57,7 @@ public class HitPoints : MonoBehaviour
         characterState = GetComponentInParent<CharacterState>();
         Debug.Assert(characterState != null, $"{nameof(CharacterState)} not found in parents of {name}");
         CurrentHitPoints = maxHitPoints;
+        UpdateStatusBar();
     }
 
     #endregion
@@ -74,6 +78,14 @@ public class HitPoints : MonoBehaviour
         audioSource.TryPlay(sound);
         if (CurrentHitPoints == 0)
             Die();
+
+        UpdateStatusBar();
+    }
+
+    private void UpdateStatusBar()
+    {
+        if (statusBarController != null)
+            statusBarController.SetNumberOfHearts(CurrentHitPoints);
     }
 
     private void Die()
