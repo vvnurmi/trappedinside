@@ -2,7 +2,7 @@
 AutoPlay: true
 Steps:
 - Sequences:
-  - Actor: Flaming purple business card
+  - Actor: Purple business card
     Actions:
     - !Move
       Curve: Business card swirl

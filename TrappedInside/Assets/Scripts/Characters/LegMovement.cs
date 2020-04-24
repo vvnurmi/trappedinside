@@ -22,6 +22,9 @@ public class LegMovement : MonoBehaviour
     [Tooltip("The sound to play on jump.")]
     public AudioClip jumpSound;
 
+    [Tooltip("Reference to status bar to show hit points (can be null).")]
+    public StatusBarController statusBarController;
+
     // Set about once, probably in Start().
     private Animator animator;
     private AudioSource audioSource;
@@ -204,6 +207,31 @@ public class LegMovement : MonoBehaviour
             characterState.canClimb = true;
             Debug.Log("Ladder enter.");
         }
+        else if (IsBusinessCard(collision))
+        {
+            characterState.collectedBusinessCards++;
+            collision.gameObject.SetActive(false);
+            UpdateStatusBar();
+        }
+        else if (IsArcadeToken(collision))
+        {
+            characterState.collectedArcadeTokens++;
+            collision.gameObject.SetActive(false);
+            UpdateStatusBar();
+        }
+    }
+
+    private void UpdateStatusBar()
+    {
+        if (statusBarController != null)
+        {
+            statusBarController.SetNumberOfCards(characterState.collectedBusinessCards);
+            statusBarController.SetNumberOfTokens(characterState.collectedArcadeTokens);
+        }
+        else
+        {
+            Debug.LogWarning("Status bar controller not set.");
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -217,4 +245,10 @@ public class LegMovement : MonoBehaviour
 
     private bool IsLadderLayer(Collider2D collision) =>
         collision.gameObject.layer == LayerMask.NameToLayer("Ladder");
+
+    private bool IsBusinessCard(Collider2D collision) =>
+        collision.gameObject.tag == "BusinessCard";
+
+    private bool IsArcadeToken(Collider2D collision) =>
+        collision.gameObject.tag == "ArcadeToken";
 }

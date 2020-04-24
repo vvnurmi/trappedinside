@@ -23,6 +23,9 @@ public class CharacterState : MonoBehaviour
 
     public CollisionInfo collisions = new CollisionInfo();
 
+    public int collectedBusinessCards;
+    public int collectedArcadeTokens;
+
     public bool CanMoveHorizontally => !isDead && !isStuck && !isInHorizontalAttackMove;
     public bool CanJump => !isDead && !isStuck && !isInVerticalAttackMove && (collisions.below || isClimbing);
     public bool CanChangeDirection => !isDead;
