@@ -73,6 +73,12 @@ MonoBehaviour:
   - m_Name: Spider
     m_Color: {r: 1, g: 0, b: 0, a: 1}
     m_CustomProperties: []
+  - m_Name: ArcadeToken
+    m_Color: {r: 1, g: 0, b: 1, a: 1}
+    m_CustomProperties: []
+  - m_Name: BusinessCard
+    m_Color: {r: 1, g: 1, b: 0, a: 1}
+    m_CustomProperties: []
   m_PrefabReplacements:
   - m_TypeName: Deer
     m_Prefab: {fileID: 8929465601594787292, guid: 1199157c6d5e8664586077a3ad501788,
@@ -91,4 +97,10 @@ MonoBehaviour:
       type: 3}
   - m_TypeName: Spider
     m_Prefab: {fileID: 7365972083834557574, guid: 4adabf1e16a804c48a32d7583a4f1233,
+      type: 3}
+  - m_TypeName: ArcadeToken
+    m_Prefab: {fileID: 8264097007615117004, guid: 1e1a8c9201f4bdb4d9affa81f1e57e68,
+      type: 3}
+  - m_TypeName: BusinessCard
+    m_Prefab: {fileID: 6897448648228695966, guid: 26a4ba2ffa8ddc14c9e066f0346c9c76,
       type: 3}
