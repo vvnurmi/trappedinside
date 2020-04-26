@@ -96,6 +96,7 @@ public class LegMovement : MonoBehaviour
 
     private void HandleVerticalInput(PlayerInput input)
     {
+
         if (characterState.isClimbing)
         {
             velocity.y = input.vertical * movement.maxSpeed / 2;
@@ -107,7 +108,7 @@ public class LegMovement : MonoBehaviour
                 characterState.isClimbing = false;
             }
 
-            if (HasReachedLadderBottom(input))
+            if (HasReachedLadderBottom(input) || characterState.isTakingDamage)
                 characterState.isClimbing = false;
 
         }
@@ -142,22 +143,31 @@ public class LegMovement : MonoBehaviour
         if (characterState.isClimbing)
             return;
 
-        var inputRequiresFlip =
-            (input.horizontal < 0 && IsFacingRight) ||
-            (input.horizontal > 0 && !IsFacingRight);
-        if (inputRequiresFlip && characterState.CanChangeDirection)
-            Flip();
+        if (characterState.isTakingDamage)
+        {
+            var recoilSpeed = movement.maxSpeed * 0.5f;
+            velocity.x = IsFacingRight ? -recoilSpeed : recoilSpeed;
+        }
+        else
+        {
+            var inputRequiresFlip =
+                (input.horizontal < 0 && IsFacingRight) ||
+                (input.horizontal > 0 && !IsFacingRight);
+            if (inputRequiresFlip && characterState.CanChangeDirection)
+                Flip();
 
-        float targetVelocityX = characterState.CanMoveHorizontally
-            ? input.horizontal * movement.maxSpeed
-            : 0;
-        float smoothTime = velocity.x * (targetVelocityX - velocity.x) < 0
-            ? movement.maxSpeedStopTime
-            : movement.maxSpeedReachTime;
-        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, smoothTime);
+            float targetVelocityX = characterState.CanMoveHorizontally
+                ? input.horizontal * movement.maxSpeed
+                : 0;
+            float smoothTime = velocity.x * (targetVelocityX - velocity.x) < 0
+                ? movement.maxSpeedStopTime
+                : movement.maxSpeedReachTime;
 
-        var relativeSpeed = Mathf.InverseLerp(0, movement.maxSpeed, Mathf.Abs(velocity.x));
-        animator.SetFloat("Speed", relativeSpeed);
+            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, smoothTime);
+            var relativeSpeed = Mathf.InverseLerp(0, movement.maxSpeed, Mathf.Abs(velocity.x));
+            animator.SetFloat("Speed", relativeSpeed);
+        }
+
     }
 
     public void Flip()

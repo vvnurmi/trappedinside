@@ -1282,10 +1282,10 @@
   </object>
  </objectgroup>
  <objectgroup id="96" name="Items">
-  <object id="32" name="ArcadeToken" type="ArcadeToken" x="75.3333" y="754">
+  <object id="32" name="ArcadeToken" type="ArcadeToken" x="76.6667" y="763.333">
    <point/>
   </object>
-  <object id="33" name="BusinessCard" type="BusinessCard" x="188" y="644.667">
+  <object id="33" name="BusinessCard" type="BusinessCard" x="192.667" y="666.667">
    <point/>
   </object>
  </objectgroup>
