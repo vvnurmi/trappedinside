@@ -26,7 +26,6 @@ public class HitPoints : MonoBehaviour
     [Tooltip("Number of hit points when not damaged.")]
     public int maxHitPoints = 1;
 
-    [Tooltip("Seconds after hit until another hit is possible.")]
     public float hitDelay = 1.0f;
 
     [Tooltip("The sound to play on getting hit.")]
@@ -44,9 +43,6 @@ public class HitPoints : MonoBehaviour
     private Animator animator; // May be null.
     private AudioSource audioSource;
     private CharacterState characterState;
-
-    // Modified during gameplay.
-    private float nextHitAllowedAt = 0f;
 
     #region MonoBehaviour overrides
 
@@ -66,9 +62,7 @@ public class HitPoints : MonoBehaviour
     {
         Debug.Assert(damage > 0);
         if (CurrentHitPoints == 0) return;
-        if (Time.time < nextHitAllowedAt) return;
-
-        nextHitAllowedAt = Time.time + hitDelay;
+        if (characterState.isInvulnerable) return;
 
         CurrentHitPoints = Mathf.Max(0, CurrentHitPoints - damage);
         CallHandlers<IDamaged>(a => a.OnDamaged());

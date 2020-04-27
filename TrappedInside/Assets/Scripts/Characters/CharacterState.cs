@@ -26,6 +26,7 @@ public class CharacterState : MonoBehaviour
     public int collectedBusinessCards;
     public int collectedArcadeTokens;
     public bool isTakingDamage;
+    public bool isInvulnerable;
 
     public bool CanMoveHorizontally => !isDead && !isStuck && !isInHorizontalAttackMove && !isTakingDamage;
     public bool CanJump => !isDead && !isStuck && !isInVerticalAttackMove && !isTakingDamage && (collisions.below || isClimbing);
