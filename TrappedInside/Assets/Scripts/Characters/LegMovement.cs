@@ -104,7 +104,7 @@ public class LegMovement : MonoBehaviour
 
             if (input.jumpPressed)
             {
-                Jump(0.3f * initialJumpSpeed);
+                Jump(initialJumpSpeed);
                 characterState.isClimbing = false;
             }
 
