@@ -106,7 +106,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8929465601594787292}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.2, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8929465602158058235}
@@ -345,6 +345,10 @@ MonoBehaviour:
   canClimb: 0
   isClimbing: 0
   isStuck: 0
+  collectedBusinessCards: 0
+  collectedArcadeTokens: 0
+  isTakingDamage: 0
+  isInvulnerable: 0
 --- !u!114 &8929465601594787283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,6 +382,7 @@ MonoBehaviour:
   hitDelay: 1
   hitSound: {fileID: 0}
   deathSound: {fileID: 0}
+  statusBarController: {fileID: 0}
 --- !u!114 &485595790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,7 +456,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.45, y: -0}
+  m_Offset: {x: -0.45, y: 0.06}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -462,7 +467,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.48, y: 0.79}
+  m_Size: {x: 1.63, y: 0.22}
   m_EdgeRadius: 0
 --- !u!114 &8929465602158058233
 MonoBehaviour:
@@ -521,7 +526,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.39, y: 0}
+  m_Offset: {x: -0.26, y: 0.07}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -532,7 +537,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.9, y: 0.76}
+  m_Size: {x: 1, y: 0.18}
   m_EdgeRadius: 0
 --- !u!114 &8929465602973898617
 MonoBehaviour:
