@@ -8,6 +8,8 @@ public class CameraController : MonoBehaviour
     public float lowerBound = -100;
     public float upperBound = 0;
 
+    public bool isFixed = false;
+
     private GameObject player;
     private Camera cameraComponent;
     private float cameraWidth;
@@ -27,16 +29,20 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        Debug.Assert(player != null);
-        cameraComponent = GetComponent<Camera>();
-        var bottomLeftCorner = cameraComponent.ViewportToWorldPoint(new Vector3(0f, 0f));
-        cameraWidth = transform.position.x - bottomLeftCorner.x;
-        cameraHeight = transform.position.y - bottomLeftCorner.y;
+        if (!isFixed)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+            Debug.Assert(player != null);
+            cameraComponent = GetComponent<Camera>();
+            var bottomLeftCorner = cameraComponent.ViewportToWorldPoint(new Vector3(0f, 0f));
+            cameraWidth = transform.position.x - bottomLeftCorner.x;
+            cameraHeight = transform.position.y - bottomLeftCorner.y;
+        }
     }
 
     void LateUpdate()
     {
-        transform.position = BoundedPosition;
+        if(!isFixed)
+            transform.position = BoundedPosition;
     }
 }
