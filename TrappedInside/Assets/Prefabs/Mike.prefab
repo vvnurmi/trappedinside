@@ -319,6 +319,7 @@ GameObject:
   - component: {fileID: 7796358727257184599}
   - component: {fileID: 5951377123598796583}
   - component: {fileID: 7343903954255115940}
+  - component: {fileID: 3478870178942648425}
   m_Layer: 9
   m_Name: Mike
   m_TagString: Player
@@ -362,6 +363,11 @@ MonoBehaviour:
   isInVerticalAttackMove: 0
   canClimb: 0
   isClimbing: 0
+  isStuck: 0
+  collectedBusinessCards: 0
+  collectedArcadeTokens: 0
+  isTakingDamage: 0
+  isInvulnerable: 0
 --- !u!114 &7796358727257184554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,6 +384,7 @@ MonoBehaviour:
   groundColliderConfig: {fileID: 11400000, guid: cd525c68f3c9d1947a4d3159897486f9,
     type: 2}
   jumpSound: {fileID: 8300000, guid: 4bec0f94424b9f04bb68f41fbbff7019, type: 3}
+  statusBarController: {fileID: 6982326769349969158}
 --- !u!114 &7299336620777147519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,6 +409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db72040f25e257a4ab3088265dc857d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  capabilities: 0
   meleeSound: {fileID: 8300000, guid: b39333eb7b3d10745858d018366f1ac1, type: 3}
 --- !u!114 &1036893419211792455
 MonoBehaviour:
@@ -419,6 +427,7 @@ MonoBehaviour:
   hitDelay: 1
   hitSound: {fileID: 8300000, guid: e419b77ae02f6604bb89c7789ba4c46e, type: 3}
   deathSound: {fileID: 8300000, guid: df12f572a419614468bbe7ba5148ecb5, type: 3}
+  statusBarController: {fileID: 6982326769349969158}
 --- !u!114 &1068101902652668370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,8 +468,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameplayHud: {fileID: 3381257584531052204, guid: 0606a6c1a07709b439956ff8be2f21b5,
     type: 3}
-  fullHeart: {fileID: 21300000, guid: 2b01bdbb18e6a574a9683238a12a47f4, type: 3}
-  emptyHeart: {fileID: 21300004, guid: 2b01bdbb18e6a574a9683238a12a47f4, type: 3}
 --- !u!50 &7796358727257184596
 Rigidbody2D:
   serializedVersion: 4
@@ -533,6 +540,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -679,6 +687,21 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7796358727257184592}
   m_Enabled: 1
+--- !u!114 &3478870178942648425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7796358727257184592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2fdc2f24451186428c11274d01bc7e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoilForce: 1
+  inputFreezeTime: 0.5
+  invulnerabilityTime: 1
 --- !u!1 &8103868093479497906
 GameObject:
   m_ObjectHideFlags: 0
