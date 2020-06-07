@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5741bd203afb04148a4aa68af3d4f0cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ignoreDefaultLayer: 1
 --- !u!114 &258598841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,6 +290,10 @@ MonoBehaviour:
   canClimb: 0
   isClimbing: 0
   isStuck: 0
+  collectedBusinessCards: 0
+  collectedArcadeTokens: 0
+  isTakingDamage: 0
+  isInvulnerable: 0
 --- !u!82 &7365972083834557572
 AudioSource:
   m_ObjectHideFlags: 0
@@ -401,6 +406,7 @@ MonoBehaviour:
   hitDelay: 1
   hitSound: {fileID: 0}
   deathSound: {fileID: 0}
+  statusBarController: {fileID: 0}
 --- !u!50 &7365972083834557592
 Rigidbody2D:
   serializedVersion: 4
@@ -511,7 +517,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.08, y: 1.21}
+  m_Size: {x: 0.2, y: 1.21}
   m_EdgeRadius: 0
 --- !u!114 &7365972084113028239
 MonoBehaviour:

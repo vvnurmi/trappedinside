@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="-1" width="25" height="15" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="5">
+<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="25" height="15" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="5">
  <tileset firstgid="1" source="forest-ground.tsx"/>
  <layer id="1" name="Ground" width="25" height="15">
   <data encoding="csv">
 8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,0,0,0,0,
 8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,14,15,0,0,0,0,
 8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,0,0,0,0,0,0,
-8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,0,0,0,0,0,0,
 14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,8,8,9,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,8,9,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,8,9,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,8,9,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,8,9,0,0,0,0,0,0,
@@ -21,13 +21,13 @@
 </data>
  </layer>
  <objectgroup id="2" name="Enemies">
-  <object id="1" type="Spider" x="74.5353" y="94.7219">
+  <object id="1" type="Spider" x="74.1497" y="77.7564">
    <point/>
   </object>
-  <object id="2" type="Spider" x="147.518" y="93.9455">
+  <object id="2" type="Spider" x="146.747" y="76.98">
    <point/>
   </object>
-  <object id="3" type="Spider" x="216.618" y="94.3337">
+  <object id="3" type="Spider" x="214.305" y="76.5971">
    <point/>
   </object>
   <object id="4" type="Spider" x="318.716" y="44.6435">
