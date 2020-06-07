@@ -701,7 +701,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recoilForce: 1
   inputFreezeTime: 0.5
-  invulnerabilityTime: 1
+  invulnerabilityTime: 2
 --- !u!1 &8103868093479497906
 GameObject:
   m_ObjectHideFlags: 0

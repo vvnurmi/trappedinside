@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec497857b20c2f2479b7c9cc8667e4c6, type: 3}
   m_Name: MikeLegs
   m_EditorClassIdentifier: 
-  maxSpeed: 1
-  maxSpeedReachTime: 0.3
+  maxSpeed: 0.9
+  maxSpeedReachTime: 0.2
   maxSpeedStopTime: 0.05
   jumpHeightMin: 0.1
-  jumpHeightMax: 0.9
+  jumpHeightMax: 0.7
   jumpApexTime: 0.5

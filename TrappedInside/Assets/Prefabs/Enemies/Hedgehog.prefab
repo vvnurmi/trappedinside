@@ -222,7 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundColliderConfig: {fileID: 11400000, guid: cd525c68f3c9d1947a4d3159897486f9,
     type: 2}
-  walkingSpeed: -0.1
+  walkingSpeed: -0.2
   gravity: -5
 --- !u!82 &1641278014603661767
 AudioSource:
@@ -336,6 +336,7 @@ MonoBehaviour:
   hitDelay: 1
   hitSound: {fileID: 0}
   deathSound: {fileID: 0}
+  statusBarController: {fileID: 0}
 --- !u!114 &1641278014603661761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,6 +368,10 @@ MonoBehaviour:
   canClimb: 0
   isClimbing: 0
   isStuck: 0
+  collectedBusinessCards: 0
+  collectedArcadeTokens: 0
+  isTakingDamage: 0
+  isInvulnerable: 0
 --- !u!95 &1641278014603661765
 Animator:
   serializedVersion: 3
