@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="-1" width="25" height="15" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="10">
+<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="25" height="15" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="10">
  <tileset firstgid="1" source="forest-ground.tsx"/>
  <layer id="1" name="Ground" width="25" height="15">
   <data encoding="csv">
@@ -30,7 +30,7 @@
   <object id="3" type="Spider" x="332.431" y="60.9524">
    <point/>
   </object>
-  <object id="4" type="Hedgehog" x="235.789" y="159.599">
+  <object id="4" type="Hedgehog" x="207.047" y="159.599">
    <point/>
   </object>
   <object id="5" type="Mike Start" x="23.2581" y="145.564">
