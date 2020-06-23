@@ -28,8 +28,20 @@ public class CharacterState : MonoBehaviour
     public bool isTakingDamage;
     public bool isInvulnerable;
 
-    public bool CanMoveHorizontally => !isDead && !isStuck && !isInHorizontalAttackMove && !isTakingDamage;
-    public bool CanJump => !isDead && !isStuck && !isInVerticalAttackMove && !isTakingDamage && (collisions.below || isClimbing);
+    public bool CanMoveHorizontally => 
+        !isDead && 
+        !isStuck && 
+        !isInHorizontalAttackMove && 
+        !isTakingDamage;
+
+    public bool CanJump => 
+        !isDead && 
+        !isStuck && 
+        !isInVerticalAttackMove && 
+        !isTakingDamage && 
+        (collisions.below || isClimbing);
+        
+
     public bool CanChangeDirection => !isDead && !isTakingDamage;
     public bool CanInflictDamage => !isDead && !isTakingDamage;
 }

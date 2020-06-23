@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
+using System;
 
 // Code adapted from Sebastian Lague's 2D Platformer Controller tutorial.
 // https://github.com/SebLague/2DPlatformer-Tutorial
@@ -43,6 +46,8 @@ public class LegMovement : MonoBehaviour
     // Modified during gameplay.
     private Vector2 velocity;
     private float velocityXSmoothing;
+    private List<PlayerInput> playerInputs = new List<PlayerInput>();
+    private PlayerInput currentInput = new PlayerInput();
 
     private bool IsFacingRight => characterState.collisions.faceDir == 1;
 
@@ -68,15 +73,21 @@ public class LegMovement : MonoBehaviour
         dampedJumpSpeed = Mathf.Sqrt(2 * Mathf.Abs(gravity) * movement.jumpHeightMin);
     }
 
+    private void Update()
+    {
+        playerInputs.Add(inputProvider.GetInput());
+    }
+
     private void FixedUpdate()
     {
         timedAnimTriggers.Update();
 
         var oldVelocity = velocity;
 
-        var input = inputProvider.GetInput();
-        HandleVerticalInput(input);
-        HandleHorizontalInput(input);
+        UpdatePlayerInput();
+
+        HandleVerticalInput(currentInput);
+        HandleHorizontalInput(currentInput);
 
         var averageVelocity = Vector2.Lerp(oldVelocity, velocity, 0.5f);
         Move(averageVelocity * Time.deltaTime);
@@ -90,6 +101,26 @@ public class LegMovement : MonoBehaviour
 
         var relativeSpeed = Mathf.InverseLerp(0, movement.maxSpeed, Mathf.Abs(velocity.y));
         animator.SetFloat("VerticalSpeed", relativeSpeed);
+    }
+
+    private void UpdatePlayerInput()
+    {
+        if (playerInputs.Any())
+        {
+            currentInput = new PlayerInput
+            (
+                fire1Pressed: playerInputs.Any(x => x.fire1Pressed),
+                fire2Pressed: playerInputs.Any(x => x.fire2Pressed),
+                fire2Active: playerInputs.Any(x => x.fire2Active),
+                jumpPressed: playerInputs.Any(x => x.jumpPressed),
+                jumpReleased: playerInputs.Any(x => x.jumpReleased),
+                horizontal: playerInputs.Last().horizontal,
+                vertical: playerInputs.Last().vertical
+            );
+            playerInputs.Clear();
+        }
+
+        Debug.Assert(!(currentInput.jumpPressed && currentInput.jumpReleased));
     }
 
     #endregion

@@ -9,6 +9,7 @@ public class InputProvider : MonoBehaviour
     private bool isControllable = true;
     private PlayerInput overrideControls; // Used unless 'isControllable'.
 
+
     /// <summary>
     /// Returns the current state of the input.
     /// </summary>
