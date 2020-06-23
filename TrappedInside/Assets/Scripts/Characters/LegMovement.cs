@@ -68,7 +68,7 @@ public class LegMovement : MonoBehaviour
         dampedJumpSpeed = Mathf.Sqrt(2 * Mathf.Abs(gravity) * movement.jumpHeightMin);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         timedAnimTriggers.Update();
 
