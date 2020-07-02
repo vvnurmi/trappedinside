@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad5871aa240c42846af59bbec5b163f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnInterval: 5
+  spawnInterval: 3
   objectType: {fileID: 562093993172783840, guid: db46d160b61c29c459e09a44514f522e,
     type: 3}
 --- !u!61 &8724453674863870976
