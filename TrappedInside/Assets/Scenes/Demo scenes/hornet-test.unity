@@ -480,11 +480,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8724453674863870977, guid: 26ef941f9ab5344498324654c7f379c7,
-        type: 3}
-      propertyPath: spawnInterval
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 8724453674863870978, guid: 26ef941f9ab5344498324654c7f379c7,
         type: 3}
       propertyPath: m_LocalPosition.x
