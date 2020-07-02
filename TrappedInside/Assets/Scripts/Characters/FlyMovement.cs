@@ -49,14 +49,18 @@ public class FlyMovement : MonoBehaviour
         state.Handle();
         Move(NormalizedMovementDirection * Time.deltaTime);
 
-        // Stop movement in directions where we have collided.
-        var collisions = characterState.collisions;
-        if (collisions.HasVerticalCollisions || collisions.HasHorizontalCollisions)
+        if (CollisionWhileAttacking)
         {
             NormalizedMovementDirection = Vector2.zero;
             hitPoints.Damage(1);
         }
+
+
     }
+
+    private bool CollisionWhileAttacking =>
+        state.AnimationTransitionTrigger == "IsAttacking" &&
+        (characterState.collisions.HasVerticalCollisions || characterState.collisions.HasHorizontalCollisions);
 
     private void Move(Vector2 moveAmount)
     {
