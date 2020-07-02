@@ -10,7 +10,12 @@ public class FlyMovement : MonoBehaviour
     private AttackTrigger attackTrigger;
     private Animator animator;
     private FlyState state;
+    private RaycastCollider groundCollider;
+    private BoxCollider2D boxCollider;
+    private HitPoints hitPoints;
     private readonly List<string> animationStates = new List<string> { "IsFlying", "IsPreparingAttack", "IsAttacking" };
+
+    public RaycastColliderConfig groundColliderConfig;
 
     public bool IsFacingRight => characterState.collisions.faceDir == 1;
     public GameObject Player { get; private set; }
@@ -20,23 +25,51 @@ public class FlyMovement : MonoBehaviour
 
     void Start()
     {
+        boxCollider = GetComponent<BoxCollider2D>();
         characterState = GetComponent<CharacterState>();
+        groundCollider = new RaycastCollider(
+                groundColliderConfig,
+                boxCollider,
+                characterState.collisions);
         proximityTrigger = GetComponentInChildren<ProximityTrigger>();
         attackTrigger = GetComponentInChildren<AttackTrigger>();
         animator = GetComponentInChildren<Animator>();
+        hitPoints = GetComponentInChildren<HitPoints>();
         Player = GameObject.FindWithTag("Player");
         characterState.collisions.faceDir = -1;
         TransitionTo(new Idle());
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (!characterState.CanMoveHorizontally)
         {
             return;
         }
         state.Handle();
-        transform.Translate(NormalizedMovementDirection * Time.deltaTime, Space.World);
+        Move(NormalizedMovementDirection * Time.deltaTime);
+
+        // Stop movement in directions where we have collided.
+        var collisions = characterState.collisions;
+        if (collisions.HasVerticalCollisions || collisions.HasHorizontalCollisions)
+        {
+            NormalizedMovementDirection = Vector2.zero;
+            hitPoints.Damage(1);
+        }
+    }
+
+    private void Move(Vector2 moveAmount)
+    {
+        groundCollider.UpdateRaycastOrigins();
+
+        CollisionInfo collisions = characterState.collisions;
+        collisions.Reset();
+
+        groundCollider.HorizontalCollisions(ref moveAmount);
+        if (moveAmount.y != 0)
+            groundCollider.VerticalCollisions(ref moveAmount);
+
+        transform.Translate(moveAmount);
     }
 
     public void TransitionTo(FlyState state)

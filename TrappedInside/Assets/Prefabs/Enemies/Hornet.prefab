@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 8664520282838793888}
   - component: {fileID: 465116573830143193}
   - component: {fileID: 2252015427355450941}
+  - component: {fileID: 7263391165361400295}
   m_Layer: 10
   m_Name: Body
   m_TagString: Untagged
@@ -332,6 +333,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 1
+--- !u!114 &7263391165361400295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282272108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df30e485dcda65c4aa50c29f8e37434b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffects:
+  - {fileID: 4197919772393596077, guid: 3814542f46bbe484e968810bbe857bd2, type: 3}
+  - {fileID: 2241617567622869340, guid: 23e681692976eab48af005faf9b3e4a4, type: 3}
 --- !u!1 &562093993172783840
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,6 +360,7 @@ GameObject:
   - component: {fileID: 562093993172783848}
   - component: {fileID: 8470357558976005313}
   - component: {fileID: 562093993172783851}
+  - component: {fileID: 3718614901432139774}
   m_Layer: 10
   m_Name: Hornet
   m_TagString: Hornet
@@ -402,6 +419,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4660389a0f2f1b48a3407ea749b988d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundColliderConfig: {fileID: 11400000, guid: cd525c68f3c9d1947a4d3159897486f9,
+    type: 2}
 --- !u!50 &562093993172783851
 Rigidbody2D:
   serializedVersion: 4
@@ -423,6 +442,32 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!61 &3718614901432139774
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562093993172783840}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.15, y: 0.11}
+  m_EdgeRadius: 0
 --- !u!1 &8244777722622914639
 GameObject:
   m_ObjectHideFlags: 0
