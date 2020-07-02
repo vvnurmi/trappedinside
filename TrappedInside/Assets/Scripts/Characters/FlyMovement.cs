@@ -74,13 +74,13 @@ public class Idle : FlyState
     {
         if (Context.PlayerInProximity)
         {
-            Context.TransitionTo(new Move());
+            Context.TransitionTo(new ApproachPlayer());
         }
         Context.NormalizedMovementDirection = Vector3.zero;
     }
 }
 
-public class Move : FlyState
+public class ApproachPlayer : FlyState
 {
     private System.Random random = new System.Random();
     private float latestMovementUpdateTime = -1.0f;
@@ -124,26 +124,29 @@ public class PrepareAttack : FlyState
 {
     private readonly float attackPreparationTime = 0.5f;
     private readonly float prepareStartTime;
+    private Vector3 attackDirection = Vector3.zero;
 
     public override string AnimationTransitionTrigger => "IsPreparingAttack";
 
     public PrepareAttack()
     {
-        prepareStartTime = Time.realtimeSinceStartup;
+        prepareStartTime = Time.time;
     }
 
     public override void Handle()
     {
+        //Fix attack direction before attack so that player has a change to avoid the attack
+        if (attackDirection.magnitude == 0.0f)
+            attackDirection = (Context.Player.transform.position - Context.transform.position).normalized;
+
         if (TimeToUpdateState())
-        {
-            var attackDirection = (Context.Player.transform.position - Context.transform.position).normalized;
             Context.TransitionTo(new Attack(attackDirection));
-        }
+
         Context.NormalizedMovementDirection = Vector3.zero;
     }
 
     private bool TimeToUpdateState() =>
-        Time.realtimeSinceStartup - prepareStartTime > attackPreparationTime;
+        Time.time - prepareStartTime > attackPreparationTime;
 }
 
 public class Attack : FlyState

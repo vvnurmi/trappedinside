@@ -249,6 +249,7 @@ MonoBehaviour:
   hitDelay: 1
   hitSound: {fileID: 0}
   deathSound: {fileID: 0}
+  statusBarController: {fileID: 0}
 --- !u!95 &8664520282838793888
 Animator:
   serializedVersion: 3
@@ -385,6 +386,10 @@ MonoBehaviour:
   canClimb: 0
   isClimbing: 0
   isStuck: 0
+  collectedBusinessCards: 0
+  collectedArcadeTokens: 0
+  isTakingDamage: 0
+  isInvulnerable: 0
 --- !u!114 &8470357558976005313
 MonoBehaviour:
   m_ObjectHideFlags: 0
