@@ -35,6 +35,7 @@ public class LegMovement : MonoBehaviour
     private InputProvider inputProvider;
     private RaycastCollider groundCollider;
     private SpriteRenderer spriteRenderer;
+    private HitPoints hitPoints;
     private float ladderCenterPosition;
     private float gravity;
     private float initialJumpSpeed;
@@ -60,6 +61,7 @@ public class LegMovement : MonoBehaviour
         characterState = GetComponent<CharacterState>();
         inputProvider = GetComponent<InputProvider>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        hitPoints = GetComponent<HitPoints>();
         var boxCollider = GetComponent<BoxCollider2D>();
         groundCollider = new RaycastCollider(
             groundColliderConfig,
@@ -242,7 +244,7 @@ public class LegMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (IsLadderLayer(collision))
+        if (IsLadder(collision))
         {
             ladderCenterPosition = collision.bounds.center.x;
             characterState.canClimb = true;
@@ -262,6 +264,14 @@ public class LegMovement : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (IsTrap(collision))
+        {
+            hitPoints.Damage(1);
+        }
+    }
+
     private void UpdateStatusBar()
     {
         if (statusBarController != null)
@@ -277,15 +287,18 @@ public class LegMovement : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (IsLadderLayer(collision))
+        if (IsLadder(collision))
         {
             characterState.canClimb = false;
             Debug.Log("Ladder exit.");
         }
     }
 
-    private bool IsLadderLayer(Collider2D collision) =>
+    private bool IsLadder(Collider2D collision) =>
         collision.gameObject.layer == LayerMask.NameToLayer("Ladder");
+
+    private bool IsTrap(Collider2D collision) =>
+        collision.gameObject.layer == LayerMask.NameToLayer("Traps");
 
     private bool IsBusinessCard(Collider2D collision) =>
         collision.gameObject.tag == "BusinessCard";
