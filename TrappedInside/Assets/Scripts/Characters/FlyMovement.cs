@@ -138,13 +138,15 @@ public class ApproachPlayer : FlyState
             Context.TransitionTo(new PrepareAttack());
         }
 
-        if (TimeToUpdateMovement())
+        if (TimeToUpdateMovement)
         {
             latestMovementUpdateTime = Time.realtimeSinceStartup;
             Debug.Assert(Context.Player != null, "Player was null in FlyMovement.cs");
-            var direction = (Context.Player.transform.position - Context.transform.position).normalized;
 
-            if ((direction.x < 0 && Context.IsFacingRight) || (direction.x > 0 && !Context.IsFacingRight))
+            var direction = (Context.Player.transform.position + DirectionOffset - Context.transform.position).normalized;
+            var playerDirection = (Context.Player.transform.position - Context.transform.position).normalized;
+
+            if ((playerDirection.x < 0 && Context.IsFacingRight) || (playerDirection.x > 0 && !Context.IsFacingRight))
                 Context.Flip();
 
             var randomComponent = 2 * new Vector3(0, (float)random.NextDouble() - 0.5f);
@@ -152,7 +154,13 @@ public class ApproachPlayer : FlyState
         }
     }
 
-    private bool TimeToUpdateMovement() =>
+    //Instead of moving directly to player, prefer side attacks that are easier to dodge.
+    private Vector3 DirectionOffset =>
+        Context.Player.transform.position.x > Context.transform.position.x
+            ? new Vector3(-0.5f, 0f, 0f)
+            : new Vector3(0.5f, 0f, 0f);
+
+    private bool TimeToUpdateMovement =>
         Time.realtimeSinceStartup - latestMovementUpdateTime > directionUpdateDelay;
 
 }
@@ -176,13 +184,13 @@ public class PrepareAttack : FlyState
         if (attackDirection.magnitude == 0.0f)
             attackDirection = (Context.Player.transform.position - Context.transform.position).normalized;
 
-        if (TimeToUpdateState())
+        if (TimeToUpdateState)
             Context.TransitionTo(new Attack(attackDirection));
 
         Context.NormalizedMovementDirection = Vector3.zero;
     }
 
-    private bool TimeToUpdateState() =>
+    private bool TimeToUpdateState =>
         Time.time - prepareStartTime > attackPreparationTime;
 }
 
@@ -204,7 +212,7 @@ public class Attack : FlyState
     public override void Handle()
     {
 
-        if (TimeToUpdateState())
+        if (TimeToUpdateState)
         {
             Context.TransitionTo(new Idle());
         }
@@ -213,7 +221,7 @@ public class Attack : FlyState
             
     }
 
-    private bool TimeToUpdateState() =>
+    private bool TimeToUpdateState =>
         Time.realtimeSinceStartup - attackStartTime > attackTime;
 
 }
