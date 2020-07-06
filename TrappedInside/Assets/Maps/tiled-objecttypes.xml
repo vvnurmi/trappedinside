@@ -8,6 +8,7 @@
   <objecttype name="Mike Start" color="#00ff00"/>
   <objecttype name="Spikey" color="#ffbf00"/>
   <objecttype name="Spider" color="#ff0000"/>
-  <objecttype name="ArcadeToken" color="#ff00ff"/>
-  <objecttype name="BusinessCard" color="#ffff00"/>
+  <objecttype name="ArcadeToken" color="#ffff00"/>
+  <objecttype name="BusinessCard" color="#ff00ff"/>
+  <objecttype name="HornetNest" color="#ffaa00"/>
 </objecttypes>

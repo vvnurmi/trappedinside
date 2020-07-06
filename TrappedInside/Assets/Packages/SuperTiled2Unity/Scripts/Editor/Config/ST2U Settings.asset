@@ -74,10 +74,13 @@ MonoBehaviour:
     m_Color: {r: 1, g: 0, b: 0, a: 1}
     m_CustomProperties: []
   - m_Name: ArcadeToken
-    m_Color: {r: 1, g: 0, b: 1, a: 1}
+    m_Color: {r: 1, g: 1, b: 0, a: 1}
     m_CustomProperties: []
   - m_Name: BusinessCard
-    m_Color: {r: 1, g: 1, b: 0, a: 1}
+    m_Color: {r: 1, g: 0, b: 1, a: 1}
+    m_CustomProperties: []
+  - m_Name: HornetNest
+    m_Color: {r: 1, g: 0.6666667, b: 0, a: 1}
     m_CustomProperties: []
   m_PrefabReplacements:
   - m_TypeName: Deer
@@ -103,4 +106,7 @@ MonoBehaviour:
       type: 3}
   - m_TypeName: BusinessCard
     m_Prefab: {fileID: 6897448648228695966, guid: 26a4ba2ffa8ddc14c9e066f0346c9c76,
+      type: 3}
+  - m_TypeName: HornetNest
+    m_Prefab: {fileID: 8724453674863870983, guid: 26ef941f9ab5344498324654c7f379c7,
       type: 3}
