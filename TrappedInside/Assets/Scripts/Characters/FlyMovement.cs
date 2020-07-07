@@ -109,6 +109,7 @@ public class Idle : FlyState
 
     public override void Handle()
     {
+
         if (Context.PlayerInProximity)
         {
             Context.TransitionTo(new ApproachPlayer());
@@ -121,19 +122,25 @@ public class ApproachPlayer : FlyState
 {
     private System.Random random = new System.Random();
     private float latestMovementUpdateTime = -1.0f;
+    private float? flyStateStartTime = null;
+
     private readonly float directionUpdateDelay = 0.3f;
+    private readonly float minimumFlyStateDuration = 1.0f;
     private readonly float speed = 0.5f;
 
     public override string AnimationTransitionTrigger => "IsFlying";
 
     public override void Handle()
     {
-        if (!Context.PlayerInProximity)
+        if (flyStateStartTime == null)
+            flyStateStartTime = Time.time;
+
+        if (!Context.PlayerInProximity && MinimumFlyStateTimeExceeded)
         {
             Context.TransitionTo(new Idle());
         }
 
-        if (Context.PlayerInAttackRange)
+        if (Context.PlayerInAttackRange && MinimumFlyStateTimeExceeded)
         {
             Context.TransitionTo(new PrepareAttack());
         }
@@ -153,6 +160,8 @@ public class ApproachPlayer : FlyState
             Context.NormalizedMovementDirection = speed * (direction + randomComponent).normalized;
         }
     }
+
+    private bool MinimumFlyStateTimeExceeded => Time.time - flyStateStartTime > minimumFlyStateDuration;
 
     //Instead of moving directly to player, prefer side attacks that are easier to dodge.
     private Vector3 DirectionOffset =>
