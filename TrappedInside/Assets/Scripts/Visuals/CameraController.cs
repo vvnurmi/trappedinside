@@ -9,23 +9,24 @@ public class CameraController : MonoBehaviour
     public float upperBound = 0;
 
     public bool isFixed = false;
+    public bool verticalFix = true;
 
     private GameObject player;
     private Camera cameraComponent;
     private float cameraWidth;
     private float cameraHeight;
 
-    private Vector3 BoundlessPosition => new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z);
-
     private Vector3 BoundedPosition => new Vector3(
         x: GetBoundedValue(BoundlessPosition.x, leftBound + cameraWidth, rightBound - cameraWidth),
         y: GetBoundedValue(BoundlessPosition.y, lowerBound + cameraHeight, upperBound - cameraHeight),
         z: -1);
 
-    private float GetBoundedValue(float value, float min, float max)
-    {
-        return value < min ? min : Mathf.Min(value, max);
-    }
+    private Vector3 BoundlessPosition => new Vector3(player.transform.position.x, CameraY, transform.position.z);
+
+    private float CameraY => verticalFix ? transform.position.y : player.transform.position.y;
+
+    private float GetBoundedValue(float value, float min, float max) =>
+        value < min ? min : Mathf.Min(value, max);
 
     void Start()
     {
