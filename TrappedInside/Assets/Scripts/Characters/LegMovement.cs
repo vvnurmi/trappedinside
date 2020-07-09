@@ -25,9 +25,6 @@ public class LegMovement : MonoBehaviour
     [Tooltip("The sound to play on jump.")]
     public AudioClip jumpSound;
 
-    [Tooltip("Reference to status bar to show hit points (can be null).")]
-    public StatusBarController statusBarController;
-
     // Set about once, probably in Start().
     private Animator animator;
     private AudioSource audioSource;
@@ -35,7 +32,6 @@ public class LegMovement : MonoBehaviour
     private InputProvider inputProvider;
     private RaycastCollider groundCollider;
     private SpriteRenderer spriteRenderer;
-    private HitPoints hitPoints;
     private float ladderCenterPosition;
     private float gravity;
     private float initialJumpSpeed;
@@ -61,7 +57,6 @@ public class LegMovement : MonoBehaviour
         characterState = GetComponent<CharacterState>();
         inputProvider = GetComponent<InputProvider>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        hitPoints = GetComponent<HitPoints>();
         var boxCollider = GetComponent<BoxCollider2D>();
         groundCollider = new RaycastCollider(
             groundColliderConfig,
@@ -242,67 +237,6 @@ public class LegMovement : MonoBehaviour
         transform.Translate(moveAmount);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (IsLadder(collision))
-        {
-            ladderCenterPosition = collision.bounds.center.x;
-            characterState.canClimb = true;
-            Debug.Log("Ladder enter.");
-        }
-        else if (IsBusinessCard(collision))
-        {
-            characterState.collectedBusinessCards++;
-            collision.gameObject.SetActive(false);
-            UpdateStatusBar();
-        }
-        else if (IsArcadeToken(collision))
-        {
-            characterState.collectedArcadeTokens++;
-            collision.gameObject.SetActive(false);
-            UpdateStatusBar();
-        }
-    }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (IsTrap(collision))
-        {
-            hitPoints.Damage(1);
-        }
-    }
 
-    private void UpdateStatusBar()
-    {
-        if (statusBarController != null)
-        {
-            statusBarController.SetNumberOfCards(characterState.collectedBusinessCards);
-            statusBarController.SetNumberOfTokens(characterState.collectedArcadeTokens);
-        }
-        else
-        {
-            Debug.LogWarning("Status bar controller not set.");
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (IsLadder(collision))
-        {
-            characterState.canClimb = false;
-            Debug.Log("Ladder exit.");
-        }
-    }
-
-    private bool IsLadder(Collider2D collision) =>
-        collision.gameObject.layer == LayerMask.NameToLayer("Ladder");
-
-    private bool IsTrap(Collider2D collision) =>
-        collision.gameObject.layer == LayerMask.NameToLayer("Traps");
-
-    private bool IsBusinessCard(Collider2D collision) =>
-        collision.gameObject.tag == "BusinessCard";
-
-    private bool IsArcadeToken(Collider2D collision) =>
-        collision.gameObject.tag == "ArcadeToken";
 }

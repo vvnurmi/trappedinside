@@ -48,7 +48,7 @@ public class HitPoints : MonoBehaviour
 
     private void Start()
     {
-        animator = GetComponentInChildren<Animator>();
+        animator = GetComponentInParent<Animator>();
         audioSource = GetComponent<AudioSource>();
         characterState = GetComponentInParent<CharacterState>();
         Debug.Assert(characterState != null, $"{nameof(CharacterState)} not found in parents of {name}");

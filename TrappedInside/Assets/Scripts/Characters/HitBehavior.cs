@@ -1,12 +1,7 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(CharacterState))]
-[RequireComponent(typeof(Animator))]
 public class HitBehavior : MonoBehaviour, IDamaged
 {
-    [Tooltip("Recoil force that is applied to player when hit.")]
-    public float recoilForce = 1.0f;
-
     [Tooltip("Seconds after hit until player can move.")]
     public float inputFreezeTime = 0.5f;
 
@@ -23,9 +18,9 @@ public class HitBehavior : MonoBehaviour, IDamaged
     // Start is called before the first frame update
     void Awake()
     {
-        characterState = GetComponent<CharacterState>();
-        animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        characterState = GetComponentInParent<CharacterState>();
+        animator = GetComponentInParent<Animator>();
+        spriteRenderer = GetComponentInParent<SpriteRenderer>();
     }
 
     // Update is called once per frame
