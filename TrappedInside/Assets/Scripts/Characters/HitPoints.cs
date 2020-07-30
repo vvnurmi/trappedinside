@@ -26,8 +26,6 @@ public class HitPoints : MonoBehaviour
     [Tooltip("Number of hit points when not damaged.")]
     public int maxHitPoints = 1;
 
-    public float hitDelay = 1.0f;
-
     [Tooltip("The sound to play on getting hit.")]
     public AudioClip hitSound;
 
