@@ -174,7 +174,8 @@ public class LegMovement : MonoBehaviour
         if (characterState.isTakingDamage)
         {
             var recoilSpeed = movement.maxSpeed * 0.5f;
-            velocity.x = IsFacingRight ? -recoilSpeed : recoilSpeed;
+            if (!characterState.isStuck)
+                velocity.x = IsFacingRight ? -recoilSpeed : recoilSpeed;
         }
         else
         {
