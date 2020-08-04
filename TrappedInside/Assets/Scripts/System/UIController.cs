@@ -87,7 +87,7 @@ public class UIController : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode sceneMode)
     {
         // A simple heuristic to determine if we loaded a gameplay or title scene.
-        if (scene.name == "Title")
+        if (scene.name == "Title" || scene.name == "Init")
             mode = UIMode.Title;
         else if (scene.name.StartsWith("Level") || scene.path.Contains("Demo scenes"))
             mode = UIMode.Gameplay;

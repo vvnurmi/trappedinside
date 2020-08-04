@@ -24,7 +24,7 @@ public class PlayMusicFromAssetBundle : MonoBehaviour
         StartCoroutine(PlayAudioClip(instantiatedAudioSource, assetBundle.uri, audioClipName));
     }
 
-    private static IEnumerable EnsureAssetBundleIsCached(string assetBundleUri)
+    public static IEnumerable EnsureAssetBundleIsCached(string assetBundleUri)
     {
         if (cachedBundleName == assetBundleUri)
             yield break;
