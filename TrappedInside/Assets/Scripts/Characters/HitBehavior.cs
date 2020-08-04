@@ -23,8 +23,7 @@ public class HitBehavior : MonoBehaviour, IDamaged
         spriteRenderer = GetComponentInParent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         characterState.isTakingDamage = takingDamageEndsAt > Time.time;
         characterState.isInvulnerable = invulnerabilityEndsAt > Time.time;
