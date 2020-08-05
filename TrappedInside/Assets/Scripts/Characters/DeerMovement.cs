@@ -29,6 +29,7 @@ public class DeerMovement : MonoBehaviour
     private HitPoints hitPoints;
     private Animator animator;
     private Vector2 initialPosition;
+    private int walkingInterval;
 
     private bool attackStarted = false;
 
@@ -47,6 +48,8 @@ public class DeerMovement : MonoBehaviour
         hitPoints = GetComponent<HitPoints>();
         animator = GetComponent<Animator>();
         initialPosition = transform.position;
+
+        walkingInterval = RandomNumber.Next(6, 14);
     }
 
     // Update is called once per frame
@@ -58,7 +61,7 @@ public class DeerMovement : MonoBehaviour
         if (attackStarted)
         {
             SetAnimatorState(running);
-            if(xSpeed == 0)
+            if(Mathf.Abs(xSpeed) < runningSpeed)
                 xSpeed = attackTrigger.PlayerInLeft ? -runningSpeed : runningSpeed;
         }
         else
@@ -75,8 +78,8 @@ public class DeerMovement : MonoBehaviour
             }
             else
             {
-                int roundedTime = (int)Time.realtimeSinceStartup;
-                if (roundedTime % 10 < 1)
+                int roundedTime = (int)Time.time;
+                if (roundedTime % walkingInterval < 1)
                 {
                     SetAnimatorState(walking);
                     if (transform.position.x < initialPosition.x)
