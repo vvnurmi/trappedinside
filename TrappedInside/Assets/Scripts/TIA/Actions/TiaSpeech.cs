@@ -4,6 +4,16 @@ using YamlDotNet.Serialization;
 
 /// <summary>
 /// Types text in a speech bubble on top of actor.
+/// 
+/// Speech bubbles are expected to have tagged child objects, each with
+/// one <see cref="TMPro.TextMeshProUGUI"/> component. The tags mark the
+/// role of the component as follows:
+/// <list>
+///     <item>"SpeechText": The proper text content of the bubble.</item>
+///     <item>"SpeechSpeaker": The name of who is uttering the text.</item>
+///     <item>"SpeechLeft": The left option for the player.</item>
+///     <item>"SpeechRight": The right option for the player.</item>
+/// </list>
 /// </summary>
 public class TiaSpeech : ITiaAction
 {

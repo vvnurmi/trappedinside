@@ -8,6 +8,10 @@ TagManager:
   - Hornet
   - BusinessCard
   - ArcadeToken
+  - SpeechText
+  - SpeechSpeaker
+  - SpeechLeft
+  - SpeechRight
   layers:
   - Default
   - TransparentFX
