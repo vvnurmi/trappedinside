@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using TMPro;
 using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -240,6 +241,34 @@ namespace Tests
             
             yield return new WaitForSeconds(0.5f);
             AssertAnimationState(AnotherStateName);
+        }
+
+        [UnityTest]
+        public IEnumerator Speech()
+        {
+            var richText = "I <size=200%>will</size> say something!";
+            var speechBubbleName = "speech bubble";
+
+            var tiaRoot = NewGameObject("TIA root");
+            var testObject = NewGameObject("test object");
+            testObject.transform.parent = tiaRoot.transform;
+            var speechBubblePrefab = NewGameObject(speechBubbleName);
+            speechBubblePrefab.transform.parent = tiaRoot.transform;
+            var textField = speechBubblePrefab.AddComponent<TextMeshProUGUI>();
+            textField.tag = "SpeechText";
+
+            var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
+            tiaPlayer.script = NewSimpleScript(testObject,
+                new TiaSpeech
+                {
+                    TmpRichText = richText,
+                    SpeechBubbleName = speechBubbleName,
+                });
+
+            yield return new WaitForSeconds(0.5f);
+            var tmpUguis = testObject.GetComponentsInChildren<TextMeshProUGUI>();
+            Assert.AreEqual(1, tmpUguis.Length, "Not the expected number of TMP texts");
+            Assert.AreEqual(richText, tmpUguis[0].text);
         }
     }
 }

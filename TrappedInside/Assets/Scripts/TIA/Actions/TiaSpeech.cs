@@ -24,6 +24,12 @@ public class TiaSpeech : ITiaAction
     public string TmpRichText { get; set; }
 
     /// <summary>
+    /// Name of the speech bubble game object to display the speech in.
+    /// </summary>
+    [YamlMember(Alias = "Bubble")]
+    public string SpeechBubbleName { get; set; }
+
+    /// <summary>
     /// Multiplier to the general typing speed.
     /// Defaults to 1.
     /// </summary>
@@ -37,7 +43,9 @@ public class TiaSpeech : ITiaAction
     [YamlMember(Alias = "Modal")]
     public bool IsModal { get; set; }
 
-    public bool IsDone => throw new NotImplementedException();
+    private float hackFinishTime; // !!!
+
+    public bool IsDone => Time.time >= hackFinishTime;
 
     public TiaSpeech()
     {
@@ -47,11 +55,28 @@ public class TiaSpeech : ITiaAction
 
     public void Start(ITiaActionContext context)
     {
-        throw new NotImplementedException();
+        hackFinishTime = Time.time + 1;
+
+        var bubblePrefab = context.TiaRoot.FindChildByName(SpeechBubbleName);
+        Debug.Assert(bubblePrefab != null);
+        if (bubblePrefab == null) return;
+
+        var bubble = UnityEngine.Object.Instantiate(bubblePrefab, context.Actor.GameObject.transform);
+        var texts = bubble.GetComponentsInChildren<TMPro.TextMeshProUGUI>();
+        foreach (var text in texts)
+        {
+            if (text.gameObject.CompareTag("SpeechText"))
+                text.text = TmpRichText;
+            if (text.gameObject.CompareTag("SpeechSpeaker"))
+                text.text = context.Actor.GameObjectName;
+            if (text.gameObject.CompareTag("SpeechLeft"))
+                text.text = "Todo Left!!!";
+            if (text.gameObject.CompareTag("SpeechRight"))
+                text.text = "Todo Right!!!";
+        }
     }
 
     public void Update(ITiaActionContext context)
     {
-        throw new NotImplementedException();
     }
 }
