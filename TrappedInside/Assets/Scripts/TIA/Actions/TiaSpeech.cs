@@ -43,9 +43,9 @@ public class TiaSpeech : ITiaAction
     [YamlMember(Alias = "Modal")]
     public bool IsModal { get; set; }
 
-    private float hackFinishTime; // !!!
+    private NarrativeTypist narrativeTypist;
 
-    public bool IsDone => Time.time >= hackFinishTime;
+    public bool IsDone => narrativeTypist?.IsDoneTyping == true;
 
     public TiaSpeech()
     {
@@ -55,28 +55,27 @@ public class TiaSpeech : ITiaAction
 
     public void Start(ITiaActionContext context)
     {
-        hackFinishTime = Time.time + 1;
-
         var bubblePrefab = context.TiaRoot.FindChildByName(SpeechBubbleName);
         Debug.Assert(bubblePrefab != null);
         if (bubblePrefab == null) return;
 
         var bubble = UnityEngine.Object.Instantiate(bubblePrefab, context.Actor.GameObject.transform);
-        var texts = bubble.GetComponentsInChildren<TMPro.TextMeshProUGUI>();
-        foreach (var text in texts)
+        narrativeTypist = bubble.GetComponentInChildren<NarrativeTypist>();
+        Debug.Assert(narrativeTypist != null, $"Speech bubble has no {nameof(NarrativeTypist)}");
+        if (narrativeTypist == null) return;
+
+        var typistSetup = new NarrativeTypistSetup
         {
-            if (text.gameObject.CompareTag("SpeechText"))
-                text.text = TmpRichText;
-            if (text.gameObject.CompareTag("SpeechSpeaker"))
-                text.text = context.Actor.GameObjectName;
-            if (text.gameObject.CompareTag("SpeechLeft"))
-                text.text = "Todo Left!!!";
-            if (text.gameObject.CompareTag("SpeechRight"))
-                text.text = "Todo Right!!!";
-        }
+            fullText = TmpRichText,
+            speaker = context.Actor.GameObjectName,
+            leftChoice = "Todo Left!!!",
+            rightChoice = "Todo Right!!!",
+        };
+        narrativeTypist.GetComponent<NarrativeTypist>().StartTyping(typistSetup);
     }
 
     public void Update(ITiaActionContext context)
     {
+        // All work is done by narrativeTypist.
     }
 }
