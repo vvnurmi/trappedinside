@@ -33,9 +33,9 @@ public class StatusBarController : MonoBehaviour
         cardHandler.SetNumberOfCards(numberOfCards);
     }
 
-    public void SetNumberOfHearts(int numberOfHearts)
+    public void SetNumberOfHearts(int numberOfHearts, bool createParticleEffect)
     {
-        lifeHandler.SetNumberOfHearts(numberOfHearts);
+        lifeHandler.SetNumberOfHearts(numberOfHearts, createParticleEffect);
     }
 
 }

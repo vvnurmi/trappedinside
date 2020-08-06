@@ -51,7 +51,7 @@ public class HitPoints : MonoBehaviour
         characterState = GetComponentInParent<CharacterState>();
         Debug.Assert(characterState != null, $"{nameof(CharacterState)} not found in parents of {name}");
         CurrentHitPoints = maxHitPoints;
-        UpdateStatusBar();
+        UpdateStatusBar(false);
     }
 
     #endregion
@@ -71,13 +71,13 @@ public class HitPoints : MonoBehaviour
         if (CurrentHitPoints == 0)
             Die();
 
-        UpdateStatusBar();
+        UpdateStatusBar(true);
     }
 
-    private void UpdateStatusBar()
+    private void UpdateStatusBar(bool createParticleEffect)
     {
         if (statusBarController != null)
-            statusBarController.SetNumberOfHearts(CurrentHitPoints);
+            statusBarController.SetNumberOfHearts(CurrentHitPoints, createParticleEffect);
     }
 
     private void Die()
