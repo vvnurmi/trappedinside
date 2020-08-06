@@ -21,9 +21,32 @@ public class NarrativeTypistChoice : NarrativeTypist
     // Set about once, probably in Start().
     private Text choiceComponent;
     private string[] textContents;
+    private TMPro.TextMeshProUGUI[] textComponents = new TMPro.TextMeshProUGUI[2];
 
     // Modified during gameplay.
     private int choice;
+
+    public override void StartTyping(NarrativeTypistSetup setup)
+    {
+        base.StartTyping(setup);
+
+        var textFields = GetComponentsInChildren<TMPro.TextMeshProUGUI>();
+        foreach (var textField in textFields)
+        {
+            if (textField.gameObject.CompareTag("SpeechLeft"))
+            {
+                textComponents[0] = textField;
+                textField.text = "";
+            }
+            if (textField.gameObject.CompareTag("SpeechRight"))
+            {
+                textComponents[1] = textField;
+                textField.text = "";
+            }
+        }
+        for (int i = 0; i < textComponents.Length; i++)
+            Debug.Assert(textComponents[i] != null, $"{nameof(NarrativeTypistChoice)} couldn't find choice text field {i}");
+    }
 
     #region MonoBehaviour overrides
 

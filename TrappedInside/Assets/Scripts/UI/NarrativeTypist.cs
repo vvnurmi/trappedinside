@@ -1,6 +1,13 @@
 ﻿using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
+
+public class NarrativeTypistSetup
+{
+    public string fullText;
+    public string speaker;
+    public string leftChoice;
+    public string rightChoice;
+}
 
 /// <summary>
 /// Displays text in a text box as if it was being typed in.
@@ -9,49 +16,65 @@ public class NarrativeTypist : MonoBehaviour
 {
     // Set about once, probably in Start().
     private NarrativeTypistSettings settings;
-    private TalkAnimator talkAnimator;
-    private Text textComponent;
-    private string fullText;
+    private TMPro.TextMeshProUGUI textComponent;
+    private NarrativeTypistSetup setup;
     private float startTime;
 
     // Modified during gameplay.
     private int charsToShow;
 
-    public bool IsDoneTyping => charsToShow == fullText.Length;
+    public bool IsDoneTyping => charsToShow == setup.fullText.Length;
+
+    /// <summary>
+    /// Starts the typing process. The process will finish when all
+    /// of <paramref name="fullText"/> is displayed.
+    /// </summary>
+    public virtual void StartTyping(NarrativeTypistSetup setup)
+    {
+        this.setup = setup;
+        charsToShow = 0;
+        startTime = Time.time;
+
+        var textFields = GetComponentsInChildren<TMPro.TextMeshProUGUI>();
+        foreach (var textField in textFields)
+        {
+            if (textField.gameObject.CompareTag("SpeechText"))
+            {
+                textComponent = textField;
+                textField.text = "";
+            }
+            if (textField.gameObject.CompareTag("SpeechSpeaker"))
+                textField.text = setup.speaker;
+        }
+    }
 
     #region MonoBehaviour overrides
 
     virtual protected void Awake()
     {
         settings = GetComponentInParent<NarrativeTypistSettings>();
-        talkAnimator = GetComponent<TalkAnimator>();
         Debug.Assert(settings != null,
             $"Expected to find {nameof(NarrativeTypistSettings)} from the parent of {nameof(NarrativeTypist)}");
-        textComponent = GetComponentsInChildren<Text>().First(text => text.name == "Text");
-        Debug.Assert(textComponent != null);
-        fullText = textComponent.text;
-    }
-
-    private void OnEnable()
-    {
-        startTime = Time.time;
+        textComponent = GetComponentsInChildren<TMPro.TextMeshProUGUI>()
+            .Single(text => text.gameObject.CompareTag("SpeechText"));
     }
 
     virtual protected void FixedUpdate()
     {
+        if (setup == null) return;
+
         ReadInput();
 
         var oldCharsToShow = charsToShow;
         charsToShow = Mathf.Clamp(
             value: Mathf.RoundToInt((Time.time - startTime) * settings.charsPerSecond),
             min: charsToShow,
-            max: fullText.Length);
-        textComponent.text = fullText.Substring(0, charsToShow);
+            max: setup.fullText.Length);
+        textComponent.text = setup.fullText.Substring(0, charsToShow);
 
         // If something more was typed, make noise and react to text end.
         if (oldCharsToShow < charsToShow)
         {
-            talkAnimator.StartTalkingAnimation();
             var lastCharIsSpace = textComponent.text.Length == 0 ||
                 char.IsWhiteSpace(textComponent.text[textComponent.text.Length - 1]);
             if (!lastCharIsSpace)
@@ -68,8 +91,7 @@ public class NarrativeTypist : MonoBehaviour
     /// </summary>
     virtual protected void OnTypingFinished()
     {
-        talkAnimator.StopTalkingAnimation();
-        charsToShow = fullText.Length;
+        charsToShow = setup.fullText.Length;
     }
 
     /// <summary>
