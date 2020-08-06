@@ -33,6 +33,8 @@ public class TiaActionSequence
             if (!Actions[actionIndex].IsDone)
                 break;
 
+            Actions[actionIndex].Finish(context);
+
             actionIndex++;
             if (actionIndex < Actions.Length)
                 Actions[actionIndex].Start(context);

@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEditor.Animations;
@@ -74,7 +75,7 @@ namespace Tests
             testObject.transform.parent = tiaRoot.transform;
 
             var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
-            tiaPlayer.script = NewSimpleScript(testObject, 
+            tiaPlayer.script = NewSimpleScript(testObject,
                 new TiaPause { DurationSeconds = 1 },
                 new TiaActivate(),
                 new TiaPause { DurationSeconds = 1 },
@@ -223,7 +224,7 @@ namespace Tests
                     },
                     defaultState = defaultAnimatorState.state,
                 },
-                
+
             };
             animatorController.AddLayer(animatorControllerLayer);
             animator.runtimeAnimatorController = animatorController;
@@ -238,7 +239,7 @@ namespace Tests
                     $"Expected animator state '{expectedStateName}' but was hash {animator.GetCurrentAnimatorStateInfo(0).shortNameHash}.");
 
             AssertAnimationState(DefaultStateName);
-            
+
             yield return new WaitForSeconds(0.5f);
             AssertAnimationState(AnotherStateName);
         }
@@ -256,6 +257,11 @@ namespace Tests
             speechBubblePrefab.transform.parent = tiaRoot.transform;
             var textField = speechBubblePrefab.AddComponent<TextMeshProUGUI>();
             textField.tag = "SpeechText";
+            {
+                var settings = speechBubblePrefab.AddComponent<NarrativeTypistSettings>();
+                settings.charsPerSecond = 10;
+            }
+            speechBubblePrefab.AddComponent<NarrativeTypist>();
 
             var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
             tiaPlayer.script = NewSimpleScript(testObject,
@@ -266,9 +272,22 @@ namespace Tests
                 });
 
             yield return new WaitForSeconds(0.5f);
-            var tmpUguis = testObject.GetComponentsInChildren<TextMeshProUGUI>();
-            Assert.AreEqual(1, tmpUguis.Length, "Not the expected number of TMP texts");
-            Assert.AreEqual(richText, tmpUguis[0].text);
+            {
+                var tmpUguis = testObject.GetComponentsInChildren<TextMeshProUGUI>();
+                Assert.AreEqual(1, tmpUguis.Length, "Not the expected number of TMP texts");
+                Assert.AreEqual(richText.Substring(0, 5), tmpUguis[0].text);
+            }
+
+            {
+                var settings = testObject.GetComponentInChildren<NarrativeTypistSettings>();
+                settings.charsPerSecond = 100;
+                yield return new WaitForSeconds(richText.Length / settings.charsPerSecond);
+            }
+            {
+                var tmpUguis = testObject.GetComponentsInChildren<TextMeshProUGUI>();
+                Assert.AreEqual(0, tmpUguis.Length, $"TMP text was not removed in time:"
+                    + string.Join("|", tmpUguis.Select(ugui => ugui.text)));
+            }
         }
     }
 }

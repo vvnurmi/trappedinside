@@ -44,6 +44,7 @@ public class TiaSpeech : ITiaAction
     public bool IsModal { get; set; }
 
     private NarrativeTypist narrativeTypist;
+    private GameObject speechBubble;
 
     public bool IsDone => narrativeTypist?.IsDoneTyping == true;
 
@@ -59,8 +60,8 @@ public class TiaSpeech : ITiaAction
         Debug.Assert(bubblePrefab != null);
         if (bubblePrefab == null) return;
 
-        var bubble = UnityEngine.Object.Instantiate(bubblePrefab, context.Actor.GameObject.transform);
-        narrativeTypist = bubble.GetComponentInChildren<NarrativeTypist>();
+        speechBubble = UnityEngine.Object.Instantiate(bubblePrefab, context.Actor.GameObject.transform);
+        narrativeTypist = speechBubble.GetComponentInChildren<NarrativeTypist>();
         Debug.Assert(narrativeTypist != null, $"Speech bubble has no {nameof(NarrativeTypist)}");
         if (narrativeTypist == null) return;
 
@@ -77,5 +78,12 @@ public class TiaSpeech : ITiaAction
     public void Update(ITiaActionContext context)
     {
         // All work is done by narrativeTypist.
+    }
+
+    public void Finish(ITiaActionContext context)
+    {
+        if (speechBubble != null)
+            UnityEngine.Object.Destroy(speechBubble);
+        speechBubble = null;
     }
 }
