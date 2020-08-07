@@ -216,32 +216,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: Status bar
       objectReference: {fileID: 0}
-    - target: {fileID: 3489398323340183339, guid: ace43582be365f540a15d5c576d0a5e8,
+    - target: {fileID: 8231525326376415536, guid: ace43582be365f540a15d5c576d0a5e8,
         type: 3}
-      propertyPath: m_Color.r
-      value: 0
+      propertyPath: m_Scale
+      value: 0.8
       objectReference: {fileID: 0}
-    - target: {fileID: 3489398323340183339, guid: ace43582be365f540a15d5c576d0a5e8,
+    - target: {fileID: 8330520066996276136, guid: ace43582be365f540a15d5c576d0a5e8,
         type: 3}
-      propertyPath: m_Color.g
-      value: 0
+      propertyPath: InitialModule.gravityModifier.scalar
+      value: 0.8
       objectReference: {fileID: 0}
-    - target: {fileID: 3489398323340183339, guid: ace43582be365f540a15d5c576d0a5e8,
+    - target: {fileID: 8330520066996276136, guid: ace43582be365f540a15d5c576d0a5e8,
         type: 3}
-      propertyPath: m_Color.b
-      value: 0
+      propertyPath: InitialModule.startSpeed.minScalar
+      value: 5.79
       objectReference: {fileID: 0}
-    - target: {fileID: 3489398323340183339, guid: ace43582be365f540a15d5c576d0a5e8,
+    - target: {fileID: 8330520066996276136, guid: ace43582be365f540a15d5c576d0a5e8,
         type: 3}
-      propertyPath: m_Color.a
-      value: 0
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 6.3
       objectReference: {fileID: 0}
-    - target: {fileID: 3489398324271177566, guid: ace43582be365f540a15d5c576d0a5e8,
+    - target: {fileID: 8330520066996276136, guid: ace43582be365f540a15d5c576d0a5e8,
         type: 3}
-      propertyPath: particleEffect
-      value: 
-      objectReference: {fileID: 4197919772393596077, guid: 700d634448037de41b87d17f45b0406d,
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 8330520066996276136, guid: ace43582be365f540a15d5c576d0a5e8,
         type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ace43582be365f540a15d5c576d0a5e8, type: 3}
 --- !u!224 &4743099630555121437 stripped

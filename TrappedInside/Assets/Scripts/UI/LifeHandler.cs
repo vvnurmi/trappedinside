@@ -47,7 +47,7 @@ public class LifeHandler : MonoBehaviour
             if (value > 0 && hearts[i].enabled)
             {
                 if (createParticleEffect)
-                    CreateParticleEffect(hearts[i].transform.position);
+                    CreateParticleEffect(hearts[i].transform);
 
                 hearts[i].enabled = false;
                 value--;
@@ -55,9 +55,9 @@ public class LifeHandler : MonoBehaviour
         }
     }
 
-    private void CreateParticleEffect(Vector3 position)
+    private void CreateParticleEffect(Transform parent)
     {
-        var pos = camera.ScreenToWorldPoint(position);
-        Instantiate(particleEffect, pos + new Vector3(0f, 0f, 2f), Quaternion.identity);
+        var obj = Instantiate(particleEffect, Vector3.zero, Quaternion.identity);
+        obj.transform.SetParent(parent, false);
     }
 }
