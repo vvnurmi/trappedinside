@@ -742,6 +742,7 @@ GameObject:
   - component: {fileID: 410206671}
   - component: {fileID: 410206668}
   - component: {fileID: 8795930356766098364}
+  - component: {fileID: 3653926632207119361}
   m_Layer: 9
   m_Name: Hit Area
   m_TagString: Untagged
@@ -898,7 +899,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHitPoints: 3
-  hitDelay: 1
   hitSound: {fileID: 8300000, guid: e419b77ae02f6604bb89c7789ba4c46e, type: 3}
   deathSound: {fileID: 8300000, guid: df12f572a419614468bbe7ba5148ecb5, type: 3}
   statusBarController: {fileID: 6982326769349969158}
@@ -940,7 +940,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2fdc2f24451186428c11274d01bc7e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recoilForce: 1
   inputFreezeTime: 0.5
   invulnerabilityTime: 2
 --- !u!114 &8795930356766098364
@@ -955,3 +954,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b361efcb208c0e04883a172d6f977a3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3653926632207119361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8351155274336289657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a21d5e3d796c1344bb848185a421253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffects:
+  - {fileID: 4197919772393596077, guid: 3814542f46bbe484e968810bbe857bd2, type: 3}
