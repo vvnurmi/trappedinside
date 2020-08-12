@@ -1,12 +1,15 @@
-﻿public struct PlayerInput
+﻿using System;
+
+public struct PlayerInput
 {
-    public readonly bool fire1Pressed;
-    public readonly bool fire2Pressed;
-    public readonly bool fire2Active;
-    public readonly bool jumpPressed;
-    public readonly bool jumpReleased;
-    public readonly float horizontal;
-    public readonly float vertical;
+    public bool fire1Pressed;
+    public bool fire2Pressed;
+    public bool fire2Active;
+    public bool jumpPressed;
+    public bool jumpReleased;
+    public bool jumpActive;
+    public float horizontal;
+    public float vertical;
 
     public PlayerInput(
         bool fire1Pressed,
@@ -22,7 +25,16 @@
         this.fire2Active = fire2Active;
         this.jumpPressed = jumpPressed;
         this.jumpReleased = jumpReleased;
+        this.jumpActive = jumpPressed; // !!!
         this.horizontal = horizontal;
         this.vertical = vertical;
+    }
+
+    internal void ResetEventFlags()
+    {
+        fire1Pressed = false;
+        fire2Pressed = false;
+        jumpPressed = false;
+        jumpReleased = false;
     }
 }

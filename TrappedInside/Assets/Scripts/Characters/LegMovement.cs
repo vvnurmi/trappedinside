@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
-using System.Linq;
-using System;
+using UnityEngine.InputSystem;
 
 // Code adapted from Sebastian Lague's 2D Platformer Controller tutorial.
 // https://github.com/SebLague/2DPlatformer-Tutorial
@@ -13,7 +11,6 @@ using System;
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(CharacterState))]
-[RequireComponent(typeof(InputProvider))]
 public class LegMovement : MonoBehaviour
 {
     [Tooltip("Movement settings.")]
@@ -29,10 +26,8 @@ public class LegMovement : MonoBehaviour
     private Animator animator;
     private AudioSource audioSource;
     private CharacterState characterState;
-    private InputProvider inputProvider;
     private RaycastCollider groundCollider;
     private SpriteRenderer spriteRenderer;
-    private float ladderCenterPosition;
     private float gravity;
     private float initialJumpSpeed;
     private float dampedJumpSpeed; // What jump speed becomes after Jump button is released.
@@ -43,8 +38,7 @@ public class LegMovement : MonoBehaviour
     // Modified during gameplay.
     private Vector2 velocity;
     private float velocityXSmoothing;
-    private List<PlayerInput> playerInputs = new List<PlayerInput>();
-    private PlayerInput currentInput = new PlayerInput();
+    private PlayerInput inputState;
 
     private bool IsFacingRight => characterState.collisions.faceDir == 1;
 
@@ -55,7 +49,6 @@ public class LegMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         characterState = GetComponent<CharacterState>();
-        inputProvider = GetComponent<InputProvider>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         var boxCollider = GetComponent<BoxCollider2D>();
         groundCollider = new RaycastCollider(
@@ -70,19 +63,14 @@ public class LegMovement : MonoBehaviour
         dampedJumpSpeed = Mathf.Sqrt(2 * Mathf.Abs(gravity) * movement.jumpHeightMin);
     }
 
-    private void Update()
-    {
-        playerInputs.Add(inputProvider.GetInput());
-    }
-
     private void FixedUpdate()
     {
         timedAnimTriggers.Update();
 
         var oldVelocity = velocity;
 
-        UpdatePlayerInput();
-
+        var currentInput = inputState;
+        inputState.ResetEventFlags();
         HandleVerticalInput(currentInput);
         HandleHorizontalInput(currentInput);
 
@@ -100,31 +88,10 @@ public class LegMovement : MonoBehaviour
         animator.SetFloat("VerticalSpeed", relativeSpeed);
     }
 
-    private void UpdatePlayerInput()
-    {
-        if (playerInputs.Any())
-        {
-            currentInput = new PlayerInput
-            (
-                fire1Pressed: playerInputs.Any(x => x.fire1Pressed),
-                fire2Pressed: playerInputs.Any(x => x.fire2Pressed),
-                fire2Active: playerInputs.Any(x => x.fire2Active),
-                jumpPressed: playerInputs.Any(x => x.jumpPressed),
-                jumpReleased: playerInputs.Any(x => x.jumpReleased),
-                horizontal: playerInputs.Last().horizontal,
-                vertical: playerInputs.Last().vertical
-            );
-            playerInputs.Clear();
-        }
-
-        Debug.Assert(!(currentInput.jumpPressed && currentInput.jumpReleased));
-    }
-
     #endregion
 
     private void HandleVerticalInput(PlayerInput input)
     {
-
         if (characterState.isClimbing)
         {
             velocity.y = input.vertical * movement.maxSpeed / 2;
@@ -238,6 +205,18 @@ public class LegMovement : MonoBehaviour
         transform.Translate(moveAmount);
     }
 
+    public void InputEvent_Move(InputAction.CallbackContext context)
+    {
+        var value = context.ReadValue<Vector2>();
+        inputState.horizontal = value.x;
+        inputState.vertical = value.y;
+    }
 
-
+    public void InputEvent_Jump(InputAction.CallbackContext context)
+    {
+        var value = context.ReadValue<float>();
+        inputState.jumpPressed |= !inputState.jumpActive && value >= 0.5f;
+        inputState.jumpReleased |= inputState.jumpActive && value < 0.5f;
+        inputState.jumpActive = value >= 0.5f;
+    }
 }

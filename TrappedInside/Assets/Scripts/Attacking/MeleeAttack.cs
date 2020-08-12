@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Handles melee attacking.
@@ -14,7 +15,6 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(CharacterState))]
-[RequireComponent(typeof(InputProvider))]
 public class MeleeAttack : MonoBehaviour
 {
     [EnumFlag("Capabilities")]
@@ -28,13 +28,13 @@ public class MeleeAttack : MonoBehaviour
     private Animator animator;
     private AudioSource audioSource;
     private CharacterState characterState;
-    private InputProvider inputProvider;
 
     // Helpers
     private TimedAnimationTriggers timedAnimTriggers;
 
     // Modified during gameplay.
     private MeleeAttackType? activeAttack;
+    private PlayerInput inputState;
 
     #region MonoBehaviour overrides
 
@@ -44,7 +44,6 @@ public class MeleeAttack : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         characterState = GetComponent<CharacterState>();
         DeactivateWeapons();
-        inputProvider = GetComponent<InputProvider>();
 
         timedAnimTriggers = new TimedAnimationTriggers(animator, 0.1f);
     }
@@ -55,8 +54,9 @@ public class MeleeAttack : MonoBehaviour
 
         RelayWeaponCapabilities();
 
-        var input = inputProvider.GetInput();
-        HandleInput(input);
+        var currentInput = inputState;
+        inputState.ResetEventFlags();
+        HandleInput(currentInput);
     }
 
     #endregion
@@ -98,6 +98,20 @@ public class MeleeAttack : MonoBehaviour
             if (input.fire2Pressed)
                 timedAnimTriggers.Set("StartShielding");
         }
+    }
+
+    public void InputEvent_Move(InputAction.CallbackContext context)
+    {
+        var value = context.ReadValue<Vector2>();
+        inputState.horizontal = value.x;
+        inputState.vertical = value.y;
+    }
+
+    public void InputEvent_Shield(InputAction.CallbackContext context)
+    {
+        var value = context.ReadValue<float>();
+        inputState.fire2Pressed |= !inputState.fire2Active && value >= 0.5f;
+        inputState.fire2Active = value >= 0.5f;
     }
 
     public void AnimEvent_StartAttacking(MeleeAttackType attack)

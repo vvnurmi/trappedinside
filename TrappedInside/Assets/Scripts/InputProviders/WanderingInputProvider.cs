@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+
 /// <summary>
 /// Makes a character walk aimlessly forward and turn around on collision.
 /// </summary>
 [RequireComponent(typeof(CharacterState))]
-public class WanderingInputProvider : InputProvider
+public class WanderingInputProvider : MonoBehaviour, IInputProvider
 {
     [Tooltip("Start walking right at start?")]
     public bool startRight = true;
@@ -27,7 +28,7 @@ public class WanderingInputProvider : InputProvider
             horizontalMove = -horizontalMove;
     }
 
-    public override PlayerInput GetInput()
+    public PlayerInput GetInput()
     {
         return new PlayerInput(
             fire1Pressed: false,

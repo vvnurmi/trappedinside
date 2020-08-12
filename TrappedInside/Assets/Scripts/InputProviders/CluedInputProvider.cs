@@ -3,7 +3,7 @@
 public enum Direction { Left, Right, Down, Up }
 
 [RequireComponent(typeof(CharacterState))]
-public class CluedInputProvider : InputProvider
+public class CluedInputProvider : MonoBehaviour, IInputProvider
 {
     public Direction walkingDirection = Direction.Right;
 
@@ -79,7 +79,7 @@ public class CluedInputProvider : InputProvider
         }
     }
 
-    public override PlayerInput GetInput() => 
+    public PlayerInput GetInput() => 
         new PlayerInput(
             fire1Pressed: false,
             fire2Pressed: false,
