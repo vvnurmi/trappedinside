@@ -30,13 +30,15 @@ public class WanderingInputProvider : MonoBehaviour, IInputProvider
 
     public PlayerInput GetInput()
     {
-        return new PlayerInput(
-            fire1Pressed: false,
-            fire2Pressed: false,
-            fire2Active: false,
-            jumpPressed: false,
-            jumpReleased: false,
-            horizontal: horizontalMove,
-            vertical: 0.0f);
+        return new PlayerInput
+        {
+            fire1Pressed = false,
+            fire2Pressed = false,
+            fire2Active = false,
+            jumpPressed = false,
+            jumpReleased = false,
+            horizontal = horizontalMove,
+            vertical = 0.0f,
+        };
     }
 }

@@ -38,7 +38,7 @@ public class LegMovement : MonoBehaviour
     // Modified during gameplay.
     private Vector2 velocity;
     private float velocityXSmoothing;
-    private PlayerInput inputState;
+    private PlayerInputManager inputStateManager = new PlayerInputManager();
 
     private bool IsFacingRight => characterState.collisions.faceDir == 1;
 
@@ -69,8 +69,7 @@ public class LegMovement : MonoBehaviour
 
         var oldVelocity = velocity;
 
-        var currentInput = inputState;
-        inputState.ResetEventFlags();
+        var currentInput = inputStateManager.GetStateAndResetEventFlags();
         HandleVerticalInput(currentInput);
         HandleHorizontalInput(currentInput);
 
@@ -205,18 +204,9 @@ public class LegMovement : MonoBehaviour
         transform.Translate(moveAmount);
     }
 
-    public void InputEvent_Move(InputAction.CallbackContext context)
-    {
-        var value = context.ReadValue<Vector2>();
-        inputState.horizontal = value.x;
-        inputState.vertical = value.y;
-    }
+    public void InputEvent_Move(InputAction.CallbackContext context) =>
+        inputStateManager.InputEvent_Move(context);
 
-    public void InputEvent_Jump(InputAction.CallbackContext context)
-    {
-        var value = context.ReadValue<float>();
-        inputState.jumpPressed |= !inputState.jumpActive && value >= 0.5f;
-        inputState.jumpReleased |= inputState.jumpActive && value < 0.5f;
-        inputState.jumpActive = value >= 0.5f;
-    }
+    public void InputEvent_Jump(InputAction.CallbackContext context) =>
+        inputStateManager.InputEvent_Jump(context);
 }

@@ -34,7 +34,7 @@ public class MeleeAttack : MonoBehaviour
 
     // Modified during gameplay.
     private MeleeAttackType? activeAttack;
-    private PlayerInput inputState;
+    private PlayerInputManager inputStateManager = new PlayerInputManager();
 
     #region MonoBehaviour overrides
 
@@ -54,8 +54,7 @@ public class MeleeAttack : MonoBehaviour
 
         RelayWeaponCapabilities();
 
-        var currentInput = inputState;
-        inputState.ResetEventFlags();
+        var currentInput = inputStateManager.GetStateAndResetEventFlags();
         HandleInput(currentInput);
     }
 
@@ -100,19 +99,11 @@ public class MeleeAttack : MonoBehaviour
         }
     }
 
-    public void InputEvent_Move(InputAction.CallbackContext context)
-    {
-        var value = context.ReadValue<Vector2>();
-        inputState.horizontal = value.x;
-        inputState.vertical = value.y;
-    }
+    public void InputEvent_Move(InputAction.CallbackContext context) =>
+        inputStateManager.InputEvent_Move(context);
 
-    public void InputEvent_Shield(InputAction.CallbackContext context)
-    {
-        var value = context.ReadValue<float>();
-        inputState.fire2Pressed |= !inputState.fire2Active && value >= 0.5f;
-        inputState.fire2Active = value >= 0.5f;
-    }
+    public void InputEvent_Shield(InputAction.CallbackContext context) =>
+        inputStateManager.InputEvent_Shield(context);
 
     public void AnimEvent_StartAttacking(MeleeAttackType attack)
     {

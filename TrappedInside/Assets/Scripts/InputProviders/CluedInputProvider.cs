@@ -79,15 +79,15 @@ public class CluedInputProvider : MonoBehaviour, IInputProvider
         }
     }
 
-    public PlayerInput GetInput() => 
-        new PlayerInput(
-            fire1Pressed: false,
-            fire2Pressed: false,
-            fire2Active: false,
-            jumpPressed: false,
-            jumpReleased: false,
-            horizontal: HorizontalMove,
-            vertical: VerticalMove);
-
-
+    public PlayerInput GetInput() =>
+        new PlayerInput
+        {
+            fire1Pressed = false,
+            fire2Pressed = false,
+            fire2Active = false,
+            jumpPressed = false,
+            jumpReleased = false,
+            horizontal = HorizontalMove,
+            vertical = VerticalMove,
+        };
 }
