@@ -28,6 +28,7 @@ public class LegMovement : MonoBehaviour
     private CharacterState characterState;
     private RaycastCollider groundCollider;
     private SpriteRenderer spriteRenderer;
+    private ITIInputContext inputContext;
     private float gravity;
     private float initialJumpSpeed;
     private float dampedJumpSpeed; // What jump speed becomes after Jump button is released.
@@ -38,7 +39,6 @@ public class LegMovement : MonoBehaviour
     // Modified during gameplay.
     private Vector2 velocity;
     private float velocityXSmoothing;
-    private TIInputStateManager inputStateManager = new TIInputStateManager();
 
     private bool IsFacingRight => characterState.collisions.faceDir == 1;
 
@@ -56,11 +56,18 @@ public class LegMovement : MonoBehaviour
             boxCollider,
             characterState.collisions);
 
+        inputContext = TIInputStateManager.instance.CreateContext();
+
         timedAnimTriggers = new TimedAnimationTriggers(animator, 0.1f);
 
         gravity = -(2 * movement.jumpHeightMax) / Mathf.Pow(movement.jumpApexTime, 2);
         initialJumpSpeed = Mathf.Abs(gravity) * movement.jumpApexTime;
         dampedJumpSpeed = Mathf.Sqrt(2 * Mathf.Abs(gravity) * movement.jumpHeightMin);
+    }
+
+    private void OnDestroy()
+    {
+        inputContext?.Dispose();
     }
 
     private void FixedUpdate()
@@ -69,7 +76,7 @@ public class LegMovement : MonoBehaviour
 
         var oldVelocity = velocity;
 
-        var currentInput = inputStateManager.GetStateAndResetEventFlags();
+        var currentInput = inputContext.GetStateAndResetEventFlags();
         HandleVerticalInput(currentInput);
         HandleHorizontalInput(currentInput);
 
@@ -203,10 +210,4 @@ public class LegMovement : MonoBehaviour
 
         transform.Translate(moveAmount);
     }
-
-    public void InputEvent_Move(InputAction.CallbackContext context) =>
-        inputStateManager.InputEvent_Move(context);
-
-    public void InputEvent_Jump(InputAction.CallbackContext context) =>
-        inputStateManager.InputEvent_Jump(context);
 }

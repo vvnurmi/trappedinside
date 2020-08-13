@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class GameOverBoxController : MonoBehaviour
@@ -8,7 +7,18 @@ public class GameOverBoxController : MonoBehaviour
     [TextArea]
     public string[] gameOverQuips;
 
+    private ITIInputContext inputContext;
     private bool isAcknowledged;
+
+    private void Start()
+    {
+        inputContext = TIInputStateManager.instance.CreateContext();
+    }
+
+    private void OnDestroy()
+    {
+        inputContext?.Dispose();
+    }
 
     private void Awake()
     {
@@ -20,13 +30,8 @@ public class GameOverBoxController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isAcknowledged)
+        var inputState = inputContext.GetStateAndResetEventFlags();
+        if (inputState.uiSubmitPressed)
             UIController.Instance.RestartLevel();
-    }
-
-    public void InputEvent_Submit(InputAction.CallbackContext context)
-    {
-        var value = context.ReadValue<float>();
-        isAcknowledged |= value >= 0.5f;
     }
 }

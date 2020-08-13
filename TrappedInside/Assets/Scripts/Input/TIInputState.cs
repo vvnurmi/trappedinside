@@ -1,6 +1,8 @@
-﻿/// <summary>
-/// Snapshot of player input state. Use <see cref="TIInputStateManager"/> to handle
-/// input events and event flags.
+﻿using UnityEngine;
+
+/// <summary>
+/// Snapshot of player input state. Call <see cref="TIInputStateManager.CreateContext"/>
+/// to create a context that will provide populated input states.
 /// </summary>
 public struct TIInputState
 {
@@ -12,4 +14,9 @@ public struct TIInputState
     public bool jumpActive;
     public float horizontal;
     public float vertical;
+    public Vector2 uiNavigate;
+    public bool uiSubmitPressed;
+    public bool uiSubmitActive;
+    public bool uiCancelPressed;
+    public bool uiCancelActive;
 }

@@ -34,7 +34,7 @@ public class MeleeAttack : MonoBehaviour
 
     // Modified during gameplay.
     private MeleeAttackType? activeAttack;
-    private TIInputStateManager inputStateManager = new TIInputStateManager();
+    private ITIInputContext inputContext;
 
     #region MonoBehaviour overrides
 
@@ -45,7 +45,14 @@ public class MeleeAttack : MonoBehaviour
         characterState = GetComponent<CharacterState>();
         DeactivateWeapons();
 
+        inputContext = TIInputStateManager.instance.CreateContext();
+
         timedAnimTriggers = new TimedAnimationTriggers(animator, 0.1f);
+    }
+
+    private void OnDestroy()
+    {
+        inputContext?.Dispose();
     }
 
     private void Update()
@@ -54,7 +61,7 @@ public class MeleeAttack : MonoBehaviour
 
         RelayWeaponCapabilities();
 
-        var currentInput = inputStateManager.GetStateAndResetEventFlags();
+        var currentInput = inputContext.GetStateAndResetEventFlags();
         HandleInput(currentInput);
     }
 
@@ -98,12 +105,6 @@ public class MeleeAttack : MonoBehaviour
                 timedAnimTriggers.Set("StartShielding");
         }
     }
-
-    public void InputEvent_Move(InputAction.CallbackContext context) =>
-        inputStateManager.InputEvent_Move(context);
-
-    public void InputEvent_Shield(InputAction.CallbackContext context) =>
-        inputStateManager.InputEvent_Shield(context);
 
     public void AnimEvent_StartAttacking(MeleeAttackType attack)
     {
