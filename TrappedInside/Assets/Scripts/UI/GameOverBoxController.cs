@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class GameOverBoxController : MonoBehaviour
@@ -6,6 +7,8 @@ public class GameOverBoxController : MonoBehaviour
     [Tooltip("Quips to display in the game over box.")]
     [TextArea]
     public string[] gameOverQuips;
+
+    private bool isAcknowledged;
 
     private void Awake()
     {
@@ -17,11 +20,13 @@ public class GameOverBoxController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var prompted =
-            Input.GetButtonDown("Fire1") ||
-            Input.GetButtonDown("Fire2") ||
-            Input.GetButtonDown("Jump");
-        if (prompted)
+        if (isAcknowledged)
             UIController.Instance.RestartLevel();
+    }
+
+    public void InputEvent_Submit(InputAction.CallbackContext context)
+    {
+        var value = context.ReadValue<float>();
+        isAcknowledged |= value >= 0.5f;
     }
 }
