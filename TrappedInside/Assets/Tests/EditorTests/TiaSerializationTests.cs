@@ -95,7 +95,7 @@ Name: {scriptName}";
         [Test]
         public void SpeechStep()
         {
-            var richText= "I <size=200%>will</size> say something!";
+            var richText = "I <size=200%>will</size> say something!";
             var deserializedAction = $@"
 !Speech
 Text: {richText}";

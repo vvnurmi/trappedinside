@@ -46,7 +46,7 @@ public struct TimedAnimationTriggers
     {
         // Concern: Potentially slow removal from List.
         // In practice there should mostly be 0 or 1 elements, so no worry.
-        Debug.Assert(setTriggers.Count < 3);
+        Debug.Assert(setTriggers.Count < 3, $"Many timed animation triggers: {setTriggers.Count}");
         while (setTriggers.Count > 0 && setTriggers[0].resetTime <= Time.time)
         {
             animator.ResetTrigger(setTriggers[0].name);
