@@ -7,5 +7,5 @@ public interface IInputProvider
     /// <summary>
     /// Returns the current state of the input.
     /// </summary>
-    PlayerInput GetInput();
+    TIInputState GetInput();
 }

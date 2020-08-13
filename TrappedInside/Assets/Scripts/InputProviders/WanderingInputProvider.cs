@@ -28,9 +28,9 @@ public class WanderingInputProvider : MonoBehaviour, IInputProvider
             horizontalMove = -horizontalMove;
     }
 
-    public PlayerInput GetInput()
+    public TIInputState GetInput()
     {
-        return new PlayerInput
+        return new TIInputState
         {
             fire1Pressed = false,
             fire2Pressed = false,

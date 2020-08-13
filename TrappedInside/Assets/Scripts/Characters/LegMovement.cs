@@ -38,7 +38,7 @@ public class LegMovement : MonoBehaviour
     // Modified during gameplay.
     private Vector2 velocity;
     private float velocityXSmoothing;
-    private PlayerInputManager inputStateManager = new PlayerInputManager();
+    private TIInputStateManager inputStateManager = new TIInputStateManager();
 
     private bool IsFacingRight => characterState.collisions.faceDir == 1;
 
@@ -89,7 +89,7 @@ public class LegMovement : MonoBehaviour
 
     #endregion
 
-    private void HandleVerticalInput(PlayerInput input)
+    private void HandleVerticalInput(TIInputState input)
     {
         if (characterState.isClimbing)
         {
@@ -130,9 +130,9 @@ public class LegMovement : MonoBehaviour
         animator.SetBool("Climbing", characterState.isClimbing);
     }
 
-    private bool HasReachedLadderBottom(PlayerInput input) => input.vertical < 0 && characterState.collisions.below;
+    private bool HasReachedLadderBottom(TIInputState input) => input.vertical < 0 && characterState.collisions.below;
 
-    private void HandleHorizontalInput(PlayerInput input)
+    private void HandleHorizontalInput(TIInputState input)
     {
         if (characterState.isClimbing)
             return;

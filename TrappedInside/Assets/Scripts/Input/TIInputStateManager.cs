@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInputManager
+public class TIInputStateManager
 {
-    private PlayerInput inputState;
+    private TIInputState inputState;
 
     /// <summary>
     /// Call this exactly once every update. That way you'll get correct values for the event flags
-    /// in <see cref="PlayerInput"/>.
+    /// in <see cref="TIInputState"/>.
     /// </summary>
-    public PlayerInput GetStateAndResetEventFlags()
+    public TIInputState GetStateAndResetEventFlags()
     {
         var currentInput = inputState;
         inputState.fire1Pressed = false;
@@ -40,20 +40,4 @@ public class PlayerInputManager
         inputState.fire2Pressed |= !inputState.fire2Active && value >= 0.5f;
         inputState.fire2Active = value >= 0.5f;
     }
-}
-
-/// <summary>
-/// Snapshot of player input state. Use <see cref="PlayerInputManager"/> to handle
-/// input events and event flags.
-/// </summary>
-public struct PlayerInput
-{
-    public bool fire1Pressed;
-    public bool fire2Pressed;
-    public bool fire2Active;
-    public bool jumpPressed;
-    public bool jumpReleased;
-    public bool jumpActive;
-    public float horizontal;
-    public float vertical;
 }

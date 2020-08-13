@@ -79,8 +79,8 @@ public class CluedInputProvider : MonoBehaviour, IInputProvider
         }
     }
 
-    public PlayerInput GetInput() =>
-        new PlayerInput
+    public TIInputState GetInput() =>
+        new TIInputState
         {
             fire1Pressed = false,
             fire2Pressed = false,

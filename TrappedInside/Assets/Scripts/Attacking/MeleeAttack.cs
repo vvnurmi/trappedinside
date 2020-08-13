@@ -34,7 +34,7 @@ public class MeleeAttack : MonoBehaviour
 
     // Modified during gameplay.
     private MeleeAttackType? activeAttack;
-    private PlayerInputManager inputStateManager = new PlayerInputManager();
+    private TIInputStateManager inputStateManager = new TIInputStateManager();
 
     #region MonoBehaviour overrides
 
@@ -84,7 +84,7 @@ public class MeleeAttack : MonoBehaviour
                 animator.SetBool(capability.ToString(), capabilities.HasFlag(capability));
     }
 
-    private void HandleInput(PlayerInput input)
+    private void HandleInput(TIInputState input)
     {
         animator.SetBool("IsPrepUp", input.vertical > 0.5f && characterState.CanInflictDamage);
         animator.SetBool("IsPrepDown", input.vertical < -0.5f && characterState.CanInflictDamage);
