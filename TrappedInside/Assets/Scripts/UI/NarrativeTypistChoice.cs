@@ -65,15 +65,6 @@ public class NarrativeTypistChoice : NarrativeTypist
         };
     }
 
-    override protected void FixedUpdate()
-    {
-        base.FixedUpdate();
-
-        if (!choiceComponent.enabled) return;
-
-        ReadInput();
-    }
-
     #endregion
 
     protected override void OnTypingFinished()
@@ -98,16 +89,19 @@ public class NarrativeTypistChoice : NarrativeTypist
         base.OnTypingAcknowledged();
     }
 
-    private void ReadInput()
-    {
-        var horizontal = Input.GetAxis("Horizontal");
-        var isSubmitDown = Input.GetButtonDown("Submit");
 
-        if (horizontal < 0)
-            Choose(0);
-        if (horizontal > 0)
-            Choose(1);
-        if (isSubmitDown)
-            Confirm();
+    override protected void HandleInput(TIInputState inputState)
+    {
+        if (choiceComponent.enabled)
+        {
+            if (inputState.uiNavigate.x <= -0.5f)
+                Choose(0);
+            if (inputState.uiNavigate.x >= 0.5f)
+                Choose(1);
+            if (inputState.uiSubmitPressed)
+                Confirm();
+        }
+
+        base.HandleInput(inputState);
     }
 }

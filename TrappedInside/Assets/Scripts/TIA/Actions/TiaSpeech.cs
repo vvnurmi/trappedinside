@@ -46,7 +46,7 @@ public class TiaSpeech : ITiaAction
     private NarrativeTypist narrativeTypist;
     private GameObject speechBubble;
 
-    public bool IsDone => narrativeTypist?.IsDoneTyping == true;
+    public bool IsDone => narrativeTypist?.State == NarrativeTypistState.Finished;
 
     public TiaSpeech()
     {
