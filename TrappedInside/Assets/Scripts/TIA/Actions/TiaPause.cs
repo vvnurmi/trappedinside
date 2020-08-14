@@ -23,4 +23,8 @@ public class TiaPause : ITiaAction
 
         IsDone = Time.time >= finishTime;
     }
+
+    public void Finish(ITiaActionContext context)
+    {
+    }
 }

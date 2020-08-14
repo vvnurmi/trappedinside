@@ -22,6 +22,10 @@ public class TiaActivate : ITiaAction, IYamlConvertible
         IsDone = true;
     }
 
+    public void Finish(ITiaActionContext context)
+    {
+    }
+
     #region IYamlConvertible implementation
 
     public void Read(IParser parser, Type expectedType, ObjectDeserializer nestedObjectDeserializer)
@@ -52,6 +56,10 @@ public class TiaDeactivate : ITiaAction, IYamlConvertible
     {
         context.Actor.GameObject.SetActive(false);
         IsDone = true;
+    }
+
+    public void Finish(ITiaActionContext context)
+    {
     }
 
     #region IYamlConvertible implementation

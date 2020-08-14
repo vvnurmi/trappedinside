@@ -83,7 +83,7 @@ public class HitPoints : MonoBehaviour
     private void Die()
     {
         characterState.isDead = true;
-        animator.SetBool("IsDead", true);
+        animator?.SetBool("IsDead", true);
         CallHandlers<IDying>(a => a.OnDying());
     }
 

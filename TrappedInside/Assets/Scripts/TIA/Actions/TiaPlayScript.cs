@@ -20,4 +20,9 @@ public class TiaPlayScript : ITiaAction
     {
         throw new NotImplementedException();
     }
+
+    public void Finish(ITiaActionContext context)
+    {
+        throw new NotImplementedException();
+    }
 }

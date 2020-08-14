@@ -27,7 +27,6 @@ public class TiaMove : ITiaAction
         IsDone = false;
         startTime = Time.time;
 
-        // TODO: Extract component finding into a method.
         var curveObject = context.TiaRoot.FindChildByName(CurveName);
         Debug.Assert(curveObject != null);
         if (curveObject != null)
@@ -42,6 +41,10 @@ public class TiaMove : ITiaAction
         RepositionOnCurve(context.Actor.GameObject);
 
         IsDone = Time.time >= startTime + DurationSeconds;
+    }
+
+    public void Finish(ITiaActionContext context)
+    {
     }
 
     private void RepositionOnCurve(GameObject obj)

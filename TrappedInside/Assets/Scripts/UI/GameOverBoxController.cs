@@ -7,6 +7,19 @@ public class GameOverBoxController : MonoBehaviour
     [TextArea]
     public string[] gameOverQuips;
 
+    private ITIInputContext inputContext;
+    private bool isAcknowledged;
+
+    private void Start()
+    {
+        inputContext = TIInputStateManager.instance.CreateContext();
+    }
+
+    private void OnDestroy()
+    {
+        inputContext?.Dispose();
+    }
+
     private void Awake()
     {
         var quip = GameObject.FindGameObjectWithTag("GameOverQuip");
@@ -17,11 +30,8 @@ public class GameOverBoxController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var prompted =
-            Input.GetButtonDown("Fire1") ||
-            Input.GetButtonDown("Fire2") ||
-            Input.GetButtonDown("Jump");
-        if (prompted)
+        var inputState = inputContext.GetStateAndResetEventFlags();
+        if (inputState.uiSubmitPressed)
             UIController.Instance.RestartLevel();
     }
 }

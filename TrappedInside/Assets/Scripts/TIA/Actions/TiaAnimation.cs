@@ -20,4 +20,8 @@ public class TiaAnimation : ITiaAction
         animator.Play(AnimationName);
         IsDone = true;
     }
+
+    public void Finish(ITiaActionContext context)
+    {
+    }
 }

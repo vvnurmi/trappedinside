@@ -14,4 +14,10 @@ public interface ITiaAction
     /// Called regularly after start until <see cref="IsDone"/>
     /// </summary>
     void Update(ITiaActionContext context);
+
+    /// <summary>
+    /// Called when the action is done and the action sequence is
+    /// moving to the next action.
+    /// </summary>
+    void Finish(ITiaActionContext context);
 }

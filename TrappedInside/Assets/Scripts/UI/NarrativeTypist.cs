@@ -1,6 +1,21 @@
 ﻿using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
+
+public class NarrativeTypistSetup
+{
+    public string fullText;
+    public string speaker;
+    public string leftChoice;
+    public string rightChoice;
+}
+
+public enum NarrativeTypistState
+{
+    Uninitialized,
+    Typing,
+    UserPrompt,
+    Finished,
+}
 
 /// <summary>
 /// Displays text in a text box as if it was being typed in.
@@ -9,56 +24,74 @@ public class NarrativeTypist : MonoBehaviour
 {
     // Set about once, probably in Start().
     private NarrativeTypistSettings settings;
-    private TalkAnimator talkAnimator;
-    private Text textComponent;
-    private string fullText;
+    private TMPro.TextMeshProUGUI textComponent;
+    private NarrativeTypistSetup setup;
     private float startTime;
+    private ITIInputContext inputContext;
 
     // Modified during gameplay.
     private int charsToShow;
 
-    public bool IsDoneTyping => charsToShow == fullText.Length;
+    public NarrativeTypistState State { get; set; } = NarrativeTypistState.Uninitialized;
+
+    /// <summary>
+    /// Starts the typing process. The process will finish when all
+    /// of <paramref name="fullText"/> is displayed.
+    /// </summary>
+    public virtual void StartTyping(NarrativeTypistSetup narrativeTypistSetup)
+    {
+        State = NarrativeTypistState.Typing;
+        setup = narrativeTypistSetup;
+        charsToShow = 0;
+        startTime = Time.time;
+
+        var textFields = GetComponentsInChildren<TMPro.TextMeshProUGUI>();
+        foreach (var textField in textFields)
+        {
+            if (textField.gameObject.CompareTag("SpeechText"))
+            {
+                textComponent = textField;
+                textField.text = "";
+            }
+            if (textField.gameObject.CompareTag("SpeechSpeaker"))
+                textField.text = setup.speaker;
+        }
+    }
 
     #region MonoBehaviour overrides
+
+    private void Start()
+    {
+        Debug.Assert(inputContext == null);
+        inputContext = TIInputStateManager.instance.CreateContext();
+    }
+
+    private void OnDestroy()
+    {
+        inputContext?.Dispose();
+    }
 
     virtual protected void Awake()
     {
         settings = GetComponentInParent<NarrativeTypistSettings>();
-        talkAnimator = GetComponent<TalkAnimator>();
         Debug.Assert(settings != null,
             $"Expected to find {nameof(NarrativeTypistSettings)} from the parent of {nameof(NarrativeTypist)}");
-        textComponent = GetComponentsInChildren<Text>().First(text => text.name == "Text");
-        Debug.Assert(textComponent != null);
-        fullText = textComponent.text;
+        textComponent = GetComponentsInChildren<TMPro.TextMeshProUGUI>()
+            .Single(text => text.gameObject.CompareTag("SpeechText"));
     }
 
-    private void OnEnable()
+    private void FixedUpdate()
     {
-        startTime = Time.time;
-    }
+        if (State == NarrativeTypistState.Uninitialized) return;
+        if (State == NarrativeTypistState.Finished) return;
 
-    virtual protected void FixedUpdate()
-    {
-        ReadInput();
+        var inputState = inputContext.GetStateAndResetEventFlags();
+        HandleInput(inputState);
 
-        var oldCharsToShow = charsToShow;
-        charsToShow = Mathf.Clamp(
-            value: Mathf.RoundToInt((Time.time - startTime) * settings.charsPerSecond),
-            min: charsToShow,
-            max: fullText.Length);
-        textComponent.text = fullText.Substring(0, charsToShow);
+        UpdateAudiovisuals();
 
-        // If something more was typed, make noise and react to text end.
-        if (oldCharsToShow < charsToShow)
-        {
-            talkAnimator.StartTalkingAnimation();
-            var lastCharIsSpace = textComponent.text.Length == 0 ||
-                char.IsWhiteSpace(textComponent.text[textComponent.text.Length - 1]);
-            if (!lastCharIsSpace)
-                settings.audioSource.TryPlay(settings.characterSound);
-            if (IsDoneTyping)
-                OnTypingFinished();
-        }
+        if (State == NarrativeTypistState.Typing && textComponent.text.Length == setup.fullText.Length)
+            OnTypingFinished();
     }
 
     #endregion
@@ -68,8 +101,8 @@ public class NarrativeTypist : MonoBehaviour
     /// </summary>
     virtual protected void OnTypingFinished()
     {
-        talkAnimator.StopTalkingAnimation();
-        charsToShow = fullText.Length;
+        State = NarrativeTypistState.UserPrompt;
+        charsToShow = setup.fullText.Length;
     }
 
     /// <summary>
@@ -77,20 +110,43 @@ public class NarrativeTypist : MonoBehaviour
     /// </summary>
     virtual protected void OnTypingAcknowledged()
     {
-        gameObject.SetActive(false);
+        State = NarrativeTypistState.Finished;
     }
 
-    private void ReadInput()
+    virtual protected void HandleInput(TIInputState inputState)
     {
-        var isSubmitDown = Input.GetButtonDown("Submit");
-        if (isSubmitDown)
+        if (inputState.uiSubmitPressed)
         {
             // First reveal all of the text. If that's already the case
             // then "acknowledge" the dialog box and move on.
-            if (!IsDoneTyping)
-                OnTypingFinished();
-            else
-                OnTypingAcknowledged();
+            switch (State)
+            {
+                case NarrativeTypistState.Typing:
+                    OnTypingFinished();
+                    break;
+                case NarrativeTypistState.UserPrompt:
+                    OnTypingAcknowledged();
+                    break;
+            }
         }
+    }
+
+    private void UpdateAudiovisuals()
+    {
+        var oldCharsToShow = textComponent.text.Length;
+        charsToShow = Mathf.Clamp(
+            value: Mathf.RoundToInt((Time.time - startTime) * settings.charsPerSecond),
+            min: charsToShow,
+            max: setup.fullText.Length);
+        if (charsToShow == oldCharsToShow) return;
+
+        // Visual update.
+        textComponent.text = setup.fullText.Substring(0, charsToShow);
+
+        // Audio update.
+        var lastCharIsSpace = textComponent.text.Length == 0 ||
+            char.IsWhiteSpace(textComponent.text[textComponent.text.Length - 1]);
+        if (!lastCharIsSpace)
+            settings.audioSource.TryPlay(settings.characterSound);
     }
 }

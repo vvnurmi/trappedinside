@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Handles melee attacking.
@@ -14,7 +15,6 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(CharacterState))]
-[RequireComponent(typeof(InputProvider))]
 public class MeleeAttack : MonoBehaviour
 {
     [EnumFlag("Capabilities")]
@@ -28,13 +28,13 @@ public class MeleeAttack : MonoBehaviour
     private Animator animator;
     private AudioSource audioSource;
     private CharacterState characterState;
-    private InputProvider inputProvider;
 
     // Helpers
     private TimedAnimationTriggers timedAnimTriggers;
 
     // Modified during gameplay.
     private MeleeAttackType? activeAttack;
+    private ITIInputContext inputContext;
 
     #region MonoBehaviour overrides
 
@@ -44,9 +44,15 @@ public class MeleeAttack : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         characterState = GetComponent<CharacterState>();
         DeactivateWeapons();
-        inputProvider = GetComponent<InputProvider>();
+
+        inputContext = TIInputStateManager.instance.CreateContext();
 
         timedAnimTriggers = new TimedAnimationTriggers(animator, 0.1f);
+    }
+
+    private void OnDestroy()
+    {
+        inputContext?.Dispose();
     }
 
     private void Update()
@@ -55,8 +61,8 @@ public class MeleeAttack : MonoBehaviour
 
         RelayWeaponCapabilities();
 
-        var input = inputProvider.GetInput();
-        HandleInput(input);
+        var currentInput = inputContext.GetStateAndResetEventFlags();
+        HandleInput(currentInput);
     }
 
     #endregion
@@ -85,7 +91,7 @@ public class MeleeAttack : MonoBehaviour
                 animator.SetBool(capability.ToString(), capabilities.HasFlag(capability));
     }
 
-    private void HandleInput(PlayerInput input)
+    private void HandleInput(TIInputState input)
     {
         animator.SetBool("IsPrepUp", input.vertical > 0.5f && characterState.CanInflictDamage);
         animator.SetBool("IsPrepDown", input.vertical < -0.5f && characterState.CanInflictDamage);
