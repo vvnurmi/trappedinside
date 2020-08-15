@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using YamlDotNet.Serialization;
 
 /// <summary>
@@ -45,6 +47,7 @@ public class TiaSpeech : ITiaAction
 
     private NarrativeTypist narrativeTypist;
     private GameObject speechBubble;
+    private Task startTask;
 
     public bool IsDone => narrativeTypist?.State == NarrativeTypistState.Finished;
 
@@ -54,9 +57,50 @@ public class TiaSpeech : ITiaAction
         IsModal = true;
     }
 
+    private async Task<GameObject> FindObject(ITiaActionContext context, string name)
+    {
+        const string AddressableNamePrefix = "addressable:";
+        if (SpeechBubbleName.StartsWith(AddressableNamePrefix))
+        {
+            var addressableName = SpeechBubbleName.Substring(AddressableNamePrefix.Length);
+            var loadTask = Addressables.LoadAssetAsync<GameObject>(addressableName).Task;
+            await loadTask;
+            if (loadTask.Status != TaskStatus.RanToCompletion)
+            {
+                Debug.LogWarning($"{nameof(TiaSpeech)} loading addressable '{addressableName}' ended as {loadTask.Status}");
+                return null;
+            }
+            return loadTask.Result;
+        }
+        return context.TiaRoot.FindChildByName(SpeechBubbleName);
+    }
+
+    #region ITiaAction
+
     public void Start(ITiaActionContext context)
     {
-        var bubblePrefab = context.TiaRoot.FindChildByName(SpeechBubbleName);
+        // Start the asynchronous work to create a speech bubble.
+        // Hold on to the task with 'startTask' so that it doesn't get GC'd.
+        startTask = StartAsync(context);
+    }
+
+    public void Update(ITiaActionContext context)
+    {
+        // All work is done by narrativeTypist.
+    }
+
+    public void Finish(ITiaActionContext context)
+    {
+        if (speechBubble != null)
+            UnityEngine.Object.Destroy(speechBubble);
+        speechBubble = null;
+    }
+
+    #endregion
+
+    private async Task StartAsync(ITiaActionContext context)
+    {
+        var bubblePrefab = await FindObject(context, SpeechBubbleName);
         Debug.Assert(bubblePrefab != null);
         if (bubblePrefab == null) return;
 
@@ -73,17 +117,5 @@ public class TiaSpeech : ITiaAction
             rightChoice = "Todo Right!!!",
         };
         narrativeTypist.GetComponent<NarrativeTypist>().StartTyping(typistSetup);
-    }
-
-    public void Update(ITiaActionContext context)
-    {
-        // All work is done by narrativeTypist.
-    }
-
-    public void Finish(ITiaActionContext context)
-    {
-        if (speechBubble != null)
-            UnityEngine.Object.Destroy(speechBubble);
-        speechBubble = null;
     }
 }
