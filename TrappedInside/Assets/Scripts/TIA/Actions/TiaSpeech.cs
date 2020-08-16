@@ -48,8 +48,11 @@ public class TiaSpeech : ITiaAction
     private NarrativeTypist narrativeTypist;
     private GameObject speechBubble;
     private Task startTask;
+    private bool isDoneOverride;
 
-    public bool IsDone => narrativeTypist?.State == NarrativeTypistState.Finished;
+    public bool IsDone
+        => isDoneOverride
+        || narrativeTypist?.State == NarrativeTypistState.Finished;
 
     public TiaSpeech()
     {
@@ -101,13 +104,23 @@ public class TiaSpeech : ITiaAction
     private async Task StartAsync(ITiaActionContext context)
     {
         var bubblePrefab = await FindObject(context, SpeechBubbleName);
-        Debug.Assert(bubblePrefab != null);
-        if (bubblePrefab == null) return;
+        Debug.Assert(bubblePrefab != null, $"{nameof(TiaSpeech)} will skip because it couldn't find speech bubble by name '{SpeechBubbleName}'");
+        if (bubblePrefab == null)
+        {
+            isDoneOverride = true;
+            return;
+        }
 
         speechBubble = UnityEngine.Object.Instantiate(bubblePrefab, context.Actor.GameObject.transform);
+        PositionAbove(who: speechBubble, where: context.Actor.GameObject);
+
         narrativeTypist = speechBubble.GetComponentInChildren<NarrativeTypist>();
         Debug.Assert(narrativeTypist != null, $"Speech bubble has no {nameof(NarrativeTypist)}");
-        if (narrativeTypist == null) return;
+        if (narrativeTypist == null)
+        {
+            isDoneOverride = true;
+            return;
+        }
 
         var typistSetup = new NarrativeTypistSetup
         {
@@ -117,5 +130,15 @@ public class TiaSpeech : ITiaAction
             rightChoice = "Todo Right!!!",
         };
         narrativeTypist.GetComponent<NarrativeTypist>().StartTyping(typistSetup);
+    }
+
+    private void PositionAbove(GameObject who, GameObject where)
+    {
+        var renderer = where.GetComponentInChildren<Renderer>();
+        if (renderer != null)
+        {
+            var middleTopLocal = new Vector3(0, renderer.bounds.extents.y, 0);
+            speechBubble.transform.localPosition += middleTopLocal;
+        }
     }
 }

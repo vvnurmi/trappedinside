@@ -6,4 +6,12 @@ Steps:
     Actions:
     - !Move
       Curve: Business card swirl
-      Seconds: 3
+      Seconds: 10
+  - Actor: Purple business card
+    Actions:
+    - !Speech
+      Text: Hello <size=200%>world!</size>
+      Bubble: addressable:Speech Bubble
+    - !Speech
+      Text: A second text emerges.
+      Bubble: addressable:Speech Bubble
