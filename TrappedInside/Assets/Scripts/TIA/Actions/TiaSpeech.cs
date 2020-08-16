@@ -48,8 +48,11 @@ public class TiaSpeech : ITiaAction
     private NarrativeTypist narrativeTypist;
     private GameObject speechBubble;
     private Task startTask;
+    private bool isDoneOverride;
 
-    public bool IsDone => narrativeTypist?.State == NarrativeTypistState.Finished;
+    public bool IsDone
+        => isDoneOverride
+        || narrativeTypist?.State == NarrativeTypistState.Finished;
 
     public TiaSpeech()
     {
@@ -101,13 +104,21 @@ public class TiaSpeech : ITiaAction
     private async Task StartAsync(ITiaActionContext context)
     {
         var bubblePrefab = await FindObject(context, SpeechBubbleName);
-        Debug.Assert(bubblePrefab != null);
-        if (bubblePrefab == null) return;
+        Debug.Assert(bubblePrefab != null, $"{nameof(TiaSpeech)} will skip because it couldn't find speech bubble by name '{SpeechBubbleName}'");
+        if (bubblePrefab == null)
+        {
+            isDoneOverride = true;
+            return;
+        }
 
         speechBubble = UnityEngine.Object.Instantiate(bubblePrefab, context.Actor.GameObject.transform);
         narrativeTypist = speechBubble.GetComponentInChildren<NarrativeTypist>();
         Debug.Assert(narrativeTypist != null, $"Speech bubble has no {nameof(NarrativeTypist)}");
-        if (narrativeTypist == null) return;
+        if (narrativeTypist == null)
+        {
+            isDoneOverride = true;
+            return;
+        }
 
         var typistSetup = new NarrativeTypistSetup
         {

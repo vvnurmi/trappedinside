@@ -310,5 +310,28 @@ namespace Tests
                     + string.Join("|", tmpUguis.Select(ugui => ugui.text)));
             }
         }
+
+        [UnityTest]
+        public IEnumerator SpeechThrowsIfSpeechBubbleIsNotFound()
+        {
+            var richText = "I <size=200%>will</size> say something!";
+            var speechBubbleName = "nonexistent";
+
+            var tiaRoot = NewGameObject("TIA root");
+            var testObject = NewGameObject("test object");
+            testObject.transform.parent = tiaRoot.transform;
+
+            var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
+            tiaPlayer.script = NewSimpleScript(testObject,
+                new TiaSpeech
+                {
+                    TmpRichText = richText,
+                    SpeechBubbleName = speechBubbleName,
+                },
+                new TiaDeactivate());
+
+            LogAssert.Expect(LogType.Assert, new Regex($"couldn't find speech bubble.*{speechBubbleName}"));
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }
