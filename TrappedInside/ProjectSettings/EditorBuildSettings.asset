@@ -8,30 +8,33 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Init.unity
     guid: a46d587c25701b9428b222aa5447b148
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Title.unity
     guid: 09218d1f8459e13439b26808e879612b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Level1a_Intro.unity
     guid: 1caf441125488c041b4afa67542ab7e4
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Level1b_Cabin.unity
     guid: e8787d288d82b374c93163e373b779bf
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Level1c_Forest.unity
     guid: 703ad9c93f78e024db41eb0189a573b8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Level1d_Council.unity
     guid: b57e7867dc0922f47879141e54d4cede
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Level1e_Bee_Hive.unity
     guid: 2ff4b61ca0d5a604ebff4f5975831877
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Level1f_Boss.unity
     guid: e842b13bcd46ec54faead32338c380dd
+  - enabled: 1
+    path: Assets/Scenes/Demo scenes/level-1-test.unity
+    guid: 0ced4fb95c5099345a02d8ef4736f0e0
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 4788a9f707974c9409ebed9ad67922ff,
       type: 2}
