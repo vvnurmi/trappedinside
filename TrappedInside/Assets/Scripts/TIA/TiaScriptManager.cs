@@ -92,15 +92,14 @@ public class TiaScriptManager : MonoBehaviour
     private static void OnBeforeSceneLoadRuntimeMethod()
     {
         Debug.Assert(host == null);
-        host = new GameObject("Tia Script Manager", typeof(TiaScriptManager));
+        host = new GameObject("TIA Script Manager", typeof(TiaScriptManager));
         DontDestroyOnLoad(host);
     }
 
     private void Awake()
     {
         locationTask = Addressables.LoadResourceLocationsAsync("TiaScript", typeof(TextAsset)).Task;
-        var asyncOperation = Addressables.LoadAssetsAsync<TextAsset>("TiaScript", null);
-        loadTask = asyncOperation.Task;
+        loadTask = Addressables.LoadAssetsAsync<TextAsset>("TiaScript", null).Task;
     }
 
     #endregion
