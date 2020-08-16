@@ -103,7 +103,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 20
+        width: 22
         height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -112,7 +112,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e9b6f58a7b18ffe4aa81e11015b77188
+      spriteID: 83b54756477f3f14b8107ad707f64f85
       internalID: 2027317182666905355
       vertices: []
       indices: 
@@ -122,9 +122,9 @@ TextureImporter:
       name: hedgehog-2_1
       rect:
         serializedVersion: 2
-        x: 20
+        x: 22
         y: 0
-        width: 20
+        width: 22
         height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -133,50 +133,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6755ae915078edf4ca5059d9ebf60c09
+      spriteID: bdb6130d2588c8f4da8cbdf09b1d2966
       internalID: 5259622177757933119
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: hedgehog-2_2
-      rect:
-        serializedVersion: 2
-        x: 40
-        y: 0
-        width: 20
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 142b5af4bffa1964da9b48f3d8054f61
-      internalID: -894983812680883860
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: hedgehog-2_3
-      rect:
-        serializedVersion: 2
-        x: 60
-        y: 0
-        width: 20
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 550c4f66e82806c49b07822d1482ea87
-      internalID: -2457965561033707739
       vertices: []
       indices: 
       edges: []
