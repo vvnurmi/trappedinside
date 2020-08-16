@@ -96,12 +96,15 @@ Name: {scriptName}";
         public void SpeechStep()
         {
             var richText = "I <size=200%>will</size> say something!";
+            var bubbleName = "Speech Bubble";
             var deserializedAction = $@"
 !Speech
-Text: {richText}";
+Text: {richText}
+Bubble: {bubbleName}";
             void AssertProperties(TiaSpeech step)
             {
                 Assert.AreEqual(richText, step.TmpRichText);
+                Assert.AreEqual(bubbleName, step.SpeechBubbleName);
                 Assert.AreEqual(1, step.TypingSpeedMultiplier);
                 Assert.IsTrue(step.IsModal);
             }
