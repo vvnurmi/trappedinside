@@ -112,6 +112,8 @@ public class TiaSpeech : ITiaAction
         }
 
         speechBubble = UnityEngine.Object.Instantiate(bubblePrefab, context.Actor.GameObject.transform);
+        PositionAbove(who: speechBubble, where: context.Actor.GameObject);
+
         narrativeTypist = speechBubble.GetComponentInChildren<NarrativeTypist>();
         Debug.Assert(narrativeTypist != null, $"Speech bubble has no {nameof(NarrativeTypist)}");
         if (narrativeTypist == null)
@@ -128,5 +130,15 @@ public class TiaSpeech : ITiaAction
             rightChoice = "Todo Right!!!",
         };
         narrativeTypist.GetComponent<NarrativeTypist>().StartTyping(typistSetup);
+    }
+
+    private void PositionAbove(GameObject who, GameObject where)
+    {
+        var renderer = where.GetComponentInChildren<Renderer>();
+        if (renderer != null)
+        {
+            var middleTopLocal = new Vector3(0, renderer.bounds.extents.y, 0);
+            speechBubble.transform.localPosition += middleTopLocal;
+        }
     }
 }
