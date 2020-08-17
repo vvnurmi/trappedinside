@@ -9,16 +9,16 @@ namespace Tests
         [Test]
         public void BasicProperties()
         {
-            var scriptName = "Test Script";
+            var description = "Test Script";
             var playOnStart = true;
 
             var serialized = $@"
 ---
-Name: {scriptName}
+Description: {description}
 AutoPlay: {playOnStart}";
 
             var tiaScript = TiaScript.Read(serialized);
-            Assert.AreEqual(scriptName, tiaScript.ScriptName);
+            Assert.AreEqual(description, tiaScript.Description);
             Assert.AreEqual(playOnStart, tiaScript.PlayOnStart);
         }
 

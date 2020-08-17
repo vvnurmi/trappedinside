@@ -34,7 +34,7 @@ namespace Tests
         protected TiaScript NewSimpleScript(GameObject actor, params ITiaAction[] actions) =>
             new TiaScript
             {
-                ScriptName = "Test Script",
+                Description = "Test Script",
                 PlayOnStart = true,
                 Steps = new[]
                 {

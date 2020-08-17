@@ -9,15 +9,14 @@ public class TiaScript
     /// </summary>
     public static readonly TiaScript Empty = new TiaScript
     {
-        ScriptName = "<Empty Script>",
+        Description = "<Empty Script>",
         Steps = new TiaStep[0],
     };
 
     /// <summary>
-    /// Human-readable name for identification.
+    /// Human-readable account of what the script is about.
     /// </summary>
-    [YamlMember(Alias = "Name")]
-    public string ScriptName { get; set; }
+    public string Description { get; set; }
 
     /// <summary>
     /// If true then start executing steps immediately.
