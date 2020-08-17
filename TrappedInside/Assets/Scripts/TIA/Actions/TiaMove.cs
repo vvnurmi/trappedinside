@@ -13,13 +13,18 @@ public class TiaMove : ITiaAction
     [YamlMember(Alias = "Seconds")]
     public float DurationSeconds { get; set; }
 
+    /// <summary>
+    /// If true, multiply actor scale by -1 when moving left.
+    /// </summary>
+    public bool FlipLeft { get; set; }
+
     public bool IsDone { get; private set; }
 
     public BezierCurve Curve =>
         curve ?? throw new InvalidOperationException($"{nameof(TiaMove)} has no curve, maybe {nameof(Start)} wasn't called?");
 
     private BezierCurve curve;
-
+    private bool isFlipped;
     private float startTime;
 
     public void Start(ITiaActionContext context)
@@ -52,7 +57,22 @@ public class TiaMove : ITiaAction
         float flightTime = Time.time - startTime;
         float curveParam = Mathf.InverseLerp(0, DurationSeconds, flightTime);
         var pathPosition = Curve.GetPointAt(curveParam);
+        var oldPosition = obj.transform.position;
 
         obj.transform.SetPositionAndRotation(pathPosition, obj.transform.rotation);
+
+        if (FlipLeft)
+        {
+            var keepEitherFlipState = Mathf.Abs(oldPosition.x - pathPosition.x) < 1e-3f;
+            var shouldBeFlipped = oldPosition.x > pathPosition.x;
+            if (!keepEitherFlipState && isFlipped != shouldBeFlipped)
+            {
+                obj.transform.localScale = new Vector3(
+                    -obj.transform.localScale.x,
+                    obj.transform.localScale.y,
+                    obj.transform.localScale.z);
+                isFlipped = shouldBeFlipped;
+            }
+        }
     }
 }
