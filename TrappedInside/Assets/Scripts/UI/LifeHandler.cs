@@ -5,14 +5,12 @@ using System.Linq;
 public class LifeHandler : MonoBehaviour
 {
     private Image[] hearts;
-    private Camera camera;
     public GameObject particleEffect;
 
 
     private void Awake()
     {
         hearts = GetComponentsInChildren<Image>();
-        camera = FindObjectOfType<Camera>();
     }
 
     public int NumberOfHearts => hearts.Count(heart => heart.enabled);
