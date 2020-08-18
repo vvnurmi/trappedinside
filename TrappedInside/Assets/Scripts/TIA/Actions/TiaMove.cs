@@ -14,7 +14,7 @@ public class TiaMove : ITiaAction
     public float DurationSeconds { get; set; }
 
     /// <summary>
-    /// If true, multiply actor scale by -1 when moving left.
+    /// If true, flip <see cref="SpriteRenderer"/> components when moving left.
     /// </summary>
     public bool FlipLeft { get; set; }
 
@@ -67,10 +67,9 @@ public class TiaMove : ITiaAction
             var shouldBeFlipped = oldPosition.x > pathPosition.x;
             if (!keepEitherFlipState && isFlipped != shouldBeFlipped)
             {
-                obj.transform.localScale = new Vector3(
-                    -obj.transform.localScale.x,
-                    obj.transform.localScale.y,
-                    obj.transform.localScale.z);
+                var spriteRenderers = obj.GetComponentsInChildren<SpriteRenderer>();
+                foreach (var renderer in spriteRenderers)
+                    renderer.flipX = !renderer.flipX;
                 isFlipped = shouldBeFlipped;
             }
         }

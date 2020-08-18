@@ -48,6 +48,7 @@ namespace Tests
 
             var testObject = NewGameObject("test object");
             testObject.transform.parent = tiaRoot.transform;
+            var spriteRenderer = testObject.AddComponent<SpriteRenderer>();
 
             var curveObject = NewGameObject("Test Curve");
             curveObject.transform.parent = tiaRoot.transform;
@@ -65,13 +66,11 @@ namespace Tests
                     FlipLeft = true,
                 });
 
-            const float Epsilon = 1e-4f;
-
             yield return new WaitForSeconds(0.5f);
-            Assert.AreEqual(1, testObject.transform.localScale.x, Epsilon);
+            Assert.IsFalse(spriteRenderer.flipX);
 
             yield return new WaitForSeconds(1);
-            Assert.AreEqual(-1, testObject.transform.localScale.x, Epsilon);
+            Assert.IsTrue(spriteRenderer.flipX);
         }
     }
 }
