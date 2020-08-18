@@ -1,0 +1,66 @@
+---
+AutoPlay: true
+Steps:
+- Sequences:
+  - Actor: Randalf
+    Actions:
+    - !Pause
+      Seconds: 2.2
+    - !Activate
+  - Actor: Smoke
+    Actions:
+    - !Pause
+      Seconds: 2
+    - !Activate
+    - !Pause
+      Seconds: 1
+    - !Deactivate
+- Sequences:
+  - Actor: Mike
+    Actions:
+    - !Animation
+      Name: Running
+    - !Move
+      Curve: Mike to Randalf
+      Seconds: 1
+    - !Animation
+      Name: Idle
+    - !Speech
+      Text: Randalf!
+      Bubble: addressable:Speech Bubble
+- Sequences:
+  - Actor: Randalf
+    Actions:
+    - !Speech
+      Text: Mike, we need your more than ever!
+      Bubble: addressable:Speech Bubble
+- Sequences:
+  - Actor: Mike
+    Actions:
+    - !Speech
+      Text: Calm down Randalf the great Wizard, what is it?
+      Bubble: addressable:Speech Bubble
+- Sequences:
+  - Actor: Randalf
+    Actions:
+    - !Speech
+      Text: I'll explain later. Now follow me.
+      Bubble: addressable:Speech Bubble
+- Sequences:
+  - Actor: Randalf
+    Actions:
+    - !Pause
+      Seconds: 1.2
+    - !Deactivate
+  - Actor: Smoke
+    Actions:
+    - !Pause
+      Seconds: 1
+    - !Activate
+    - !Pause
+      Seconds: 1
+    - !Deactivate
+- Sequences:
+  - Actor: LevelLoadOnAwake
+    Actions:
+    - !Activate
