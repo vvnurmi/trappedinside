@@ -25,6 +25,11 @@ public interface ITiaActionContext
     TiaActor Actor { get; }
 
     /// <summary>
+    /// Creates a new object which is identical to the context.
+    /// </summary>
+    ITiaActionContext Clone();
+
+    /// <summary>
     /// Sets <paramref name="actionSequence"/> as the active one.
     /// </summary>
     void SetActionSequence(TiaActionSequence actionSequence);
@@ -53,6 +58,9 @@ public struct TiaActionContext : ITiaActionContext
     {
         throw new NotImplementedException();
     }
+
+    // We're a value type, so this will return a shallow copy.
+    public ITiaActionContext Clone() => this;
 
     public void SetActionSequence(TiaActionSequence actionSequence)
     {
