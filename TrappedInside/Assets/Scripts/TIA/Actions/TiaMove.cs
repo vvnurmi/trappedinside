@@ -18,6 +18,9 @@ public class TiaMove : ITiaAction
     /// </summary>
     public bool FlipLeft { get; set; }
 
+    [YamlIgnore]
+    public string DebugName { get; set; }
+
     public bool IsDone { get; private set; }
 
     public BezierCurve Curve =>

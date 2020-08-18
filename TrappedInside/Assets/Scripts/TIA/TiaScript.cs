@@ -53,6 +53,7 @@ public class TiaScript
         tiaScript.Steps = tiaScript.Steps ?? new TiaStep[0];
 
         VerifyThatActionsDeserializedProperly(tiaScript);
+        SetDebugNames(tiaScript);
 
         return tiaScript;
     }
@@ -71,6 +72,26 @@ public class TiaScript
                 Debug.LogError($"Ignoring TIA action type '{type.Name}' because its name isn't prefixed '{TiaActionTypeNamePrefix}'");
             else
                 yield return type;
+        }
+    }
+
+    [System.Diagnostics.Conditional("TIA_DEBUG")]
+    private static void SetDebugNames(TiaScript tiaScript)
+    {
+        for (int stepIndex = 0; stepIndex < tiaScript.Steps.Length; stepIndex++)
+        {
+            var step = tiaScript.Steps[stepIndex];
+            step.DebugName = $"Step #{stepIndex}";
+            for (int sequenceIndex = 0; sequenceIndex < step.Sequences.Length; sequenceIndex++)
+            {
+                var sequence = step.Sequences[sequenceIndex];
+                sequence.DebugName = $"Step #{stepIndex} Sequence #{sequenceIndex}";
+                for (int actionIndex = 0; actionIndex < sequence.Actions.Length; actionIndex++)
+                {
+                    var action = sequence.Actions[actionIndex];
+                    action.DebugName = $"Step #{stepIndex} Sequence #{sequenceIndex} Action #{actionIndex}";
+                }
+            }
         }
     }
 

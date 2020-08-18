@@ -67,9 +67,8 @@ public class TiaScriptManager : MonoBehaviour
                 x => GetScriptName(x.Item1),
                 x => x.Item2.text);
 
-        // Remove this debug logging later when there's more scripts and TIA feels more stable.
         foreach (var x in scriptYamls)
-            Debug.Log($"Found TIA script '{x.Key}'");
+            TiaDebug.Log($"Found script '{x.Key}'");
 
         return true;
     }

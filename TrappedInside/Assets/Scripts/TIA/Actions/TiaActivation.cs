@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 using YamlDotNet.Core;
 using YamlDotNet.Core.Events;
 using YamlDotNet.Serialization;
@@ -10,6 +9,9 @@ using YamlDotNet.Serialization;
 /// <seealso cref="TiaDeactivate"/>
 public class TiaActivate : ITiaAction, IYamlConvertible
 {
+    [YamlIgnore]
+    public string DebugName { get; set; }
+
     public bool IsDone { get; private set; }
 
     public void Start(ITiaActionContext context)
@@ -46,6 +48,9 @@ public class TiaActivate : ITiaAction, IYamlConvertible
 /// <seealso cref="TiaActivate"/>
 public class TiaDeactivate : ITiaAction, IYamlConvertible
 {
+    [YamlIgnore]
+    public string DebugName { get; set; }
+
     public bool IsDone { get; private set; }
 
     public void Start(ITiaActionContext context)

@@ -1,12 +1,16 @@
 ﻿using UnityEngine;
+using YamlDotNet.Serialization;
 
 /// <summary>
 /// Makes actor use this animation.
 /// </summary>
 public class TiaAnimation : ITiaAction
 {
-    [YamlDotNet.Serialization.YamlMember(Alias = "Name")]
+    [YamlMember(Alias = "Name")]
     public string AnimationName { get; set; }
+
+    [YamlIgnore]
+    public string DebugName { get; set; }
 
     public bool IsDone { get; private set; }
 

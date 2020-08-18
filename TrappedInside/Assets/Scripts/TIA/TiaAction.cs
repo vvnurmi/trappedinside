@@ -3,6 +3,8 @@
 /// </summary>
 public interface ITiaAction
 {
+    string DebugName { get; set; }
+
     bool IsDone { get; }
 
     /// <summary>

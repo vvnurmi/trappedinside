@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using YamlDotNet.Serialization;
@@ -45,14 +44,17 @@ public class TiaSpeech : ITiaAction
     [YamlMember(Alias = "Modal")]
     public bool IsModal { get; set; }
 
-    private NarrativeTypist narrativeTypist;
-    private GameObject speechBubble;
-    private Task startTask;
-    private bool isDoneOverride;
+    [YamlIgnore]
+    public string DebugName { get; set; }
 
     public bool IsDone
         => isDoneOverride
         || narrativeTypist?.State == NarrativeTypistState.Finished;
+
+    private NarrativeTypist narrativeTypist;
+    private GameObject speechBubble;
+    private Task startTask;
+    private bool isDoneOverride;
 
     public TiaSpeech()
     {
@@ -111,6 +113,7 @@ public class TiaSpeech : ITiaAction
             return;
         }
 
+        TiaDebug.Log($"Instantiating speech bubble for {DebugName} under '{context.Actor.GameObject.GetFullName()}'");
         speechBubble = UnityEngine.Object.Instantiate(bubblePrefab, context.Actor.GameObject.transform);
         PositionAbove(who: speechBubble, where: context.Actor.GameObject);
 

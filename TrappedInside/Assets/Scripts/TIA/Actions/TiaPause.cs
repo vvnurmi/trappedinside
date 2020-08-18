@@ -1,12 +1,16 @@
 ﻿using UnityEngine;
+using YamlDotNet.Serialization;
 
 /// <summary>
 /// Waits for given time until continuing to the next action.
 /// </summary>
 public class TiaPause : ITiaAction
 {
-    [YamlDotNet.Serialization.YamlMember(Alias = "Seconds")]
+    [YamlMember(Alias = "Seconds")]
     public float DurationSeconds { get; set; }
+
+    [YamlIgnore]
+    public string DebugName { get; set; }
 
     public bool IsDone { get; private set; }
 
