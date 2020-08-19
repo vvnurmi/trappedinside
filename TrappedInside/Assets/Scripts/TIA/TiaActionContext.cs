@@ -17,11 +17,6 @@ public interface ITiaActionContext
     /// </summary>
     GameObject TiaRoot { get; }
 
-    /// <summary>
-    /// Returns a TIA script by name.
-    /// </summary>
-    TiaScript GetScript(string name);
-
     TiaActor Actor { get; }
 
     /// <summary>
@@ -36,6 +31,7 @@ public interface ITiaActionContext
 
     // ---  maybe not needed below here --- //
 
+    TiaScript GetScript(string name);
     GameObject FindChild(string gameObjectName);
     T FindComponentInChildren<T>(string gameObjectName) where T : MonoBehaviour;
 }
@@ -72,26 +68,16 @@ public struct TiaActionContext : ITiaActionContext
     public TiaActionContext(
         TiaPlayer scriptRunner,
         GameObject tiaRoot)
-    //!!!Func<string, GameObject> findGameObject)
     {
         actionSequence = null;
         ScriptRunner = scriptRunner;
         TiaRoot = tiaRoot;
-        //!!!FindGameObject = findGameObject;
         FindGameObject = null;
     }
 
     public GameObject FindChild(string gameObjectName)
     {
         throw new NotImplementedException();
-        /*!!!
-        name =>
-        {
-            var obj = tiaRoot.FindChildByName(name);
-            Debug.Assert(obj != null, $"{nameof(TiaActionContext)} couldn't find '{name}' under {tiaRoot.GetFullName()}");
-            return obj;
-        });
-        */
     }
 
     public T FindComponentInChildren<T>(string gameObjectName) where T : MonoBehaviour
