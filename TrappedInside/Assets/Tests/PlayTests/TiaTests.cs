@@ -47,38 +47,27 @@ namespace Tests
             testObject2.transform.parent = tiaRoot.transform;
 
             var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
-            tiaPlayer.script = new TiaScript
+            tiaPlayer.script = NewMultiSequenceScript(new[]
             {
-                Description = "Test Script",
-                PlayOnStart = true,
-                Steps = new[]
+                new TiaActionSequence
                 {
-                    new TiaStep
+                    Actor = new TiaActor { GameObjectName = testObject1.name },
+                    Actions = new ITiaAction[]
                     {
-                        Sequences = new[]
-                        {
-                            new TiaActionSequence
-                            {
-                                Actor = new TiaActor { GameObjectName = testObject1.name },
-                                Actions = new ITiaAction[]
-                                {
-                                    new TiaPause { DurationSeconds = 2 },
-                                    new TiaActivate(),
-                                }
-                            },
-                            new TiaActionSequence
-                            {
-                                Actor = new TiaActor { GameObjectName = testObject2.name },
-                                Actions = new ITiaAction[]
-                                {
-                                    new TiaPause { DurationSeconds = 1 },
-                                    new TiaActivate(),
-                                }
-                            },
-                        }
+                        new TiaPause { DurationSeconds = 2 },
+                        new TiaActivate(),
                     }
-                }
-            };
+                },
+                new TiaActionSequence
+                {
+                    Actor = new TiaActor { GameObjectName = testObject2.name },
+                    Actions = new ITiaAction[]
+                    {
+                        new TiaPause { DurationSeconds = 1 },
+                        new TiaActivate(),
+                    }
+                },
+            });
 
             testObject1.SetActive(false);
             testObject2.SetActive(false);

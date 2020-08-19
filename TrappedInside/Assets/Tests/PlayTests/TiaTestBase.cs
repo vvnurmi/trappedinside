@@ -52,6 +52,20 @@ namespace Tests
                 }
             };
 
+        protected TiaScript NewMultiSequenceScript(params TiaActionSequence[] actionSequences) =>
+            new TiaScript
+            {
+                Description = "Test Script",
+                PlayOnStart = true,
+                Steps = new[]
+                {
+                    new TiaStep
+                    {
+                        Sequences = actionSequences,
+                    }
+                }
+            };
+
         /// <summary>
         /// Simulates pressing space on a keyboard.
         /// </summary>
