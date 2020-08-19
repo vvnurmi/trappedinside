@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using YamlDotNet.Serialization;
+﻿using YamlDotNet.Serialization;
 
 /// <summary>
 /// A sequence of actions that one actor does.
@@ -21,7 +20,14 @@ public class TiaActionSequence
     {
         TiaDebug.Log($"Starting {DebugName}");
         context.SetActionSequence(this);
-        Actor.Initialize(context.TiaRoot);
+        var success = Actor.Initialize(context.TiaRoot);
+        if (!success)
+        {
+            TiaDebug.Log($"Aborting {DebugName} because actor '{Actor.GameObjectName}' wasn't found");
+            actionIndex = Actions.Length; // IsDone => true
+            return;
+        }
+
         TiaDebug.Log($"Resolved '{Actor.GameObjectName}' into '{context.Actor.GameObject.GetFullName()}' for {DebugName}");
 
         actionIndex = 0;

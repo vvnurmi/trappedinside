@@ -27,11 +27,13 @@ public class TiaActor : IYamlConvertible
 
     /// <summary>
     /// To be called before commencing <see cref="TiaActionSequence"/>.
+    /// Returns true on success, false on failure.
     /// </summary>
-    public void Initialize(GameObject tiaRoot)
+    public bool Initialize(GameObject tiaRoot)
     {
         gameObject = tiaRoot.FindChildByName(GameObjectName);
         Debug.Assert(gameObject != null, $"{nameof(TiaActor)} couldn't find '{GameObjectName}' under {tiaRoot.GetFullName()}");
+        return gameObject != null;
     }
 
     public void Read(IParser parser, Type expectedType, ObjectDeserializer nestedObjectDeserializer)
