@@ -10,15 +10,12 @@ namespace Tests
 {
     public class TiaSpeechTests : TiaTestBase
     {
-        [UnityTest]
-        public IEnumerator Speech()
+        /// <summary>
+        /// Creates a speech bubble as a game object that can be given by name to
+        /// <see cref="TiaSpeech"/> to clone the actual speech bubble from at run-time.
+        /// </summary>
+        private void NewSpeechBubble(string speechBubbleName, GameObject tiaRoot)
         {
-            var richText = "I <size=200%>will</size> say something!";
-            var speechBubbleName = "speech bubble";
-
-            var tiaRoot = NewGameObject("TIA root");
-            var testObject = NewGameObject("test object");
-            testObject.transform.parent = tiaRoot.transform;
             var speechBubblePrefab = NewGameObject(speechBubbleName);
             speechBubblePrefab.transform.parent = tiaRoot.transform;
             var textField = speechBubblePrefab.AddComponent<TextMeshProUGUI>();
@@ -28,6 +25,18 @@ namespace Tests
                 settings.charsPerSecond = 10;
             }
             speechBubblePrefab.AddComponent<NarrativeTypist>();
+        }
+
+        [UnityTest]
+        public IEnumerator Speech()
+        {
+            var richText = "I <size=200%>will</size> say something!";
+            var speechBubbleName = "speech bubble";
+
+            var tiaRoot = NewGameObject("TIA root");
+            var testObject = NewGameObject("test object");
+            testObject.transform.parent = tiaRoot.transform;
+            NewSpeechBubble(speechBubbleName, tiaRoot);
 
             var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
             tiaPlayer.script = NewSimpleScript(testObject,
