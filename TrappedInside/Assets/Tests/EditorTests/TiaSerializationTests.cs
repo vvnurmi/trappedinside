@@ -23,29 +23,29 @@ AutoPlay: {playOnStart}";
         }
 
         [Test]
-        public void ActivationStep()
+        public void ActivateAndDeactivate()
         {
-            AssertActionStep<TiaActivate>("!Activate", step => { });
-            AssertActionStep<TiaDeactivate>("!Deactivate", step => { });
+            AssertAction<TiaActivate>("!Activate", action => { });
+            AssertAction<TiaDeactivate>("!Deactivate", action => { });
         }
 
         [Test]
-        public void AnimationStep()
+        public void Animation()
         {
             var animationName = "Test Animation";
             var deserializedAction = $@"
 !Animation
 Name: {animationName}";
 
-            void AssertProperties(TiaAnimation step)
+            void AssertProperties(TiaAnimation action)
             {
-                Assert.AreEqual(animationName, step.AnimationName);
+                Assert.AreEqual(animationName, action.AnimationName);
             }
-            AssertActionStep<TiaAnimation>(deserializedAction, AssertProperties);
+            AssertAction<TiaAnimation>(deserializedAction, AssertProperties);
         }
 
         [Test]
-        public void MoveStep()
+        public void Move()
         {
             var CloseEnough = 1e-6;
             var durationSeconds = 2.5f;
@@ -55,45 +55,45 @@ Name: {animationName}";
 Curve: {curveName}
 Seconds: {durationSeconds.ToString(CultureInfo.InvariantCulture)}";
 
-            void AssertProperties(TiaMove step)
+            void AssertProperties(TiaMove action)
             {
-                Assert.AreEqual(curveName, step.CurveName);
-                Assert.AreEqual(durationSeconds, step.DurationSeconds, CloseEnough);
+                Assert.AreEqual(curveName, action.CurveName);
+                Assert.AreEqual(durationSeconds, action.DurationSeconds, CloseEnough);
             }
-            AssertActionStep<TiaMove>(deserializedAction, AssertProperties);
+            AssertAction<TiaMove>(deserializedAction, AssertProperties);
         }
 
         [Test]
-        public void PauseStep()
+        public void Pause()
         {
             var pauseSeconds = 2.5f;
             var deserializedAction = $@"
 !Pause
 Seconds: {pauseSeconds.ToString(CultureInfo.InvariantCulture)}";
 
-            void AssertProperties(TiaPause step)
+            void AssertProperties(TiaPause action)
             {
-                Assert.AreEqual(pauseSeconds, step.DurationSeconds);
+                Assert.AreEqual(pauseSeconds, action.DurationSeconds);
             }
-            AssertActionStep<TiaPause>(deserializedAction, AssertProperties);
+            AssertAction<TiaPause>(deserializedAction, AssertProperties);
         }
 
         [Test]
-        public void PlayScriptStep()
+        public void PlayScript()
         {
             var scriptName = "Script To Play";
             var deserializedAction = $@"
 !PlayScript
 Name: {scriptName}";
-            void AssertProperties(TiaPlayScript step)
+            void AssertProperties(TiaPlayScript action)
             {
-                Assert.AreEqual(scriptName, step.ScriptName);
+                Assert.AreEqual(scriptName, action.ScriptName);
             }
-            AssertActionStep<TiaPlayScript>(deserializedAction, AssertProperties);
+            AssertAction<TiaPlayScript>(deserializedAction, AssertProperties);
         }
 
         [Test]
-        public void SpeechStep()
+        public void Speech()
         {
             var richText = "I <size=200%>will</size> say something!";
             var bubbleName = "Speech Bubble";
@@ -101,18 +101,18 @@ Name: {scriptName}";
 !Speech
 Text: {richText}
 Bubble: {bubbleName}";
-            void AssertProperties(TiaSpeech step)
+            void AssertProperties(TiaSpeech action)
             {
-                Assert.AreEqual(richText, step.TmpRichText);
-                Assert.AreEqual(bubbleName, step.SpeechBubbleName);
-                Assert.AreEqual(1, step.TypingSpeedMultiplier);
-                Assert.IsTrue(step.IsModal);
+                Assert.AreEqual(richText, action.TmpRichText);
+                Assert.AreEqual(bubbleName, action.SpeechBubbleName);
+                Assert.AreEqual(1, action.TypingSpeedMultiplier);
+                Assert.IsTrue(action.IsModal);
             }
-            AssertActionStep<TiaSpeech>(deserializedAction, AssertProperties);
+            AssertAction<TiaSpeech>(deserializedAction, AssertProperties);
         }
 
         [Test]
-        public void SpeechStepWithSpeed()
+        public void SpeechWithSpeed()
         {
             var richText = "I <size=200%>will</size> say something!";
             var typingSpeedMultiplier = 1.2f;
@@ -120,42 +120,42 @@ Bubble: {bubbleName}";
 !Speech
 Text: {richText}
 Speed: {typingSpeedMultiplier.ToString(CultureInfo.InvariantCulture)}";
-            void AssertProperties(TiaSpeech step)
+            void AssertProperties(TiaSpeech action)
             {
-                Assert.AreEqual(richText, step.TmpRichText);
-                Assert.AreEqual(typingSpeedMultiplier, step.TypingSpeedMultiplier);
+                Assert.AreEqual(richText, action.TmpRichText);
+                Assert.AreEqual(typingSpeedMultiplier, action.TypingSpeedMultiplier);
             }
-            AssertActionStep<TiaSpeech>(deserializedAction, AssertProperties);
+            AssertAction<TiaSpeech>(deserializedAction, AssertProperties);
         }
 
         [Test]
-        public void SpeechStepWithModal()
+        public void SpeechWithModal()
         {
             var richText = "I <size=200%>will</size> say something!";
             var deserializedAction = $@"
 !Speech
 Text: {richText}
 Modal: No";
-            void AssertProperties(TiaSpeech step)
+            void AssertProperties(TiaSpeech action)
             {
-                Assert.AreEqual(richText, step.TmpRichText);
-                Assert.IsFalse(step.IsModal);
+                Assert.AreEqual(richText, action.TmpRichText);
+                Assert.IsFalse(action.IsModal);
             }
-            AssertActionStep<TiaSpeech>(deserializedAction, AssertProperties);
+            AssertAction<TiaSpeech>(deserializedAction, AssertProperties);
         }
 
         [Test]
-        public void MethodStep()
+        public void Method()
         {
             var methodName = "DoSomething";
             var deserializedAction = $@"
 !Method
 Name: {methodName}";
-            void AssertProperties(TiaMethod step)
+            void AssertProperties(TiaMethod action)
             {
-                Assert.AreEqual(methodName, step.MethodName);
+                Assert.AreEqual(methodName, action.MethodName);
             }
-            AssertActionStep<TiaMethod>(deserializedAction, AssertProperties);
+            AssertAction<TiaMethod>(deserializedAction, AssertProperties);
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ Name: {methodName}";
         /// well. You can assert the action's own property serialization in
         /// <paramref name="assertProperties"/>.
         /// </summary>
-        private void AssertActionStep<TAction>(
+        private void AssertAction<TAction>(
             string deserializedAction,
             Action<TAction> assertProperties)
             where TAction : ITiaAction
