@@ -12,6 +12,7 @@ TagManager:
   - SpeechSpeaker
   - SpeechLeft
   - SpeechRight
+  - HUD Canvas
   layers:
   - Default
   - TransparentFX

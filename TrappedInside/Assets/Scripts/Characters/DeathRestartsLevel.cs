@@ -11,7 +11,7 @@ public class DeathRestartsLevel : MonoBehaviour, IDying
 
     public void OnDying()
     {
-        var canvas = FindObjectOfType<Canvas>();
+        var canvas = GameObject.FindGameObjectWithTag("HUD Canvas");
         Debug.Assert(canvas != null, $"Couldn't find a {nameof(Canvas)} to create a game over box");
         Instantiate(gameOverBox, canvas.transform);
     }
