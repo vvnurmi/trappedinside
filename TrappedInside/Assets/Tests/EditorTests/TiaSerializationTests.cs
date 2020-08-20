@@ -64,6 +64,21 @@ Seconds: {durationSeconds.ToString(CultureInfo.InvariantCulture)}";
         }
 
         [Test]
+        public void MoveWithFlip()
+        {
+            var deserializedAction = $@"
+!Move
+FlipLeft: true
+LooksLeftInitially: true";
+            void AssertProperties(TiaMove action)
+            {
+                Assert.IsTrue(action.FlipLeft);
+                Assert.IsTrue(action.LooksLeftInitially);
+            }
+            AssertAction<TiaMove>(deserializedAction, AssertProperties);
+        }
+
+        [Test]
         public void Pause()
         {
             var pauseSeconds = 2.5f;

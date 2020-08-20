@@ -18,6 +18,14 @@ public class TiaMove : ITiaAction
     /// </summary>
     public bool FlipLeft { get; set; }
 
+    /// <summary>
+    /// If true, then <see cref="TiaMove"/> will assume that in their unflipped
+    /// state the <see cref="SpriteRenderer"/> components draw the sprite facing
+    /// left (as goes the human interpretation). Makes sense only when
+    /// <see cref="FlipLeft"/> is true.
+    /// </summary>
+    public bool LooksLeftInitially { get; set; }
+
     [YamlIgnore]
     public string DebugName { get; set; }
 
@@ -67,7 +75,7 @@ public class TiaMove : ITiaAction
         if (FlipLeft)
         {
             var keepEitherFlipState = Mathf.Abs(oldPosition.x - pathPosition.x) < 1e-3f;
-            var shouldBeFlipped = oldPosition.x > pathPosition.x;
+            var shouldBeFlipped = LooksLeftInitially != oldPosition.x > pathPosition.x;
             if (!keepEitherFlipState && isFlipped != shouldBeFlipped)
             {
                 var spriteRenderers = obj.GetComponentsInChildren<SpriteRenderer>();
