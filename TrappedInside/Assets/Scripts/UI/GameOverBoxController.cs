@@ -8,7 +8,6 @@ public class GameOverBoxController : MonoBehaviour
     public string[] gameOverQuips;
 
     private ITIInputContext inputContext;
-    private bool isAcknowledged;
 
     private void Start()
     {
