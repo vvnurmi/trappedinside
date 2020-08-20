@@ -51,6 +51,12 @@ public class TIInputStateManager : MonoBehaviour, IPlayerActions, IUIActions
         return context;
     }
 
+    public void DisablePlayerInput() =>
+        inputActions.Player.Disable();
+
+    public void EnablePlayerInput() =>
+        inputActions.Player.Enable();
+
     private void Register(TIInputContext inputContext)
     {
         inputContexts.Add(inputContext);
