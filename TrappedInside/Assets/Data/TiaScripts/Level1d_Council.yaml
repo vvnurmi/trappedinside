@@ -126,6 +126,16 @@ Steps:
     - !Speech
       Text: You once said something I said you would regret some day. Today could be that day.
       Bubble: addressable:Speech Bubble
+  - Actor: Seagull
+    Actions:
+    - !Activate
+    - !Animation
+      Name: Flying
+    - !Move
+      Curve: Seagull above Justin
+      Seconds: 4
+    - !Animation
+      Name: Idle
 - Sequences:
   - Actor: Justin Finn
     Actions:
@@ -168,6 +178,27 @@ Steps:
     - !Speech
       Text: Don't worry Justin. I forgive you.
       Bubble: addressable:Speech Bubble
+  - Actor: Seagull Excrement
+    Actions:
+    - !Activate
+    - !Move
+      Curve: Excrement to Justin
+      Seconds: 0.7
+    - !Animation
+      Name: Seagull excrement hitting
+    - !Pause
+      Seconds: 0.3
+    - !Deactivate
+  - Actor: Justin Finn
+    Actions:
+    - !Pause
+      Seconds: 0.7
+    - !Animation
+      Name: GettingHit
+    - !Pause
+      Seconds: 0.2
+    - !Animation
+      Name: Idle
 - Sequences:
   - Actor: Fan Duil
     Actions:
@@ -240,12 +271,28 @@ Steps:
     - !Speech
       Text: Most sophisticated one, no doubt about it. The first of the undefeatable quests is the climb to Mount Boom.
       Bubble: addressable:Speech Bubble
+  - Actor: Seagull
+    Actions:
+    - !Animation
+      Name: Flying
+    - !Move
+      Curve: Seagull away
+      Seconds: 4
+    - !Deactivate
+- Sequences:
+  - Actor: Shield
+    Actions:
+    - !Activate
 - Sequences:
   - Actor: Brokenshield
     Actions:
     - !Speech
       Text: Take this shield forged by dwarfs to help you one your way.
       Bubble: addressable:Speech Bubble
+- Sequences:
+  - Actor: Shield
+    Actions:
+    - !Deactivate
 - Sequences:
   - Actor: Justin Finn
     Actions: 
