@@ -1,4 +1,5 @@
 ---
+Description: Sandbox test script for _DevSandbox
 AutoPlay: true
 Steps:
 - Sequences:
@@ -7,6 +8,7 @@ Steps:
     - !Move
       Curve: Business card swirl
       Seconds: 10
+      FlipLeft: true
   - Actor: Purple business card
     Actions:
     - !Speech
@@ -15,3 +17,13 @@ Steps:
     - !Speech
       Text: A second text emerges.
       Bubble: addressable:Speech Bubble
+  - Actor: Purple business card
+    Actions:
+    - !Pause
+      Seconds: 3
+    - !Method
+      Name: DisablePlayerInput
+    - !Pause
+      Seconds: 1
+    - !Method
+      Name: EnablePlayerInput
