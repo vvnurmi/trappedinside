@@ -83,5 +83,22 @@ namespace Tests
             yield return new WaitForSeconds(0.5f);
             AssertAnimationState(AnotherStateName);
         }
+
+        [UnityTest]
+        public IEnumerator Method()
+        {
+            var tiaRoot = NewGameObject("TIA root");
+            var testObject = NewGameObject("test object");
+            testObject.transform.parent = tiaRoot.transform;
+
+            var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
+            tiaPlayer.script = NewSimpleScript(testObject,
+                new TiaMethod { MethodName = nameof(TiaMethods.SetTestFlagToTrue) });
+
+            TiaMethods.testFlag = false;
+
+            yield return new WaitForSeconds(0.1f);
+            Assert.IsTrue(TiaMethods.testFlag);
+        }
     }
 }

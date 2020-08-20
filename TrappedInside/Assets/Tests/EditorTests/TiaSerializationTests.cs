@@ -144,6 +144,20 @@ Modal: No";
             AssertActionStep<TiaSpeech>(deserializedAction, AssertProperties);
         }
 
+        [Test]
+        public void MethodStep()
+        {
+            var methodName = "DoSomething";
+            var deserializedAction = $@"
+!Method
+Name: {methodName}";
+            void AssertProperties(TiaMethod step)
+            {
+                Assert.AreEqual(methodName, step.MethodName);
+            }
+            AssertActionStep<TiaMethod>(deserializedAction, AssertProperties);
+        }
+
         /// <summary>
         /// Formulates a small TIA script that contains an action of type
         /// <typeparamref name="TAction"/> and asserts that the script deserializes
