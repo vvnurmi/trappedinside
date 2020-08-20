@@ -359,6 +359,7 @@ Steps:
     - !Animation
       Name: Walking
     - !Move
+      LooksLeftInitially: true
       FlipLeft: true
       Curve: Amazon to Mike
       Seconds: 3
@@ -394,6 +395,7 @@ Steps:
     - !Animation
       Name: Running
     - !Move
+      LooksLeftInitially: true
       FlipLeft: true
       Curve: Mike out of scene
       Seconds: 2
