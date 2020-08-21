@@ -14,17 +14,53 @@ namespace Tests
         /// Creates a speech bubble as a game object that can be given by name to
         /// <see cref="TiaSpeech"/> to clone the actual speech bubble from at run-time.
         /// </summary>
-        private void NewSpeechBubble(string speechBubbleName, GameObject tiaRoot)
+        private void NewSpeechBubble(string speechBubbleName, GameObject tiaRoot, float charsPerSecond)
         {
             var speechBubblePrefab = NewGameObject(speechBubbleName);
             speechBubblePrefab.transform.parent = tiaRoot.transform;
-            var textField = speechBubblePrefab.AddComponent<TextMeshProUGUI>();
-            textField.tag = "SpeechText";
-            {
-                var settings = speechBubblePrefab.AddComponent<NarrativeTypistSettings>();
-                settings.charsPerSecond = 10;
-            }
+
+            AddTextFieldComponent(speechBubblePrefab, TiaSpeech.TagText);
+            AddTextFieldComponent(speechBubblePrefab, TiaSpeech.TagSpeaker);
+            AddTextFieldComponent(speechBubblePrefab, TiaSpeech.TagLeft);
+            AddTextFieldComponent(speechBubblePrefab, TiaSpeech.TagRight);
+
+            var settings = speechBubblePrefab.AddComponent<NarrativeTypistSettings>();
+            settings.charsPerSecond = charsPerSecond;
+
             speechBubblePrefab.AddComponent<NarrativeTypist>();
+        }
+
+        private void AddTextFieldComponent(GameObject speechBubblePrefab, string tag)
+        {
+            var hostObject = NewGameObject(tag);
+            hostObject.transform.parent = speechBubblePrefab.transform;
+            var textField = hostObject.AddComponent<TextMeshProUGUI>();
+            textField.tag = tag;
+        }
+
+        /// <summary>
+        /// Asserts that <paramref name="testObject"/> has the expected text fields
+        /// and that their contents match the expected strings.
+        /// </summary>
+        private void AssertTextFields(
+            string expectedText,
+            string expectedSpeaker,
+            string expectedLeftChoice,
+            string expectedRightChoice,
+            GameObject testObject)
+        {
+            var tmpUguis = testObject.GetComponentsInChildren<TextMeshProUGUI>();
+            Assert.AreEqual(4, tmpUguis.Length, "Wrong number of text fields in speech bubble");
+            void AssertFieldContent(string expectedContent, string tag)
+            {
+                var taggedUgui = tmpUguis.First(ugui => ugui.CompareTag(tag));
+                Assert.IsNotNull(taggedUgui, $"Text field with tag '{tag}' not found in speech bubble");
+                Assert.AreEqual(expectedContent, taggedUgui.text);
+            }
+            AssertFieldContent(expectedText, TiaSpeech.TagText);
+            AssertFieldContent(expectedSpeaker, TiaSpeech.TagSpeaker);
+            AssertFieldContent(expectedLeftChoice, TiaSpeech.TagLeft);
+            AssertFieldContent(expectedRightChoice, TiaSpeech.TagRight);
         }
 
         [UnityTest]
@@ -36,7 +72,7 @@ namespace Tests
             var tiaRoot = NewGameObject("TIA root");
             var testObject = NewGameObject("test object");
             testObject.transform.parent = tiaRoot.transform;
-            NewSpeechBubble(speechBubbleName, tiaRoot);
+            NewSpeechBubble(speechBubbleName, tiaRoot, charsPerSecond: 10);
 
             var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
             tiaPlayer.script = NewSimpleScript(testObject,
@@ -48,16 +84,17 @@ namespace Tests
 
             yield return new WaitForSeconds(0.1f);
             var narrativeTypist = testObject.GetComponentInChildren<NarrativeTypist>();
-            Debug.Assert(narrativeTypist != null);
+            Assert.IsNotNull(narrativeTypist);
 
             // Type a little and verify that text is appearing.
             yield return new WaitForSeconds(0.4f);
-            {
-                Assert.AreEqual(NarrativeTypistState.Typing, narrativeTypist.State);
-                var tmpUguis = testObject.GetComponentsInChildren<TextMeshProUGUI>();
-                Assert.AreEqual(1, tmpUguis.Length, "Not the expected number of TMP texts");
-                Assert.AreEqual(richText.Substring(0, 5), tmpUguis[0].text);
-            }
+            Assert.AreEqual(NarrativeTypistState.Typing, narrativeTypist.State);
+            AssertTextFields(
+                expectedText: richText.Substring(0, 5),
+                expectedSpeaker: testObject.name,
+                expectedLeftChoice: "",
+                expectedRightChoice: "",
+                testObject);
 
             // Type the rest and verify all text appears.
             {
@@ -65,12 +102,13 @@ namespace Tests
                 settings.charsPerSecond = 100;
                 yield return new WaitForSeconds(richText.Length / settings.charsPerSecond);
             }
-            {
-                Assert.AreEqual(NarrativeTypistState.UserPrompt, narrativeTypist.State);
-                var tmpUguis = testObject.GetComponentsInChildren<TextMeshProUGUI>();
-                Assert.AreEqual(1, tmpUguis.Length, "Not the expected number of TMP texts");
-                Assert.AreEqual(richText, tmpUguis[0].text);
-            }
+            Assert.AreEqual(NarrativeTypistState.UserPrompt, narrativeTypist.State);
+            AssertTextFields(
+                expectedText: richText,
+                expectedSpeaker: testObject.name,
+                expectedLeftChoice: "",
+                expectedRightChoice: "",
+                testObject);
 
             // Acknowledge the user prompt and verify the speech bubble disappears.
             PressSpace();
@@ -78,8 +116,8 @@ namespace Tests
             {
                 Assert.AreEqual(NarrativeTypistState.Finished, narrativeTypist.State);
                 var tmpUguis = testObject.GetComponentsInChildren<TextMeshProUGUI>();
-                Assert.AreEqual(0, tmpUguis.Length, $"TMP text was not removed in time:"
-                    + string.Join("|", tmpUguis.Select(ugui => ugui.text)));
+                Assert.AreEqual(0, tmpUguis.Length, $"Text fields were not removed in time:"
+                    + string.Join(", ", tmpUguis.Select(ugui => ugui.tag ?? ugui.text ?? "???")));
             }
         }
 

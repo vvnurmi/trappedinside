@@ -33,12 +33,12 @@ public class NarrativeTypistChoice : NarrativeTypist
         var textFields = GetComponentsInChildren<TMPro.TextMeshProUGUI>();
         foreach (var textField in textFields)
         {
-            if (textField.gameObject.CompareTag("SpeechLeft"))
+            if (textField.gameObject.CompareTag(TiaSpeech.TagLeft))
             {
                 textComponents[0] = textField;
                 textField.text = "";
             }
-            if (textField.gameObject.CompareTag("SpeechRight"))
+            if (textField.gameObject.CompareTag(TiaSpeech.TagRight))
             {
                 textComponents[1] = textField;
                 textField.text = "";

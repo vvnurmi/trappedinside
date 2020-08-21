@@ -48,12 +48,12 @@ public class NarrativeTypist : MonoBehaviour
         var textFields = GetComponentsInChildren<TMPro.TextMeshProUGUI>();
         foreach (var textField in textFields)
         {
-            if (textField.gameObject.CompareTag("SpeechText"))
+            if (textField.gameObject.CompareTag(TiaSpeech.TagText))
             {
                 textComponent = textField;
                 textField.text = "";
             }
-            if (textField.gameObject.CompareTag("SpeechSpeaker"))
+            if (textField.gameObject.CompareTag(TiaSpeech.TagSpeaker))
                 textField.text = setup.speaker;
         }
     }
@@ -77,7 +77,7 @@ public class NarrativeTypist : MonoBehaviour
         Debug.Assert(settings != null,
             $"Expected to find {nameof(NarrativeTypistSettings)} from the parent of {nameof(NarrativeTypist)}");
         textComponent = GetComponentsInChildren<TMPro.TextMeshProUGUI>()
-            .Single(text => text.gameObject.CompareTag("SpeechText"));
+            .Single(text => text.gameObject.CompareTag(TiaSpeech.TagText));
     }
 
     private void FixedUpdate()
