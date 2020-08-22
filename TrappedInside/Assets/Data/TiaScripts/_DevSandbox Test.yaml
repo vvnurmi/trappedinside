@@ -13,6 +13,8 @@ Steps:
     Actions:
     - !Speech
       Text: Hello <size=200%>world!</size>
+      Left: Yes
+      Right: No
       Bubble: addressable:Speech Bubble
     - !Speech
       Text: A second text emerges.
