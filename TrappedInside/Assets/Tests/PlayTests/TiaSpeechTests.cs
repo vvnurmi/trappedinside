@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
 
 namespace Tests
@@ -28,6 +29,7 @@ namespace Tests
             settings.charsPerSecond = charsPerSecond;
 
             speechBubblePrefab.AddComponent<NarrativeTypist>();
+            speechBubblePrefab.AddComponent<NarrativeTypistChoice>();
         }
 
         private void AddTextFieldComponent(GameObject speechBubblePrefab, string tag)
@@ -111,13 +113,79 @@ namespace Tests
                 testObject);
 
             // Acknowledge the user prompt and verify the speech bubble disappears.
-            PressSpace();
+            PressKey(Key.Space);
             yield return new WaitForSeconds(0.1f);
             {
                 Assert.AreEqual(NarrativeTypistState.Finished, narrativeTypist.State);
                 var tmpUguis = testObject.GetComponentsInChildren<TextMeshProUGUI>();
                 Assert.AreEqual(0, tmpUguis.Length, $"Text fields were not removed in time:"
                     + string.Join(", ", tmpUguis.Select(ugui => ugui.tag ?? ugui.text ?? "???")));
+            }
+        }
+
+        [UnityTest]
+        public IEnumerator SpeechWithChoice()
+        {
+            var richText = "Will this test fail?";
+            var leftChoice = "Yes";
+            var rightChoice = "No";
+            var speechBubbleName = "speech bubble";
+
+            var tiaRoot = NewGameObject("TIA root");
+            var testObject = NewGameObject("test object");
+            testObject.transform.parent = tiaRoot.transform;
+            NewSpeechBubble(speechBubbleName, tiaRoot, charsPerSecond: 10);
+
+            var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
+            tiaPlayer.script = NewSimpleScript(testObject,
+                new TiaSpeech
+                {
+                    TmpRichText = richText,
+                    SpeechBubbleName = speechBubbleName,
+                    LeftChoice = leftChoice,
+                    RightChoice = rightChoice,
+                });
+
+            // Wait for some text to appear. User choices should not be seen yet.
+            yield return new WaitForSeconds(1);
+            var narrativeTypist = testObject.GetComponentInChildren<NarrativeTypistChoice>();
+            Assert.IsNotNull(narrativeTypist);
+            Assert.AreEqual(NarrativeTypistState.Typing, narrativeTypist.State);
+            AssertTextFields(
+                expectedText: richText.Substring(0, 10),
+                expectedSpeaker: testObject.name,
+                expectedLeftChoice: "",
+                expectedRightChoice: "",
+                testObject);
+
+            // Wait for the remaining text to appear. User prompts should have appeared.
+            yield return new WaitForSeconds(1);
+            Assert.AreEqual(NarrativeTypistState.UserPrompt, narrativeTypist.State);
+            AssertTextFields(
+                expectedText: richText,
+                expectedSpeaker: testObject.name,
+                expectedLeftChoice: "[" + leftChoice + "]",
+                expectedRightChoice: rightChoice,
+                testObject);
+
+            // Choose the other choice.
+            yield return narrativeTypist.StartCoroutine(PressAndHoldKey(Key.RightArrow));
+            Assert.AreEqual(NarrativeTypistState.UserPrompt, narrativeTypist.State);
+            AssertTextFields(
+                expectedText: richText,
+                expectedSpeaker: testObject.name,
+                expectedLeftChoice: leftChoice,
+                expectedRightChoice: "[" + rightChoice + "]",
+                testObject);
+
+            // Acknowledge the user prompt and verify the speech bubble disappears.
+            PressKey(Key.Space);
+            yield return new WaitForSeconds(0.1f);
+            {
+                Assert.AreEqual(NarrativeTypistState.Finished, narrativeTypist.State);
+                var tmpUguis = testObject.GetComponentsInChildren<TextMeshProUGUI>();
+                Assert.AreEqual(0, tmpUguis.Length, $"TMP text was not removed in time:"
+                    + string.Join("|", tmpUguis.Select(ugui => ugui.text)));
             }
         }
 

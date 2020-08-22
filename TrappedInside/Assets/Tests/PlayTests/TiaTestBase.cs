@@ -1,5 +1,7 @@
 ﻿using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,7 +14,8 @@ namespace Tests
     {
         private int gameObjectsAtSetup;
         private List<GameObject> createdGameObjects = new List<GameObject>();
-        private InputTestFixture input = new InputTestFixture();
+        private InputTestFixture input;
+        private Keyboard mockKeyboard;
 
         /// <summary>
         /// Creates a new game object for a test. Only create game objects with this
@@ -67,23 +70,42 @@ namespace Tests
             };
 
         /// <summary>
-        /// Simulates pressing space on a keyboard.
+        /// Simulates pressing <paramref name="key"/> on a keyboard and releasing
+        /// it instantly. Good for triggers.
         /// </summary>
-        protected void PressSpace()
+        protected void PressKey(Key key)
         {
-            var keyboard = InputSystem.AddDevice<Keyboard>();
-            input.PressAndRelease(keyboard.spaceKey);
+            var control = mockKeyboard.allKeys.First(keyControl => keyControl.keyCode == key);
+            input.PressAndRelease(control);
+        }
+
+        /// <summary>
+        /// Simulates pressing <paramref name="key"/> on a keyboard for a short while
+        /// and then releasing it. Good for navigation.
+        /// </summary>
+        protected IEnumerator PressAndHoldKey(Key key)
+        {
+            var control = mockKeyboard.allKeys.First(keyControl => keyControl.keyCode == key);
+            input.Press(control);
+            yield return new WaitForSeconds(0.1f);
+            input.Release(control);
         }
 
         [SetUp]
         public void Setup()
         {
             gameObjectsAtSetup = Object.FindObjectsOfType<GameObject>().Length;
+            input = new InputTestFixture();
+            mockKeyboard = InputSystem.AddDevice<Keyboard>();
         }
 
         [TearDown]
         public void Teardown()
         {
+            InputSystem.RemoveDevice(mockKeyboard);
+            mockKeyboard = null;
+            input = null;
+
             Debug.Log($"Deleting {createdGameObjects.Count} game objects that were created during the test.");
             foreach (var gameObject in createdGameObjects)
                 Object.DestroyImmediate(gameObject);
