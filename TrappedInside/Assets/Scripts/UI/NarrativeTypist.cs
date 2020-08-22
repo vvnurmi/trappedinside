@@ -5,8 +5,7 @@ public class NarrativeTypistSetup
 {
     public string fullText;
     public string speaker;
-    public string leftChoice;
-    public string rightChoice;
+    public string[] choices;
 }
 
 public enum NarrativeTypistState
@@ -23,11 +22,11 @@ public enum NarrativeTypistState
 public class NarrativeTypist : MonoBehaviour
 {
     // Set about once, probably in Start().
-    private NarrativeTypistSettings settings;
+    protected NarrativeTypistSettings settings;
+    protected ITIInputContext inputContext;
     private TMPro.TextMeshProUGUI textComponent;
     private NarrativeTypistSetup setup;
     private float startTime;
-    private ITIInputContext inputContext;
 
     // Modified during gameplay.
     private int charsToShow;
@@ -71,7 +70,7 @@ public class NarrativeTypist : MonoBehaviour
         inputContext?.Dispose();
     }
 
-    virtual protected void Awake()
+    protected virtual void Awake()
     {
         settings = GetComponentInParent<NarrativeTypistSettings>();
         Debug.Assert(settings != null,
@@ -80,7 +79,7 @@ public class NarrativeTypist : MonoBehaviour
             .Single(text => text.gameObject.CompareTag(TiaSpeech.TagText));
     }
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (State == NarrativeTypistState.Uninitialized) return;
         if (State == NarrativeTypistState.Finished) return;
@@ -99,7 +98,7 @@ public class NarrativeTypist : MonoBehaviour
     /// <summary>
     /// Called when typing has finished but has not yet been acknowledged.
     /// </summary>
-    virtual protected void OnTypingFinished()
+    protected virtual void OnTypingFinished()
     {
         State = NarrativeTypistState.UserPrompt;
         charsToShow = setup.fullText.Length;
@@ -108,12 +107,12 @@ public class NarrativeTypist : MonoBehaviour
     /// <summary>
     /// Called when typing has finished and the player has acknowledged it.
     /// </summary>
-    virtual protected void OnTypingAcknowledged()
+    protected virtual void OnTypingAcknowledged()
     {
         State = NarrativeTypistState.Finished;
     }
 
-    virtual protected void HandleInput(TIInputState inputState)
+    private void HandleInput(TIInputState inputState)
     {
         if (inputState.uiSubmitPressed)
         {

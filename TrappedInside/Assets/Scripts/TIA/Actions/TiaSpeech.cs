@@ -44,6 +44,20 @@ public class TiaSpeech : ITiaAction
     public string TmpRichText { get; set; }
 
     /// <summary>
+    /// If <see cref="LeftChoice"/> and <see cref="RightChoice"/> are nonempty
+    /// then the speech bubble will present the player a choice between the two.
+    /// </summary>
+    [YamlMember(Alias = "Left")]
+    public string LeftChoice { get; set; }
+
+    /// <summary>
+    /// If <see cref="LeftChoice"/> and <see cref="RightChoice"/> are nonempty
+    /// then the speech bubble will present the player a choice between the two.
+    /// </summary>
+    [YamlMember(Alias = "Right")]
+    public string RightChoice { get; set; }
+
+    /// <summary>
     /// Name of the speech bubble game object to display the speech in.
     /// </summary>
     [YamlMember(Alias = "Bubble")]
@@ -125,7 +139,8 @@ public class TiaSpeech : ITiaAction
     private async Task StartAsync(ITiaActionContext context)
     {
         var bubblePrefab = await FindObject(context, SpeechBubbleName);
-        Debug.Assert(bubblePrefab != null, $"{nameof(TiaSpeech)} will skip because it couldn't find speech bubble by name '{SpeechBubbleName}'");
+        Debug.Assert(bubblePrefab != null, $"{nameof(TiaSpeech)} will skip because it"
+            + $" couldn't find speech bubble by name '{SpeechBubbleName}'");
         if (bubblePrefab == null)
         {
             isDoneOverride = true;
@@ -133,25 +148,32 @@ public class TiaSpeech : ITiaAction
         }
 
         TiaDebug.Log($"Instantiating speech bubble for {DebugName} under '{context.Actor.GameObject.GetFullName()}'");
-        speechBubble = UnityEngine.Object.Instantiate(bubblePrefab, context.Actor.GameObject.transform);
+        speechBubble = Object.Instantiate(bubblePrefab, context.Actor.GameObject.transform);
         PositionAbove(who: speechBubble, where: context.Actor.GameObject);
 
-        narrativeTypist = speechBubble.GetComponentInChildren<NarrativeTypist>();
-        Debug.Assert(narrativeTypist != null, $"Speech bubble has no {nameof(NarrativeTypist)}");
+        var typistType = string.IsNullOrEmpty(LeftChoice)
+            ? typeof(NarrativeTypist)
+            : typeof(NarrativeTypistChoice);
+        narrativeTypist = (NarrativeTypist)speechBubble.GetComponentInChildren(typistType);
         if (narrativeTypist == null)
         {
+            Debug.LogWarning($"Speech bubble has no {typistType} component");
             isDoneOverride = true;
             return;
         }
 
+        if (string.IsNullOrEmpty(LeftChoice) != string.IsNullOrEmpty(RightChoice))
+        {
+            Debug.LogWarning($"{nameof(TiaSpeech)} left and right choices must both be"
+                + $" empty or nonempty but are '{LeftChoice}' and '{RightChoice}'");
+        }
         var typistSetup = new NarrativeTypistSetup
         {
             fullText = TmpRichText,
             speaker = context.Actor.GameObjectName,
-            leftChoice = "Todo Left!!!",
-            rightChoice = "Todo Right!!!",
+            choices = new[] { LeftChoice, RightChoice },
         };
-        narrativeTypist.GetComponent<NarrativeTypist>().StartTyping(typistSetup);
+        narrativeTypist.StartTyping(typistSetup);
     }
 
     private void PositionAbove(GameObject who, GameObject where)

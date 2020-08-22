@@ -160,6 +160,23 @@ Modal: No";
         }
 
         [Test]
+        public void SpeechWithChoice()
+        {
+            var leftChoice = "Yes";
+            var rightChoice = "No";
+            var deserializedAction = $@"
+!Speech
+Left: {leftChoice}
+Right: {rightChoice}";
+            void AssertProperties(TiaSpeech action)
+            {
+                Assert.AreEqual(leftChoice, action.LeftChoice);
+                Assert.AreEqual(rightChoice, action.RightChoice);
+            }
+            AssertAction<TiaSpeech>(deserializedAction, AssertProperties);
+        }
+
+        [Test]
         public void Method()
         {
             var methodName = "DoSomething";
