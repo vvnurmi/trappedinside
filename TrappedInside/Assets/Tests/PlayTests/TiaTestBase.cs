@@ -14,8 +14,8 @@ namespace Tests
     {
         private int gameObjectsAtSetup;
         private List<GameObject> createdGameObjects = new List<GameObject>();
-        private InputTestFixture input = new InputTestFixture();
-        private Keyboard mockKeyboard = InputSystem.AddDevice<Keyboard>();
+        private InputTestFixture input;
+        private Keyboard mockKeyboard;
 
         /// <summary>
         /// Creates a new game object for a test. Only create game objects with this
@@ -95,11 +95,17 @@ namespace Tests
         public void Setup()
         {
             gameObjectsAtSetup = Object.FindObjectsOfType<GameObject>().Length;
+            input = new InputTestFixture();
+            mockKeyboard = InputSystem.AddDevice<Keyboard>();
         }
 
         [TearDown]
         public void Teardown()
         {
+            InputSystem.RemoveDevice(mockKeyboard);
+            mockKeyboard = null;
+            input = null;
+
             Debug.Log($"Deleting {createdGameObjects.Count} game objects that were created during the test.");
             foreach (var gameObject in createdGameObjects)
                 Object.DestroyImmediate(gameObject);
