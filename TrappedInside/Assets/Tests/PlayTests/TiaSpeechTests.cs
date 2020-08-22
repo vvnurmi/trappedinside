@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
 
 namespace Tests
@@ -111,7 +112,7 @@ namespace Tests
                 testObject);
 
             // Acknowledge the user prompt and verify the speech bubble disappears.
-            PressSpace();
+            PressKey(Key.Space);
             yield return new WaitForSeconds(0.1f);
             {
                 Assert.AreEqual(NarrativeTypistState.Finished, narrativeTypist.State);

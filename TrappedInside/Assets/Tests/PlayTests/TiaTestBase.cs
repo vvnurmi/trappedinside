@@ -1,5 +1,7 @@
 ﻿using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +15,7 @@ namespace Tests
         private int gameObjectsAtSetup;
         private List<GameObject> createdGameObjects = new List<GameObject>();
         private InputTestFixture input = new InputTestFixture();
+        private Keyboard mockKeyboard = InputSystem.AddDevice<Keyboard>();
 
         /// <summary>
         /// Creates a new game object for a test. Only create game objects with this
@@ -67,12 +70,25 @@ namespace Tests
             };
 
         /// <summary>
-        /// Simulates pressing space on a keyboard.
+        /// Simulates pressing <paramref name="key"/> on a keyboard and releasing
+        /// it instantly. Good for triggers.
         /// </summary>
-        protected void PressSpace()
+        protected void PressKey(Key key)
         {
-            var keyboard = InputSystem.AddDevice<Keyboard>();
-            input.PressAndRelease(keyboard.spaceKey);
+            var control = mockKeyboard.allKeys.First(keyControl => keyControl.keyCode == key);
+            input.PressAndRelease(control);
+        }
+
+        /// <summary>
+        /// Simulates pressing <paramref name="key"/> on a keyboard for a short while
+        /// and then releasing it. Good for navigation.
+        /// </summary>
+        protected IEnumerator PressAndHoldKey(Key key)
+        {
+            var control = mockKeyboard.allKeys.First(keyControl => keyControl.keyCode == key);
+            input.Press(control);
+            yield return new WaitForSeconds(0.1f);
+            input.Release(control);
         }
 
         [SetUp]
