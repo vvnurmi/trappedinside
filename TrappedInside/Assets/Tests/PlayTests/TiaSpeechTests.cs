@@ -92,7 +92,9 @@ namespace Tests
             yield return new WaitForSeconds(0.4f);
             Assert.AreEqual(NarrativeTypistState.Typing, narrativeTypist.State);
             AssertTextFields(
-                expectedText: richText.Substring(0, 5),
+                // Note: With 10 chars per second, in 0.5 seconds, 16 chars will be visible
+                // because the rich text tag will appear with the char following it.
+                expectedText: richText.Substring(0, 16),
                 expectedSpeaker: testObject.name,
                 expectedLeftChoice: "",
                 expectedRightChoice: "",
