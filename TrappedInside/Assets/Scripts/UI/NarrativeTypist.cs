@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class NarrativeTypistSetup
@@ -21,12 +22,22 @@ public enum NarrativeTypistState
 /// </summary>
 public class NarrativeTypist : MonoBehaviour
 {
+    /// <summary>
+    /// Internal state of <see cref="CalculateRichTextLengths(string)"/>.
+    /// </summary>
+    private enum RichTextParseState { Text, InTag, AfterTag };
+
     // Set about once, probably in Start().
     protected NarrativeTypistSettings settings;
     protected ITIInputContext inputContext;
     private TMPro.TextMeshProUGUI textComponent;
     private NarrativeTypistSetup setup;
     private float startTime;
+    /// <summary>
+    /// Maps text length to string index in <see cref="NarrativeTypistSetup.fullText"/>.
+    /// To show N chars of text, take a substring of length richTextLengths[N].
+    /// </summary>
+    private int[] richTextLengths;
 
     // Modified during gameplay.
     private int charsToShow;
@@ -41,6 +52,7 @@ public class NarrativeTypist : MonoBehaviour
     {
         State = NarrativeTypistState.Typing;
         setup = narrativeTypistSetup;
+        richTextLengths = CalculateRichTextLengths(setup.fullText);
         charsToShow = 0;
         startTime = Time.time;
 
@@ -101,7 +113,7 @@ public class NarrativeTypist : MonoBehaviour
     protected virtual void OnTypingFinished()
     {
         State = NarrativeTypistState.UserPrompt;
-        charsToShow = setup.fullText.Length;
+        charsToShow = richTextLengths[richTextLengths.Length - 1];
     }
 
     /// <summary>
@@ -132,20 +144,59 @@ public class NarrativeTypist : MonoBehaviour
 
     private void UpdateAudiovisuals()
     {
-        var oldCharsToShow = textComponent.text.Length;
+        var oldCharsToShow = charsToShow;
         charsToShow = Mathf.Clamp(
             value: Mathf.RoundToInt((Time.time - startTime) * settings.charsPerSecond),
             min: charsToShow,
-            max: setup.fullText.Length);
+            max: richTextLengths.Length - 1);
         if (charsToShow == oldCharsToShow) return;
 
         // Visual update.
-        textComponent.text = setup.fullText.Substring(0, charsToShow);
+        Debug.Assert(charsToShow < richTextLengths.Length,
+            $"Trying to show {charsToShow} non-rich chars from rich text '{setup.fullText}'");
+        Debug.Assert(richTextLengths[charsToShow] <= setup.fullText.Length,
+            $"Trying to substring {richTextLengths[charsToShow]} from '{setup.fullText}'");
+        textComponent.text = setup.fullText.Substring(0, richTextLengths[charsToShow]);
 
         // Audio update.
         var lastCharIsSpace = textComponent.text.Length == 0 ||
             char.IsWhiteSpace(textComponent.text[textComponent.text.Length - 1]);
         if (!lastCharIsSpace)
             settings.audioSource.TryPlay(settings.characterSound);
+    }
+
+    /// <summary>
+    /// Returns an array that maps text length to length in <paramref name="richText"/>
+    /// that will yield that many visible chars. The mapping essentially skips all
+    /// TextMeshPro rich text tags.
+    /// </summary>
+    public static int[] CalculateRichTextLengths(string richText)
+    {
+        Debug.Assert(richText != null);
+        var lengths = new List<int>(richText.Length + 1);
+
+        var state = RichTextParseState.Text;
+        for (int i = 0; i < richText.Length; i++)
+        {
+            switch (state)
+            {
+                case RichTextParseState.Text:
+                    lengths.Add(i);
+                    if (richText[i] == '<')
+                        state = RichTextParseState.InTag;
+                    break;
+                case RichTextParseState.InTag:
+                    if (richText[i] == '>')
+                        state = RichTextParseState.AfterTag;
+                    break;
+                case RichTextParseState.AfterTag:
+                    state = richText[i] == '<'
+                        ? RichTextParseState.InTag
+                        : RichTextParseState.Text;
+                    break;
+            }
+        }
+        lengths.Add(richText.Length);
+        return lengths.ToArray();
     }
 }
