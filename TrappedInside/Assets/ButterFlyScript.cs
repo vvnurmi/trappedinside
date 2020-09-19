@@ -55,8 +55,6 @@ public class ButterFlyScript : MonoBehaviour
             butterflyDisturbedTime = Time.time;
             butterflyDirection = RandomNumber.Next(-1, 1) < 0 ? -1 : 1;
 
-            Debug.Log($"Fly direction: {butterflyDirection}");
-
             if (butterflyDirection > 0)
                 GetComponent<SpriteRenderer>().flipX = true;
             else
