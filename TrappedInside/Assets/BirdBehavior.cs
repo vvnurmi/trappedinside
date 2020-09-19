@@ -3,14 +3,15 @@
 public class BirdBehavior : MonoBehaviour
 {
     private bool disturbed = false;
-    private float timeWhenDisturbed = -1f;
-    private Vector3 speed = new Vector3(-1.0f, 1.5f);
+    private float timeWhenDisturbed = float.MinValue;
     private Animator animator;
+    private Vector3 originalPosition;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        originalPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -24,7 +25,9 @@ public class BirdBehavior : MonoBehaviour
             Destroy(gameObject);
 
         animator.SetBool("IsFlying", true);
-        transform.Translate(speed * Time.deltaTime);
+        var newX = timeWhenDisturbed - Time.time;
+        var newY = 0.5f * Mathf.Pow(newX, 2f) + 0.25f * newX;
+        transform.position = originalPosition + new Vector3(newX, newY);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
