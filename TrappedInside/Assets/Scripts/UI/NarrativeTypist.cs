@@ -22,13 +22,14 @@ public enum NarrativeTypistState
 /// </summary>
 public class NarrativeTypist : MonoBehaviour
 {
+    public NarrativeTypistSettings settings;
+
     /// <summary>
     /// Internal state of <see cref="CalculateRichTextLengths(string)"/>.
     /// </summary>
     private enum RichTextParseState { Text, InTag, AfterTag };
 
     // Set about once, probably in Start().
-    protected NarrativeTypistSettings settings;
     protected AudioSource audioSource;
     protected ITIInputContext inputContext;
     private TMPro.TextMeshProUGUI textComponent;
@@ -85,12 +86,9 @@ public class NarrativeTypist : MonoBehaviour
 
     protected virtual void Awake()
     {
-        settings = GetComponentInParent<NarrativeTypistSettings>();
-        Debug.Assert(settings != null,
-            $"Expected to find {nameof(NarrativeTypistSettings)} from the parent of {nameof(NarrativeTypist)}");
         audioSource = GetComponent<AudioSource>();
         Debug.Assert(audioSource != null,
-            $"Couldn't find {nameof(AudioSource)} in {nameof(NarrativeTypist)}, so can't play speech sounds.");
+            $"Couldn't find {nameof(AudioSource)} in '{gameObject.GetFullName()}' so can't play speech sounds.");
         textComponent = GetComponentsInChildren<TMPro.TextMeshProUGUI>()
             .Single(text => text.gameObject.CompareTag(TiaSpeech.TagText));
     }
@@ -165,7 +163,7 @@ public class NarrativeTypist : MonoBehaviour
         // Audio update.
         var lastCharIsSpace = textComponent.text.Length == 0 ||
             char.IsWhiteSpace(textComponent.text[textComponent.text.Length - 1]);
-        if (!lastCharIsSpace)
+        if (!lastCharIsSpace && settings.characterSound != null)
             audioSource?.TryPlay(settings.characterSound);
     }
 

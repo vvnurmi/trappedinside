@@ -25,11 +25,13 @@ namespace Tests
             AddTextFieldComponent(speechBubblePrefab, TiaSpeech.TagLeft);
             AddTextFieldComponent(speechBubblePrefab, TiaSpeech.TagRight);
 
-            var settings = speechBubblePrefab.AddComponent<NarrativeTypistSettings>();
+            speechBubblePrefab.AddComponent<AudioSource>();
+            var settings = ScriptableObject.CreateInstance<NarrativeTypistSettings>();
             settings.charsPerSecond = charsPerSecond;
-
-            speechBubblePrefab.AddComponent<NarrativeTypist>();
-            speechBubblePrefab.AddComponent<NarrativeTypistChoice>();
+            var narrativeTypist = speechBubblePrefab.AddComponent<NarrativeTypist>();
+            narrativeTypist.settings = settings;
+            var narrativeTypistChoice = speechBubblePrefab.AddComponent<NarrativeTypistChoice>();
+            narrativeTypistChoice.settings = settings;
         }
 
         private void AddTextFieldComponent(GameObject speechBubblePrefab, string tag)
@@ -102,9 +104,8 @@ namespace Tests
 
             // Type the rest and verify all text appears.
             {
-                var settings = testObject.GetComponentInChildren<NarrativeTypistSettings>();
-                settings.charsPerSecond = 100;
-                yield return new WaitForSeconds(richText.Length / settings.charsPerSecond);
+                narrativeTypist.settings.charsPerSecond = 100;
+                yield return new WaitForSeconds(richText.Length / narrativeTypist.settings.charsPerSecond);
             }
             Assert.AreEqual(NarrativeTypistState.UserPrompt, narrativeTypist.State);
             AssertTextFields(
