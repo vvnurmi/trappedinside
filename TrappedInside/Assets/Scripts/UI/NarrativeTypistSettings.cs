@@ -12,7 +12,4 @@ public class NarrativeTypistSettings : MonoBehaviour
 
     [Tooltip("The sound to play when typing a character.")]
     public AudioClip characterSound;
-
-    [Tooltip("Where to play the typing sound.")]
-    public AudioSource audioSource;
 }
