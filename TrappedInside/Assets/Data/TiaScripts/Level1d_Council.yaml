@@ -22,7 +22,7 @@ Steps:
       Name: Walking
     - !Move
       Curve: Randalf to table
-      Seconds: 3
+      Seconds: 2
     - !Animation
       Name: Idle
 - Sequences:
@@ -316,12 +316,12 @@ Steps:
       Name: Randalf walking right
     - !Move
       Curve: Randalf away
-      Seconds: 3
+      Seconds: 1
     - !Deactivate
   - Actor: Smoke
     Actions:
     - !Pause
-      Seconds: 2.6
+      Seconds: 0.6
     - !Activate
     - !Pause
       Seconds: 1
