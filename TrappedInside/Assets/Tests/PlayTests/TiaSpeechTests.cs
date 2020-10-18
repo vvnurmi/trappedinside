@@ -127,6 +127,42 @@ namespace Tests
         }
 
         [UnityTest]
+        public IEnumerator SpeechCanBeSkipped()
+        {
+            var richText = "I <size=200%>will</size> say something!";
+            var speechBubbleName = "speech bubble";
+
+            var tiaRoot = NewGameObject("TIA root");
+            var testObject = NewGameObject("test object");
+            testObject.transform.parent = tiaRoot.transform;
+            NewSpeechBubble(speechBubbleName, tiaRoot, charsPerSecond: 10);
+
+            var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
+            tiaPlayer.script = NewSimpleScript(testObject,
+                new TiaSpeech
+                {
+                    TmpRichText = richText,
+                    SpeechBubbleName = speechBubbleName,
+                });
+
+            yield return new WaitForSeconds(0.1f);
+            var narrativeTypist = testObject.GetComponentInChildren<NarrativeTypist>();
+            Assert.IsNotNull(narrativeTypist);
+
+            // Type a little, skip the text and verify that all text has appeared.
+            yield return new WaitForSeconds(0.1f);
+            PressKey(Key.Space);
+            yield return new WaitForSeconds(0.1f);
+            Assert.AreEqual(NarrativeTypistState.UserPrompt, narrativeTypist.State);
+            AssertTextFields(
+                expectedText: richText,
+                expectedSpeaker: testObject.name,
+                expectedLeftChoice: "",
+                expectedRightChoice: "",
+                testObject);
+        }
+
+        [UnityTest]
         public IEnumerator SpeechWithChoice()
         {
             var richText = "Will this test fail?";
