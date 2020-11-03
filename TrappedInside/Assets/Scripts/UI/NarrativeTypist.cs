@@ -116,6 +116,8 @@ public class NarrativeTypist : MonoBehaviour
     {
         State = NarrativeTypistState.UserPrompt;
         charsToShow = richTextLengths[richTextLengths.Length - 1];
+        // Because UpdateAudioVisuals won't do anything in UserPrompt state, manually update the text.
+        textComponent.text = setup.fullText;
     }
 
     /// <summary>
