@@ -1,0 +1,15 @@
+---
+AutoPlay: true
+Steps:
+- Sequences:
+  - Actor: Mike
+    Actions:
+    - !Animation
+      Name: Running
+    - !Move
+      Curve: Mike running
+      Seconds: 6
+- Sequences:
+  - Actor: LevelLoadOnAwake
+    Actions:
+    - !Activate
