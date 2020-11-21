@@ -26,7 +26,7 @@ public class BirdTriggerScript : MonoBehaviour
             bird.Translate(birdSpeed * Time.deltaTime);
         }
 
-        if (Time.time - triggerEnteredTime > birdLifeTime)
+        if (alreadyTriggered && Time.time - triggerEnteredTime > birdLifeTime)
         {
             foreach (var bird in birds)
             {
