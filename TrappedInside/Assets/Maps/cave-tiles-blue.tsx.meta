@@ -1,0 +1,42 @@
+fileFormatVersion: 2
+guid: 7e048cb763511f3498648e10a87d9276
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: cc34d0f3dc257a442819830b408c5322, type: 3}
+  missingFiles: []
+  errors:
+  - Invalid rectangle (Tile ID ='0') in tileset 'cave-tiles-blue' has zero width
+  - Invalid rectangle (Tile ID ='2') in tileset 'cave-tiles-blue' has zero width
+  - Invalid rectangle (Tile ID ='3') in tileset 'cave-tiles-blue' has zero width
+  - Invalid rectangle (Tile ID ='4') in tileset 'cave-tiles-blue' has zero height
+  - Invalid rectangle (Tile ID ='5') in tileset 'cave-tiles-blue' has zero width
+  - Invalid rectangle (Tile ID ='6') in tileset 'cave-tiles-blue' has zero width
+  - Invalid rectangle (Tile ID ='9') in tileset 'cave-tiles-blue' has zero width
+  - Invalid rectangle (Tile ID ='10') in tileset 'cave-tiles-blue' has zero width
+  - Invalid rectangle (Tile ID ='11') in tileset 'cave-tiles-blue' has zero width
+  - Invalid rectangle (Tile ID ='12') in tileset 'cave-tiles-blue' has zero width
+  - Invalid rectangle (Tile ID ='13') in tileset 'cave-tiles-blue' has zero width
+  - Invalid rectangle (Tile ID ='14') in tileset 'cave-tiles-blue' has zero width
+  - Invalid rectangle (Tile ID ='15') in tileset 'cave-tiles-blue' has zero height
+  - Invalid rectangle (Tile ID ='19') in tileset 'cave-tiles-blue' has zero width
+  - Invalid rectangle (Tile ID ='20') in tileset 'cave-tiles-blue' has zero width
+  - Invalid rectangle (Tile ID ='21') in tileset 'cave-tiles-blue' has zero width
+  - Invalid rectangle (Tile ID ='26') in tileset 'cave-tiles-blue' has zero width
+  - Invalid rectangle (Tile ID ='27') in tileset 'cave-tiles-blue' has zero width
+  - Invalid rectangle (Tile ID ='31') in tileset 'cave-tiles-blue' has zero width
+  warnings: []
+  missingSortingLayers: []
+  missingLayers: []
+  missingTags: []
+  importerVersion: 9
+  pixelsPerUnit: 100
+  edgesPerEllipse: 32
+  numberOfObjectsImported: 75
+  useSpriteAtlas: 1
+  atlasWidth: 2048
+  atlasHeight: 2048
