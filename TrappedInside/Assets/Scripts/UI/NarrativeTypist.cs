@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 /// <summary>
@@ -27,6 +28,12 @@ public struct WavyTextParams
     [Tooltip("How many characters fit in one wave.")]
     public float WaveLength;
 
+    public override string ToString()
+    {
+        FormattableString format = $"amplitude={WaveAmplitude} frequency={WaveFrequency} length={WaveLength}";
+        return format.ToString(CultureInfo.InvariantCulture);
+    }
+
     public static WavyTextParams Default =>
         new WavyTextParams
         {
@@ -49,6 +56,10 @@ public enum NarrativeTypistState
 /// </summary>
 public class NarrativeTypist : MonoBehaviour
 {
+    private static readonly Regex WavyStartTagRegex = new Regex(
+        @"<wavy (?:\s+ (amplitude|frequency|length) = ([-0-9.]+) )* >",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+
     public NarrativeTypistSettings settings;
 
     /// <summary>
@@ -68,10 +79,12 @@ public class NarrativeTypist : MonoBehaviour
     /// </summary>
     private int[] richTextLengths;
     /// <summary>
-    /// Indices in <see cref="NarrativeTypistSetup.fullText"/> where wavy chars should
-    /// be displayed. May be empty.
+    /// Pair (index, parms) of each char that's supposed to wave, where
+    /// index is the char's location in <see cref="NarrativeTypistSetup.fullText"/> and
+    /// parms defines the details of the waving.
+    /// May be empty.
     /// </summary>
-    private int[] wavyCharIndices;
+    private (int index, WavyTextParams parms)[] wavyChars;
 
     // Modified during gameplay.
     private int charsToShow;
@@ -86,7 +99,7 @@ public class NarrativeTypist : MonoBehaviour
     {
         State = NarrativeTypistState.Typing;
         setup = narrativeTypistSetup;
-        (setup.fullText, wavyCharIndices) = ParseWavyTags(setup.fullText);
+        (setup.fullText, wavyChars) = ParseWavyTags(setup.fullText);
         richTextLengths = CalculateRichTextLengths(setup.fullText);
         charsToShow = 0;
         startTime = Time.time;
@@ -188,7 +201,7 @@ public class NarrativeTypist : MonoBehaviour
             max: richTextLengths.Length - 1);
 
         // If nothing has changed, do nothing.
-        if (wavyCharIndices.Length == 0 && charsToShow == oldCharsToShow) return;
+        if (wavyChars.Length == 0 && charsToShow == oldCharsToShow) return;
 
         // Visual update.
         Debug.Assert(charsToShow < richTextLengths.Length,
@@ -196,8 +209,7 @@ public class NarrativeTypist : MonoBehaviour
         Debug.Assert(richTextLengths[charsToShow] <= setup.fullText.Length,
             $"Trying to substring {richTextLengths[charsToShow]} from '{setup.fullText}'");
         var currentRichText = setup.fullText.Substring(0, richTextLengths[charsToShow]);
-        if (wavyCharIndices.Length > 0)
-            currentRichText = RepositionWavyTextChars(currentRichText, wavyCharIndices);
+        currentRichText = RepositionWavyTextChars(currentRichText, wavyChars);
         textComponent.text = currentRichText;
 
         // Audio update.
@@ -212,42 +224,74 @@ public class NarrativeTypist : MonoBehaviour
 
     /// <summary>
     /// Parses wavy tags from <paramref name="richText"/>. Returns the pair
-    /// (strippedRichText, wavyCharIndices), where
+    /// (strippedRichText, wavyChars), where
     /// strippedRichText is <paramref name="richText"/> stripped of wavy tags, and
-    /// wavyCharIndices is an array of indices in strippedRichText where the wavy chars are.
+    /// wavyChars is an array of pairs (index, parms) of wavy chars, where
+    /// index is the location in strippedRichText of the char, and
+    /// parms defines the details of the waving.
     /// </summary>
-    public static (string, int[]) ParseWavyTags(string richText)
+    public static (string, (int index, WavyTextParams parms)[]) ParseWavyTags(string richText)
     {
         var strippedRichText = new StringBuilder(richText.Length);
-        var wavyCharIndices = new List<int>();
+        var wavyChars = new List<(int, WavyTextParams)>();
         var index = 0;
         var skippedChars = 0;
         while (index < richText.Length)
         {
-            const string StartTag = "<wavy>";
             const string EndTag = "</wavy>";
-            var startIndex = richText.IndexOf(StartTag, index);
-            if (startIndex == -1) break;
+            var startMatch = WavyStartTagRegex.Match(richText, index);
+            if (!startMatch.Success) break;
 
-            skippedChars += StartTag.Length;
-            var wavyTextStart = startIndex + StartTag.Length;
+            skippedChars += startMatch.Length;
+            var wavyTextStart = startMatch.Index + startMatch.Length;
             var endIndex = richText.IndexOf(EndTag, wavyTextStart);
             var wavyTextEnd = endIndex == -1
                 ? richText.Length
                 : endIndex;
             var wavyTextLength = wavyTextEnd - wavyTextStart;
 
+            var parms = WavyTextParams.Default;
+            Debug.Assert(startMatch.Groups.Count == 3);
+            Debug.Assert(startMatch.Groups[1].Captures.Count == startMatch.Groups[2].Captures.Count);
+
+            void ParseAttributeValue(int attributeIndex, out float value)
+            {
+                var success = float.TryParse(
+                    startMatch.Groups[2].Captures[attributeIndex].Value,
+                    NumberStyles.Float,
+                    CultureInfo.InvariantCulture,
+                    out value);
+                if (!success)
+                    Debug.LogWarning($"Failed to parse attribute value in '{startMatch.Value}'");
+            }
+
+            for (int attributeIndex = 0; attributeIndex < startMatch.Groups[1].Captures.Count; attributeIndex++)
+                switch (startMatch.Groups[1].Captures[attributeIndex].Value)
+                {
+                    case "amplitude":
+                        ParseAttributeValue(attributeIndex, out parms.WaveAmplitude);
+                        break;
+                    case "frequency":
+                        ParseAttributeValue(attributeIndex, out parms.WaveFrequency);
+                        break;
+                    case "length":
+                        ParseAttributeValue(attributeIndex, out parms.WaveLength);
+                        break;
+                }
+
             strippedRichText
-                .Append(richText, index, startIndex - index)
+                .Append(richText, index, startMatch.Index - index)
                 .Append(richText, wavyTextStart, wavyTextLength);
-            wavyCharIndices.AddRange(Enumerable.Range(wavyTextStart - skippedChars, wavyTextLength));
+            wavyChars.AddRange(Enumerable
+                .Range(wavyTextStart - skippedChars, wavyTextLength)
+                .Select(i => (i, parms)));
             if (endIndex != -1)
                 skippedChars += EndTag.Length;
             index = Math.Min(richText.Length, wavyTextEnd + EndTag.Length);
 
         }
         strippedRichText.Append(richText, index, richText.Length - index);
-        return (strippedRichText.ToString(), wavyCharIndices.ToArray());
+        return (strippedRichText.ToString(), wavyChars.ToArray());
     }
 
     /// <summary>
@@ -290,12 +334,14 @@ public class NarrativeTypist : MonoBehaviour
     /// in a wavy text interval.
     /// </summary>
     /// <param name="richText">Rich text where to embed wavy char formatting.</param>
-    /// <param name="wavyCharIndices">Indices in <paramref name="richText"/> identifying
-    /// chars that are supposed to wave.</param>
-    public static string RepositionWavyTextChars(string richText, int[] wavyCharIndices)
+    /// <param name="wavyChars">Pair (index, parms) of each char that's supposed to wave, where
+    /// index is the char's location in <paramref name="richText"/> and
+    /// parms defines the details of the waving.</param>
+    public static string RepositionWavyTextChars(string richText, (int index, WavyTextParams parms)[] wavyChars)
     {
-        var wavyTextParams = WavyTextParams.Default; // !!! debug, this should come from markup attributes
-        var maxAmplitude = wavyTextParams.WaveAmplitude;
+        if (wavyChars.Length == 0) return richText;
+
+        var maxAmplitude = wavyChars.Max(x => x.parms.WaveAmplitude);
         var baseVOffset = -maxAmplitude;
         var result = new StringBuilder();
 
@@ -323,12 +369,13 @@ public class NarrativeTypist : MonoBehaviour
         // whole text block down, which is not wanted.
 
         int textProcessedUntilIndex = 0;
-        foreach (var charIndex in wavyCharIndices)
+        foreach (var (index, parms) in wavyChars)
         {
-            AppendWithVOffset(richText, textProcessedUntilIndex, charIndex, baseVOffset);
-            var voffset = GetWavyCharVerticalOffset(charIndex, maxAmplitude, wavyTextParams);
-            AppendWithVOffset(richText, charIndex, charIndex + 1, voffset);
-            textProcessedUntilIndex = charIndex + 1;
+            Debug.Assert(textProcessedUntilIndex <= index, "Wavy characters are given out of order");
+            AppendWithVOffset(richText, textProcessedUntilIndex, index, baseVOffset);
+            var voffset = GetWavyCharVerticalOffset(index, maxAmplitude, parms);
+            AppendWithVOffset(richText, index, index + 1, voffset);
+            textProcessedUntilIndex = index + 1;
 
             if (textProcessedUntilIndex >= richText.Length) break;
         }
