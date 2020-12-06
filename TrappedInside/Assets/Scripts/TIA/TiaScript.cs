@@ -102,6 +102,13 @@ public class TiaScript
             for (int sequenceIndex = 0; sequenceIndex < tiaScript.Steps[stepIndex].Sequences.Length; sequenceIndex++)
             {
                 var sequence = tiaScript.Steps[stepIndex].Sequences[sequenceIndex];
+                if (sequence.Actions == null)
+                {
+                    Debug.LogWarning($"Replacing null Actions array by an empty one in TIA script '{tiaScript.Description}'."
+                        + $"\nLocation: step #{stepIndex} sequence #{sequenceIndex}."
+                        + "\nPerhaps there's an Sequence that does nothing and can be removed?");
+                    sequence.Actions = new ITiaAction[0];
+                }
                 for (int actionIndex = 0; actionIndex < sequence.Actions.Length; actionIndex++)
                 {
                     if (sequence.Actions[actionIndex] != null) continue;

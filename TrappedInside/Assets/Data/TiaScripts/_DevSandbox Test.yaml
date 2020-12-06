@@ -3,16 +3,17 @@ Description: Sandbox test script for _DevSandbox
 AutoPlay: true
 Steps:
 - Sequences:
-  - Actor: Purple business card
-    Actions:
-    - !Move
-      Curve: Business card swirl
-      Seconds: 10
-      FlipLeft: true
+#  - Actor: Purple business card
+#    Actions:
+#    - !Move
+#      Curve: Business card swirl
+#      Seconds: 10
+#      FlipLeft: true
   - Actor: Purple business card
     Actions:
     - !Speech
-      Text: Hello <size=200%>world!</size>
+#      Text: Hello, <wavy>this is world speaking.</wavy> Indeed.
+      Text: <wavy>Hello</wavy>, this is <size=200%>world!</size> speaking. <wavy>Indeed.</wavy>
       Left: Yes
       Right: No
       Bubble: addressable:Speech Bubble
