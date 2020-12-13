@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using UnityEngine;
 
 /// <summary>
@@ -11,10 +7,6 @@ using UnityEngine;
 /// </summary>
 public class NarrativeTypist : MonoBehaviour
 {
-    private static readonly Regex WavyStartTagRegex = new Regex(
-        @"<wavy (?:\s+ (amplitude|frequency|length) = ([-0-9.]+) )* >",
-        RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
-
     public NarrativeTypistSettings settings;
 
     /// <summary>
@@ -33,13 +25,7 @@ public class NarrativeTypist : MonoBehaviour
     /// To show N chars of text, take a substring of length richTextLengths[N].
     /// </summary>
     private int[] richTextLengths;
-    /// <summary>
-    /// Pair (index, parms) of each char that's supposed to wave, where
-    /// index is the char's location in <see cref="NarrativeTypistSetup.fullText"/> and
-    /// parms defines the details of the waving.
-    /// May be empty.
-    /// </summary>
-    private (int index, WavyTextParams parms)[] wavyChars;
+    private RichTextWavy richTextWavy;
 
     // Modified during gameplay.
     private int charsToShow;
@@ -54,7 +40,7 @@ public class NarrativeTypist : MonoBehaviour
     {
         State = NarrativeTypistState.Typing;
         setup = narrativeTypistSetup;
-        (setup.fullText, wavyChars) = ParseWavyTags(setup.fullText);
+        (setup.fullText, richTextWavy) = RichTextWavy.ParseWavyTags(setup.fullText);
         richTextLengths = CalculateRichTextLengths(setup.fullText);
         charsToShow = 0;
         startTime = Time.time;
@@ -156,7 +142,7 @@ public class NarrativeTypist : MonoBehaviour
             max: richTextLengths.Length - 1);
 
         // If nothing has changed, do nothing.
-        if (wavyChars.Length == 0 && charsToShow == oldCharsToShow) return;
+        if (!richTextWavy.NeedsUpdate && charsToShow == oldCharsToShow) return;
 
         // Visual update.
         Debug.Assert(charsToShow < richTextLengths.Length,
@@ -164,7 +150,7 @@ public class NarrativeTypist : MonoBehaviour
         Debug.Assert(richTextLengths[charsToShow] <= setup.fullText.Length,
             $"Trying to substring {richTextLengths[charsToShow]} from '{setup.fullText}'");
         var currentRichText = setup.fullText.Substring(0, richTextLengths[charsToShow]);
-        currentRichText = RepositionWavyTextChars(currentRichText, wavyChars);
+        currentRichText = richTextWavy.RepositionWavyTextChars(currentRichText);
         textComponent.text = currentRichText;
 
         // Audio update.
@@ -175,78 +161,6 @@ public class NarrativeTypist : MonoBehaviour
             if (!lastCharIsSpace && settings.characterSound != null)
                 audioSource?.TryPlay(settings.characterSound);
         }
-    }
-
-    /// <summary>
-    /// Parses wavy tags from <paramref name="richText"/>. Returns the pair
-    /// (strippedRichText, wavyChars), where
-    /// strippedRichText is <paramref name="richText"/> stripped of wavy tags, and
-    /// wavyChars is an array of pairs (index, parms) of wavy chars, where
-    /// index is the location in strippedRichText of the char, and
-    /// parms defines the details of the waving.
-    /// </summary>
-    public static (string, (int index, WavyTextParams parms)[]) ParseWavyTags(string richText)
-    {
-        var strippedRichText = new StringBuilder(richText.Length);
-        var wavyChars = new List<(int, WavyTextParams)>();
-        var index = 0;
-        var skippedChars = 0;
-        while (index < richText.Length)
-        {
-            const string EndTag = "</wavy>";
-            var startMatch = WavyStartTagRegex.Match(richText, index);
-            if (!startMatch.Success) break;
-
-            skippedChars += startMatch.Length;
-            var wavyTextStart = startMatch.Index + startMatch.Length;
-            var endIndex = richText.IndexOf(EndTag, wavyTextStart);
-            var wavyTextEnd = endIndex == -1
-                ? richText.Length
-                : endIndex;
-            var wavyTextLength = wavyTextEnd - wavyTextStart;
-
-            var parms = WavyTextParams.Default;
-            Debug.Assert(startMatch.Groups.Count == 3);
-            Debug.Assert(startMatch.Groups[1].Captures.Count == startMatch.Groups[2].Captures.Count);
-
-            void ParseAttributeValue(int attributeIndex, out float value)
-            {
-                var success = float.TryParse(
-                    startMatch.Groups[2].Captures[attributeIndex].Value,
-                    NumberStyles.Float,
-                    CultureInfo.InvariantCulture,
-                    out value);
-                if (!success)
-                    Debug.LogWarning($"Failed to parse attribute value in '{startMatch.Value}'");
-            }
-
-            for (int attributeIndex = 0; attributeIndex < startMatch.Groups[1].Captures.Count; attributeIndex++)
-                switch (startMatch.Groups[1].Captures[attributeIndex].Value)
-                {
-                    case "amplitude":
-                        ParseAttributeValue(attributeIndex, out parms.WaveAmplitude);
-                        break;
-                    case "frequency":
-                        ParseAttributeValue(attributeIndex, out parms.WaveFrequency);
-                        break;
-                    case "length":
-                        ParseAttributeValue(attributeIndex, out parms.WaveLength);
-                        break;
-                }
-
-            strippedRichText
-                .Append(richText, index, startMatch.Index - index)
-                .Append(richText, wavyTextStart, wavyTextLength);
-            wavyChars.AddRange(Enumerable
-                .Range(wavyTextStart - skippedChars, wavyTextLength)
-                .Select(i => (i, parms)));
-            if (endIndex != -1)
-                skippedChars += EndTag.Length;
-            index = Math.Min(richText.Length, wavyTextEnd + EndTag.Length);
-
-        }
-        strippedRichText.Append(richText, index, richText.Length - index);
-        return (strippedRichText.ToString(), wavyChars.ToArray());
     }
 
     /// <summary>
@@ -282,69 +196,5 @@ public class NarrativeTypist : MonoBehaviour
         }
         lengths.Add(richText.Length);
         return lengths.ToArray();
-    }
-
-    /// <summary>
-    /// Adds rich text formatting commands to reposition characters that are
-    /// in a wavy text interval.
-    /// </summary>
-    /// <param name="richText">Rich text where to embed wavy char formatting.</param>
-    /// <param name="wavyChars">Pair (index, parms) of each char that's supposed to wave, where
-    /// index is the char's location in <paramref name="richText"/> and
-    /// parms defines the details of the waving.</param>
-    public static string RepositionWavyTextChars(string richText, (int index, WavyTextParams parms)[] wavyChars)
-    {
-        if (wavyChars.Length == 0) return richText;
-
-        var maxAmplitude = wavyChars.Max(x => x.parms.WaveAmplitude);
-        var baseVOffset = -maxAmplitude;
-        var result = new StringBuilder();
-
-        void AppendWithVOffset(string text, int startIndex, int endIndex, float voffset)
-        {
-            if (startIndex > text.Length) return;
-            if (startIndex == endIndex) return;
-
-            var safeEndIndex = Mathf.Min(endIndex, text.Length);
-
-            // Note: For better performance, don't format the float here but use a precalculated string array.
-            result.Append("<voffset=")
-                .AppendFormat(CultureInfo.InvariantCulture, "{0:N3}", voffset)
-                .Append('>')
-                .Append(richText, startIndex, safeEndIndex - startIndex)
-                .Append("</voffset>");
-        }
-
-        // Note: Without <line-height> the line spacing will change to accommodate <voffset> characters.
-        // It makes the whole text block move vertically, which is not wanted.
-        result.Append("<line-height=100%><voffset=0> </voffset><pos=0>");
-
-        // Note: Also push the non-offset text down by half the movement delta, and move the waving
-        // text down from zero line. If the offset goes positive on the topmost line, it will push the
-        // whole text block down, which is not wanted.
-
-        int textProcessedUntilIndex = 0;
-        foreach (var (index, parms) in wavyChars)
-        {
-            Debug.Assert(textProcessedUntilIndex <= index, "Wavy characters are given out of order");
-            AppendWithVOffset(richText, textProcessedUntilIndex, index, baseVOffset);
-            var voffset = GetWavyCharVerticalOffset(index, maxAmplitude, parms);
-            AppendWithVOffset(richText, index, index + 1, voffset);
-            textProcessedUntilIndex = index + 1;
-
-            if (textProcessedUntilIndex >= richText.Length) break;
-        }
-        // The rest of the text.
-        AppendWithVOffset(richText, textProcessedUntilIndex, richText.Length, baseVOffset);
-
-        return result.ToString();
-    }
-
-    private static float GetWavyCharVerticalOffset(int index, float maxAmplitude, WavyTextParams parms)
-    {
-        var phase = 2 * Mathf.PI
-            * (Time.time * parms.WaveFrequency
-                + index / parms.WaveLength);
-        return -maxAmplitude - parms.WaveAmplitude * Mathf.Sin(phase);
     }
 }
