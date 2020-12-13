@@ -55,7 +55,6 @@ public class CalumMovement : MonoBehaviour
 
         if (frontAttackTrigger.PlayerInAttackRange && backAttackTrigger.PlayerInAttackRange)
         {
-            SetAnimatorState(idle);
             xSpeed = 0;
         }
         else if (frontAttackTrigger.PlayerInAttackRange)
@@ -69,15 +68,9 @@ public class CalumMovement : MonoBehaviour
             Flip();
             xSpeed = GetSpeed();
         }
-        else
-        {
-            SetAnimatorState(idle);
-            xSpeed = 0;
-        }
 
         if (facingLeft && TooFarLeft || !facingLeft && TooFarRight)
         {
-            SetAnimatorState(idle);
             xSpeed = 0;
         }
 
