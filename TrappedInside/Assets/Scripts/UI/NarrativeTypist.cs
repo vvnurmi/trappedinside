@@ -7,51 +7,6 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 
 /// <summary>
-/// Helper struct to pass parameters to <see cref="NarrativeTypist"/>.
-/// </summary>
-// Note: This is a class instead of a struct because struct members in classes are not
-// displayed properly in the debugger at least with Visual Studio 2017 (15.9.8) and
-// Unity 2019.2.18f1. This would complicate debugging NarrativeTypist.
-public class NarrativeTypistSetup
-{
-    public string fullText;
-    public string speaker;
-    public string[] choices;
-}
-
-public struct WavyTextParams
-{
-    [Tooltip("The maximum displacement of a character, in the object's coordinate system.")]
-    public float WaveAmplitude;
-    [Tooltip("How many times a character waves back and forth in a second.")]
-    public float WaveFrequency;
-    [Tooltip("How many characters fit in one wave.")]
-    public float WaveLength;
-
-    public override string ToString()
-    {
-        FormattableString format = $"amplitude={WaveAmplitude} frequency={WaveFrequency} length={WaveLength}";
-        return format.ToString(CultureInfo.InvariantCulture);
-    }
-
-    public static WavyTextParams Default =>
-        new WavyTextParams
-        {
-            WaveAmplitude = 0.01f,
-            WaveFrequency = 3,
-            WaveLength = 10,
-        };
-}
-
-public enum NarrativeTypistState
-{
-    Uninitialized,
-    Typing,
-    UserPrompt,
-    Finished,
-}
-
-/// <summary>
 /// Displays text in a text box as if it was being typed in.
 /// </summary>
 public class NarrativeTypist : MonoBehaviour
