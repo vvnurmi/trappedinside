@@ -8,7 +8,7 @@ public class CalumMovement : MonoBehaviour
     public RaycastColliderConfig groundColliderConfig;
 
     [Tooltip("Speed of movement along a surface, in world units per second.")]
-    public float walkingSpeed = 5.0f;
+    public float walkingSpeed = 0.5f;
 
     private static readonly string idle = "Idle";
     private static readonly string walking = "Walk";
