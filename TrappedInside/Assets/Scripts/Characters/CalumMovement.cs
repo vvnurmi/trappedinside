@@ -15,6 +15,7 @@ public class CalumMovement : MonoBehaviour
 
     private readonly List<string> animatorStates = new List<string> { idle, walking };
     public float gravity = -5.0f;
+    public bool facingLeft = true;
 
     private CharacterState characterState;
     private RaycastCollider groundCollider;
@@ -26,7 +27,6 @@ public class CalumMovement : MonoBehaviour
     private SpriteRenderer spriteRendered;
     private Transform pole;
     private readonly float maxDistanceFromPole = 0.4f;
-    private bool facingLeft = true;
 
     private void Start()
     {
