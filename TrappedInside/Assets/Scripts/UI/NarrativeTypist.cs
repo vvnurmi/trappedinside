@@ -1,48 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using UnityEngine;
-
-/// <summary>
-/// Helper struct to pass parameters to <see cref="NarrativeTypist"/>.
-/// </summary>
-// Note: This is a class instead of a struct because struct members in classes are not
-// displayed properly in the debugger at least with Visual Studio 2017 (15.9.8) and
-// Unity 2019.2.18f1. This would complicate debugging NarrativeTypist.
-public class NarrativeTypistSetup
-{
-    public string fullText;
-    public string speaker;
-    public string[] choices;
-}
-
-public struct WavyTextParams
-{
-    [Tooltip("The maximum displacement of a character, in the object's coordinate system.")]
-    public float WaveAmplitude;
-    [Tooltip("How many times a character waves back and forth in a second.")]
-    public float WaveFrequency;
-    [Tooltip("How many characters fit in one wave.")]
-    public float WaveLength;
-
-    public static WavyTextParams Default =>
-        new WavyTextParams
-        {
-            WaveAmplitude = 0.01f,
-            WaveFrequency = 3,
-            WaveLength = 10,
-        };
-}
-
-public enum NarrativeTypistState
-{
-    Uninitialized,
-    Typing,
-    UserPrompt,
-    Finished,
-}
 
 /// <summary>
 /// Displays text in a text box as if it was being typed in.
@@ -67,11 +25,7 @@ public class NarrativeTypist : MonoBehaviour
     /// To show N chars of text, take a substring of length richTextLengths[N].
     /// </summary>
     private int[] richTextLengths;
-    /// <summary>
-    /// Indices in <see cref="NarrativeTypistSetup.fullText"/> where wavy chars should
-    /// be displayed. May be empty.
-    /// </summary>
-    private int[] wavyCharIndices;
+    private RichTextWavy richTextWavy;
 
     // Modified during gameplay.
     private int charsToShow;
@@ -86,7 +40,7 @@ public class NarrativeTypist : MonoBehaviour
     {
         State = NarrativeTypistState.Typing;
         setup = narrativeTypistSetup;
-        (setup.fullText, wavyCharIndices) = ParseWavyTags(setup.fullText);
+        (setup.fullText, richTextWavy) = RichTextWavy.ParseWavyTags(setup.fullText);
         richTextLengths = CalculateRichTextLengths(setup.fullText);
         charsToShow = 0;
         startTime = Time.time;
@@ -188,7 +142,7 @@ public class NarrativeTypist : MonoBehaviour
             max: richTextLengths.Length - 1);
 
         // If nothing has changed, do nothing.
-        if (wavyCharIndices.Length == 0 && charsToShow == oldCharsToShow) return;
+        if (!richTextWavy.NeedsUpdate && charsToShow == oldCharsToShow) return;
 
         // Visual update.
         Debug.Assert(charsToShow < richTextLengths.Length,
@@ -196,8 +150,7 @@ public class NarrativeTypist : MonoBehaviour
         Debug.Assert(richTextLengths[charsToShow] <= setup.fullText.Length,
             $"Trying to substring {richTextLengths[charsToShow]} from '{setup.fullText}'");
         var currentRichText = setup.fullText.Substring(0, richTextLengths[charsToShow]);
-        if (wavyCharIndices.Length > 0)
-            currentRichText = RepositionWavyTextChars(currentRichText, wavyCharIndices);
+        currentRichText = richTextWavy.RepositionWavyTextChars(currentRichText);
         textComponent.text = currentRichText;
 
         // Audio update.
@@ -208,46 +161,6 @@ public class NarrativeTypist : MonoBehaviour
             if (!lastCharIsSpace && settings.characterSound != null)
                 audioSource?.TryPlay(settings.characterSound);
         }
-    }
-
-    /// <summary>
-    /// Parses wavy tags from <paramref name="richText"/>. Returns the pair
-    /// (strippedRichText, wavyCharIndices), where
-    /// strippedRichText is <paramref name="richText"/> stripped of wavy tags, and
-    /// wavyCharIndices is an array of indices in strippedRichText where the wavy chars are.
-    /// </summary>
-    public static (string, int[]) ParseWavyTags(string richText)
-    {
-        var strippedRichText = new StringBuilder(richText.Length);
-        var wavyCharIndices = new List<int>();
-        var index = 0;
-        var skippedChars = 0;
-        while (index < richText.Length)
-        {
-            const string StartTag = "<wavy>";
-            const string EndTag = "</wavy>";
-            var startIndex = richText.IndexOf(StartTag, index);
-            if (startIndex == -1) break;
-
-            skippedChars += StartTag.Length;
-            var wavyTextStart = startIndex + StartTag.Length;
-            var endIndex = richText.IndexOf(EndTag, wavyTextStart);
-            var wavyTextEnd = endIndex == -1
-                ? richText.Length
-                : endIndex;
-            var wavyTextLength = wavyTextEnd - wavyTextStart;
-
-            strippedRichText
-                .Append(richText, index, startIndex - index)
-                .Append(richText, wavyTextStart, wavyTextLength);
-            wavyCharIndices.AddRange(Enumerable.Range(wavyTextStart - skippedChars, wavyTextLength));
-            if (endIndex != -1)
-                skippedChars += EndTag.Length;
-            index = Math.Min(richText.Length, wavyTextEnd + EndTag.Length);
-
-        }
-        strippedRichText.Append(richText, index, richText.Length - index);
-        return (strippedRichText.ToString(), wavyCharIndices.ToArray());
     }
 
     /// <summary>
@@ -283,66 +196,5 @@ public class NarrativeTypist : MonoBehaviour
         }
         lengths.Add(richText.Length);
         return lengths.ToArray();
-    }
-
-    /// <summary>
-    /// Adds rich text formatting commands to reposition characters that are
-    /// in a wavy text interval.
-    /// </summary>
-    /// <param name="richText">Rich text where to embed wavy char formatting.</param>
-    /// <param name="wavyCharIndices">Indices in <paramref name="richText"/> identifying
-    /// chars that are supposed to wave.</param>
-    public static string RepositionWavyTextChars(string richText, int[] wavyCharIndices)
-    {
-        var wavyTextParams = WavyTextParams.Default; // !!! debug, this should come from markup attributes
-        var maxAmplitude = wavyTextParams.WaveAmplitude;
-        var baseVOffset = -maxAmplitude;
-        var result = new StringBuilder();
-
-        void AppendWithVOffset(string text, int startIndex, int endIndex, float voffset)
-        {
-            if (startIndex > text.Length) return;
-            if (startIndex == endIndex) return;
-
-            var safeEndIndex = Mathf.Min(endIndex, text.Length);
-
-            // Note: For better performance, don't format the float here but use a precalculated string array.
-            result.Append("<voffset=")
-                .AppendFormat(CultureInfo.InvariantCulture, "{0:N3}", voffset)
-                .Append('>')
-                .Append(richText, startIndex, safeEndIndex - startIndex)
-                .Append("</voffset>");
-        }
-
-        // Note: Without <line-height> the line spacing will change to accommodate <voffset> characters.
-        // It makes the whole text block move vertically, which is not wanted.
-        result.Append("<line-height=100%><voffset=0> </voffset><pos=0>");
-
-        // Note: Also push the non-offset text down by half the movement delta, and move the waving
-        // text down from zero line. If the offset goes positive on the topmost line, it will push the
-        // whole text block down, which is not wanted.
-
-        int textProcessedUntilIndex = 0;
-        foreach (var charIndex in wavyCharIndices)
-        {
-            AppendWithVOffset(richText, textProcessedUntilIndex, charIndex, baseVOffset);
-            var voffset = GetWavyCharVerticalOffset(charIndex, maxAmplitude, wavyTextParams);
-            AppendWithVOffset(richText, charIndex, charIndex + 1, voffset);
-            textProcessedUntilIndex = charIndex + 1;
-
-            if (textProcessedUntilIndex >= richText.Length) break;
-        }
-        // The rest of the text.
-        AppendWithVOffset(richText, textProcessedUntilIndex, richText.Length, baseVOffset);
-
-        return result.ToString();
-    }
-
-    private static float GetWavyCharVerticalOffset(int index, float maxAmplitude, WavyTextParams parms)
-    {
-        var phase = 2 * Mathf.PI
-            * (Time.time * parms.WaveFrequency
-                + index / parms.WaveLength);
-        return -maxAmplitude - parms.WaveAmplitude * Mathf.Sin(phase);
     }
 }

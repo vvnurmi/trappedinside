@@ -13,7 +13,7 @@ Steps:
     Actions:
     - !Speech
 #      Text: Hello, <wavy>this is world speaking.</wavy> Indeed.
-      Text: <wavy>Hello</wavy>, this is <size=200%>world!</size> speaking. <wavy>Indeed.</wavy>
+      Text: <wavy amplitude=0.03 frequency=2>Hello</wavy>, this is <wavy frequency=5 length=5>world</wavy> speaking. <wavy length=30>Indeed.</wavy>
       Left: Yes
       Right: No
       Bubble: addressable:Speech Bubble
