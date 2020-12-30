@@ -9,6 +9,11 @@ Steps:
 #      Curve: Business card swirl
 #      Seconds: 10
 #      FlipLeft: true
+  - Actor: Red card
+    Actions:
+    - !Speech
+      Text: I'm a <shaky>red</shaky> and <shaky>shaky</shaky> card!
+      Bubble: addressable:Speech Bubble
   - Actor: Purple business card
     Actions:
     - !Speech
