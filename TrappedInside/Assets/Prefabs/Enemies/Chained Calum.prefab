@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8572645760199690988}
   - component: {fileID: 5209164368057826617}
   - component: {fileID: 8367193047730172296}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 224063134519867274}
   - component: {fileID: 7641413231524589062}
   - component: {fileID: 9025389792559379831}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4964,7 +4964,7 @@ GameObject:
   - component: {fileID: 7328507473616789823}
   - component: {fileID: 7328507473616789761}
   - component: {fileID: 7328507473616789822}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BackAttackTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5041,7 +5041,7 @@ GameObject:
   - component: {fileID: 7328507473952517380}
   - component: {fileID: 7328507473952517378}
   - component: {fileID: 7328507473952517379}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Calum
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5496,7 +5496,7 @@ GameObject:
   - component: {fileID: 7328507474823230405}
   - component: {fileID: 7328507474823230407}
   - component: {fileID: 7328507474823230404}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FrontAttackTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
