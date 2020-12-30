@@ -26,6 +26,7 @@ public class NarrativeTypist : MonoBehaviour
     /// </summary>
     private int[] richTextLengths;
     private RichTextWavy richTextWavy;
+    private RichTextShaky richTextShaky;
 
     // Modified during gameplay.
     private int charsToShow;
@@ -40,7 +41,8 @@ public class NarrativeTypist : MonoBehaviour
     {
         State = NarrativeTypistState.Typing;
         setup = narrativeTypistSetup;
-        (setup.fullText, richTextWavy) = RichTextWavy.ParseWavyTags(setup.fullText);
+        (setup.fullText, richTextWavy) = RichTextWavy.ParseTags(setup.fullText);
+        (setup.fullText, richTextShaky) = RichTextShaky.ParseTags(setup.fullText);
         richTextLengths = CalculateRichTextLengths(setup.fullText);
         charsToShow = 0;
         startTime = Time.time;
@@ -142,7 +144,10 @@ public class NarrativeTypist : MonoBehaviour
             max: richTextLengths.Length - 1);
 
         // If nothing has changed, do nothing.
-        if (!richTextWavy.NeedsUpdate && charsToShow == oldCharsToShow) return;
+        if (charsToShow == oldCharsToShow
+            && !richTextWavy.NeedsUpdate
+            && !richTextShaky.NeedsUpdate)
+            return;
 
         // Visual update.
         Debug.Assert(charsToShow < richTextLengths.Length,
@@ -151,6 +156,7 @@ public class NarrativeTypist : MonoBehaviour
             $"Trying to substring {richTextLengths[charsToShow]} from '{setup.fullText}'");
         var currentRichText = setup.fullText.Substring(0, richTextLengths[charsToShow]);
         currentRichText = richTextWavy.RepositionWavyTextChars(currentRichText);
+        currentRichText = richTextShaky.RepositionShakyTextChars(currentRichText);
         textComponent.text = currentRichText;
 
         // Audio update.

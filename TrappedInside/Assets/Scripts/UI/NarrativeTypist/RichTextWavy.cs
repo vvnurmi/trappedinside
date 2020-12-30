@@ -6,6 +6,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
+/// <summary>
+/// Manages wavy text in a TextMeshPro rich text string.
+/// </summary>
 public class RichTextWavy
 {
     private static readonly Regex WavyStartTagRegex = new Regex(
@@ -13,7 +16,7 @@ public class RichTextWavy
         RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
 
     /// <summary>
-    /// Call <see cref="ParseWavyTags(string)"/> to create a <see cref="RichTextWavy"/> instance.
+    /// Call <see cref="ParseTags(string)"/> to create a <see cref="RichTextWavy"/> instance.
     /// </summary>
     private RichTextWavy() { }
 
@@ -44,7 +47,7 @@ public class RichTextWavy
     /// Returns <paramref name="richText"/> stripped of wavy tags
     /// and a <see cref="RichTextWavy"/> instance that implements the waviness.
     /// </summary>
-    public static (string, RichTextWavy) ParseWavyTags(string richText)
+    public static (string, RichTextWavy) ParseTags(string richText)
     {
         var strippedRichText = new StringBuilder(richText.Length);
         var richTextWavy = new RichTextWavy();
@@ -134,7 +137,7 @@ public class RichTextWavy
             result.Append("<voffset=")
                 .AppendFormat(CultureInfo.InvariantCulture, "{0:N3}", voffset)
                 .Append('>')
-                .Append(richText, startIndex, safeEndIndex - startIndex)
+                .Append(text, startIndex, safeEndIndex - startIndex)
                 .Append("</voffset>");
         }
 

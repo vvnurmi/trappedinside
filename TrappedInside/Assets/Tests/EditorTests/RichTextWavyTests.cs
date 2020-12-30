@@ -11,7 +11,7 @@ namespace Tests
             (int index, WavyTextParams parms)[] expectedWavyChars,
             string richText)
         {
-            var actual = RichTextWavy.ParseWavyTags(richText);
+            var actual = RichTextWavy.ParseTags(richText);
             Assert.AreEqual(expectedStrippedRichText, actual.Item1, $"Incorrect output for input '{richText}'");
             CollectionAssert.AreEqual(expectedWavyChars, actual.Item2.WavyChars, $"Incorrect output for input '{richText}'");
         }
