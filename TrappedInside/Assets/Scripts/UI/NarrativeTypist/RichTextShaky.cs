@@ -18,6 +18,9 @@ internal struct ShakyCharInterval
     public int startIndex;
     public int endIndex;
     public ShakyTextParams parms;
+
+    public override string ToString() =>
+        $"({startIndex}, {endIndex}, {parms})";
 }
 
 /// <summary>
@@ -111,7 +114,7 @@ public class RichTextShaky
             shakyChars.Add(new ShakyCharInterval {
                 startIndex = shakyTextStart - skippedChars,
                 endIndex = shakyTextEnd - skippedChars,
-                parms = new ShakyTextParams(), // TODO !!! parse proper params from attributes
+                parms = ShakyTextParams.Default, // TODO !!! parse proper params from attributes
             });
             if (endIndex != -1)
                 skippedChars += EndTag.Length;
@@ -129,8 +132,8 @@ public class RichTextShaky
             {
                 Debug.Assert(shakyChars[i].startIndex <= shakyChars[i].endIndex,
                     "Shaky text internal error: Interval is backwards");
-                Debug.Assert(shakyChars[i].endIndex + 2 < shakyChars[i + 1].startIndex,
-                    "Unsupported text markup: There needs to be at least two non-shaky chars between consecutive shaky text intervals");
+                Debug.Assert(shakyChars[i].endIndex < shakyChars[i + 1].startIndex,
+                    "Unsupported text markup: There needs to be at least one non-shaky char between consecutive shaky text intervals");
             }
         }
         richTextShaky.ShakyChars = shakyChars.ToArray();
