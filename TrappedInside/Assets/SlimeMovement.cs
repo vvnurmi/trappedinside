@@ -51,7 +51,7 @@ public class SlimeMovement : MonoBehaviour
         }
 
         var inSpittingState = animator.GetCurrentAnimatorStateInfo(0).IsName("Slime spit");
-        if (!attackTrigger.PlayerInAttackRange && !inSpittingState && velocity.x == 0)
+        if (!attackTrigger.PlayerInAttackRange && !inSpittingState)
         {
             velocity.x = walkingSpeed;
         }
@@ -67,19 +67,11 @@ public class SlimeMovement : MonoBehaviour
 
         if (collisions.HasHorizontalCollisions || !dropIndicator.IsGroundAhead)
         {
-            velocity.x *= -1;
+            walkingSpeed *= -1;
             transform.localScale = new Vector3(
                 -transform.localScale.x,
                 transform.localScale.y,
                 transform.localScale.z);
-        }
-    }
-
-    private void Walk()
-    {
-        if (velocity.x == 0)
-        {
-            velocity.x = walkingSpeed;
         }
     }
 
