@@ -22,6 +22,9 @@ public class SlimeMovement : MonoBehaviour
     private Vector2 velocity;
     private DropIndicator dropIndicator;
     private AttackTrigger attackTrigger;
+    private float previousSpitTime = 0.0f;
+    private readonly float spitInterval = 2.0f;
+    private readonly List<string> animationStates = new List<string>{ "Idle", "Move", "Spit"};
 
     private void Start()
     {
@@ -43,17 +46,27 @@ public class SlimeMovement : MonoBehaviour
         if (attackTrigger.PlayerInAttackRange)
         {
             velocity.x = 0;
-            animator.SetBool("Spit", true);
+            if (Time.time - previousSpitTime > spitInterval)
+            {
+                previousSpitTime = Time.time;
+                SetAnimationState("Spit");
+            }
+            else
+            {
+                SetAnimationState("Idle");
+            }
         }
         else
         {
-            animator.SetBool("Spit", false);
+            SetAnimationState("Idle");
         }
 
+        //Slime can move only after it has finished spitting animation.
         var inSpittingState = animator.GetCurrentAnimatorStateInfo(0).IsName("Slime spit");
         if (!attackTrigger.PlayerInAttackRange && !inSpittingState)
         {
             velocity.x = walkingSpeed;
+            SetAnimationState("Move");
         }
 
         velocity.y += gravity * Time.deltaTime;
@@ -73,6 +86,12 @@ public class SlimeMovement : MonoBehaviour
                 transform.localScale.y,
                 transform.localScale.z);
         }
+    }
+
+    private void SetAnimationState(string state)
+    {
+        animationStates.ForEach(animationState => animator.SetBool(animationState, false));
+        animator.SetBool(state, true);
     }
 
     private void SpitAnimationEnded()
