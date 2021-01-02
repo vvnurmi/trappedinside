@@ -2,15 +2,21 @@
 
 public class AttackTrigger : MonoBehaviour
 {
+    private GameObject player;
+
     public bool PlayerInAttackRange { get; private set; }
     public bool PlayerInLeft { get; private set; }
+    public Vector3? PlayerPosition => player?.transform.position;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (IsPlayer(collision))
         {
             PlayerInAttackRange = true;
-            PlayerInLeft = collision.gameObject.transform.position.x < gameObject.transform.position.x;
+            if (player == null)
+                player = collision.gameObject;
+
+            PlayerInLeft = player.transform.position.x < transform.position.x;
         }
     }
 

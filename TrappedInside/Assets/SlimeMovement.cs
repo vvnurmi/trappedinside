@@ -101,13 +101,16 @@ public class SlimeMovement : MonoBehaviour
 
     private void Spit()
     {
-        var slimeSpit = Instantiate(slimeSpitObject, transform.position + new Vector3(-0.05f, -0.01f, 0), Quaternion.identity);
+        var slimeSpit = Instantiate(slimeSpitObject, transform.position + new Vector3(0f, -0.01f, 0), Quaternion.identity);
         var slimeSpitMovement = slimeSpit.GetComponent<SlimeSpitMovement>();
-        if(attackTrigger.PlayerInLeft)
-            slimeSpitMovement.InitialVelocity = new Vector2(-2, 2);
-        else
-            slimeSpitMovement.InitialVelocity = new Vector2(2, 2);
 
+        var yStartVelocity = 2.0f;
+        var timeInAir = (yStartVelocity + Mathf.Sqrt(yStartVelocity * yStartVelocity - 2 * gravity * 0.08f)) / -gravity;
+        var xDistance = attackTrigger.PlayerPosition?.x - transform.position.x;
+        var xVelocity = xDistance / timeInAir;
+
+        if(xVelocity != null)
+            slimeSpitMovement.InitialVelocity = new Vector2(xVelocity.Value, yStartVelocity);
     }
 
     private void Move(Vector2 moveAmount)
