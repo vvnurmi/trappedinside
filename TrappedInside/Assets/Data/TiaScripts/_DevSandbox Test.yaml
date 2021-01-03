@@ -12,7 +12,7 @@ Steps:
   - Actor: Red card
     Actions:
     - !Speech
-      Text: I'm a <shaky>red</shaky> and <shaky>shaky</shaky> card!
+      Text: I'm a <shaky>red</shaky> and<size=200%> <shaky amplitude=0.005>shaky</shaky></size> card!
       Bubble: addressable:Speech Bubble
   - Actor: Purple business card
     Actions:
