@@ -64,9 +64,9 @@ public class NarrativeTypistChoice : NarrativeTypist
     {
         base.Awake();
         textComponents[0] = GetComponentsInChildren<TMPro.TextMeshProUGUI>()
-            .Single(text => text.gameObject.CompareTag(TiaSpeech.TagLeft));
+            .Single(text => text.gameObject.CompareTag(TiaSpeak.TagLeft));
         textComponents[1] = GetComponentsInChildren<TMPro.TextMeshProUGUI>()
-            .Single(text => text.gameObject.CompareTag(TiaSpeech.TagRight));
+            .Single(text => text.gameObject.CompareTag(TiaSpeak.TagRight));
     }
 
     protected override void FixedUpdate()

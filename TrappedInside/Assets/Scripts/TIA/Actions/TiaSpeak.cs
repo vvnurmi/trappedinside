@@ -11,7 +11,7 @@ using YamlDotNet.Serialization;
 /// component is marked by the tags <see cref="TagText"/>, <see cref="TagSpeaker"/>,
 /// <see cref="TagLeft"/>, <see cref="TagRight"/>.
 /// </summary>
-public class TiaSpeech : ITiaAction
+public class TiaSpeak : ITiaAction
 {
     /// <summary>
     /// Tag on the text field component of a speech bubble game object to denote
@@ -89,7 +89,7 @@ public class TiaSpeech : ITiaAction
     private Task startTask;
     private bool isDoneOverride;
 
-    public TiaSpeech()
+    public TiaSpeak()
     {
         TypingSpeedMultiplier = 1;
         IsModal = true;
@@ -105,7 +105,7 @@ public class TiaSpeech : ITiaAction
             await loadTask;
             if (loadTask.Status != TaskStatus.RanToCompletion)
             {
-                Debug.LogWarning($"{nameof(TiaSpeech)} loading addressable '{addressableName}' ended as {loadTask.Status}");
+                Debug.LogWarning($"{nameof(TiaSpeak)} loading addressable '{addressableName}' ended as {loadTask.Status}");
                 return null;
             }
             return loadTask.Result;
@@ -139,7 +139,7 @@ public class TiaSpeech : ITiaAction
     private async Task StartAsync(ITiaActionContext context)
     {
         var bubblePrefab = await FindObject(context, SpeechBubbleName);
-        Debug.Assert(bubblePrefab != null, $"{nameof(TiaSpeech)} will skip because it"
+        Debug.Assert(bubblePrefab != null, $"{nameof(TiaSpeak)} will skip because it"
             + $" couldn't find speech bubble by name '{SpeechBubbleName}'");
         if (bubblePrefab == null)
         {
@@ -164,7 +164,7 @@ public class TiaSpeech : ITiaAction
 
         if (string.IsNullOrEmpty(LeftChoice) != string.IsNullOrEmpty(RightChoice))
         {
-            Debug.LogWarning($"{nameof(TiaSpeech)} left and right choices must both be"
+            Debug.LogWarning($"{nameof(TiaSpeak)} left and right choices must both be"
                 + $" empty or nonempty but are '{LeftChoice}' and '{RightChoice}'");
         }
         var typistSetup = new NarrativeTypistSetup

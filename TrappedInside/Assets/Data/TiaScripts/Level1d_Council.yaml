@@ -18,164 +18,164 @@ Steps:
 - Sequences:
   - Actor: Randalf
     Actions:
-    - !Animation
+    - !Animate
       Name: Walking
     - !Move
       Curve: Randalf to table
       Seconds: 2
-    - !Animation
+    - !Animate
       Name: Idle
 - Sequences:
   - Actor: Mike
     Actions:
     - !Activate
-    - !Animation
+    - !Animate
       Name: Running
     - !Move
       Curve: Mike to table
       Seconds: 3
-    - !Animation
+    - !Animate
       Name: Idle
 - Sequences:
   - Actor: Fan Duil
     Actions:
-    - !Speech
+    - !Speak
       Text: Randalf, is this the chosen one you have spoken so highly of?
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Amazon Queen
     Actions:
-    - !Speech
+    - !Speak
       Text: You forgot to mention how handsome he is!
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Justin Finn
     Actions:
-    - !Speech
+    - !Speak
       Text: Rrrrrrshhhhh...
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Brokenshield
     Actions:
-    - !Speech
+    - !Speak
       Text: Quiet, woman and Justin! There is no time for nonsense.
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Randalf
     Actions:
-    - !Speech
+    - !Speak
       Text: Brokenshield is right. The fate of the world is at stake. But fear not, our saviour has arrived!
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Fan Duil
     Actions:
-    - !Speech
+    - !Speak
       Text: The bright one!
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Brokenshield
     Actions:
-    - !Speech
+    - !Speak
       Text: The stupendous one!
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Amazon Queen
     Actions:
-    - !Speech
+    - !Speak
       Text: The handsome one!
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Justin Finn
     Actions:
-    - !Speech
+    - !Speak
       Text: Rrrrrrshhhhh...
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Randalf
     Actions:
-    - !Speech
+    - !Speak
       Text: The chosen one, yes. Mike, please, you have got to help us.
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Mike
     Actions:
-    - !Speech
+    - !Speak
       Text: Sure thing. I only have one request.
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Amazon Queen
     Actions:
-    - !Speech
+    - !Speak
       Text: Let me fill it.
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Mike
     Actions:
-    - !Speech
+    - !Speak
       Text: It is for Justin.
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Justin Finn
     Actions:
-    - !Speech
+    - !Speak
       Text: Rrrrrrshhhhh...
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Mike
     Actions:
-    - !Speech
+    - !Speak
       Text: You once said something I said you would regret some day. Today could be that day.
       Bubble: addressable:Speech Bubble
   - Actor: Seagull
     Actions:
     - !Activate
-    - !Animation
+    - !Animate
       Name: Flying
     - !Move
       Curve: Seagull above Justin
       Seconds: 4
-    - !Animation
+    - !Animate
       Name: Idle
 - Sequences:
   - Actor: Justin Finn
     Actions:
-    - !Speech
+    - !Speak
       Text: Rrrrrrshhhhh...
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Fan Duil
     Actions:
-    - !Speech
+    - !Speak
       Text: You fool! What have you done.
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Mike
     Actions:
-    - !Speech
+    - !Speak
       Text: But I am willing to let go of the past. If only you tell everyone here you were wrong and ask for my forgiveness.
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Justin Finn
     Actions:
-    - !Speech
+    - !Speak
       Text: Rrrrrrshhhhh...
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Randalf
     Actions:
-    - !Speech
+    - !Speak
       Text: Now is not the time to be a dope, Justin. Just ask for Mike's forgiveness and we can continue.
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Justin Finn
     Actions:
-    - !Speech
+    - !Speak
       Text: Rrrrrshhh... I... am... sorry... I made a mistake... I shouldn't have called you that. It wasn't true. I was jealous of your talent and looks even back then.
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Mike
     Actions:
-    - !Speech
+    - !Speak
       Text: Don't worry Justin. I forgive you.
       Bubble: addressable:Speech Bubble
   - Actor: Seagull Excrement
@@ -184,7 +184,7 @@ Steps:
     - !Move
       Curve: Excrement to Justin
       Seconds: 0.7
-    - !Animation
+    - !Animate
       Name: Seagull excrement hitting
     - !Pause
       Seconds: 0.3
@@ -193,87 +193,87 @@ Steps:
     Actions:
     - !Pause
       Seconds: 0.7
-    - !Animation
+    - !Animate
       Name: GettingHit
     - !Pause
       Seconds: 0.2
-    - !Animation
+    - !Animate
       Name: Idle
 - Sequences:
   - Actor: Fan Duil
     Actions:
-    - !Speech
+    - !Speak
       Text: You truly are a great man!
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Brokenshield
     Actions:
-    - !Speech
+    - !Speak
       Text: A better man!
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Amazon Queen
     Actions:
-    - !Speech
+    - !Speak
       Text: A true man!
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Randalf
     Actions:
-    - !Speech
+    - !Speak
       Text: Best of us, no doubt about it. And that is why we need your help so desperately. You see... the darkest of the lords has arisen. He means business. We are doomed. Unless...
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Mike
     Actions:
-    - !Speech
+    - !Speak
       Text: Unless I defeat the three undefeatable quests?
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Randalf
     Actions:
-    - !Speech
+    - !Speak
       Text: ...How did you know?!?
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Mike
     Actions:
-    - !Speech
+    - !Speak
       Text: Well, let's just say I am...
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Fan Duil
     Actions:
-    - !Speech
+    - !Speak
       Text: The omniscient one!
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Brokenshield
     Actions:
-    - !Speech
+    - !Speak
       Text: The astonishing one!
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Amazon Queen
     Actions:
-    - !Speech
+    - !Speak
       Text: The desirable one!
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Justin Finn
     Actions:
-    - !Speech
+    - !Speak
       Text: Rrrshhhh... The enviable one!
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Randalf
     Actions:
-    - !Speech
+    - !Speak
       Text: Most sophisticated one, no doubt about it. The first of the undefeatable quests is the climb to Mount Boom.
       Bubble: addressable:Speech Bubble
   - Actor: Seagull
     Actions:
-    - !Animation
+    - !Animate
       Name: Flying
     - !Move
       Curve: Seagull away
@@ -286,7 +286,7 @@ Steps:
 - Sequences:
   - Actor: Brokenshield
     Actions:
-    - !Speech
+    - !Speak
       Text: Take this shield forged by dwarfs to help you one your way.
       Bubble: addressable:Speech Bubble
 - Sequences:
@@ -296,7 +296,7 @@ Steps:
 - Sequences:
   - Actor: Justin Finn
     Actions: 
-    - !Animation
+    - !Animate
       Name: Walking
     - !Move
       FlipLeft: true
@@ -304,7 +304,7 @@ Steps:
       Seconds: 4
   - Actor: Fan Duil
     Actions: 
-    - !Animation
+    - !Animate
       Name: Walking
     - !Move
       FlipLeft: true
@@ -312,7 +312,7 @@ Steps:
       Seconds: 4
   - Actor: Randalf
     Actions: 
-    - !Animation
+    - !Animate
       Name: Randalf walking right
     - !Move
       Curve: Randalf away
@@ -328,19 +328,19 @@ Steps:
     - !Deactivate
   - Actor: Brokenshield
     Actions: 
-    - !Animation
+    - !Animate
       Name: Walking
     - !Move
       Curve: Brokenshield away
       Seconds: 4
   - Actor: Mike
     Actions: 
-    - !Animation
+    - !Animate
       Name: Running
     - !Move
       Curve: Mike away
       Seconds: 3.5
-    - !Animation
+    - !Animate
       Name: Idle
     - !Move
       FlipLeft: true
@@ -350,49 +350,49 @@ Steps:
     Actions:
     - !Pause
       Seconds: 3
-    - !Speech
+    - !Speak
       Text: Mike wait...
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Amazon Queen
     Actions:
-    - !Animation
+    - !Animate
       Name: Walking
     - !Move
       LooksLeftInitially: true
       FlipLeft: true
       Curve: Amazon to Mike
       Seconds: 3
-    - !Animation
+    - !Animate
       Name: Idle
 - Sequences:
   - Actor: Amazon Queen
     Actions:
-    - !Speech
+    - !Speak
       Text: You are the most manly creature I have ever witnessed. It would be an honor to share with you the most treasured of the amazonian pleasures.
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Mike
     Actions:
-    - !Speech
+    - !Speak
       Text: I am sorry my Queen, but I am much too focused on the mission at hand - saving the world - to even consider such a precious gift right now.
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Amazon Queen
     Actions:
-    - !Speech
+    - !Speak
       Text: Are you sure? The most treasured of the amazonian treasures is quite quickly given.
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Mike
     Actions:
-    - !Speech
+    - !Speak
       Text: I am sorry my Queen, but I need my full strength facing the upcoming challenges.
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Mike
     Actions: 
-    - !Animation
+    - !Animate
       Name: Running
     - !Move
       LooksLeftInitially: true

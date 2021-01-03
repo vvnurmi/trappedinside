@@ -11,27 +11,27 @@ Steps:
 #      FlipLeft: true
   - Actor: Red card
     Actions:
-    - !Speech
+    - !Speak
       Text: I'm a <shaky>red</shaky> and<size=200%> <shaky amplitude=0.005>shaky</shaky></size> card!
       Bubble: addressable:Speech Bubble
   - Actor: Purple business card
     Actions:
-    - !Speech
+    - !Speak
 #      Text: Hello, <wavy>this is world speaking.</wavy> Indeed.
       Text: <wavy amplitude=0.03 frequency=2>Hello</wavy>, this is <wavy frequency=5 length=5>world</wavy> speaking. <wavy length=30>Indeed.</wavy>
       Left: Yes
       Right: No
       Bubble: addressable:Speech Bubble
-    - !Speech
+    - !Speak
       Text: A second text emerges.
       Bubble: addressable:Speech Bubble
   - Actor: Purple business card
     Actions:
     - !Pause
       Seconds: 3
-    - !Method
+    - !Invoke
       Name: DisablePlayerInput
     - !Pause
       Seconds: 1
-    - !Method
+    - !Invoke
       Name: EnablePlayerInput

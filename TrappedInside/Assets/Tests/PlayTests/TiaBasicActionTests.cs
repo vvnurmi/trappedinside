@@ -71,7 +71,7 @@ namespace Tests
 
             var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
             tiaPlayer.script = NewSimpleScript(testObject,
-                new TiaAnimation { AnimationName = AnotherStateName });
+                new TiaAnimate { AnimationName = AnotherStateName });
 
             void AssertAnimationState(string expectedStateName) =>
                 Assert.That(
@@ -93,7 +93,7 @@ namespace Tests
 
             var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
             tiaPlayer.script = NewSimpleScript(testObject,
-                new TiaMethod { MethodName = nameof(TiaMethods.SetTestFlagToTrue) });
+                new TiaInvoke { MethodName = nameof(TiaMethods.SetTestFlagToTrue) });
 
             TiaMethods.testFlag = false;
 

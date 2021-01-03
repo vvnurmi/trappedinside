@@ -50,12 +50,12 @@ public class NarrativeTypist : MonoBehaviour
         var textFields = GetComponentsInChildren<TMPro.TextMeshProUGUI>();
         foreach (var textField in textFields)
         {
-            if (textField.gameObject.CompareTag(TiaSpeech.TagText))
+            if (textField.gameObject.CompareTag(TiaSpeak.TagText))
             {
                 textComponent = textField;
                 textField.text = "";
             }
-            if (textField.gameObject.CompareTag(TiaSpeech.TagSpeaker))
+            if (textField.gameObject.CompareTag(TiaSpeak.TagSpeaker))
                 textField.text = setup.speaker;
         }
     }
@@ -79,7 +79,7 @@ public class NarrativeTypist : MonoBehaviour
         Debug.Assert(audioSource != null,
             $"Couldn't find {nameof(AudioSource)} in '{gameObject.GetFullName()}' so can't play speech sounds.");
         textComponent = GetComponentsInChildren<TMPro.TextMeshProUGUI>()
-            .Single(text => text.gameObject.CompareTag(TiaSpeech.TagText));
+            .Single(text => text.gameObject.CompareTag(TiaSpeak.TagText));
     }
 
     protected virtual void FixedUpdate()

@@ -13,17 +13,17 @@ namespace Tests
     {
         /// <summary>
         /// Creates a speech bubble as a game object that can be given by name to
-        /// <see cref="TiaSpeech"/> to clone the actual speech bubble from at run-time.
+        /// <see cref="TiaSpeak"/> to clone the actual speech bubble from at run-time.
         /// </summary>
         private void NewSpeechBubble(string speechBubbleName, GameObject tiaRoot, float charsPerSecond)
         {
             var speechBubblePrefab = NewGameObject(speechBubbleName);
             speechBubblePrefab.transform.parent = tiaRoot.transform;
 
-            AddTextFieldComponent(speechBubblePrefab, TiaSpeech.TagText);
-            AddTextFieldComponent(speechBubblePrefab, TiaSpeech.TagSpeaker);
-            AddTextFieldComponent(speechBubblePrefab, TiaSpeech.TagLeft);
-            AddTextFieldComponent(speechBubblePrefab, TiaSpeech.TagRight);
+            AddTextFieldComponent(speechBubblePrefab, TiaSpeak.TagText);
+            AddTextFieldComponent(speechBubblePrefab, TiaSpeak.TagSpeaker);
+            AddTextFieldComponent(speechBubblePrefab, TiaSpeak.TagLeft);
+            AddTextFieldComponent(speechBubblePrefab, TiaSpeak.TagRight);
 
             speechBubblePrefab.AddComponent<AudioSource>();
             var settings = ScriptableObject.CreateInstance<NarrativeTypistSettings>();
@@ -61,10 +61,10 @@ namespace Tests
                 Assert.IsNotNull(taggedUgui, $"Text field with tag '{tag}' not found in speech bubble");
                 Assert.AreEqual(expectedContent, taggedUgui.text);
             }
-            AssertFieldContent(expectedText, TiaSpeech.TagText);
-            AssertFieldContent(expectedSpeaker, TiaSpeech.TagSpeaker);
-            AssertFieldContent(expectedLeftChoice, TiaSpeech.TagLeft);
-            AssertFieldContent(expectedRightChoice, TiaSpeech.TagRight);
+            AssertFieldContent(expectedText, TiaSpeak.TagText);
+            AssertFieldContent(expectedSpeaker, TiaSpeak.TagSpeaker);
+            AssertFieldContent(expectedLeftChoice, TiaSpeak.TagLeft);
+            AssertFieldContent(expectedRightChoice, TiaSpeak.TagRight);
         }
 
         [UnityTest]
@@ -80,7 +80,7 @@ namespace Tests
 
             var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
             tiaPlayer.script = NewSimpleScript(testObject,
-                new TiaSpeech
+                new TiaSpeak
                 {
                     TmpRichText = richText,
                     SpeechBubbleName = speechBubbleName,
@@ -139,7 +139,7 @@ namespace Tests
 
             var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
             tiaPlayer.script = NewSimpleScript(testObject,
-                new TiaSpeech
+                new TiaSpeak
                 {
                     TmpRichText = richText,
                     SpeechBubbleName = speechBubbleName,
@@ -177,7 +177,7 @@ namespace Tests
 
             var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
             tiaPlayer.script = NewSimpleScript(testObject,
-                new TiaSpeech
+                new TiaSpeak
                 {
                     TmpRichText = richText,
                     SpeechBubbleName = speechBubbleName,
@@ -240,7 +240,7 @@ namespace Tests
 
             var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
             tiaPlayer.script = NewSimpleScript(testObject,
-                new TiaSpeech
+                new TiaSpeak
                 {
                     TmpRichText = richText,
                     SpeechBubbleName = speechBubbleName,

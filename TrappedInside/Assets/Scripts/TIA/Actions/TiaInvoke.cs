@@ -2,9 +2,9 @@
 using YamlDotNet.Serialization;
 
 /// <summary>
-/// Calls a C# method.
+/// Invokes a C# method.
 /// </summary>
-public class TiaMethod : ITiaAction
+public class TiaInvoke : ITiaAction
 {
     [YamlMember(Alias = "Name")]
     public string MethodName { get; set; }

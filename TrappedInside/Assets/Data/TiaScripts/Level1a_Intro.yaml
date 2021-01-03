@@ -4,7 +4,7 @@ Steps:
 - Sequences:
   - Actor: Mike
     Actions:
-    - !Animation
+    - !Animate
       Name: Running
     - !Move
       Curve: Mike running

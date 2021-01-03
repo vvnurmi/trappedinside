@@ -18,32 +18,32 @@ Steps:
 - Sequences:
   - Actor: Mike
     Actions:
-    - !Animation
+    - !Animate
       Name: Running
     - !Move
       Curve: Mike to Randalf
       Seconds: 1
-    - !Animation
+    - !Animate
       Name: Idle
-    - !Speech
+    - !Speak
       Text: Randalf!
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Randalf
     Actions:
-    - !Speech
+    - !Speak
       Text: Mike, we need your more than ever!
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Mike
     Actions:
-    - !Speech
+    - !Speak
       Text: Calm down Randalf the great Wizard, what is it?
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Randalf
     Actions:
-    - !Speech
+    - !Speak
       Text: I'll explain later. Now follow me.
       Bubble: addressable:Speech Bubble
 - Sequences:
