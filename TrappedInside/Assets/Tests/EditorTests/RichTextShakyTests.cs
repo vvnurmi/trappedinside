@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Tests
@@ -32,37 +33,43 @@ namespace Tests
                 .ToArray();
             AssertShakyText(expectedStrippedRichText, expectedShakyChars, richText);
         }
-        /*
-        private void TestShakyCharReposition(string richText, int[] shakyCharIndices)
+
+        private void TestShakyCharReposition(string richText, (int, int)[] shakyCharIntervals)
         {
-            var shakyChars = shakyCharIndices
-                .Select(i => (i, ShakyTextParams.Default))
+            var shakyCharIndices = shakyCharIntervals
+                .SelectMany(interval => Enumerable.Range(interval.Item1, interval.Item2 - interval.Item1))
+                .ToLookup(i => i);
+            var shakyChars = shakyCharIntervals
+                .Select(i => new ShakyCharInterval
+                {
+                    startIndex = i.Item1,
+                    endIndex = i.Item2,
+                    parms = ShakyTextParams.Default,
+                })
                 .ToArray();
             var richTextShaky = new RichTextShaky(shakyChars);
             var result = richTextShaky.RepositionShakyTextChars(richText);
             var richChars = richText.ToCharArray();
-            var regex = "<line-height=100%><voffset=0> </voffset><pos=0>" + string.Join("", richChars
+            var regex = string.Join("", richChars
                 .Select((ch, i) =>
                 {
-                    var isFirst = i == 0;
-                    var isLast = i == richText.Length - 1;
                     var isShaky = shakyCharIndices.Contains(i);
-                    var isNextWavy = shakyCharIndices.Contains(i + 1);
-                    var isPrevWavy = shakyCharIndices.Contains(i - 1);
-
-                    var chRegex = "";
-                    if (isShaky || isFirst || isPrevWavy) chRegex += "<voffset=[-0-9.]+>";
-                    chRegex += ch;
-                    if (isShaky || isLast || isNextWavy) chRegex += "</voffset>";
-
-                    return chRegex;
+                    var isNextShaky = shakyCharIndices.Contains(i + 1);
+                    var isPrevShaky = shakyCharIndices.Contains(i - 1);
+                    var pattern = new StringBuilder();
+                    if (isPrevShaky && !isShaky)
+                        pattern.Append("<cspace=0>");
+                    if (isNextShaky || isShaky)
+                        pattern.Append("<cspace=[-0-9.]+>");
+                    pattern.Append(ch);
+                    return pattern.ToString();
                 }));
             var isMatch = Regex.IsMatch(result, regex);
             Assert.IsTrue(isMatch, $"Expected match with '{regex}' but was '{result}'");
         }
-        */
+
         [Test]
-        public void ParseWavyText()
+        public void ParseShakyText()
         {
             var parms = ShakyTextParams.Default;
             AssertShakyTextSimple("foo", new (int, int)[0], parms, "foo");
@@ -72,15 +79,13 @@ namespace Tests
             //Not supported: AssertShakyTextSimple(("f<i>oo", new[] { (0, 1), (4, 6) }, parms, "<shaky>f<i>oo</shaky>");
             AssertShakyTextSimple("afoo..barb", new[] { (1, 4), (6, 9) }, parms, "a<shaky>foo</shaky>..<shaky>bar</shaky>b");
         }
-        /*
+
         [Test]
-        public void RepositionWavyTextChars()
+        public void RepositionShakyTextChars()
         {
-            Assert.AreEqual("foo", new RichTextWavy(new (int, WavyTextParams)[0]).RepositionWavyTextChars("foo"));
-            TestShakyCharReposition("foo", new[] { 0, 1, 2 });
-            TestShakyCharReposition("foo", new[] { 1, 2 });
-            TestShakyCharReposition("foo", new[] { 0, 1 });
-            TestShakyCharReposition("afoob", new[] { 1, 3 });
-        }*/
+            Assert.AreEqual("foo", new RichTextShaky(new ShakyCharInterval[0]).RepositionShakyTextChars("foo"));
+            TestShakyCharReposition("afoob", new[] { (1, 4) });
+            TestShakyCharReposition("afoo.barb", new[] { (1, 4), (5, 8) });
+        }
     }
 }

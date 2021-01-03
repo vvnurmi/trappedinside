@@ -177,10 +177,6 @@ public class RichTextShaky
             AppendSafelyNoChecks(text, startIndex, endIndex);
         }
 
-        // Note: Without <line-height> the line spacing will change to accommodate <voffset> characters.
-        // It makes the whole text block move vertically, which is not wanted.
-        result.Append("<line-height=100%><voffset=0> </voffset><pos=0>");
-
         // Note: Also push the non-offset text down by half the movement delta, and move the waving
         // text down from zero line. If the offset goes positive on the topmost line, it will push the
         // whole text block down, which is not wanted.
