@@ -31,7 +31,7 @@ public class RichTextShaky
     private const int CSpaceDigits = 3;
     private static readonly string CSpaceFormatString = "{0:N" + CSpaceDigits + "}";
     private static readonly Regex ShakyStartTagRegex = new Regex(
-        @"<shaky (?:\s+ (x|y|z) = ([-0-9.]+) )* >",
+        @"<shaky (?:\s+ (amplitude) = ([-0-9.]+) )* >",
         RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
 
     /// <summary>
@@ -103,8 +103,8 @@ public class RichTextShaky
             for (int attributeIndex = 0; attributeIndex < startMatch.Groups[1].Captures.Count; attributeIndex++)
                 switch (startMatch.Groups[1].Captures[attributeIndex].Value)
                 {
-                    case "x":
-                        ParseAttributeValue(attributeIndex, out parms.ShakeFoo);
+                    case "amplitude":
+                        ParseAttributeValue(attributeIndex, out parms.Amplitude);
                         break;
                 }
 
@@ -114,7 +114,7 @@ public class RichTextShaky
             shakyChars.Add(new ShakyCharInterval {
                 startIndex = shakyTextStart - skippedChars,
                 endIndex = shakyTextEnd - skippedChars,
-                parms = ShakyTextParams.Default, // TODO !!! parse proper params from attributes
+                parms = parms,
             });
             if (endIndex != -1)
                 skippedChars += EndTag.Length;
@@ -214,8 +214,7 @@ public class RichTextShaky
         float previousOffset,
         ShakyTextParams parms)
     {
-        var amplitude = 0.005f;
-        var charOffset = amplitude * (1 - 2 * RandomNumber.NextDouble());
+        var charOffset = parms.Amplitude * (1 - 2 * RandomNumber.NextDouble());
         // Round the offset to the precision that's used in the rich text attribute.
         var roundedCharOffset = (float)Math.Round(charOffset, CSpaceDigits);
         return (roundedCharOffset - previousOffset, roundedCharOffset);

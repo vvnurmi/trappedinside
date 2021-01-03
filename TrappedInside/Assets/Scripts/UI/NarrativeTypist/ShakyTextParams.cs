@@ -4,18 +4,18 @@ using UnityEngine;
 
 public struct ShakyTextParams
 {
-    [Tooltip("?")]
-    public float ShakeFoo; // !!!
+    [Tooltip("The maximum horizontal displacement of a character, in the object's coordinate system.")]
+    public float Amplitude;
 
     public override string ToString()
     {
-        FormattableString format = $"x={ShakeFoo}";
+        FormattableString format = $"amplitude={Amplitude}";
         return format.ToString(CultureInfo.InvariantCulture);
     }
 
     public static ShakyTextParams Default =>
         new ShakyTextParams
         {
-            ShakeFoo = 1,
+            Amplitude = 0.005f,
         };
 }

@@ -77,7 +77,24 @@ namespace Tests
             //AssertShakyTextSimple("foo", new[] { (0, 3) }, parms, "<shaky>foo</shaky>");
             AssertShakyTextSimple("afoob", new[] { (1, 4) }, parms, "a<shaky>foo</shaky>b");
             //Not supported: AssertShakyTextSimple(("f<i>oo", new[] { (0, 1), (4, 6) }, parms, "<shaky>f<i>oo</shaky>");
-            AssertShakyTextSimple("afoo..barb", new[] { (1, 4), (6, 9) }, parms, "a<shaky>foo</shaky>..<shaky>bar</shaky>b");
+            AssertShakyTextSimple("afoo.barb", new[] { (1, 4), (5, 8) }, parms, "a<shaky>foo</shaky>.<shaky>bar</shaky>b");
+        }
+
+        [Test]
+        public void ParseShakyTextWithAttributes()
+        {
+            var parms1 = new ShakyTextParams { Amplitude = 0.02f };
+            var parms2 = new ShakyTextParams { Amplitude = 5f };
+            AssertShakyTextSimple("foo", new (int, int)[0], parms1, "foo");
+            AssertShakyTextSimple("afoob", new[] { (1, 4) }, parms1, "a<shaky amplitude=0.02>foo</shaky>b");
+            AssertShakyText(
+                "afoo.barb",
+                new[]
+                {
+                    new ShakyCharInterval { startIndex = 1, endIndex = 4, parms = parms1 },
+                    new ShakyCharInterval { startIndex = 5, endIndex = 8, parms = parms2 },
+                },
+                "a<shaky amplitude=0.02>foo</shaky>.<shaky amplitude=5>bar</shaky>b");
         }
 
         [Test]
