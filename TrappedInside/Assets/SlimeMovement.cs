@@ -107,10 +107,24 @@ public class SlimeMovement : MonoBehaviour
         var yStartVelocity = 2.0f;
         var timeInAir = (yStartVelocity + Mathf.Sqrt(yStartVelocity * yStartVelocity - 2 * gravity * 0.08f)) / -gravity;
         var xDistance = attackTrigger.PlayerPosition?.x - transform.position.x;
+
         var xVelocity = xDistance / timeInAir;
 
-        if(xVelocity != null)
-            slimeSpitMovement.InitialVelocity = new Vector2(xVelocity.Value, yStartVelocity);
+        if (xVelocity.HasValue)
+        {
+            slimeSpitMovement.InitialVelocity = 
+                new Vector2(
+                    GetLimitedInitialVelocity(attackTrigger.PlayerInLeft, 0.3f, xVelocity.Value), 
+                    yStartVelocity);
+        }
+    }
+
+    private float GetLimitedInitialVelocity(bool playerInLeft, float minVelocity, float velocity)
+    {
+        if (attackTrigger.PlayerInLeft)
+            return Mathf.Min(-minVelocity, velocity);
+        else
+            return Mathf.Max(minVelocity, velocity);
     }
 
     private void Move(Vector2 moveAmount)
