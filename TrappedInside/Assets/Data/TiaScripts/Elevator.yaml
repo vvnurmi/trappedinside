@@ -1,0 +1,35 @@
+---
+AutoPlay: true
+Steps:
+- Sequences:
+  - Actor: Mike
+    Actions:
+    - !Animate
+      Name: Running
+    - !Move
+      Curve: Mike to elevator
+      Seconds: 3
+- Sequences:
+  - Actor: Mike
+    Actions:
+    - !Animate
+      Name: Idle
+- Sequences:
+  - Actor: Elevator
+    Actions:
+    - !Move
+      Curve: Elevator up
+      Seconds: 4
+  - Actor: Pulley
+    Actions:
+    - !Animate
+      Name: Move
+    - !Move
+      Curve: Pulley up
+      Seconds: 3.8
+  - Actor: Mike
+    Actions:
+    - !Move
+      Curve: Mike up
+      Seconds: 3.8      
+

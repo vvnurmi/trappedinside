@@ -98,7 +98,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
+        width: 48
         height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -107,7 +107,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d3bfd4251ab940847b6f8f9b487ae30f
+      spriteID: 4ca097d4c78b5b2a0800000000000000
       internalID: -6722264024765363516
       vertices: []
       indices: 
@@ -117,9 +117,9 @@ TextureImporter:
       name: elevator_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 48
         y: 0
-        width: 32
+        width: 48
         height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -128,7 +128,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d8ac8cb6838f5674fad1455fa2f58ea9
+      spriteID: cce526d45df19f350800000000000000
       internalID: 6050902575335759564
       vertices: []
       indices: 
