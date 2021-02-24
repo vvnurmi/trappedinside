@@ -30,7 +30,6 @@ public class CalumMovement : MonoBehaviour
 
     private void Start()
     {
-
         characterState = GetComponent<CharacterState>();
         var boxCollider = GetComponent<BoxCollider2D>();
         groundCollider = new RaycastCollider(
@@ -38,12 +37,12 @@ public class CalumMovement : MonoBehaviour
                 boxCollider,
                 characterState.collisions);
         velocity = Vector2.zero;
-        frontAttackTrigger = transform.GetChild(0).GetComponent<AttackTrigger>();
-        backAttackTrigger = transform.GetChild(1).GetComponent<AttackTrigger>();
+        frontAttackTrigger = transform.GetChild(2).GetComponent<AttackTrigger>();
+        backAttackTrigger = transform.GetChild(0).GetComponent<AttackTrigger>();
         hitPoints = GetComponent<HitPoints>();
         animator = GetComponent<Animator>();
         spriteRendered = GetComponent<SpriteRenderer>();
-        pole = transform.parent.GetChild(0);
+        pole = transform.parent.GetChild(6);
 
     }
 
@@ -64,6 +63,7 @@ public class CalumMovement : MonoBehaviour
         }
         else if (backAttackTrigger.PlayerInAttackRange)
         {
+            Debug.Log("Flipped");
             SetAnimatorState(walking);
             Flip();
             xSpeed = GetSpeed();
