@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objecttypes>
-  <objecttype name="Deer" color="#0000ff"/>
-  <objecttype name="Hedgehog" color="#ff5500"/>
-  <objecttype name="LevelLoadTrigger" color="#dcdcdc">
-    <property name="nextLevel" type="file" default="../Scenes/_DevSandbox.unity"/>
-  </objecttype>
-  <objecttype name="Mike Start" color="#00ff00"/>
-  <objecttype name="Spikey" color="#ffbf00"/>
-  <objecttype name="Spider" color="#ff0000"/>
-  <objecttype name="ArcadeToken" color="#ffff00"/>
-  <objecttype name="BusinessCard" color="#ff00ff"/>
-  <objecttype name="HornetNest" color="#ffaa00"/>
+ <objecttype name="ArcadeToken" color="#ffff00"/>
+ <objecttype name="BusinessCard" color="#ff00ff"/>
+ <objecttype name="Calum" color="#005500"/>
+ <objecttype name="Deer" color="#0000ff"/>
+ <objecttype name="Hedgehog" color="#ff5500"/>
+ <objecttype name="HornetNest" color="#ffaa00"/>
+ <objecttype name="LevelLoadTrigger" color="#dcdcdc">
+  <property name="nextLevel" type="file" default="../Scenes/_DevSandbox.unity"/>
+ </objecttype>
+ <objecttype name="Mike Start" color="#00ff00"/>
+ <objecttype name="Slime" color="#55ff00"/>
+ <objecttype name="Spider" color="#ff0000"/>
+ <objecttype name="Spikey" color="#ffbf00"/>
 </objecttypes>

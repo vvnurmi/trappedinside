@@ -52,11 +52,23 @@ MonoBehaviour:
   - {r: 0, g: 1, b: 1, a: 1}
   - {r: 0.7372549, g: 0.56078434, b: 0.56078434, a: 1}
   m_CustomObjectTypes:
+  - m_Name: ArcadeToken
+    m_Color: {r: 1, g: 1, b: 0, a: 1}
+    m_CustomProperties: []
+  - m_Name: BusinessCard
+    m_Color: {r: 1, g: 0, b: 1, a: 1}
+    m_CustomProperties: []
+  - m_Name: Calum
+    m_Color: {r: 0, g: 0.33333334, b: 0, a: 1}
+    m_CustomProperties: []
   - m_Name: Deer
     m_Color: {r: 0, g: 0, b: 1, a: 1}
     m_CustomProperties: []
   - m_Name: Hedgehog
     m_Color: {r: 1, g: 0.33333334, b: 0, a: 1}
+    m_CustomProperties: []
+  - m_Name: HornetNest
+    m_Color: {r: 1, g: 0.6666667, b: 0, a: 1}
     m_CustomProperties: []
   - m_Name: LevelLoadTrigger
     m_Color: {r: 0.8627451, g: 0.8627451, b: 0.8627451, a: 1}
@@ -67,20 +79,14 @@ MonoBehaviour:
   - m_Name: Mike Start
     m_Color: {r: 0, g: 1, b: 0, a: 1}
     m_CustomProperties: []
-  - m_Name: Spikey
-    m_Color: {r: 1, g: 0.7490196, b: 0, a: 1}
+  - m_Name: Slime
+    m_Color: {r: 0.33333334, g: 1, b: 0, a: 1}
     m_CustomProperties: []
   - m_Name: Spider
     m_Color: {r: 1, g: 0, b: 0, a: 1}
     m_CustomProperties: []
-  - m_Name: ArcadeToken
-    m_Color: {r: 1, g: 1, b: 0, a: 1}
-    m_CustomProperties: []
-  - m_Name: BusinessCard
-    m_Color: {r: 1, g: 0, b: 1, a: 1}
-    m_CustomProperties: []
-  - m_Name: HornetNest
-    m_Color: {r: 1, g: 0.6666667, b: 0, a: 1}
+  - m_Name: Spikey
+    m_Color: {r: 1, g: 0.7490196, b: 0, a: 1}
     m_CustomProperties: []
   m_PrefabReplacements:
   - m_TypeName: Deer
@@ -109,4 +115,10 @@ MonoBehaviour:
       type: 3}
   - m_TypeName: HornetNest
     m_Prefab: {fileID: 8724453674863870983, guid: 26ef941f9ab5344498324654c7f379c7,
+      type: 3}
+  - m_TypeName: Slime
+    m_Prefab: {fileID: 1641278014603661372, guid: aa74796cc12f7584d88c6057f8fe8390,
+      type: 3}
+  - m_TypeName: Calum
+    m_Prefab: {fileID: 7328507475225966622, guid: 1c9ce48988bec294cb310e540970fb27,
       type: 3}
