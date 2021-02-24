@@ -128,6 +128,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8634516599013342442, guid: 89160f4e26ad4c635bea6bb19f728576,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 101
+      objectReference: {fileID: 0}
     - target: {fileID: -8539310298971484807, guid: 89160f4e26ad4c635bea6bb19f728576,
         type: 3}
       propertyPath: m_Layer
@@ -297,6 +302,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 62652373249625762, guid: 89160f4e26ad4c635bea6bb19f728576,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 890266024119825110, guid: 89160f4e26ad4c635bea6bb19f728576,
         type: 3}
