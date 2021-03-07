@@ -32,4 +32,7 @@ Steps:
     - !Move
       Curve: Mike up
       Seconds: 3.8      
-
+- Sequences:
+  - Actor: LevelLoadOnAwake
+    Actions:
+    - !Activate
