@@ -5,6 +5,7 @@
  <objecttype name="Calum" color="#005500"/>
  <objecttype name="Deer" color="#0000ff"/>
  <objecttype name="Hedgehog" color="#ff5500"/>
+ <objecttype name="Hornet" color="#a4a400"/>
  <objecttype name="HornetNest" color="#ffaa00"/>
  <objecttype name="LevelLoadTrigger" color="#dcdcdc">
   <property name="nextLevel" type="file" default="../Scenes/_DevSandbox.unity"/>

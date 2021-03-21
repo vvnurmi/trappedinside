@@ -67,6 +67,9 @@ MonoBehaviour:
   - m_Name: Hedgehog
     m_Color: {r: 1, g: 0.33333334, b: 0, a: 1}
     m_CustomProperties: []
+  - m_Name: Hornet
+    m_Color: {r: 0.6431373, g: 0.6431373, b: 0, a: 1}
+    m_CustomProperties: []
   - m_Name: HornetNest
     m_Color: {r: 1, g: 0.6666667, b: 0, a: 1}
     m_CustomProperties: []
@@ -121,4 +124,7 @@ MonoBehaviour:
       type: 3}
   - m_TypeName: Calum
     m_Prefab: {fileID: 7328507475225966622, guid: 1c9ce48988bec294cb310e540970fb27,
+      type: 3}
+  - m_TypeName: Hornet
+    m_Prefab: {fileID: 562093993172783840, guid: db46d160b61c29c459e09a44514f522e,
       type: 3}
