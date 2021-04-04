@@ -72,8 +72,16 @@ public class SpeechBubbleController : MonoBehaviour
         set
         {
             extent = value;
-            backgroundSpriteTransform.sizeDelta = extent.size;
+
             backgroundSprite.size = extent.size;
+            backgroundSpriteTransform.sizeDelta = extent.size;
+
+            // Align background sprite bottom center to speech bubble center.
+            backgroundSpriteTransform.localPosition = new Vector3(
+                backgroundSpriteTransform.localPosition.x,
+                extent.size.y / 2,
+                backgroundSpriteTransform.localPosition.z);
+
             gameObject.transform.localPosition = extent.position;
 
             {
