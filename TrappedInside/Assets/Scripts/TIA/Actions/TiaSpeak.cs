@@ -176,13 +176,13 @@ public class TiaSpeak : ITiaAction
         narrativeTypist.StartTyping(typistSetup);
     }
 
-    private void PositionAbove(GameObject who, GameObject where)
+    private static void PositionAbove(GameObject who, GameObject where)
     {
         var renderer = where.GetComponentInChildren<Renderer>();
         if (renderer != null)
         {
             var middleTopLocal = new Vector3(0, renderer.bounds.extents.y, 0);
-            speechBubble.transform.localPosition += middleTopLocal;
+            who.transform.localPosition += middleTopLocal;
         }
     }
 }
