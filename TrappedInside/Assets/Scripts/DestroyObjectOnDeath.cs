@@ -19,6 +19,10 @@ public class DestroyObjectOnDeath : MonoBehaviour, IDying
         }
         else
         {
+            var collider = GetComponent<BoxCollider2D>();
+            if(collider != null)
+                collider.enabled = false;
+                
             Destroy(gObject, delay);
         }
 

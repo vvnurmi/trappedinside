@@ -144,7 +144,7 @@ public class LegMovement : MonoBehaviour
         if (characterState.isClimbing)
             return;
 
-        if (characterState.isTakingDamage)
+        if (characterState.isTakingDamage || characterState.isInShieldingRecoil)
         {
             var recoilSpeed = movement.maxSpeed * 0.5f;
             if (!characterState.isStuck)
