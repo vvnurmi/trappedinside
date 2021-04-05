@@ -1,13 +1,14 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// The public interface to the Speech Bubble prefab which produces
 /// a visual speech bubble.
 /// 
-/// Assumes that the Speech Bubble prefab has four text fields:
-/// speaker, text, leftChoice, rightChoice. They should be marked with
-/// appropriate tags.
+/// Assumes that the Speech Bubble prefab has
+/// - four TextMeshProUGUIs: speaker, text, leftChoice, rightChoice
+/// - the text fields are marked with tags TiaSpeak.Tag*.
+/// - two SpriteRenderers: speechBubble, stem
+/// - the smaller sprite is the stem
 /// 
 /// Maintains the relative positioning of the text fields in the prefab
 /// as the desired size of the bubble changes.
@@ -20,6 +21,12 @@ public class SpeechBubbleController : MonoBehaviour
     private TMPro.TextMeshProUGUI textField;
     private TMPro.TextMeshProUGUI leftChoiceField;
     private TMPro.TextMeshProUGUI rightChoiceField;
+
+    /// <summary>
+    /// Distance from the root object position to the bottom edge of the background sprite,
+    /// in speech bubble coordinates.
+    /// </summary>
+    private float backgroundBottomMargin;
 
     /// <summary>
     /// Distance from the top edge of the speech bubble sprite to the top edge of the speaker field,
@@ -73,17 +80,22 @@ public class SpeechBubbleController : MonoBehaviour
         {
             extent = value;
 
+            // Position the speech bubble root object.
+            gameObject.transform.localPosition = extent.position;
+
+            // Set the size of the background sprite and its game object.
             backgroundSprite.size = extent.size;
             backgroundSpriteTransform.sizeDelta = extent.size;
 
-            // Align background sprite bottom center to speech bubble center.
+            // Enforce the fixed margin of the background sprite to the root object
+            // by its bottom edge.
             backgroundSpriteTransform.localPosition = new Vector3(
                 backgroundSpriteTransform.localPosition.x,
-                extent.size.y / 2,
+                extent.size.y / 2 + backgroundBottomMargin,
                 backgroundSpriteTransform.localPosition.z);
 
-            gameObject.transform.localPosition = extent.position;
-
+            // Enforce the fixed margins of the speaker field to the background sprite
+            // by the top, left, and right edges.
             {
                 var top = backgroundSprite.size.y / 2 - speakerTopMargin;
                 var bottom = top - speakerField.rectTransform.sizeDelta.y;
@@ -96,6 +108,8 @@ public class SpeechBubbleController : MonoBehaviour
                     speakerField.rectTransform.localPosition.z);
             }
 
+            // Enforce the fixed margins of the text field to the background sprite
+            // by the top, bottom, left, and right edges.
             {
                 var top = backgroundSprite.size.y / 2 - textTopMargin;
                 var bottom = -backgroundSprite.size.y / 2 + textBottomMargin;
@@ -108,6 +122,7 @@ public class SpeechBubbleController : MonoBehaviour
                     textField.rectTransform.localPosition.z);
             }
 
+            // TODO: Align the left and right choice fields.
             leftChoiceField.rectTransform.localPosition = new Vector2(-0.2f, -0.1f);
             rightChoiceField.rectTransform.localPosition = new Vector2(0.2f, -0.1f);
         }
@@ -116,10 +131,14 @@ public class SpeechBubbleController : MonoBehaviour
 
     public void Start()
     {
-        backgroundSprite = GetComponentsInChildren<SpriteRenderer>().Single();
-        Debug.Assert(backgroundSprite != null);
-        backgroundSpriteTransform = backgroundSprite.GetComponent<RectTransform>();
-        Debug.Assert(backgroundSpriteTransform != null);
+        {
+            var sprites = GetComponentsInChildren<SpriteRenderer>();
+            Debug.Assert(sprites.Length == 2);
+            var backgroundSpriteIndex = sprites[0].size.x < sprites[1].size.x ? 1 : 0;
+            backgroundSprite = sprites[backgroundSpriteIndex];
+            backgroundSpriteTransform = backgroundSprite.GetComponent<RectTransform>();
+            Debug.Assert(backgroundSpriteTransform != null);
+        }
 
         var textFields = GetComponentsInChildren<TMPro.TextMeshProUGUI>();
         foreach (var field in textFields)
@@ -137,6 +156,9 @@ public class SpeechBubbleController : MonoBehaviour
         Debug.Assert(speakerField != null);
         Debug.Assert(leftChoiceField != null);
         Debug.Assert(rightChoiceField != null);
+
+        backgroundBottomMargin = -backgroundSprite.size.y / 2
+            + backgroundSpriteTransform.localPosition.y;
 
         speakerTopMargin = backgroundSprite.size.y / 2
             - speakerField.rectTransform.sizeDelta.y / 2
