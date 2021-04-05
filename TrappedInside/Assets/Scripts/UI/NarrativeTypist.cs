@@ -17,7 +17,7 @@ public class NarrativeTypist : MonoBehaviour
     // Set about once, probably in Start().
     protected AudioSource audioSource;
     protected ITIInputContext inputContext;
-    private TMPro.TextMeshProUGUI textComponent;
+    private SpeechBubbleController speechBubble;
     private NarrativeTypistSetup setup;
     private float startTime;
     /// <summary>
@@ -39,25 +39,18 @@ public class NarrativeTypist : MonoBehaviour
     /// </summary>
     public virtual void StartTyping(NarrativeTypistSetup narrativeTypistSetup)
     {
-        State = NarrativeTypistState.Typing;
+        State = NarrativeTypistState.Initializing;
         setup = narrativeTypistSetup;
         (setup.fullText, richTextWavy) = RichTextWavy.ParseTags(setup.fullText);
         (setup.fullText, richTextShaky) = RichTextShaky.ParseTags(setup.fullText);
         richTextLengths = CalculateRichTextLengths(setup.fullText);
         charsToShow = 0;
-        startTime = Time.time;
 
-        var textFields = GetComponentsInChildren<TMPro.TextMeshProUGUI>();
-        foreach (var textField in textFields)
-        {
-            if (textField.gameObject.CompareTag(TiaSpeak.TagText))
-            {
-                textComponent = textField;
-                textField.text = "";
-            }
-            if (textField.gameObject.CompareTag(TiaSpeak.TagSpeaker))
-                textField.text = setup.speaker;
-        }
+        speechBubble = GetComponent<SpeechBubbleController>();
+        Debug.Assert(speechBubble != null);
+        speechBubble.Hide();
+        speechBubble.Speaker = setup.speaker;
+        speechBubble.Text = "";
     }
 
     #region MonoBehaviour overrides
@@ -78,14 +71,18 @@ public class NarrativeTypist : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         Debug.Assert(audioSource != null,
             $"Couldn't find {nameof(AudioSource)} in '{gameObject.GetFullName()}' so can't play speech sounds.");
-        textComponent = GetComponentsInChildren<TMPro.TextMeshProUGUI>()
-            .Single(text => text.gameObject.CompareTag(TiaSpeak.TagText));
     }
 
     protected virtual void FixedUpdate()
     {
         if (State == NarrativeTypistState.Uninitialized) return;
         if (State == NarrativeTypistState.Finished) return;
+
+        if (State == NarrativeTypistState.Initializing)
+        {
+            UpdateInitializing();
+            if (State == NarrativeTypistState.Initializing) return;
+        }
 
         var inputState = inputContext.GetStateAndResetEventFlags();
         HandleInput(inputState);
@@ -106,7 +103,7 @@ public class NarrativeTypist : MonoBehaviour
         State = NarrativeTypistState.UserPrompt;
         charsToShow = richTextLengths.Length - 1;
         // Because UpdateAudioVisuals won't do anything in UserPrompt state, manually update the text.
-        textComponent.text = setup.fullText;
+        speechBubble.Text = setup.fullText;
     }
 
     /// <summary>
@@ -115,6 +112,22 @@ public class NarrativeTypist : MonoBehaviour
     protected virtual void OnTypingAcknowledged()
     {
         State = NarrativeTypistState.Finished;
+    }
+
+    private void UpdateInitializing()
+    {
+        if (!speechBubble.IsInitialized) return;
+
+        State = NarrativeTypistState.Typing;
+        startTime = Time.time;
+
+        var textSize = speechBubble.EstimateSize(setup.fullText);
+        speechBubble.SetExtent(new Rect(
+            speechBubble.transform.localPosition.x,
+            speechBubble.transform.localPosition.y,
+            textSize.x,
+            textSize.y));
+        speechBubble.Show();
     }
 
     private void HandleInput(TIInputState inputState)
@@ -157,13 +170,13 @@ public class NarrativeTypist : MonoBehaviour
         var currentRichText = setup.fullText.Substring(0, richTextLengths[charsToShow]);
         currentRichText = richTextWavy.RepositionWavyTextChars(currentRichText);
         currentRichText = richTextShaky.RepositionShakyTextChars(currentRichText);
-        textComponent.text = currentRichText;
+        speechBubble.Text = currentRichText;
 
         // Audio update.
         if (charsToShow != oldCharsToShow)
         {
-            var lastCharIsSpace = textComponent.text.Length == 0 ||
-                char.IsWhiteSpace(textComponent.text[textComponent.text.Length - 1]);
+            var lastCharIsSpace = speechBubble.Text.Length == 0 ||
+                char.IsWhiteSpace(speechBubble.Text[speechBubble.Text.Length - 1]);
             if (!lastCharIsSpace && settings.characterSound != null)
                 audioSource?.TryPlay(settings.characterSound);
         }
