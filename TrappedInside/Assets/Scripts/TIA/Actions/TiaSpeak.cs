@@ -130,7 +130,7 @@ public class TiaSpeak : ITiaAction
     public void Finish(ITiaActionContext context)
     {
         if (speechBubble != null)
-            UnityEngine.Object.Destroy(speechBubble);
+            Object.Destroy(speechBubble);
         speechBubble = null;
     }
 
@@ -154,7 +154,7 @@ public class TiaSpeak : ITiaAction
         var typistType = string.IsNullOrEmpty(LeftChoice)
             ? typeof(NarrativeTypist)
             : typeof(NarrativeTypistChoice);
-        narrativeTypist = (NarrativeTypist)speechBubble.GetComponentInChildren(typistType);
+        narrativeTypist = (NarrativeTypist)speechBubble.GetComponent(typistType);
         if (narrativeTypist == null)
         {
             Debug.LogWarning($"Speech bubble has no {typistType} component");
