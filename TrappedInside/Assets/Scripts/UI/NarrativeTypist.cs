@@ -51,6 +51,7 @@ public class NarrativeTypist : MonoBehaviour
         speechBubble.Hide();
         speechBubble.Speaker = setup.speaker;
         speechBubble.Text = "";
+        speechBubble.IsPromptVisible = false;
     }
 
     #region MonoBehaviour overrides
@@ -104,6 +105,7 @@ public class NarrativeTypist : MonoBehaviour
         charsToShow = richTextLengths.Length - 1;
         // Because UpdateAudioVisuals won't do anything in UserPrompt state, manually update the text.
         speechBubble.Text = setup.fullText;
+        speechBubble.IsPromptVisible = true;
     }
 
     /// <summary>

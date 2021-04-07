@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 /// <summary>
 /// The public interface to the Speech Bubble prefab which produces
@@ -7,8 +8,8 @@
 /// Assumes that the Speech Bubble prefab has
 /// - four TextMeshProUGUIs: speaker, text, leftChoice, rightChoice
 /// - the text fields are marked with tags TiaSpeak.Tag*.
-/// - two SpriteRenderers: speechBubble, stem
-/// - the smaller sprite is the stem
+/// - three SpriteRenderers: speechBubble, stem, prompt
+/// - the smallest sprite is the prompt, the largest is speechBubble
 /// 
 /// Maintains the relative positioning of the text fields in the prefab
 /// as the desired size of the bubble changes.
@@ -20,13 +21,20 @@ public class SpeechBubbleController : MonoBehaviour
     /// </summary>
     public float maxLineWidth = 1;
 
+    [Tooltip("Maximum displacement of the prompt as it waves, in speech bubble coordinates.")]
+    public float promptWaveAmplitude = 0.01f;
+    [Tooltip("How many back-and-forth waves the prompt does in a second.")]
+    public float promptWaveFrequency = 1.0f;
+
+    private GameObject prompt;
+    private Renderer promptRenderer;
     private SpriteRenderer backgroundSprite;
     private RectTransform backgroundSpriteTransform;
     private TMPro.TextMeshProUGUI speakerField;
     private TMPro.TextMeshProUGUI textField;
     private TMPro.TextMeshProUGUI leftChoiceField;
     private TMPro.TextMeshProUGUI rightChoiceField;
-
+    
     #region Margin fields
 
     /// <summary>
@@ -77,6 +85,12 @@ public class SpeechBubbleController : MonoBehaviour
     /// </summary>
     private float textRightMargin;
 
+    /// <summary>
+    /// Distance from the right edge of the speech bubble sprite to the prompt origin,
+    /// in speech bubble coordinates.
+    /// </summary>
+    private float promptRightMargin;
+
     #endregion
 
     public bool IsInitialized { get; private set; }
@@ -109,6 +123,19 @@ public class SpeechBubbleController : MonoBehaviour
         }
     }
 
+    private bool isPromptVisibleCache;
+    public bool IsPromptVisible
+    {
+        get
+        {
+            return promptRenderer?.enabled ?? isPromptVisibleCache;
+        }
+        set
+        {
+            if (promptRenderer != null) promptRenderer.enabled = value;
+            isPromptVisibleCache = value;
+        }
+    }
 
     /// <summary>
     /// Returns an estimate size for the speech bubble to be able to host the given text.
@@ -191,24 +218,47 @@ public class SpeechBubbleController : MonoBehaviour
                 textField.rectTransform.localPosition.z);
         }
 
+        // Enforce the fixed margin of the prompt.
+        UpdatePromptPosition();
+
         // TODO: Align the left and right choice fields.
         leftChoiceField.rectTransform.localPosition = new Vector2(-0.2f, -0.1f);
         rightChoiceField.rectTransform.localPosition = new Vector2(0.2f, -0.1f);
+    }
+
+    private void UpdatePromptPosition()
+    {
+        var time = Time.time;
+        var waveDisplacement = Mathf.Sin(time * Mathf.PI * 2 * promptWaveFrequency) * promptWaveAmplitude;
+        prompt.transform.localPosition = new Vector3(
+            backgroundSprite.size.x / 2 - promptRightMargin + waveDisplacement,
+            prompt.transform.localPosition.y,
+            prompt.transform.localPosition.z);
     }
 
     #region MonoBehaviour overrides
 
     public void Start()
     {
+        // Identify child sprites.
         {
             var sprites = GetComponentsInChildren<SpriteRenderer>(includeInactive: true);
-            Debug.Assert(sprites.Length == 2);
-            var backgroundSpriteIndex = sprites[0].size.x < sprites[1].size.x ? 1 : 0;
+            Debug.Assert(sprites.Length == 3);
+            var spriteIndicesSorted =
+                Enumerable.Range(0, sprites.Length)
+                .OrderBy(i => sprites[i].size.x)
+                .ToArray();
+            var promptSpriteIndex = spriteIndicesSorted[0];
+            var backgroundSpriteIndex = spriteIndicesSorted[2];
+            prompt = sprites[promptSpriteIndex].gameObject;
+            promptRenderer = prompt.GetComponent<Renderer>();
+            Debug.Assert(promptRenderer != null);
             backgroundSprite = sprites[backgroundSpriteIndex];
             backgroundSpriteTransform = backgroundSprite.GetComponent<RectTransform>();
             Debug.Assert(backgroundSpriteTransform != null);
         }
 
+        // Identify child text fields.
         var textFields = GetComponentsInChildren<TMPro.TextMeshProUGUI>(includeInactive: true);
         foreach (var field in textFields)
         {
@@ -226,6 +276,7 @@ public class SpeechBubbleController : MonoBehaviour
         Debug.Assert(leftChoiceField != null);
         Debug.Assert(rightChoiceField != null);
 
+        // Make note of preset margins to be able to preserve them later.
         backgroundBottomMargin = -backgroundSprite.size.y / 2
             + backgroundSpriteTransform.localPosition.y;
 
@@ -252,10 +303,21 @@ public class SpeechBubbleController : MonoBehaviour
             - textField.rectTransform.sizeDelta.x / 2
             - textField.rectTransform.localPosition.x;
 
+        promptRightMargin = backgroundSprite.size.x / 2
+            - prompt.transform.localPosition.x;
+
+        // Set child object states according to our cached values.
         speakerField.text = speakerCache;
         textField.text = textCache;
+        IsPromptVisible = isPromptVisibleCache;
 
         IsInitialized = true;
+    }
+
+    public void FixedUpdate()
+    {
+        if (IsPromptVisible)
+            UpdatePromptPosition();
     }
 
     #endregion

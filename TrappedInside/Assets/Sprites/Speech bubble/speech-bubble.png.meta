@@ -152,6 +152,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: speech-bubble_2
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 4
+        width: 5
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cad97427e399a420800000000000000
+      internalID: 2641805277388200644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline:
     - - {x: 3, y: -71}
       - {x: 3, y: -30}
