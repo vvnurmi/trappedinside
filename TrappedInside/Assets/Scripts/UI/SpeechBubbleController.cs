@@ -15,6 +15,11 @@
 /// </summary>
 public class SpeechBubbleController : MonoBehaviour
 {
+    /// <summary>
+    /// Maximum line width in the text field, in speech bubble coordinates.
+    /// </summary>
+    public float maxLineWidth = 1;
+
     private SpriteRenderer backgroundSprite;
     private RectTransform backgroundSpriteTransform;
     private TMPro.TextMeshProUGUI speakerField;
@@ -116,10 +121,9 @@ public class SpeechBubbleController : MonoBehaviour
         var oldText = textField.text;
         var oneLineSize = textField.GetPreferredValues(text);
         textField.text = oldText;
-        var MaxLineWidth = 1.5f; // Hack: magic constant
-        var linesEstimate = Mathf.Ceil(oneLineSize.x / MaxLineWidth);
+        var linesEstimate = Mathf.Ceil(oneLineSize.x / maxLineWidth);
         var textSize = new Vector2(
-            Mathf.Clamp(oneLineSize.x, 0, MaxLineWidth),
+            Mathf.Clamp(oneLineSize.x, 0, maxLineWidth),
             oneLineSize.y * linesEstimate);
         return textSize + new Vector2(
             textLeftMargin + textRightMargin,

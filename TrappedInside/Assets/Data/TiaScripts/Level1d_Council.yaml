@@ -64,7 +64,13 @@ Steps:
   - Actor: Randalf
     Actions:
     - !Speak
-      Text: Brokenshield is right. The fate of the world is at stake. But fear not, our saviour has arrived!
+      Text: Brokenshield is right. The fate of the world is at stake.
+      Bubble: addressable:Speech Bubble
+- Sequences:
+  - Actor: Randalf
+    Actions:
+    - !Speak
+      Text: But fear not, our saviour has arrived!
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Fan Duil
@@ -170,7 +176,13 @@ Steps:
   - Actor: Justin Finn
     Actions:
     - !Speak
-      Text: Rrrrrshhh... I... am... sorry... I made a mistake... I shouldn't have called you that. It wasn't true. I was jealous of your talent and looks even back then.
+      Text: Rrrrrshhh... I... am... sorry... I made a mistake... I shouldn't have called you that.
+      Bubble: addressable:Speech Bubble
+- Sequences:
+  - Actor: Justin Finn
+    Actions:
+    - !Speak
+      Text: It wasn't true. I was jealous of your talent and looks even back then.
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Mike
@@ -221,7 +233,13 @@ Steps:
   - Actor: Randalf
     Actions:
     - !Speak
-      Text: Best of us, no doubt about it. And that is why we need your help so desperately. You see... the darkest of the lords has arisen. He means business. We are doomed. Unless...
+      Text: Best of us, no doubt about it. And that is why we need your help so desperately.
+      Bubble: addressable:Speech Bubble
+- Sequences:
+  - Actor: Randalf
+    Actions:
+    - !Speak
+      Text: You see... the darkest of the lords has arisen. He means business. We are doomed. Unless...
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Mike
@@ -369,7 +387,13 @@ Steps:
   - Actor: Amazon Queen
     Actions:
     - !Speak
-      Text: You are the most manly creature I have ever witnessed. It would be an honor to share with you the most treasured of the amazonian pleasures.
+      Text: You are the most manly creature I have ever witnessed.
+      Bubble: addressable:Speech Bubble
+- Sequences:
+  - Actor: Amazon Queen
+    Actions:
+    - !Speak
+      Text: It would be an honor to share with you the most treasured of the amazonian pleasures.
       Bubble: addressable:Speech Bubble
 - Sequences:
   - Actor: Mike
