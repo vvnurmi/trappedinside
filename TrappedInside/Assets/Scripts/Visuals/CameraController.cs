@@ -9,7 +9,9 @@ public class CameraController : MonoBehaviour
     private GameObject player;
     private Camera _camera;
 
-    private Vector3 Position => new Vector3(player.transform.position.x, CameraY, transform.position.z);
+    private Vector3 Position => player != null
+        ? new Vector3(player.transform.position.x, CameraY, transform.position.z)
+        : _camera.transform.position;
 
     private float CameraY => verticalFix ? transform.position.y : player.transform.position.y;
 
