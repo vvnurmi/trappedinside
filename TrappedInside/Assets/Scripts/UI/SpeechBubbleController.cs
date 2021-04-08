@@ -14,15 +14,18 @@ using UnityEngine;
 /// Maintains the relative positioning of the text fields in the prefab
 /// as the desired size of the bubble changes.
 /// </summary>
+[ExecuteAlways]
 public class SpeechBubbleController : MonoBehaviour
 {
-    /// <summary>
-    /// Maximum line width in the text field, in speech bubble coordinates.
-    /// </summary>
+    [Tooltip("Initial size of the speech bubble, in speech bubble coordinates. Perhaps useful only for testing.")]
+    public Vector2 initialSize = Vector2.one;
+
+    [Tooltip("Maximum line width in the text field, in speech bubble coordinates.")]
     public float maxLineWidth = 1;
 
     [Tooltip("Maximum displacement of the prompt as it waves, in speech bubble coordinates.")]
     public float promptWaveAmplitude = 0.01f;
+
     [Tooltip("How many back-and-forth waves the prompt does in a second.")]
     public float promptWaveFrequency = 1.0f;
 
@@ -237,6 +240,13 @@ public class SpeechBubbleController : MonoBehaviour
     }
 
     #region MonoBehaviour overrides
+
+    public void OnValidate()
+    {
+        // React to change of initialSize in the editor Inspector.
+        if (IsInitialized)
+            SetExtent(new Rect(gameObject.transform.localPosition, initialSize));
+    }
 
     public void Start()
     {
