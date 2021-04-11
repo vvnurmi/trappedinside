@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class HedgehogMovement : MonoBehaviour
+public class HedgehogMovement : MonoBehaviour, IFlippable
 {
 
     [Tooltip("Ground collision settings.")]
@@ -37,27 +37,17 @@ public class HedgehogMovement : MonoBehaviour
     void FixedUpdate()
     {
         if (velocity.x == 0)
-        {
             velocity.x = walkingSpeed;
-        }
 
         velocity.y += gravity * Time.deltaTime;
         Move(velocity * Time.deltaTime);
 
         var collisions = characterState.collisions;
         if (collisions.HasVerticalCollisions)
-        {
             velocity.y = 0;
-        }
 
         if (collisions.HasHorizontalCollisions || !dropIndicator.IsGroundAhead)
-        {
-            velocity.x *= -1;
-            transform.localScale = new Vector3(
-                -transform.localScale.x,
-                transform.localScale.y,
-                transform.localScale.z);
-        }
+            Flip();
     }
 
     private void Move(Vector2 moveAmount)
@@ -73,5 +63,14 @@ public class HedgehogMovement : MonoBehaviour
 
         transform.Translate(moveAmount);
     }
+
+    public void Flip()
+    {
+        velocity.x *= -1;
+        transform.localScale = new Vector3(
+            -transform.localScale.x,
+            transform.localScale.y,
+            transform.localScale.z);
+    }    
 
 }

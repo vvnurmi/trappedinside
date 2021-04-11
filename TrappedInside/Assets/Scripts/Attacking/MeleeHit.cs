@@ -31,17 +31,34 @@ public class MeleeHit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Momentum victimMomentum = collision.gameObject.GetComponent<Momentum>();
-        if (victimMomentum != null)
+        var shieldContactBehaviour = collision.gameObject.GetComponent<ShieldContactBehaviour>();
+
+        if(shieldContactBehaviour == null)
+            return;
+
+        if(shieldContactBehaviour.hasMomentum)
         {
             hitStartTime = Time.time;
-            MomentumToHitTime(victimMomentum.momentum);
+            MomentumToHitTime(shieldContactBehaviour.momentum);
         }
-        
-        HitPoints victimHp = collision.gameObject.GetComponent<HitPoints>();
-        if (victimHp != null)
-            victimHp.Damage(hitDamage);
 
+        switch (shieldContactBehaviour.behaviour)
+        {
+            case ShieldContactBehaviour.Behaviour.TakesDamage:
+            {
+                var victimHp = collision.gameObject.GetComponent<HitPoints>();
+                Debug.Assert(victimHp != null);
+                victimHp.Damage(hitDamage);
+                break;
+            }
+            case ShieldContactBehaviour.Behaviour.TurnsAround:
+            {
+                var flippable = collision.gameObject.GetComponent<IFlippable>();
+                Debug.Assert(flippable != null);
+                flippable.Flip();
+                break;
+            }
+        }
     }
 
     private void MomentumToHitTime(float victimMomentum)

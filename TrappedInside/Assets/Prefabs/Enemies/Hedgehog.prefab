@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 1641278014603661760}
   - component: {fileID: 1641278014603661765}
   - component: {fileID: 1641278014603661770}
+  - component: {fileID: 3468646282008133713}
   m_Layer: 10
   m_Name: Hedgehog
   m_TagString: Untagged
@@ -146,6 +147,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -371,6 +373,7 @@ MonoBehaviour:
   collectedArcadeTokens: 0
   isTakingDamage: 0
   isInvulnerable: 0
+  isInShieldingRecoil: 0
 --- !u!95 &1641278014603661765
 Animator:
   serializedVersion: 3
@@ -404,3 +407,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitDamage: 1
   damagedSelfOnHit: 0
+--- !u!114 &3468646282008133713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641278014603661372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea65e39831b0d1f229297acc918558ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasMomentum: 0
+  momentum: 1
+  behaviour: 1

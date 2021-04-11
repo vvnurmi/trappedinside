@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 485595789}
   - component: {fileID: 485595790}
   - component: {fileID: 485595800}
+  - component: {fileID: 5749634260530570325}
   m_Layer: 10
   m_Name: Deer
   m_TagString: Untagged
@@ -350,6 +351,7 @@ MonoBehaviour:
   collectedArcadeTokens: 0
   isTakingDamage: 0
   isInvulnerable: 0
+  isInShieldingRecoil: 0
 --- !u!114 &8929465601594787283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,6 +413,21 @@ MonoBehaviour:
   particleEffects:
   - {fileID: 4197919772393596077, guid: 3814542f46bbe484e968810bbe857bd2, type: 3}
   - {fileID: 8726321810468074190, guid: 416aa481c1e89d347ab070cc89e86260, type: 3}
+--- !u!114 &5749634260530570325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8929465601594787292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea65e39831b0d1f229297acc918558ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasMomentum: 1
+  momentum: 3
+  contactBehaviour: 0
 --- !u!1 &8929465602158058236
 GameObject:
   m_ObjectHideFlags: 0
