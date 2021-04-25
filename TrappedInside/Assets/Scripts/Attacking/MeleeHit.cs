@@ -15,6 +15,7 @@ public class MeleeHit : MonoBehaviour
     public MeleeAttackType attackType;
 
     private CharacterState characterState;
+    private BoxCollider2D hitBox;
     private float hitStartTime = 0.0f;
     private float hitTime = 0.0f;
 
@@ -61,8 +62,29 @@ public class MeleeHit : MonoBehaviour
         }
     }
 
+    private BoxCollider2D HitBox
+    {
+        get
+        {
+            if(hitBox == null)
+                hitBox = GetComponent<BoxCollider2D>();
+            
+            return hitBox;
+        }
+    }
+
     private void MomentumToHitTime(float victimMomentum)
     {
         hitTime = 0.1f * victimMomentum;
+    }
+
+    public void Activate()
+    {
+        HitBox.enabled = true;
+    }
+
+    public void Deactivate()
+    {
+        HitBox.enabled = false;
     }
 }

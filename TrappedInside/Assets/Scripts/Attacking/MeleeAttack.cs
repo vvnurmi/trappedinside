@@ -70,7 +70,7 @@ public class MeleeAttack : MonoBehaviour
     private void DeactivateWeapons()
     {
         foreach (var weapon in GetComponentsInChildren<MeleeHit>())
-            weapon.gameObject.SetActive(false);
+            weapon.Deactivate();
     }
 
     private void ActivateWeapon(MeleeAttackType type)
@@ -78,8 +78,8 @@ public class MeleeAttack : MonoBehaviour
         foreach (var weapon in GetComponentsInChildren<MeleeHit>(includeInactive: true))
             if (weapon.attackType == type)
             {
-                weapon.gameObject.SetActive(true);
-                var attack = weapon.gameObject.GetComponent<IAttack>();
+                weapon.Activate();
+                var attack = weapon.GetComponent<IAttack>();
                 attack?.OnAttack();
             }
     }
