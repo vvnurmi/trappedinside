@@ -1190,12 +1190,12 @@ PrefabInstance:
     - target: {fileID: 7454650801842867295, guid: 34b394800c432ed438a327d0bad11547,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.676
+      value: 0.659
       objectReference: {fileID: 0}
     - target: {fileID: 7454650801842867295, guid: 34b394800c432ed438a327d0bad11547,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.271
+      value: -1.278
       objectReference: {fileID: 0}
     - target: {fileID: 7454650801842867295, guid: 34b394800c432ed438a327d0bad11547,
         type: 3}
@@ -1239,34 +1239,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7875283259645224930, guid: 34b394800c432ed438a327d0bad11547,
         type: 3}
-      propertyPath: onTriggered.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7875283259645224930, guid: 34b394800c432ed438a327d0bad11547,
-        type: 3}
-      propertyPath: onTriggered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7875283259645224930, guid: 34b394800c432ed438a327d0bad11547,
-        type: 3}
       propertyPath: onTriggered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6030755059600960026}
-    - target: {fileID: 7875283259645224930, guid: 34b394800c432ed438a327d0bad11547,
-        type: 3}
-      propertyPath: onTriggered.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7875283259645224930, guid: 34b394800c432ed438a327d0bad11547,
-        type: 3}
-      propertyPath: onTriggered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Open
-      objectReference: {fileID: 0}
-    - target: {fileID: 7875283259645224930, guid: 34b394800c432ed438a327d0bad11547,
-        type: 3}
-      propertyPath: onTriggered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34b394800c432ed438a327d0bad11547, type: 3}
 --- !u!1001 &6030755059600960025
@@ -1289,12 +1264,12 @@ PrefabInstance:
     - target: {fileID: 7871029805781680627, guid: 375a7c413b2132e458c09fee7eda3941,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.674
+      value: 1.669
       objectReference: {fileID: 0}
     - target: {fileID: 7871029805781680627, guid: 375a7c413b2132e458c09fee7eda3941,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.271
+      value: -1.282
       objectReference: {fileID: 0}
     - target: {fileID: 7871029805781680627, guid: 375a7c413b2132e458c09fee7eda3941,
         type: 3}
