@@ -26,6 +26,10 @@ namespace Tests
             AddTextFieldComponent(speechBubblePrefab, TiaSpeak.TagRight);
 
             speechBubblePrefab.AddComponent<AudioSource>();
+            speechBubblePrefab.AddComponent<SpeechBubbleController>();
+            AddSpriteRendererComponent(speechBubblePrefab, "Sprite 1");
+            AddSpriteRendererComponent(speechBubblePrefab, "Sprite 2");
+            AddSpriteRendererComponent(speechBubblePrefab, "Sprite 3");
             var settings = ScriptableObject.CreateInstance<NarrativeTypistSettings>();
             settings.charsPerSecond = charsPerSecond;
             var narrativeTypist = speechBubblePrefab.AddComponent<NarrativeTypist>();
@@ -40,6 +44,14 @@ namespace Tests
             hostObject.transform.parent = speechBubblePrefab.transform;
             var textField = hostObject.AddComponent<TextMeshProUGUI>();
             textField.tag = tag;
+        }
+
+        private void AddSpriteRendererComponent(GameObject speechBubblePrefab, string name)
+        {
+            var spriteObject = NewGameObject(name);
+            spriteObject.transform.parent = speechBubblePrefab.transform;
+            var sprite = spriteObject.AddComponent<SpriteRenderer>();
+            spriteObject.AddComponent<RectTransform>();
         }
 
         /// <summary>
