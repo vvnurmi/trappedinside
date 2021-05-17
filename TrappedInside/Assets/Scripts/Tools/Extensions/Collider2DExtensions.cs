@@ -21,10 +21,10 @@ public static class Collider2DExtensions
                     new[]
                     {
                         // Wind counterclockwise.
-                        box.offset + new Vector2(-box.size.x / 2, -box.size.y / 2),
-                        box.offset + new Vector2(+box.size.x / 2, -box.size.y / 2),
-                        box.offset + new Vector2(+box.size.x / 2, +box.size.y / 2),
-                        box.offset + new Vector2(-box.size.x / 2, +box.size.y / 2),
+                        new Vector2(-box.size.x / 2, -box.size.y / 2),
+                        new Vector2(+box.size.x / 2, -box.size.y / 2),
+                        new Vector2(+box.size.x / 2, +box.size.y / 2),
+                        new Vector2(-box.size.x / 2, +box.size.y / 2),
                     }
                 };
                 break;
