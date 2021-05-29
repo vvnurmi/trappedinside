@@ -1,0 +1,72 @@
+---
+AutoPlay: true
+Steps:
+- Sequences:
+  - Actor: Left Hornet
+    Actions:
+    - !Speak
+      Text: Bzzzzzzz... [Translated from bee]
+      Bubble: addressable:Speech Bubble Hornet
+- Sequences:
+  - Actor: Left Hornet
+    Actions:
+    - !Speak
+      Text: It's been a tough year for us.
+      Bubble: addressable:Speech Bubble Hornet
+- Sequences:
+  - Actor: Left Hornet
+    Actions:
+    - !Speak
+      Text: My unemployment.
+      Bubble: addressable:Speech Bubble Hornet
+- Sequences:
+  - Actor: Left Hornet
+    Actions:
+    - !Speak
+      Text: The drinking.
+      Bubble: addressable:Speech Bubble Hornet
+- Sequences:
+  - Actor: Left Hornet
+    Actions:
+    - !Speak
+      Text: The debts that followed.
+      Bubble: addressable:Speech Bubble Hornet
+- Sequences:
+  - Actor: Left Hornet
+    Actions:
+    - !Speak
+      Text: I've been on the bottom.
+      Bubble: addressable:Speech Bubble Hornet
+- Sequences:
+  - Actor: Left Hornet
+    Actions:
+    - !Speak
+      Text: Now I finally feel like a new dawn is coming for us.
+      Bubble: addressable:Speech Bubble Hornet
+- Sequences:
+  - Actor: Left Hornet
+    Actions:
+    - !Speak
+      Text: I know it isn't much, but I've baked this cake to show you that I still care.
+      Bubble: addressable:Speech Bubble Hornet
+- Sequences:
+  - Actor: Left Hornet
+    Actions:
+    - !Speak
+      Text: Happy birthday, my love.
+      Bubble: addressable:Speech Bubble Hornet
+- Sequences:
+  - Actor: Right Hornet
+    Actions:
+    - !Speak
+      Text: Oh bee, I love it.
+      Bubble: addressable:Speech Bubble Hornet
+- Sequences:
+  - Actor: Mike
+    Actions:
+    - !Animate
+      Name: Idle
+    - !Move
+      Curve: Mike to cake
+      Seconds: 1
+
