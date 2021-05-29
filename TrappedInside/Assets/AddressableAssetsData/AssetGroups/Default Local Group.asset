@@ -21,26 +21,25 @@ MonoBehaviour:
     m_Address: UIControllerConfig
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_mainAssetType: UIControllerConfig, Scripts, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 3bfa2de77228eae4487f5181efdb47fa
     m_Address: Speech Bubble
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 8743574619923376003, guid: 3bfa2de77228eae4487f5181efdb47fa,
-      type: 3}
-    m_TargetAsset: {fileID: 8743574619923376003, guid: 3bfa2de77228eae4487f5181efdb47fa,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 8e008df18145f1f46a694590780d619f
     m_Address: Assets/Data/TiaScripts
     m_ReadOnly: 0
     m_SerializedLabels:
     - TiaScript
-    m_mainAssetType: 
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 94abd434ee7279bcb8524ca608afadf7
+    m_Address: Speech Bubble Hornet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0

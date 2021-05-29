@@ -1,7 +1,43 @@
 fileFormatVersion: 2
 guid: 158c44a991f8d37f28a52bc54e009c5d
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -7609345044484685626
+    second: speech-bubble-hornet_0
+  - first:
+      213: 2653883148948475669
+    second: speech-bubble-hornet_1
+  - first:
+      213: -8409074136418825391
+    second: speech-bubble-hornet_2
+  - first:
+      213: 322620695568545344
+    second: speech-bubble-hornet_3
+  - first:
+      213: -7441687303453240029
+    second: speech-bubble-hornet_4
+  - first:
+      213: -1341345659515718651
+    second: speech-bubble-hornet_5
+  - first:
+      213: -8895229001368843853
+    second: speech-bubble-hornet_6
+  - first:
+      213: 2843666011164886853
+    second: speech-bubble-hornet_7
+  - first:
+      213: 4719011163676350633
+    second: speech-bubble-hornet_8
+  - first:
+      213: -1169658199814515053
+    second: speech-bubble-hornet_9
+  - first:
+      213: 1286200986291448022
+    second: speech-bubble-hornet_10
+  - first:
+      213: -1713646700600490458
+    second: speech-bubble-hornet_11
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -40,14 +76,14 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -71,9 +107,84 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: speech-bubble-hornet_5
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 18
+        width: 54
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 10, y: 12, z: 9, w: 12}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 504bd8bba35926de0800000000000000
+      internalID: -1341345659515718651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech-bubble-hornet_8
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 3
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a81806a6ab4d7140800000000000000
+      internalID: 4719011163676350633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech-bubble-hornet_10
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 13
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d8a8a18bf089d110800000000000000
+      internalID: 1286200986291448022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
