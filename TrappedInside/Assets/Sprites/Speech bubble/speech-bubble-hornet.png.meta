@@ -126,13 +126,13 @@ TextureImporter:
       name: speech-bubble-hornet_5
       rect:
         serializedVersion: 2
-        x: 69
-        y: 21
-        width: 54
-        height: 36
+        x: 72
+        y: 23
+        width: 47
+        height: 33
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 11, y: 15, z: 11, w: 10}
+      border: {x: 7, y: 9, z: 8, w: 8}
       outline: []
       physicsShape: []
       tessellationDetail: 0
