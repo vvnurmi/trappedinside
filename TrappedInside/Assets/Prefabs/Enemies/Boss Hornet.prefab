@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 465116573830143193}
   - component: {fileID: 2252015427355450941}
   - component: {fileID: 5867792712900863667}
+  - component: {fileID: 5444356954953347088}
   m_Layer: 10
   m_Name: Body
   m_TagString: Untagged
@@ -234,9 +235,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHitPoints: 1
-  hitDelay: 1
   hitSound: {fileID: 0}
   deathSound: {fileID: 8300000, guid: 8c5979076fd5a4c4db4420c9a02b85dd, type: 3}
+  statusBarController: {fileID: 0}
 --- !u!95 &8664520282838793888
 Animator:
   serializedVersion: 3
@@ -270,6 +271,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -318,7 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db1787be27388fd4093222562c37a64e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 5
+  delay: 0
 --- !u!114 &5867792712900863667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,6 +336,21 @@ MonoBehaviour:
   particleEffects:
   - {fileID: 4197919772393596077, guid: 3814542f46bbe484e968810bbe857bd2, type: 3}
   - {fileID: 2241617567622869340, guid: 23e681692976eab48af005faf9b3e4a4, type: 3}
+--- !u!114 &5444356954953347088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282272108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea65e39831b0d1f229297acc918558ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasMomentum: 0
+  momentum: 1
+  behaviour: 0
 --- !u!1 &562093993172783840
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,6 +402,11 @@ MonoBehaviour:
   canClimb: 0
   isClimbing: 0
   isStuck: 0
+  collectedBusinessCards: 0
+  collectedArcadeTokens: 0
+  isTakingDamage: 0
+  isInvulnerable: 0
+  isInShieldingRecoil: 0
 --- !u!50 &562093993172783851
 Rigidbody2D:
   serializedVersion: 4
