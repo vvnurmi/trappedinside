@@ -27,7 +27,7 @@ EditorBuildSettings:
     path: 
     guid: 96fa3997f1220a746818433f34302204
   - enabled: 1
-    path: Assets/Scenes/Level1e_Bee_Hive.unity
+    path: 
     guid: 2ff4b61ca0d5a604ebff4f5975831877
   - enabled: 0
     path: 
@@ -44,6 +44,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level1g_Council.unity
     guid: 04de61d0282c5024ab223d44d4330f9f
+  - enabled: 1
+    path: Assets/Scenes/Level1g_Boss.unity
+    guid: c84dc0e2a7ace0c41822e4a887e7216c
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 4788a9f707974c9409ebed9ad67922ff,
       type: 2}

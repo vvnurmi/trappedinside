@@ -69,6 +69,16 @@ Steps:
     - !Move
       Curve: Mike to cake
       Seconds: 1
+  - Actor: Honey Cake
+    Actions:
+    - !Pause
+      Seconds: 0.8
+    - !Animate
+      Name: honey-cake-crush
+    - !Pause
+      Seconds: 0.3
+    - !Animate
+      Name: honey-cake-crushed      
 - Sequences:
   - Actor: Hornet Queendom
     Actions:
@@ -101,4 +111,8 @@ Steps:
     - !Speak
       Text: Bee-troops, on formation! Show no mercy to this mother bzzzt!
       Bubble: addressable:Speech Bubble Hornet
+- Sequences:
+  - Actor: LevelLoadOnAwake
+    Actions:
+    - !Activate
 
