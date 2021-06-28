@@ -16,16 +16,81 @@ public enum HornetState
     Flying, Attacking
 }
 
-[Serializable]
-public class BossHornetWaveSettings
+public class BossHornetSettings
 {
-    public int numberOfHornets;
-    public float attackVelocity;
-    public float angularVelocity;
-    public float numberOfCircles;
-    public float circleRadius;
-    public AttackType attackType;
+    public BossHornetSettings(
+        Vector3 centerPoint,
+        float finalCircleAngle,
+        float circleRadius,
+        float angularVelocity,
+        float attackVelocity,
+        float movementStartTime,
+        float attackStartTime)
+    {
+        CenterPoint = centerPoint;
+        FinalCircleAngle = finalCircleAngle;
+        CircleRadius = circleRadius;
+        AngularVelocity = angularVelocity;
+        AttackVelocity = attackVelocity;
+        MovementStartTime = movementStartTime;
+        AttackStartTime = attackStartTime;
+    }
+
+    public Vector3 CenterPoint { get; }
+    public float FinalCircleAngle { get; }
+    public float CircleRadius { get; }
+    public float AngularVelocity { get; }
+    public float AttackVelocity { get; }
+    public float MovementStartTime { get; }
+    public float AttackStartTime { get; }
 }
+
+public interface IBossStep
+{
+    void Start();
+    void FixedUpdate();
+    bool Complete { get; }
+}
+
+public class BossHornetWave : UnityEngine.Object, IBossStep 
+{
+    private List<BossHornet> _bossHornets;
+    public float movementStartTimeDiffBetweenHornets = 0.5f;
+
+    public BossHornetWave(GameObject bossHornetPrefab, List<BossHornetSettings> bossHornetSettings)
+    {
+        _bossHornets = new List<BossHornet>();
+        int randomSeed = 0;
+        foreach(var settings in bossHornetSettings)
+        {
+            var hornetStartingPosition = settings.CenterPoint + new Vector3(settings.CircleRadius, 0, 0);
+            _bossHornets.Add(
+                new BossHornet(
+                    Instantiate(bossHornetPrefab, hornetStartingPosition, Quaternion.identity), 
+                    settings,
+                    randomSeed++));
+        }
+    }
+
+    public void Start()
+    {
+    }
+
+    public bool Complete => AllHornetsInCurrentWaveDead;
+    public IEnumerable<BossHornet> ActiveBossHornets => _bossHornets.Where(h => h.IsActive);
+    public bool AllHornetsInCurrentWaveDead => _bossHornets.All(h => !h.IsActive);
+
+    public void FixedUpdate()
+    {
+        if (AllHornetsInCurrentWaveDead)
+            return;
+
+        foreach (var bossHornet in ActiveBossHornets)
+            bossHornet.Move(Time.deltaTime);
+
+    }
+}
+
 
 public class BossHornet
 {
@@ -33,22 +98,26 @@ public class BossHornet
     private GameObject _hornet;
     private Animator _animator;
     private bool _isFacingLeft;
-    private readonly float _timeDiffBetweenHornets;
+    private readonly float _movementStartTime;
+    private readonly float _attackStartTime;
     private System.Random _random;
 
-    public BossHornet(GameObject hornet, Vector3 centerPoint, float finalCircleAngle, float circleRadius, float angularVelocity, float attackVelocity, int flyingPosition, float timeDiffBetweenHornets)
+    public BossHornet(
+        GameObject hornet,
+        BossHornetSettings settings,
+        int randomSeed)
     {
         _hornet = hornet;
         _animator = hornet.GetComponentInChildren<Animator>();
-        CenterPoint = centerPoint;
-        FinalCircleAngle = finalCircleAngle;
-        CircleRadius = circleRadius;
-        AngularVelocity = angularVelocity;
-        AttackVelocity = attackVelocity;
-        FlyingPosition = flyingPosition;
+        CenterPoint = settings.CenterPoint;
+        FinalCircleAngle = settings.FinalCircleAngle;
+        CircleRadius = settings.CircleRadius;
+        AngularVelocity = settings.AngularVelocity;
+        AttackVelocity = settings.AttackVelocity;
         _isFacingLeft = true;
-        _timeDiffBetweenHornets = timeDiffBetweenHornets;
-        _random = new System.Random(flyingPosition);
+        _movementStartTime = Time.time + settings.MovementStartTime;
+        _attackStartTime = Time.time + settings.AttackStartTime;
+        _random = new System.Random(randomSeed);
     }
 
     public string AnimationState
@@ -74,7 +143,7 @@ public class BossHornet
     public Vector3 AttackDirection { get; set; }
 
     public float StartingCircleAngle { get; set; }
-    public bool IsReadyForStateTransition
+    public bool StateFinalPositionReached
     {
         get {
             if (CurrentState == HornetState.Attacking)
@@ -91,25 +160,24 @@ public class BossHornet
         }
     } 
      
-    public int FlyingPosition { get; }
     public HornetState CurrentState { get; set; }
 
-    public void Move(float stateStartTime, float deltaTime)
+    public void Move(float deltaTime)
     {
         if (_hornet.GetComponent<CharacterState>().isDead)
             return;
 
         if (CurrentState == HornetState.Attacking)
         {
-            if (IsReadyForStateTransition)
+            if (StateFinalPositionReached)
                 return;
 
-            if (Time.time > MovementStartTime(stateStartTime))
+            if (Time.time > _attackStartTime)
             {
                 AnimationState = "IsAttacking";
                 _hornet.transform.Translate(AttackDirection * AttackVelocity * deltaTime);
             }
-            else if (Time.time > BlinkingStartTime(stateStartTime))
+            else if (Time.time > _attackStartTime - 0.5f)
             {
                 AnimationState = "IsPreparingAttack";
             }
@@ -120,13 +188,13 @@ public class BossHornet
         }
         else if (CurrentState == HornetState.Flying)
         {
-            if (IsReadyForStateTransition)
+            if (StateFinalPositionReached)
             {
-                RandomMovement(deltaTime);
+                StartAttack();
                 return;
             }
 
-            if (Time.time > MovementStartTime(stateStartTime))
+            if (Time.time > _movementStartTime)
             {
                 CurrentCircleAngle += AngularVelocity * deltaTime;
                 _hornet.transform.position = Vector3.Lerp(CurrentPosition, new Vector3(
@@ -160,141 +228,241 @@ public class BossHornet
         _hornet.transform.localScale = new Vector3(-originalScale.x, originalScale.y, originalScale.z);
     }
 
-    internal void UpdateState(float stateStartTime, float movementStartTimeDiffBetweenHornets)
+    internal void StartAttack()
     {
-        if (CurrentState == HornetState.Flying)
-        {
-            CurrentState = HornetState.Attacking;
-            AttackDirection = (CenterPoint - CurrentPosition).normalized;
-        }
-    }
-
-    private float BlinkingStartTime(float stateStartTime) => MovementStartTime(stateStartTime) - 0.5f;
-
-    private float MovementStartTime(float stateStartTime) =>
-        stateStartTime + _timeDiffBetweenHornets * (FlyingPosition + 1);
-
-}
-
-public class BossHornetCreator
-{
-    public BossHornet CreateBossHornet(GameObject bossHornet, Vector3 centerPosition, BossHornetWaveSettings bossHornetWave, int flyingPosition, float timeDiffBetweenHornets)
-    {
-        var numberOfCircles = bossHornetWave.numberOfCircles;
-        var angularVelocity = bossHornetWave.angularVelocity;
-
-        if (bossHornetWave.attackType == AttackType.FlyInDividedCircle)
-        {
-            if (flyingPosition % 2 == 0)
-                angularVelocity = -bossHornetWave.angularVelocity;
-        }
-        else if (bossHornetWave.attackType == AttackType.EverySecondHornetStopsEarlierUpdated)
-        {
-            if (flyingPosition % 2 == 0)
-                numberOfCircles = bossHornetWave.numberOfCircles + 0.5f;
-        }
-        else if (bossHornetWave.attackType == AttackType.AttackFromMultipleDirections)
-        {
-            var step = 0.5f / (bossHornetWave.numberOfHornets - 1);
-            numberOfCircles = flyingPosition * step;
-        }
-        return new BossHornet(
-            hornet: bossHornet,
-            centerPoint: centerPosition,
-            finalCircleAngle: numberOfCircles * 2 * Mathf.PI,
-            circleRadius: bossHornetWave.circleRadius,
-            angularVelocity: angularVelocity,
-            attackVelocity: bossHornetWave.attackVelocity,
-            flyingPosition: flyingPosition,
-            timeDiffBetweenHornets: timeDiffBetweenHornets);
-
+        CurrentState = HornetState.Attacking;
+        AttackDirection = (CenterPoint - CurrentPosition).normalized;
     }
 }
+
 
 public class BossHornetMovements : MonoBehaviour
 {
     public GameObject bossHornetPrefab;
-    public float firstHornetMovementStartTime = 3.0f;
-    public float movementStartTimeDiffBetweenHornets = 0.5f;
-    public BossHornetWaveSettings[] bossHornetWaves;
+    private List<List<BossHornetSettings>> _bossHornetSettings;
+    private int _bossHornetWaveIndex = 0;
 
-    private List<BossHornet> _bossHornets = new List<BossHornet>();
-    private int _waveNumber = 0;
-    private BossHornetCreator _bossHornetCreator = new BossHornetCreator();
-    private float _waitStartTime;
-    private float _stateStartTime = -1.0f;
+    private IBossStep _bossStep;
 
     void Start()
     {
-        InitWave();
+        var hornetStartingPosition = transform.position + new Vector3(1, 0, 0);
+
+        _bossHornetSettings = new List<List<BossHornetSettings>>
+        {
+            new List<BossHornetSettings>
+            {
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 3 * Mathf.PI,
+                    circleRadius: 0.8f,
+                    angularVelocity: 1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 3,
+                    attackStartTime: 10f),
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 2 * Mathf.PI,
+                    circleRadius: 0.8f,
+                    angularVelocity: 1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 5,
+                    attackStartTime: 11f),
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 3 * Mathf.PI,
+                    circleRadius: 1,
+                    angularVelocity: 1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 3,
+                    attackStartTime: 12f),
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 2.5f * Mathf.PI,
+                    circleRadius: 1,
+                    angularVelocity: 1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 4,
+                    attackStartTime: 13f),
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 2 * Mathf.PI,
+                    circleRadius: 1,
+                    angularVelocity: 1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 5,
+                    attackStartTime: 14f)
+            },
+            new List<BossHornetSettings>
+            {
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 4 * Mathf.PI,
+                    circleRadius: 1,
+                    angularVelocity: -1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 3,
+                    attackStartTime: 16f),
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 3.75f * Mathf.PI,
+                    circleRadius: 1,
+                    angularVelocity: -1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 4,
+                    attackStartTime: 17f),
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 3.25f * Mathf.PI,
+                    circleRadius: 1,
+                    angularVelocity: -1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 5,
+                    attackStartTime: 15f),
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 3f * Mathf.PI,
+                    circleRadius: 1,
+                    angularVelocity: -1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 6,
+                    attackStartTime: 14f),
+            },
+            new List<BossHornetSettings>
+            {
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 4 * Mathf.PI,
+                    circleRadius: 1,
+                    angularVelocity: -1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 3,
+                    attackStartTime: 14f),
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 3.5f * Mathf.PI,
+                    circleRadius: 1,
+                    angularVelocity: -1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 4,
+                    attackStartTime: 15f),
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 3f * Mathf.PI,
+                    circleRadius: 1,
+                    angularVelocity: -1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 5,
+                    attackStartTime: 13f),
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 5.75f * Mathf.PI,
+                    circleRadius: 1,
+                    angularVelocity: -1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 6,
+                    attackStartTime: 20f),
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 5.5f * Mathf.PI,
+                    circleRadius: 1,
+                    angularVelocity: -1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 7,
+                    attackStartTime: 22f),
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 5.25f * Mathf.PI,
+                    circleRadius: 1,
+                    angularVelocity: -1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 8,
+                    attackStartTime: 21f),
+            },
+            new List<BossHornetSettings>
+            {
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 4 * Mathf.PI,
+                    circleRadius: 1,
+                    angularVelocity: -1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 3,
+                    attackStartTime: 16f),
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 3.75f * Mathf.PI,
+                    circleRadius: 1,
+                    angularVelocity: -1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 4,
+                    attackStartTime: 15f),
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 3.25f * Mathf.PI,
+                    circleRadius: 1,
+                    angularVelocity: -1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 5,
+                    attackStartTime: 17f),
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 3f * Mathf.PI,
+                    circleRadius: 1,
+                    angularVelocity: -1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 6,
+                    attackStartTime: 14f),
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 6 * Mathf.PI,
+                    circleRadius: 1,
+                    angularVelocity: 1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 3,
+                    attackStartTime: 21f),
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 6.25f * Mathf.PI,
+                    circleRadius: 1,
+                    angularVelocity: 1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 4,
+                    attackStartTime: 24f),
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 6.75f * Mathf.PI,
+                    circleRadius: 1,
+                    angularVelocity: 1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 5,
+                    attackStartTime: 22f),
+                new BossHornetSettings(
+                    centerPoint: transform.position,
+                    finalCircleAngle: 7f * Mathf.PI,
+                    circleRadius: 1,
+                    angularVelocity: 1.5f,
+                    attackVelocity: 2,
+                    movementStartTime: 6,
+                    attackStartTime: 23f),
+            },
+        };
+
+        _bossStep = new BossHornetWave(bossHornetPrefab, _bossHornetSettings[_bossHornetWaveIndex]);
+        _bossStep.Start();
     }
 
     void FixedUpdate()
     {
-        if (AllHornetsInCurrentWaveDead)
+        if(_bossStep.Complete)
         {
-            InitNextWave();
-            _stateStartTime = -1;
+            _bossHornetWaveIndex++;
+            _bossStep = new BossHornetWave(bossHornetPrefab, _bossHornetSettings[_bossHornetWaveIndex]);
+            _bossStep.Start();
         }
 
-        if (Time.time - _waitStartTime < firstHornetMovementStartTime)
-        {
-            foreach (var bossHornet in ActiveBossHornets)
-                bossHornet.RandomMovement(Time.deltaTime);
-            return;
-        }
-
-        if (_stateStartTime < 0.0)
-            _stateStartTime = Time.time;
-
-        foreach (var bossHornet in ActiveBossHornets)
-            bossHornet.Move(_stateStartTime, Time.deltaTime);
-
-        if (ReadyToStateTransition)
-        {
-            UpdateHornetStates();
-            _stateStartTime = Time.time;
-        }
-
+        _bossStep.FixedUpdate();
     }
 
-    private void UpdateHornetStates()
-    {
-        foreach (var bossHornet in ActiveBossHornets)
-            bossHornet.UpdateState(_stateStartTime, movementStartTimeDiffBetweenHornets);
-    }
-
-    void InitNextWave()
-    {
-        if (_waveNumber + 1 < bossHornetWaves.Length)
-        {
-            _waveNumber++;
-            InitWave();
-        }
-    }
-
-    void InitWave()
-    {
-        Debug.Assert(bossHornetPrefab != null, "Boss Hornet Prefab is null");
-        _waitStartTime = Time.time;
-
-        _bossHornets.Clear();
-
-
-        for (int i = 0; i < bossHornetWaves[_waveNumber].numberOfHornets; i++)
-        {
-            var hornetStartingPosition = transform.position + new Vector3(bossHornetWaves[_waveNumber].circleRadius, 0, 0);
-            _bossHornets.Add(_bossHornetCreator.CreateBossHornet(
-                             bossHornet: Instantiate(bossHornetPrefab, hornetStartingPosition, Quaternion.identity),
-                             centerPosition: transform.position,
-                             bossHornetWave: bossHornetWaves[_waveNumber],
-                             flyingPosition: i,
-                             timeDiffBetweenHornets: movementStartTimeDiffBetweenHornets));
-        }
-    }
-
-    public IEnumerable<BossHornet> ActiveBossHornets => _bossHornets.Where(h => h.IsActive);
-    public bool AllHornetsInCurrentWaveDead => _bossHornets.All(h => !h.IsActive);
-    public bool ReadyToStateTransition => ActiveBossHornets.All(bossHornet => bossHornet.IsReadyForStateTransition);
 }
 
