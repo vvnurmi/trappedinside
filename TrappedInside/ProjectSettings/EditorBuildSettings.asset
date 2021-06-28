@@ -23,18 +23,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level1d_Forest2.unity
     guid: 33db5169247ad3f41a144452ace210ca
-  - enabled: 0
-    path: 
-    guid: 96fa3997f1220a746818433f34302204
-  - enabled: 1
-    path: 
-    guid: 2ff4b61ca0d5a604ebff4f5975831877
-  - enabled: 0
-    path: 
-    guid: e842b13bcd46ec54faead32338c380dd
-  - enabled: 0
-    path: 
-    guid: 0ced4fb95c5099345a02d8ef4736f0e0
   - enabled: 1
     path: Assets/Scenes/Level1e_Cave.unity
     guid: eb16ead6184d7c9b6baef0a21dfac086
