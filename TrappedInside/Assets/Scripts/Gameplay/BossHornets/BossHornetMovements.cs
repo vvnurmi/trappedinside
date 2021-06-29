@@ -454,7 +454,7 @@ public class BossHornetMovements : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(_bossStep.Complete)
+        if(_bossStep.Complete && _bossHornetWaveIndex < _bossHornetSettings.Count - 1)
         {
             _bossHornetWaveIndex++;
             _bossStep = new BossHornetWave(bossHornetPrefab, _bossHornetSettings[_bossHornetWaveIndex]);
