@@ -48,7 +48,8 @@ public struct TiaActionContext : ITiaActionContext
 
     public GameObject TiaRoot { get; private set; }
 
-    public TiaActor Actor => actionSequence.Actor;
+    public TiaActor Actor => actionSequence.Actor
+        ?? throw new NullReferenceException($"No actor set for {actionSequence.DebugName}");
 
     public TiaScript GetScript(string name)
     {
