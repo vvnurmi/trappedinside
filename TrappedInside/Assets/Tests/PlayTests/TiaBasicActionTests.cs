@@ -40,7 +40,7 @@ namespace Tests
         }
 
         [UnityTest]
-        public IEnumerator Animation()
+        public IEnumerator Animate()
         {
             const string DefaultStateName = "state1";
             const string AnotherStateName = "state2";
@@ -85,7 +85,7 @@ namespace Tests
         }
 
         [UnityTest]
-        public IEnumerator Method()
+        public IEnumerator Invoke()
         {
             var tiaRoot = NewGameObject("TIA root");
             var testObject = NewGameObject("test object");
