@@ -45,6 +45,13 @@ public class BossHornetSettings
     public float AttackStartTime { get; }
 }
 
+[Serializable]
+public class TiaScriptSettings
+{
+    public string playerName;
+    public string scriptName;
+}
+
 public class BossHornetWave : UnityEngine.Object
 {
     private List<BossHornet> _bossHornets;
@@ -228,7 +235,7 @@ public class BossHornet
 public class BossHornetMovements : MonoBehaviour
 {
     public GameObject bossHornetPrefab;
-    public GameObject[] TiaScripts;
+    public TiaScriptSettings[] tiaScripts;
 
     private List<List<BossHornetSettings>> _bossHornetSettings;
     private int _bossHornetWaveIndex = 0;
@@ -444,6 +451,9 @@ public class BossHornetMovements : MonoBehaviour
     {
         if(_currentWave.Complete && _bossHornetWaveIndex < _bossHornetSettings.Count - 1)
         {
+            TiaMethods.TryPlayScript(
+                tiaScripts[_bossHornetWaveIndex].playerName, 
+                tiaScripts[_bossHornetWaveIndex].scriptName);
             _bossHornetWaveIndex++;
             _currentWave = new BossHornetWave(bossHornetPrefab, _bossHornetSettings[_bossHornetWaveIndex]);
         }

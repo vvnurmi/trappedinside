@@ -1,0 +1,10 @@
+---
+AutoPlay: false
+Steps:
+- Sequences:
+  - Actor: Left Hornet
+    Actions:
+    - !Speak
+      Text: First, you ruined my cake. Now, you are killing my family members. This is not acceptable!
+      Bubble: addressable:Speech Bubble Hornet
+

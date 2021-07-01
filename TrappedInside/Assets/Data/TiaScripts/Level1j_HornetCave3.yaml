@@ -1,0 +1,10 @@
+---
+AutoPlay: false
+Steps:
+- Sequences:
+  - Actor: Left Hornet
+    Actions:
+    - !Speak
+      Text: Rage is filling every part of my heart and soul. You will not survive this!
+      Bubble: addressable:Speech Bubble Hornet
+

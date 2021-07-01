@@ -1,0 +1,41 @@
+---
+AutoPlay: false
+Steps:
+- Sequences:
+  - Actor: Right Hornet
+    Actions:
+    - !Speak
+      Text: This man is making us look like fools.
+      Bubble: addressable:Speech Bubble Hornet
+- Sequences:
+  - Actor: Right Hornet
+    Actions:
+    - !Speak
+      Text: And you are not a bee enough to take care of him.
+      Bubble: addressable:Speech Bubble Hornet
+- Sequences:
+  - Actor: Right Hornet
+    Actions:
+    - !Speak
+      Text: Goodbye.
+      Bubble: addressable:Speech Bubble Hornet
+- Sequences:
+  - Actor: Left Hornet
+    Actions:
+    - !Speak
+      Text: I've lost everything
+      Bubble: addressable:Speech Bubble Hornet
+- Sequences:
+  - Actor: Left Hornet
+    Actions:
+    - !Speak
+      Text: Nothing left for me other than drinking and debts.
+      Bubble: addressable:Speech Bubble Hornet
+- Sequences:
+  - Actor: Left Hornet
+    Actions:
+    - !Speak
+      Text: But before that, I shall kill you myself.
+      Bubble: addressable:Speech Bubble Hornet
+      
+

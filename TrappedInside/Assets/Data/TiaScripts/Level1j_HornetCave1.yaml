@@ -1,0 +1,10 @@
+---
+AutoPlay: false
+Steps:
+- Sequences:
+  - Actor: Left Hornet
+    Actions:
+    - !Speak
+      Text: Heavey damage is on the way, you bzzzthole!
+      Bubble: addressable:Speech Bubble Hornet
+
