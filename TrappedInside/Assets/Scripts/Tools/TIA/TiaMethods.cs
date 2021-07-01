@@ -27,7 +27,7 @@ public static partial class TiaMethods
     /// component and makes it play the script <paramref name="tiaScriptName"/>. Returns true if
     /// the player and script was found and playing started successfully.
     /// </summary>
-    public static async Task<bool> TryRunScript(string tiaPlayerName, string tiaScriptName)
+    public static async Task<bool> TryPlayScript(string tiaPlayerName, string tiaScriptName)
     {
         var tiaPlayer = Object.FindObjectsOfType<TiaPlayer>()
             .FirstOrDefault(player => player.gameObject.name == tiaPlayerName);
