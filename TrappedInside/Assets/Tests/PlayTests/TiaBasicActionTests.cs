@@ -88,17 +88,59 @@ namespace Tests
         public IEnumerator Invoke()
         {
             var tiaRoot = NewGameObject("TIA root");
-            var testObject = NewGameObject("test object");
-            testObject.transform.parent = tiaRoot.transform;
 
             var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
-            tiaPlayer.script = NewSimpleScript(testObject,
+            tiaPlayer.script = NewSimpleScript(actor: null,
                 new TiaInvoke { MethodName = nameof(TiaMethods.SetTestFlagToTrue) });
 
             TiaMethods.testFlag = false;
 
             yield return new WaitForSeconds(0.1f);
             Assert.IsTrue(TiaMethods.testFlag);
+        }
+
+        [UnityTest]
+        public IEnumerator InvokeWithArgument()
+        {
+            string arg1 = "foobar";
+            var tiaRoot = NewGameObject("TIA root");
+
+            var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
+            tiaPlayer.script = NewSimpleScript(actor: null,
+                new TiaInvoke
+                {
+                    MethodName = nameof(TiaMethods.SetTestString),
+                    MethodArgument1 = arg1,
+                });
+
+            TiaMethods.testString1 = null;
+
+            yield return new WaitForSeconds(0.1f);
+            Assert.AreEqual(arg1, TiaMethods.testString1);
+        }
+
+        [UnityTest]
+        public IEnumerator InvokeWithTwoArguments()
+        {
+            string arg1 = "foobar";
+            string arg2 = "barfoo";
+            var tiaRoot = NewGameObject("TIA root");
+
+            var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
+            tiaPlayer.script = NewSimpleScript(actor: null,
+                new TiaInvoke
+                {
+                    MethodName = nameof(TiaMethods.SetTestStrings),
+                    MethodArgument1 = arg1,
+                    MethodArgument2 = arg2,
+                });
+
+            TiaMethods.testString1 = null;
+            TiaMethods.testString2 = null;
+
+            yield return new WaitForSeconds(0.1f);
+            Assert.AreEqual(arg1, TiaMethods.testString1);
+            Assert.AreEqual(arg2, TiaMethods.testString2);
         }
     }
 }

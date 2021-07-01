@@ -47,7 +47,8 @@ namespace Tests
                         {
                             new TiaActionSequence
                             {
-                                Actor = new TiaActor { GameObjectName = actor.name },
+                                Actor = actor == null ? null
+                                    : new TiaActor { GameObjectName = actor.name },
                                 Actions = actions,
                             }
                         }
