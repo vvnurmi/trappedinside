@@ -39,7 +39,7 @@ public class TiaPlayer : MonoBehaviour
     {
         Debug.Assert(script != null || !string.IsNullOrEmpty(scriptName), $"No script assigned to {nameof(TiaPlayer)}");
         var scriptToPlay = script ?? await TiaScriptManager.Instance.Get(scriptName);
-        Play(scriptToPlay, pauseImmediately: !script.PlayOnStart);
+        Play(scriptToPlay, pauseImmediately: !scriptToPlay.PlayOnStart);
     }
 
     private void Update()
