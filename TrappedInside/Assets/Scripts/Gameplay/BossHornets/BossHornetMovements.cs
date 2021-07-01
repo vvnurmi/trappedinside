@@ -45,14 +45,7 @@ public class BossHornetSettings
     public float AttackStartTime { get; }
 }
 
-public interface IBossStep
-{
-    void Start();
-    void FixedUpdate();
-    bool Complete { get; }
-}
-
-public class BossHornetWave : UnityEngine.Object, IBossStep 
+public class BossHornetWave : UnityEngine.Object
 {
     private List<BossHornet> _bossHornets;
     public float movementStartTimeDiffBetweenHornets = 0.5f;
@@ -70,10 +63,6 @@ public class BossHornetWave : UnityEngine.Object, IBossStep
                     settings,
                     randomSeed++));
         }
-    }
-
-    public void Start()
-    {
     }
 
     public bool Complete => AllHornetsInCurrentWaveDead;
@@ -239,15 +228,15 @@ public class BossHornet
 public class BossHornetMovements : MonoBehaviour
 {
     public GameObject bossHornetPrefab;
+    public GameObject[] TiaScripts;
+
     private List<List<BossHornetSettings>> _bossHornetSettings;
     private int _bossHornetWaveIndex = 0;
 
-    private IBossStep _bossStep;
+    private BossHornetWave _currentWave;
 
     void Start()
     {
-        var hornetStartingPosition = transform.position + new Vector3(1, 0, 0);
-
         _bossHornetSettings = new List<List<BossHornetSettings>>
         {
             new List<BossHornetSettings>
@@ -448,20 +437,18 @@ public class BossHornetMovements : MonoBehaviour
             },
         };
 
-        _bossStep = new BossHornetWave(bossHornetPrefab, _bossHornetSettings[_bossHornetWaveIndex]);
-        _bossStep.Start();
+        _currentWave = new BossHornetWave(bossHornetPrefab, _bossHornetSettings[_bossHornetWaveIndex]);
     }
 
     void FixedUpdate()
     {
-        if(_bossStep.Complete && _bossHornetWaveIndex < _bossHornetSettings.Count - 1)
+        if(_currentWave.Complete && _bossHornetWaveIndex < _bossHornetSettings.Count - 1)
         {
             _bossHornetWaveIndex++;
-            _bossStep = new BossHornetWave(bossHornetPrefab, _bossHornetSettings[_bossHornetWaveIndex]);
-            _bossStep.Start();
+            _currentWave = new BossHornetWave(bossHornetPrefab, _bossHornetSettings[_bossHornetWaveIndex]);
         }
 
-        _bossStep.FixedUpdate();
+        _currentWave.FixedUpdate();
     }
 
 }
