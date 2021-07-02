@@ -220,6 +220,7 @@ public class BossHornetMovements : MonoBehaviour
     public BossHornetWaveSettings[] bossHornetWaveSettings;
     private int _bossHornetWaveIndex = 0;
     private BossHornetWave _currentWave;
+    private bool _scriptPlayed;
 
     void Start()
     {
@@ -227,21 +228,26 @@ public class BossHornetMovements : MonoBehaviour
             bossHornetPrefab, 
             bossHornetWaveSettings[_bossHornetWaveIndex].bossHornetSettings, 
             transform.position);
+        _scriptPlayed = false;
     }
 
     void FixedUpdate()
     {
-        if(_currentWave.Complete && _bossHornetWaveIndex < bossHornetWaveSettings.Length - 1)
+        if(_currentWave.Complete && !_scriptPlayed)
         {
             TiaMethods.TryPlayScript(
                 bossHornetWaveSettings[_bossHornetWaveIndex].tiaScriptSettings.playerName, 
                 bossHornetWaveSettings[_bossHornetWaveIndex].tiaScriptSettings.scriptName);
-
+            _scriptPlayed = true;
+        }
+        else if(_currentWave.Complete && _bossHornetWaveIndex < bossHornetWaveSettings.Length - 1)
+        {
             _bossHornetWaveIndex++;
             _currentWave = new BossHornetWave(
                 bossHornetPrefab,
                 bossHornetWaveSettings[_bossHornetWaveIndex].bossHornetSettings, 
                 transform.position);
+            _scriptPlayed = false;
         }
 
         _currentWave.FixedUpdate();
