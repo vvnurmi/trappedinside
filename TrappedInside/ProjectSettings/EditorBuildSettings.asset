@@ -33,6 +33,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Level1g_Council.unity
     guid: 04de61d0282c5024ab223d44d4330f9f
   - enabled: 1
+    path: Assets/Scenes/Level1h_Forest3.unity
+    guid: 3df5ed7a1fd8385698debe7d27165fba
+  - enabled: 1
+    path: Assets/Scenes/Level1i_HornetCaveEntrance.unity
+    guid: 03f2244ade6c8bc8ca4b9a719686ed6f
+  - enabled: 1
     path: Assets/Scenes/Level1j_Boss.unity
     guid: c84dc0e2a7ace0c41822e4a887e7216c
   m_configObjects:

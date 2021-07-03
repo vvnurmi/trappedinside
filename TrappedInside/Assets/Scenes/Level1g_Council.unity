@@ -784,8 +784,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextLevel:
-    sceneAsset: {fileID: 102900000, guid: 2ff4b61ca0d5a604ebff4f5975831877, type: 3}
-    scenePath: Assets/Scenes/Level1e_Bee_Hive.unity
+    sceneAsset: {fileID: 102900000, guid: 3df5ed7a1fd8385698debe7d27165fba, type: 3}
+    scenePath: Assets/Scenes/Level1h_Forest3.unity
 --- !u!4 &407707506
 Transform:
   m_ObjectHideFlags: 0
