@@ -762,6 +762,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossHornetPrefab: {fileID: 562093993172783840, guid: 83a706d9178a0734eb990e93e2176139,
     type: 3}
+  tiaPlayer: {fileID: 1264473722}
   bossHornetWaveSettings:
   - bossHornetSettings:
     - finalCircleAngle: 1.5

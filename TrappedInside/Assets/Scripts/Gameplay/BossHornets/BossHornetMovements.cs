@@ -22,7 +22,6 @@ public class BossHornetSettings
 [Serializable]
 public class TiaScriptSettings
 {
-    public string playerName;
     public string scriptName;
 }
 
@@ -217,6 +216,7 @@ public class BossHornet
 public class BossHornetMovements : MonoBehaviour
 {
     public GameObject bossHornetPrefab;
+    public TiaPlayer tiaPlayer;
     public BossHornetWaveSettings[] bossHornetWaveSettings;
     private int _bossHornetWaveIndex = 0;
     private BossHornetWave _currentWave;
@@ -236,14 +236,14 @@ public class BossHornetMovements : MonoBehaviour
         if(_currentWave.Complete && !_scriptPlayed)
         {
             TiaMethods.TryPlayScript(
-                bossHornetWaveSettings[_bossHornetWaveIndex].tiaScriptSettings.playerName, 
+                tiaPlayer.name, 
                 bossHornetWaveSettings[_bossHornetWaveIndex].tiaScriptSettings.scriptName)
                 .ContinueWith(
                     t => Debug.LogError(t.Exception),
                     System.Threading.Tasks.TaskContinuationOptions.OnlyOnFaulted);
             _scriptPlayed = true;
         }
-        else if(_currentWave.Complete && _bossHornetWaveIndex < bossHornetWaveSettings.Length - 1)
+        else if(_currentWave.Complete && !tiaPlayer.IsPlaying && _bossHornetWaveIndex < bossHornetWaveSettings.Length - 1)
         {
             _bossHornetWaveIndex++;
             _currentWave = new BossHornetWave(
@@ -257,4 +257,3 @@ public class BossHornetMovements : MonoBehaviour
     }
 
 }
-
