@@ -63,7 +63,7 @@ public class BossHornetWave : UnityEngine.Object
             return;
 
         foreach (var bossHornet in ActiveBossHornets)
-            bossHornet.Move(Time.deltaTime);
+            bossHornet.Move(Time.fixedTime, Time.fixedDeltaTime);
 
     }
 }
@@ -139,7 +139,7 @@ public class BossHornet
      
     public HornetState CurrentState { get; set; }
 
-    public void Move(float deltaTime)
+    public void Move(float currentTime, float deltaTime)
     {
         if (_hornet.GetComponent<CharacterState>().isDead)
             return;
@@ -149,12 +149,12 @@ public class BossHornet
             if (StateFinalPositionReached)
                 return;
 
-            if (Time.time > _attackStartTime)
+            if (currentTime > _attackStartTime)
             {
                 AnimationState = "IsAttacking";
                 _hornet.transform.Translate(AttackDirection * AttackVelocity * deltaTime);
             }
-            else if (Time.time > _attackStartTime - 0.5f)
+            else if (currentTime > _attackStartTime - 0.5f)
             {
                 AnimationState = "IsPreparingAttack";
             }
@@ -171,7 +171,7 @@ public class BossHornet
                 return;
             }
 
-            if (Time.time > _movementStartTime)
+            if (currentTime > _movementStartTime)
             {
                 CurrentCircleAngle += AngularVelocity * deltaTime;
                 _hornet.transform.position = Vector3.Lerp(CurrentPosition, new Vector3(
