@@ -237,7 +237,10 @@ public class BossHornetMovements : MonoBehaviour
         {
             TiaMethods.TryPlayScript(
                 bossHornetWaveSettings[_bossHornetWaveIndex].tiaScriptSettings.playerName, 
-                bossHornetWaveSettings[_bossHornetWaveIndex].tiaScriptSettings.scriptName);
+                bossHornetWaveSettings[_bossHornetWaveIndex].tiaScriptSettings.scriptName)
+                .ContinueWith(
+                    t => Debug.LogError(t.Exception),
+                    System.Threading.Tasks.TaskContinuationOptions.OnlyOnFaulted);
             _scriptPlayed = true;
         }
         else if(_currentWave.Complete && _bossHornetWaveIndex < bossHornetWaveSettings.Length - 1)
