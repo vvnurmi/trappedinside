@@ -79,6 +79,11 @@ Steps:
       Seconds: 0.3
     - !Animate
       Name: honey-cake-crushed      
+  - Actor: Splat Sound
+    Actions:
+    - !Pause
+      Seconds: 0.8
+    - !Activate
 - Sequences:
   - Actor: Hornet Queendom
     Actions:
