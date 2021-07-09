@@ -15,7 +15,7 @@ public class TiaScriptManager : MonoBehaviour
 {
     private static GameObject host;
 
-    private Task<IList<TextAsset>> loadTask;
+    private Task<IList<TiaScriptAsset>> loadTask;
     private Task<IList<IResourceLocation>> locationTask;
     private Dictionary<string, string> scriptYamls; // TIA script name => TIA script as YAML
 
@@ -62,10 +62,10 @@ public class TiaScriptManager : MonoBehaviour
             return false;
         }
         scriptYamls = locations
-            .Zip(loadTask.Result, (location, textAsset) => (location, textAsset))
-            .ToDictionary<(IResourceLocation, TextAsset), string, string>(
+            .Zip(loadTask.Result, (location, tiaScriptAsset) => (location, tiaScriptAsset))
+            .ToDictionary<(IResourceLocation, TiaScriptAsset), string, string>(
                 x => GetScriptName(x.Item1),
-                x => x.Item2.text);
+                x => x.Item2.script);
 
         foreach (var x in scriptYamls)
             TiaDebug.Log($"Found script '{x.Key}'");
@@ -75,11 +75,11 @@ public class TiaScriptManager : MonoBehaviour
 
     private string GetScriptName(IResourceLocation resourceLocation)
     {
-        // ResourceLocation will be something like "Assets/Data/TiaScripts/MyFolder/Test1.yaml"
+        // ResourceLocation will be something like "Assets/Data/TiaScripts/MyFolder/Test1.tia"
         // and we'll shorten it to "MyFolder/Test1"
         var path = resourceLocation.PrimaryKey;
         var pathPrefix = "Assets/Data/TiaScripts/";
-        var pathSuffix = ".yaml";
+        var pathSuffix = ".tia";
         Debug.Assert(path.StartsWith(pathPrefix) && path.EndsWith(pathSuffix),
             $"Script path is not of expected form '{pathPrefix}XXX{pathSuffix}': '{path}'");
         return path.Substring(pathPrefix.Length, path.Length - pathPrefix.Length - pathSuffix.Length);
@@ -97,8 +97,8 @@ public class TiaScriptManager : MonoBehaviour
 
     private void Awake()
     {
-        locationTask = Addressables.LoadResourceLocationsAsync("TiaScript", typeof(TextAsset)).Task;
-        loadTask = Addressables.LoadAssetsAsync<TextAsset>("TiaScript", null).Task;
+        locationTask = Addressables.LoadResourceLocationsAsync("TiaScript", typeof(TiaScriptAsset)).Task;
+        loadTask = Addressables.LoadAssetsAsync<TiaScriptAsset>("TiaScript", null).Task;
     }
 
     #endregion
