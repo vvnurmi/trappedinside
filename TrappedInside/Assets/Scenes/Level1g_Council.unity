@@ -1086,6 +1086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scriptName: Level1d_Council
+  script: {fileID: -5778774168322874575, guid: 05a1d5773bf470e4a8814cd20ea31dbc, type: 3}
 --- !u!4 &609218759
 Transform:
   m_ObjectHideFlags: 0

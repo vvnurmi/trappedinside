@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scriptName: Level1b_Cabin
+  script: {fileID: -5778774168322874575, guid: 8c5a562d6711b3a4a836498dde99fd70, type: 3}
 --- !u!4 &18648386
 Transform:
   m_ObjectHideFlags: 0

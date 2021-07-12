@@ -683,6 +683,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scriptName: Level1i_HornetCaveEntrance
+  script: {fileID: -5778774168322874575, guid: 18f449bbefa9b6049b775103f99b152c, type: 3}
 --- !u!4 &1298019925
 Transform:
   m_ObjectHideFlags: 0

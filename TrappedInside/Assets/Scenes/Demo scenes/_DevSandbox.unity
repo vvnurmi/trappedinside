@@ -735,7 +735,7 @@ PrefabInstance:
     - target: {fileID: 7011906227281154972, guid: 3bfa2de77228eae4487f5181efdb47fa,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.42963836
+      value: 0.4249012
       objectReference: {fileID: 0}
     - target: {fileID: 8743574619923376003, guid: 3bfa2de77228eae4487f5181efdb47fa,
         type: 3}
@@ -1153,6 +1153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scriptName: _DevSandbox Test
+  script: {fileID: -5778774168322874575, guid: fc7efed86e1247c4794b5653fb07a1fa, type: 3}
 --- !u!4 &1797219767
 Transform:
   m_ObjectHideFlags: 0

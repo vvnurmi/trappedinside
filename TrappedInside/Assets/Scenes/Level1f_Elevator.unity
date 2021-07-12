@@ -618,6 +618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scriptName: Level1f_Elevator
+  script: {fileID: -5778774168322874575, guid: 1c9a2f56ed5de264aac1cd8a51ff469c, type: 3}
 --- !u!4 &952392848
 Transform:
   m_ObjectHideFlags: 0
