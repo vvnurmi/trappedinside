@@ -1,18 +1,23 @@
 ﻿using System.Reflection;
+using UnityEngine;
 using YamlDotNet.Serialization;
 
 /// <summary>
 /// Invokes a C# method.
 /// </summary>
+[System.Serializable]
 public class TiaInvoke : ITiaAction
 {
     [YamlMember(Alias = "Name")]
+    [field: SerializeField]
     public string MethodName { get; set; }
 
     [YamlMember(Alias = "Arg1")]
+    [field: SerializeField]
     public string MethodArgument1 { get; set; }
 
     [YamlMember(Alias = "Arg2")]
+    [field: SerializeField]
     public string MethodArgument2 { get; set; }
 
     [YamlIgnore]

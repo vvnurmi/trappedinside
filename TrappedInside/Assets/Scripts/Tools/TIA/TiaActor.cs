@@ -9,8 +9,10 @@ using YamlDotNet.Serialization;
 /// GameObject may need Animator component.
 /// Serialized as a name string.
 /// </summary>
+[Serializable]
 public class TiaActor : IYamlConvertible
 {
+    [field: SerializeField]
     public string GameObjectName { get; set; }
 
     public GameObject GameObject

@@ -7,6 +7,7 @@ using YamlDotNet.Serialization;
 /// Activates the actor.
 /// </summary>
 /// <seealso cref="TiaDeactivate"/>
+[Serializable]
 public class TiaActivate : ITiaAction, IYamlConvertible
 {
     [YamlIgnore]
@@ -46,6 +47,7 @@ public class TiaActivate : ITiaAction, IYamlConvertible
 /// Deactivates the actor.
 /// </summary>
 /// <seealso cref="TiaActivate"/>
+[Serializable]
 public class TiaDeactivate : ITiaAction, IYamlConvertible
 {
     [YamlIgnore]

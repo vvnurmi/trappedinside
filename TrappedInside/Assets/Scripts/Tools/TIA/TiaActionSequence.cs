@@ -1,12 +1,16 @@
-﻿using YamlDotNet.Serialization;
+﻿using UnityEngine;
+using YamlDotNet.Serialization;
 
 /// <summary>
 /// A sequence of actions that one actor does.
 /// </summary>
+[System.Serializable]
 public class TiaActionSequence
 {
+    [field: SerializeField]
     public TiaActor Actor { get; set; }
 
+    [field: SerializeReference]
     public ITiaAction[] Actions { get; set; }
 
     [YamlIgnore]

@@ -4,9 +4,11 @@ using YamlDotNet.Serialization;
 /// <summary>
 /// Makes actor use this animation.
 /// </summary>
+[System.Serializable]
 public class TiaAnimate : ITiaAction
 {
     [YamlMember(Alias = "Name")]
+    [field: SerializeField]
     public string AnimationName { get; set; }
 
     [YamlIgnore]

@@ -15,8 +15,8 @@ public class TiaScriptImporter : ScriptedImporter
     {
         var content = File.ReadAllText(ctx.assetPath);
         var tiaScriptThumbnail = AssetDatabase.LoadAssetAtPath<Texture2D>(IconAssetPath);
-        var scriptAsset = new TiaScriptAsset(content);
-        ctx.AddObjectToAsset("script", scriptAsset, tiaScriptThumbnail);
-        ctx.SetMainObject(scriptAsset);
+        var script = TiaScript.Read(content);
+        ctx.AddObjectToAsset("script", script, tiaScriptThumbnail);
+        ctx.SetMainObject(script);
     }
 }

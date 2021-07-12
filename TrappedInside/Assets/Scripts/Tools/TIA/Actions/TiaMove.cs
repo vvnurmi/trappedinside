@@ -5,17 +5,21 @@ using YamlDotNet.Serialization;
 /// <summary>
 /// Moves actor along a curve over a given time
 /// </summary>
+[Serializable]
 public class TiaMove : ITiaAction
 {
     [YamlMember(Alias = "Curve")]
+    [field: SerializeField]
     public string CurveName { get; set; }
 
     [YamlMember(Alias = "Seconds")]
+    [field: SerializeField]
     public float DurationSeconds { get; set; }
 
     /// <summary>
     /// If true, flip <see cref="SpriteRenderer"/> components when moving left.
     /// </summary>
+    [field: SerializeField]
     public bool FlipLeft { get; set; }
 
     /// <summary>
@@ -24,6 +28,7 @@ public class TiaMove : ITiaAction
     /// left (as goes the human interpretation). Makes sense only when
     /// <see cref="FlipLeft"/> is true.
     /// </summary>
+    [field: SerializeField]
     public bool LooksLeftInitially { get; set; }
 
     [YamlIgnore]

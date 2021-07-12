@@ -5,8 +5,10 @@ using YamlDotNet.Serialization;
 /// <summary>
 /// Plays all actions simultaneously, then waits.
 /// </summary>
+[System.Serializable]
 public class TiaStep
 {
+    [field: SerializeField]
     public TiaActionSequence[] Sequences { get; set; }
 
     [YamlIgnore]
