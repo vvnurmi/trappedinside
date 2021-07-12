@@ -102,24 +102,6 @@ public class TiaSpeak : ITiaAction
         IsModal = true;
     }
 
-    private async Task<GameObject> FindObject(ITiaActionContext context, string name)
-    {
-        const string AddressableNamePrefix = "addressable:";
-        if (SpeechBubbleName.StartsWith(AddressableNamePrefix))
-        {
-            var addressableName = SpeechBubbleName.Substring(AddressableNamePrefix.Length);
-            var loadTask = Addressables.LoadAssetAsync<GameObject>(addressableName).Task;
-            await loadTask;
-            if (loadTask.Status != TaskStatus.RanToCompletion)
-            {
-                Debug.LogWarning($"{nameof(TiaSpeak)} loading addressable '{addressableName}' ended as {loadTask.Status}");
-                return null;
-            }
-            return loadTask.Result;
-        }
-        return context.TiaRoot.FindChildByName(SpeechBubbleName);
-    }
-
     #region ITiaAction
 
     public void Start(ITiaActionContext context)
@@ -145,7 +127,7 @@ public class TiaSpeak : ITiaAction
 
     private async Task StartAsync(ITiaActionContext context)
     {
-        var bubblePrefab = await FindObject(context, SpeechBubbleName);
+        var bubblePrefab = await TiaTools.FindObject<GameObject>(context, SpeechBubbleName);
         Debug.Assert(bubblePrefab != null, $"{nameof(TiaSpeak)} will skip because it"
             + $" couldn't find speech bubble by name '{SpeechBubbleName}'");
         if (bubblePrefab == null)
