@@ -2,6 +2,9 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
+/// <summary>
+/// Static methods that can be called from a TIA script by a <see cref="TiaInvoke"/> action.
+/// </summary>
 public static partial class TiaMethods
 {
     public static bool testFlag;
@@ -24,10 +27,13 @@ public static partial class TiaMethods
 
     /// <summary>
     /// Finds an object called <paramref name="tiaPlayerName"/> that has a <see cref="TiaPlayer"/>
-    /// component and makes it play the script <paramref name="tiaScriptName"/>. Returns true if
-    /// the player and script was found and playing started successfully.
+    /// component and makes it play a TIA script that can be found by the Addressable name
+    /// <paramref name="tiaScriptAddressableName"/>. Returns true if the player and script were
+    /// found and playing started successfully.
+    /// 
+    /// Name prefix <see cref="TiaTools.AddressableNamePrefix"/> may be used to look for an Addressable asset.
     /// </summary>
-    public static async Task<bool> TryPlayScript(string tiaPlayerName, string tiaScriptName)
+    public static async Task<bool> TryPlayScript(ITiaActionContext context, string tiaPlayerName, string tiaScriptName)
     {
         var tiaPlayer = Object.FindObjectsOfType<TiaPlayer>()
             .FirstOrDefault(player => player.gameObject.name == tiaPlayerName);
@@ -37,7 +43,7 @@ public static partial class TiaMethods
             return false;
         }
 
-        var script = await TiaScriptManager.Instance.Get(tiaScriptName);
+        var script = await TiaTools.FindObject<TiaScript>(context, tiaScriptName);
         if (script == null)
         {
             TiaDebug.Log($"There's no TIA script named '{tiaScriptName}'");
