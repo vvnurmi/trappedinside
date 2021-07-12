@@ -52,56 +52,8 @@ Steps:
       Curve: Left Hornet flying
       Seconds: 5
 - Sequences:
-  - Actor: Left Hornet
-    Actions:
-    - !Deactivate
-    - !Pause
-      Seconds: 2
-    - !Activate
-  - Actor: Glitch Hornet 1
-    Actions:
-    - !Pause
-      Seconds: 0.5
-    - !Activate
-    - !Pause
-      Seconds: 1
-    - !Deactivate
-  - Actor: Glitch Hornet 2
-    Actions:
-    - !Pause
-      Seconds: 1
-    - !Activate
-    - !Pause
-      Seconds: 1
-    - !Deactivate
-  - Actor: Glitch Hornet 3
-    Actions:
-    - !Pause
-      Seconds: 0.75
-    - !Activate
-    - !Pause
-      Seconds: 1
-    - !Deactivate
-  - Actor: Glitch Hornet 4
+  - Actor: Random Hornet Multiplier
     Actions:
     - !Activate
-    - !Pause
-      Seconds: 2
-    - !Deactivate
-  - Actor: Glitch Hornet 5
-    Actions:
-    - !Pause
-      Seconds: 0.15
-    - !Activate
-    - !Pause
-      Seconds: 3
-    - !Deactivate
-  - Actor: Glitch Hornet 6
-    Actions:
-    - !Activate
-    - !Pause
-      Seconds: 4
-    - !Deactivate
-      
-      
+    
 
