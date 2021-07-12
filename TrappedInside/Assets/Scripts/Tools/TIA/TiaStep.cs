@@ -3,7 +3,7 @@ using UnityEngine;
 using YamlDotNet.Serialization;
 
 /// <summary>
-/// Plays all actions simultaneously, then waits.
+/// Plays all action sequences simultaneously.
 /// </summary>
 [System.Serializable]
 public class TiaStep

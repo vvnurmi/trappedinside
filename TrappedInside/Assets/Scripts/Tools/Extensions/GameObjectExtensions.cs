@@ -44,7 +44,7 @@ public static class GameObjectExtensions
 
     /// <summary>
     /// Returns a child (or deeper descendant) of <see cref="obj"/> that has <see cref="name"/>.
-    /// Returns null if none such child was found.
+    /// Returns null if no such child was found.
     /// </summary>
     public static GameObject FindChildByName(this GameObject obj, string name)
     {
