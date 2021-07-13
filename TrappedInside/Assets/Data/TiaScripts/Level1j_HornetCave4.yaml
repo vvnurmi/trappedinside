@@ -55,5 +55,10 @@ Steps:
   - Actor: Random Hornet Multiplier
     Actions:
     - !Activate
-    
+- Sequences:
+  - Actor: Blue Screen
+    Actions:
+    - !Pause
+      Seconds: 3
+    - !Activate
 
