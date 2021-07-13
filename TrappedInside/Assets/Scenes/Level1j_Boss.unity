@@ -778,6 +778,12 @@ MonoBehaviour:
       movementStartTime: 5
       attackStartTime: 14
     tiaScriptSettings:
+      tiaScript: {fileID: -5778774168322874575, guid: ebb1c57b22fcd414c822a22c6fcf79cb,
+        type: 3}
+      script:
+        scriptAsset: {fileID: -5778774168322874575, guid: 990ad3c028f0e88429150180d440819b,
+          type: 3}
+        scriptPath: 
       scriptName: Level1j_HornetCave1
   - bossHornetSettings:
     - finalCircleAngle: 2
@@ -805,6 +811,11 @@ MonoBehaviour:
       movementStartTime: 6
       attackStartTime: 14
     tiaScriptSettings:
+      tiaScript: {fileID: -5778774168322874575, guid: a24d95c69c1c502489d5fc7468f616ce,
+        type: 3}
+      script:
+        scriptAsset: {fileID: 0}
+        scriptPath: 
       scriptName: Level1j_HornetCave2
   - bossHornetSettings:
     - finalCircleAngle: 2
@@ -844,6 +855,11 @@ MonoBehaviour:
       movementStartTime: 8
       attackStartTime: 21
     tiaScriptSettings:
+      tiaScript: {fileID: -5778774168322874575, guid: 1a1f2095c6a9eba49bb043da9fad7fd5,
+        type: 3}
+      script:
+        scriptAsset: {fileID: 0}
+        scriptPath: 
       scriptName: Level1j_HornetCave3
   - bossHornetSettings:
     - finalCircleAngle: 2
@@ -895,6 +911,11 @@ MonoBehaviour:
       movementStartTime: 6
       attackStartTime: 23
     tiaScriptSettings:
+      tiaScript: {fileID: -5778774168322874575, guid: 130f6e3af7d5c3c46bcdc4a107fc2925,
+        type: 3}
+      script:
+        scriptAsset: {fileID: 0}
+        scriptPath: 
       scriptName: Level1j_HornetCave4
 --- !u!4 &836170255
 Transform:
@@ -1422,6 +1443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scriptName: 
+  script: {fileID: 0}
 --- !u!1 &1515185931
 GameObject:
   m_ObjectHideFlags: 0

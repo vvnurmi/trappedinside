@@ -11,6 +11,7 @@ using YamlDotNet.Serialization;
 /// component is marked by the tags <see cref="TagText"/>, <see cref="TagSpeaker"/>,
 /// <see cref="TagLeft"/>, <see cref="TagRight"/>.
 /// </summary>
+[System.Serializable]
 public class TiaSpeak : ITiaAction
 {
     /// <summary>
@@ -41,6 +42,7 @@ public class TiaSpeak : ITiaAction
     /// TextMesh Pro rich text to display in the speech bubble.
     /// </summary>
     [YamlMember(Alias = "Text")]
+    [field: SerializeField]
     public string TmpRichText { get; set; }
 
     /// <summary>
@@ -48,6 +50,7 @@ public class TiaSpeak : ITiaAction
     /// then the speech bubble will present the player a choice between the two.
     /// </summary>
     [YamlMember(Alias = "Left")]
+    [field: SerializeField]
     public string LeftChoice { get; set; }
 
     /// <summary>
@@ -55,12 +58,14 @@ public class TiaSpeak : ITiaAction
     /// then the speech bubble will present the player a choice between the two.
     /// </summary>
     [YamlMember(Alias = "Right")]
+    [field: SerializeField]
     public string RightChoice { get; set; }
 
     /// <summary>
     /// Name of the speech bubble game object to display the speech in.
     /// </summary>
     [YamlMember(Alias = "Bubble")]
+    [field: SerializeField]
     public string SpeechBubbleName { get; set; }
 
     /// <summary>
@@ -68,6 +73,7 @@ public class TiaSpeak : ITiaAction
     /// Defaults to 1.
     /// </summary>
     [YamlMember(Alias = "Speed")]
+    [field: SerializeField]
     public float TypingSpeedMultiplier { get; set; }
 
     /// <summary>
@@ -75,6 +81,7 @@ public class TiaSpeak : ITiaAction
     /// Defaults to true.
     /// </summary>
     [YamlMember(Alias = "Modal")]
+    [field: SerializeField]
     public bool IsModal { get; set; }
 
     [YamlIgnore]
@@ -93,24 +100,6 @@ public class TiaSpeak : ITiaAction
     {
         TypingSpeedMultiplier = 1;
         IsModal = true;
-    }
-
-    private async Task<GameObject> FindObject(ITiaActionContext context, string name)
-    {
-        const string AddressableNamePrefix = "addressable:";
-        if (SpeechBubbleName.StartsWith(AddressableNamePrefix))
-        {
-            var addressableName = SpeechBubbleName.Substring(AddressableNamePrefix.Length);
-            var loadTask = Addressables.LoadAssetAsync<GameObject>(addressableName).Task;
-            await loadTask;
-            if (loadTask.Status != TaskStatus.RanToCompletion)
-            {
-                Debug.LogWarning($"{nameof(TiaSpeak)} loading addressable '{addressableName}' ended as {loadTask.Status}");
-                return null;
-            }
-            return loadTask.Result;
-        }
-        return context.TiaRoot.FindChildByName(SpeechBubbleName);
     }
 
     #region ITiaAction
@@ -138,7 +127,7 @@ public class TiaSpeak : ITiaAction
 
     private async Task StartAsync(ITiaActionContext context)
     {
-        var bubblePrefab = await FindObject(context, SpeechBubbleName);
+        var bubblePrefab = await TiaTools.FindObject<GameObject>(context, SpeechBubbleName);
         Debug.Assert(bubblePrefab != null, $"{nameof(TiaSpeak)} will skip because it"
             + $" couldn't find speech bubble by name '{SpeechBubbleName}'");
         if (bubblePrefab == null)

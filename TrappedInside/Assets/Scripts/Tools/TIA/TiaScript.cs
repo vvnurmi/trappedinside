@@ -5,30 +5,64 @@ using UnityEngine;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-public class TiaScript
+public class TiaScript : ScriptableObject
 {
+    /// <summary>
+    /// Helper for <see cref="Read(string)"/> to deserialize a <see cref="TiaScript"/>
+    /// using YamlDotNet without having to construct the instance via
+    /// <see cref="ScriptableObject.CreateInstance{T}"/>.
+    /// </summary>
+    private class Serializable
+    {
+        public string Description { get; set; }
+        [YamlMember(Alias = "AutoPlay")]
+        public bool PlayOnStart { get; set; }
+        public TiaStep[] Steps { get; set; }
+
+        public TiaScript ToTiaScript()
+        {
+            var tiaScript = CreateInstance<TiaScript>();
+            tiaScript.Description = Description;
+            tiaScript.PlayOnStart = PlayOnStart;
+            tiaScript.Steps = Steps;
+            return tiaScript;
+        }
+    }
+
     private const string TiaActionTypeNamePrefix = "Tia";
 
     /// <summary>
     /// A TIA script that does nothing.
     /// </summary>
-    public static readonly TiaScript Empty = new TiaScript
+    public static TiaScript Empty
     {
-        Description = "<Empty Script>",
-        Steps = new TiaStep[0],
-    };
+        get
+        {
+            if (empty == null)
+                empty = new TiaScript
+                {
+                    Description = "<Empty Script>",
+                    Steps = new TiaStep[0],
+                };
+            return empty;
+        }
+    }
+    private static TiaScript empty;
 
     /// <summary>
     /// Human-readable account of what the script is about.
     /// </summary>
+    [field: SerializeField]
     public string Description { get; set; }
 
     /// <summary>
     /// If true then start executing steps immediately.
     /// </summary>
     [YamlMember(Alias = "AutoPlay")]
+    [field: SerializeField]
     public bool PlayOnStart { get; set; }
 
+    [field: SerializeReference]
     public TiaStep[] Steps { get; set; }
 
     /// <summary>
@@ -48,7 +82,8 @@ public class TiaScript
         }
 
         var deserializer = deserializerBuilder.Build();
-        var tiaScript = deserializer.Deserialize<TiaScript>(serialized);
+        var serializable = deserializer.Deserialize<Serializable>(serialized);
+        var tiaScript = serializable.ToTiaScript();
 
         tiaScript.Steps = tiaScript.Steps ?? new TiaStep[0];
 

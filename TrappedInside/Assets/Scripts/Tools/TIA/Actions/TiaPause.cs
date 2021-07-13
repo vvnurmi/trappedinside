@@ -4,9 +4,11 @@ using YamlDotNet.Serialization;
 /// <summary>
 /// Waits for given time until continuing to the next action.
 /// </summary>
+[System.Serializable]
 public class TiaPause : ITiaAction
 {
     [YamlMember(Alias = "Seconds")]
+    [field: SerializeField]
     public float DurationSeconds { get; set; }
 
     [YamlIgnore]

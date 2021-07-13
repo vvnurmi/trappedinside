@@ -1,12 +1,15 @@
 ﻿using System;
+using UnityEngine;
 using YamlDotNet.Serialization;
 
 /// <summary>
 /// Starts to play another TIA script in the same root TIA game object.
 /// </summary>
+[Serializable]
 public class TiaPlayScript : ITiaAction
 {
     [YamlMember(Alias = "Name")]
+    [field: SerializeField]
     public string ScriptName { get; set; }
 
     [YamlIgnore]

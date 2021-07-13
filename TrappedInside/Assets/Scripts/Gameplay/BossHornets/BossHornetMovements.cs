@@ -22,7 +22,7 @@ public class BossHornetSettings
 [Serializable]
 public class TiaScriptSettings
 {
-    public string scriptName;
+    public TiaScript tiaScript;
 }
 
 [Serializable]
@@ -235,12 +235,7 @@ public class BossHornetMovements : MonoBehaviour
     {
         if(_currentWave.Complete && !_scriptPlayed)
         {
-            TiaMethods.TryPlayScript(
-                tiaPlayer.name, 
-                bossHornetWaveSettings[_bossHornetWaveIndex].tiaScriptSettings.scriptName)
-                .ContinueWith(
-                    t => Debug.LogError(t.Exception),
-                    System.Threading.Tasks.TaskContinuationOptions.OnlyOnFaulted);
+            tiaPlayer.Play(bossHornetWaveSettings[_bossHornetWaveIndex].tiaScriptSettings.tiaScript);
             _scriptPlayed = true;
         }
         else if(_currentWave.Complete && !tiaPlayer.IsPlaying && _bossHornetWaveIndex < bossHornetWaveSettings.Length - 1)
