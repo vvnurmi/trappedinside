@@ -34,41 +34,43 @@ namespace Tests
         /// that contains one <see cref="TiaActionSequence"/> that contains the
         /// given <paramref name="actions"/>.
         /// </summary>
-        protected TiaScript NewSimpleScript(GameObject actor, params ITiaAction[] actions) =>
-            new TiaScript
+        protected TiaScript NewSimpleScript(GameObject actor, params ITiaAction[] actions)
+        {
+            var script = ScriptableObject.CreateInstance<TiaScript>();
+            script.Description = "Test Script";
+            script.PlayOnStart = true;
+            script.Steps = new[]
             {
-                Description = "Test Script",
-                PlayOnStart = true,
-                Steps = new[]
+                new TiaStep
                 {
-                    new TiaStep
+                    Sequences = new[]
                     {
-                        Sequences = new[]
+                        new TiaActionSequence
                         {
-                            new TiaActionSequence
-                            {
-                                Actor = actor == null ? null
-                                    : new TiaActor { GameObjectName = actor.name },
-                                Actions = actions,
-                            }
+                            Actor = actor == null ? null
+                                : new TiaActor { GameObjectName = actor.name },
+                            Actions = actions,
                         }
                     }
                 }
             };
+            return script;
+        }
 
-        protected TiaScript NewMultiSequenceScript(params TiaActionSequence[] actionSequences) =>
-            new TiaScript
+        protected TiaScript NewMultiSequenceScript(params TiaActionSequence[] actionSequences)
+        {
+            var script = ScriptableObject.CreateInstance<TiaScript>();
+            script.Description = "Test Script";
+            script.PlayOnStart = true;
+            script.Steps = new[]
             {
-                Description = "Test Script",
-                PlayOnStart = true,
-                Steps = new[]
+                new TiaStep
                 {
-                    new TiaStep
-                    {
-                        Sequences = actionSequences,
-                    }
+                    Sequences = actionSequences,
                 }
             };
+            return script;
+        }
 
         /// <summary>
         /// Simulates pressing <paramref name="key"/> on a keyboard and releasing
