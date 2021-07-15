@@ -18,16 +18,11 @@ public class HitAreaCollisonHandler : MonoBehaviour
             characterState.canClimb = true;
             Debug.Log("Ladder enter.");
         }
-        else if (IsBusinessCard(collision))
+
+        var collectible = collision.gameObject.GetComponent<ICollectible>();
+        if(collectible != null)
         {
-            characterState.collectedBusinessCards++;
-            collision.gameObject.SetActive(false);
-            UpdateStatusBar();
-        }
-        else if (IsArcadeToken(collision))
-        {
-            characterState.collectedArcadeTokens++;
-            collision.gameObject.SetActive(false);
+            collectible.Collect(characterState);
             UpdateStatusBar();
         }
     }
@@ -56,12 +51,6 @@ public class HitAreaCollisonHandler : MonoBehaviour
 
     private bool IsLadder(Collider2D collision) =>
         collision.gameObject.layer == LayerMask.NameToLayer("Ladder");
-
-    private bool IsBusinessCard(Collider2D collision) =>
-        collision.gameObject.tag == "BusinessCard";
-
-    private bool IsArcadeToken(Collider2D collision) =>
-        collision.gameObject.tag == "ArcadeToken";
 
 
 }
