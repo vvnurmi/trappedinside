@@ -136,9 +136,9 @@ public class TiaSpeak : ITiaAction
             return;
         }
 
-        TiaDebug.Log($"Instantiating speech bubble for {DebugName} under '{context.Actor.GameObject.GetFullName()}'");
-        speechBubble = Object.Instantiate(bubblePrefab, context.Actor.GameObject.transform);
-        PositionAbove(who: speechBubble, where: context.Actor.GameObject);
+        TiaDebug.Log($"Instantiating speech bubble for {DebugName} under '{context.Actor.GetFullName()}'");
+        speechBubble = Object.Instantiate(bubblePrefab, context.Actor.transform);
+        PositionAbove(who: speechBubble, where: context.Actor);
 
         var typistType = string.IsNullOrEmpty(LeftChoice)
             ? typeof(NarrativeTypist)
@@ -159,7 +159,7 @@ public class TiaSpeak : ITiaAction
         var typistSetup = new NarrativeTypistSetup
         {
             fullText = TmpRichText,
-            speaker = context.Actor.GameObjectName,
+            speaker = context.Actor.name,
             choices = new[] { LeftChoice, RightChoice },
         };
         narrativeTypist.StartTyping(typistSetup);

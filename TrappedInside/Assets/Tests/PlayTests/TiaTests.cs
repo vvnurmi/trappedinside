@@ -24,7 +24,7 @@ namespace Tests
             {
                 new TiaActionSequence
                 {
-                    Actor = new TiaActor { GameObjectName = testObject1.name },
+                    Actor = testObject1.name,
                     Actions = new ITiaAction[]
                     {
                         new TiaPause { DurationSeconds = 2 },
@@ -33,7 +33,7 @@ namespace Tests
                 },
                 new TiaActionSequence
                 {
-                    Actor = new TiaActor { GameObjectName = testObject2.name },
+                    Actor = testObject2.name,
                     Actions = new ITiaAction[]
                     {
                         new TiaPause { DurationSeconds = 1 },
@@ -65,10 +65,13 @@ namespace Tests
             var fakeObject = NewGameObject("not under TIA root");
 
             var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
-            tiaPlayer.script = NewSimpleScript(fakeObject);
+            tiaPlayer.script = NewSimpleScript(fakeObject,
+                new TiaActivate(),
+                new TiaPause { DurationSeconds = 1f });
 
-            LogAssert.Expect(LogType.Assert, new Regex($"{nameof(TiaActor)} couldn't find '{fakeObject.name}' under .*"));
-            yield return new WaitForSeconds(0.5f);
+            // The script's sole step and action sequence should abort early because the actor can't be found.
+            yield return new WaitForSeconds(0.1f);
+            Assert.IsFalse(tiaPlayer.IsPlaying);
         }
 
         private class TiaAsyncStart : ITiaAction
@@ -87,7 +90,7 @@ namespace Tests
             private async Task StartAsync(ITiaActionContext context)
             {
                 await Task.Delay(TimeSpan.FromSeconds(0.1f));
-                ContextActor = context.Actor.GameObject;
+                ContextActor = context.Actor;
             }
 
             public void Update(ITiaActionContext context) { }
@@ -115,7 +118,7 @@ namespace Tests
             {
                 new TiaActionSequence
                 {
-                    Actor = new TiaActor { GameObjectName = testObject1.name },
+                    Actor = testObject1.name,
                     Actions = new ITiaAction[]
                     {
                         new TiaAsyncStart(),
@@ -123,7 +126,7 @@ namespace Tests
                 },
                 new TiaActionSequence
                 {
-                    Actor = new TiaActor { GameObjectName = testObject2.name },
+                    Actor = testObject2.name,
                     Actions = new ITiaAction[0]
                 },
             });

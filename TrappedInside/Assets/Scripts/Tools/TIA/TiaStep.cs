@@ -1,11 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 using YamlDotNet.Serialization;
 
 /// <summary>
 /// Plays all action sequences simultaneously.
 /// </summary>
-[System.Serializable]
+[Serializable]
 public class TiaStep
 {
     [field: SerializeField]
@@ -16,25 +17,29 @@ public class TiaStep
 
     public bool IsDone => Sequences.All(seq => seq.IsDone);
 
-    private ITiaActionContext[] sequenceContexts;
-
     public void Start(ITiaActionContext context)
     {
         TiaDebug.Log($"Starting " + DebugName);
-        sequenceContexts = Sequences
-            .Select(_ => context.Clone())
+        var subcontexts = Sequences
+            .Select(sequence => context.CloneEmpty())
             .ToArray();
-        Debug.Assert(Sequences.Length == sequenceContexts.Length);
-        for (int sequenceIndex = 0; sequenceIndex < Sequences.Length; sequenceIndex++)
-            Sequences[sequenceIndex].Start(sequenceContexts[sequenceIndex]);
+        context.Set(this, subcontexts);
+        DoForSequences(context, (sequence, subcontext) => sequence.Start(subcontext));
     }
 
     public void Update(ITiaActionContext context)
     {
-        // FIXME: 'context' is ignored now. A proper solution would be to maintain
-        // a separate context for each class.
-        Debug.Assert(Sequences.Length == sequenceContexts.Length);
-        for (int sequenceIndex = 0; sequenceIndex < Sequences.Length; sequenceIndex++)
-            Sequences[sequenceIndex].Update(sequenceContexts[sequenceIndex]);
+        DoForSequences(context, (sequence, subcontext) => sequence.Update(subcontext));
+    }
+
+    private void DoForSequences(
+        ITiaActionContext context,
+        Action<TiaActionSequence, ITiaActionContext> fun)
+    {
+        var (success, subcontexts) = context.Get<ITiaActionContext[]>(this);
+        Debug.Assert(success && subcontexts.Length == Sequences.Length);
+
+        for (int i = 0; i < Sequences.Length; i++)
+            fun(Sequences[i], subcontexts[i]);
     }
 }

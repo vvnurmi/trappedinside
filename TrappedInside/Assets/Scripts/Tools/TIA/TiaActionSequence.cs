@@ -8,7 +8,7 @@ using YamlDotNet.Serialization;
 public class TiaActionSequence
 {
     [field: SerializeField]
-    public TiaActor Actor { get; set; }
+    public string Actor { get; set; }
 
     [field: SerializeReference]
     public ITiaAction[] Actions { get; set; }
@@ -23,13 +23,14 @@ public class TiaActionSequence
     public void Start(ITiaActionContext context)
     {
         TiaDebug.Log($"Starting {DebugName}");
-        context.SetActionSequence(this);
-        InitializeActor(context);
-
         actionIndex = 0;
+        StoreActorInContext(context);
+
         if (actionIndex < Actions.Length)
         {
-            TiaDebug.Log($"Starting {Actions[actionIndex].DebugName} of type {Actions[actionIndex].GetType()} for {context.Actor.GameObject.GetFullName()}");
+            TiaDebug.Log($"Starting {Actions[actionIndex].DebugName}"
+                + $" of type {Actions[actionIndex].GetType()}"
+                + $" for {context.Actor.GetFullName()}");
             Actions[actionIndex].Start(context);
         }
     }
@@ -51,13 +52,15 @@ public class TiaActionSequence
             actionIndex++;
             if (actionIndex < Actions.Length)
             {
-                TiaDebug.Log($"Starting {Actions[actionIndex].DebugName} of type {Actions[actionIndex].GetType()} for {context.Actor.GameObject.GetFullName()}");
+                TiaDebug.Log($"Starting {Actions[actionIndex].DebugName}"
+                    + $" of type {Actions[actionIndex].GetType()}"
+                    + $" for {context.Actor.GetFullName()}");
                 Actions[actionIndex].Start(context);
             }
         }
     }
 
-    private void InitializeActor(ITiaActionContext context)
+    private void StoreActorInContext(ITiaActionContext context)
     {
         if (Actor == null)
         {
@@ -65,13 +68,17 @@ public class TiaActionSequence
             return;
         }
 
-        var success = Actor.Initialize(context.TiaRoot);
-        if (!success)
+        var gameObject = context.TiaRoot.FindChildByName(Actor);
+        if (gameObject == null)
         {
-            TiaDebug.Log($"Aborting {DebugName} because actor '{Actor.GameObjectName}' wasn't found");
+            TiaDebug.Warning($"Aborting {DebugName} because there's no '{Actor}' under {context.TiaRoot.GetFullName()}");
             actionIndex = Actions.Length; // IsDone => true
             return;
         }
-        TiaDebug.Log($"Resolved '{Actor.GameObjectName}' into '{context.Actor.GameObject.GetFullName()}' for {DebugName}");
+
+        context.Actor = gameObject;
+        TiaDebug.Log($"Resolved '{Actor}'"
+            + $" into '{context.Actor.GetFullName()}'"
+            + $" for {DebugName}");
     }
 }

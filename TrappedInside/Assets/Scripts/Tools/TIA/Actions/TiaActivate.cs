@@ -21,7 +21,7 @@ public class TiaActivate : ITiaAction, IYamlConvertible
 
     public void Update(ITiaActionContext context)
     {
-        context.Actor.GameObject.SetActive(true);
+        context.Actor.SetActive(true);
         IsDone = true;
     }
 
@@ -61,7 +61,7 @@ public class TiaDeactivate : ITiaAction, IYamlConvertible
 
     public void Update(ITiaActionContext context)
     {
-        context.Actor.GameObject.SetActive(false);
+        context.Actor.SetActive(false);
         IsDone = true;
     }
 

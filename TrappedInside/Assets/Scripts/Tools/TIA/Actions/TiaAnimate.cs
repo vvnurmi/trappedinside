@@ -22,7 +22,7 @@ public class TiaAnimate : ITiaAction
 
     public void Update(ITiaActionContext context)
     {
-        var animator = context.Actor.GameObject.GetComponent<Animator>();
+        var animator = context.Actor.GetComponent<Animator>();
         animator.Play(AnimationName);
         IsDone = true;
     }

@@ -59,7 +59,7 @@ public class TiaMove : ITiaAction
 
     public void Update(ITiaActionContext context)
     {
-        RepositionOnCurve(context.Actor.GameObject);
+        RepositionOnCurve(context.Actor);
 
         IsDone = Time.time >= startTime + DurationSeconds;
     }

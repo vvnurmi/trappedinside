@@ -216,7 +216,7 @@ Steps:
             Assert.AreEqual(1, tiaStep.Sequences.Length);
 
             var tiaSequence = tiaStep.Sequences[0];
-            Assert.AreEqual(actor, tiaSequence.Actor.GameObjectName);
+            Assert.AreEqual(actor, tiaSequence.Actor);
             Assert.NotNull(tiaSequence.Actions, nameof(tiaSequence.Actions));
             Assert.AreEqual(1, tiaSequence.Actions.Length, nameof(tiaSequence.Actions));
             Assert.IsInstanceOf<TAction>(tiaSequence.Actions[0]);
