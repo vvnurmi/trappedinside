@@ -37,15 +37,6 @@ public interface ITiaActionContext
     /// Creates a new context which has the same properties except no context objects.
     /// </summary>
     ITiaActionContext CloneEmpty();
-
-    // ---  maybe not needed below here --- //
-
-    [Obsolete]
-    TiaScript GetScript(string name);
-    [Obsolete]
-    GameObject FindChild(string gameObjectName);
-    [Obsolete]
-    T FindComponentInChildren<T>(string gameObjectName) where T : MonoBehaviour;
 }
 
 /// <summary>
@@ -96,23 +87,5 @@ public struct TiaActionContext : ITiaActionContext
     public TiaActionContext(TiaActionContext context)
         : this(context.ScriptRunner, context.TiaRoot)
     {
-    }
-
-    [Obsolete]
-    public TiaScript GetScript(string name)
-    {
-        throw new NotImplementedException();
-    }
-
-    [Obsolete]
-    public GameObject FindChild(string gameObjectName)
-    {
-        throw new NotImplementedException();
-    }
-
-    [Obsolete]
-    public T FindComponentInChildren<T>(string gameObjectName) where T : MonoBehaviour
-    {
-        throw new NotImplementedException();
     }
 }
