@@ -4,6 +4,8 @@ Steps:
 - Sequences:
   - Actor: Left Hornet
     Actions:
+    - !Pause
+      Seconds: 1
     - !Speak
       Text: Bzzzzzzz... [Translated from bee]
       Bubble: addressable:Speech Bubble Hornet
@@ -78,20 +80,26 @@ Steps:
     - !Pause
       Seconds: 0.3
     - !Animate
-      Name: honey-cake-crushed      
+      Name: honey-cake-crushed
   - Actor: Splat Sound
     Actions:
     - !Pause
       Seconds: 0.8
     - !Activate
 - Sequences:
-  - Actor: Hornet Queendom
+  - Actor: Hornet Queendom Foreground
     Actions:
     - !Pause
       Seconds: 1
     - !Activate
     - !Pause
       Seconds: 1
+- Sequences:
+  - Actor: Hornet Queendom Background
+    Actions:
+    - !Activate
+    - !Pause
+      Seconds: 2
 - Sequences:
   - Actor: Left Hornet
     Actions:
