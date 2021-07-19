@@ -52,7 +52,7 @@ Steps:
       Curve: Left Hornet flying
       Seconds: 5
 - Sequences:
-  - Actor: Random Hornet Multiplier
+  - Actor: Glitch Elements
     Actions:
     - !Activate
 - Sequences:
