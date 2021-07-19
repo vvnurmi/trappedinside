@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using YamlDotNet.Serialization;
 
 /// <summary>
@@ -14,6 +13,15 @@ using YamlDotNet.Serialization;
 [System.Serializable]
 public class TiaSpeak : ITiaAction
 {
+    private class Context
+    {
+        public GameObject actor;
+        public NarrativeTypist narrativeTypist;
+        public GameObject speechBubble;
+        public Task startTask;
+        public bool isDoneOverride;
+    }
+
     /// <summary>
     /// Tag on the text field component of a speech bubble game object to denote
     /// the proper text content of the bubble.
@@ -87,14 +95,13 @@ public class TiaSpeak : ITiaAction
     [YamlIgnore]
     public string DebugName { get; set; }
 
-    public bool IsDone
-        => isDoneOverride
-        || narrativeTypist?.State == NarrativeTypistState.Finished;
-
-    private NarrativeTypist narrativeTypist;
-    private GameObject speechBubble;
-    private Task startTask;
-    private bool isDoneOverride;
+    public bool IsDone(ITiaActionContext context)
+    {
+        var (success, contextObject) = context.TryGet<Context>(this);
+        return !success ? false
+            : contextObject.isDoneOverride ? true
+            : contextObject.narrativeTypist?.State == NarrativeTypistState.Finished;
+    }
 
     public TiaSpeak()
     {
@@ -104,11 +111,14 @@ public class TiaSpeak : ITiaAction
 
     #region ITiaAction
 
-    public void Start(ITiaActionContext context)
+    public void Start(ITiaActionContext context, GameObject actor)
     {
+        var contextObject = new Context { actor = actor };
+        context.Set(this, contextObject);
+
         // Start the asynchronous work to create a speech bubble.
         // Hold on to the task with 'startTask' so that it doesn't get GC'd.
-        startTask = StartAsync(context);
+        contextObject.startTask = StartAsync(context, contextObject);
     }
 
     public void Update(ITiaActionContext context)
@@ -118,36 +128,37 @@ public class TiaSpeak : ITiaAction
 
     public void Finish(ITiaActionContext context)
     {
-        if (speechBubble != null)
-            Object.Destroy(speechBubble);
-        speechBubble = null;
+        var contextObject = context.TryGet<Context>(this).contextObject;
+        if (contextObject.speechBubble != null)
+            Object.Destroy(contextObject.speechBubble);
+        contextObject.speechBubble = null;
     }
 
     #endregion
 
-    private async Task StartAsync(ITiaActionContext context)
+    private async Task StartAsync(ITiaActionContext context, Context contextObject)
     {
         var bubblePrefab = await TiaTools.FindObject<GameObject>(context, SpeechBubbleName);
         Debug.Assert(bubblePrefab != null, $"{nameof(TiaSpeak)} will skip because it"
             + $" couldn't find speech bubble by name '{SpeechBubbleName}'");
         if (bubblePrefab == null)
         {
-            isDoneOverride = true;
+            contextObject.isDoneOverride = true;
             return;
         }
 
-        TiaDebug.Log($"Instantiating speech bubble for {DebugName} under '{context.Actor.GetFullName()}'");
-        speechBubble = Object.Instantiate(bubblePrefab, context.Actor.transform);
-        PositionAbove(who: speechBubble, where: context.Actor);
+        TiaDebug.Log($"Instantiating speech bubble for {DebugName} under '{contextObject.actor.GetFullName()}'");
+        contextObject.speechBubble = Object.Instantiate(bubblePrefab, contextObject.actor.transform);
+        PositionAbove(who: contextObject.speechBubble, where: contextObject.actor);
 
         var typistType = string.IsNullOrEmpty(LeftChoice)
             ? typeof(NarrativeTypist)
             : typeof(NarrativeTypistChoice);
-        narrativeTypist = (NarrativeTypist)speechBubble.GetComponent(typistType);
-        if (narrativeTypist == null)
+        contextObject.narrativeTypist = (NarrativeTypist)contextObject.speechBubble.GetComponent(typistType);
+        if (contextObject.narrativeTypist == null)
         {
             Debug.LogWarning($"Speech bubble has no {typistType} component");
-            isDoneOverride = true;
+            contextObject.isDoneOverride = true;
             return;
         }
 
@@ -159,10 +170,10 @@ public class TiaSpeak : ITiaAction
         var typistSetup = new NarrativeTypistSetup
         {
             fullText = TmpRichText,
-            speaker = context.Actor.name,
+            speaker = contextObject.actor.name,
             choices = new[] { LeftChoice, RightChoice },
         };
-        narrativeTypist.StartTyping(typistSetup);
+        contextObject.narrativeTypist.StartTyping(typistSetup);
     }
 
     private static void PositionAbove(GameObject who, GameObject where)

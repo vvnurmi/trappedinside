@@ -7,6 +7,12 @@ using YamlDotNet.Serialization;
 [System.Serializable]
 public class TiaPause : ITiaAction
 {
+    private class Context
+    {
+        public float finishTime;
+        public bool isDone;
+    }
+
     [YamlMember(Alias = "Seconds")]
     [field: SerializeField]
     public float DurationSeconds { get; set; }
@@ -14,20 +20,27 @@ public class TiaPause : ITiaAction
     [YamlIgnore]
     public string DebugName { get; set; }
 
-    public bool IsDone { get; private set; }
-
-    private float finishTime;
-
-    public void Start(ITiaActionContext context)
+    public bool IsDone(ITiaActionContext context)
     {
-        finishTime = Time.time + DurationSeconds;
+        var (success, contextObject) = context.TryGet<Context>(this);
+        return !success ? false
+            : contextObject.isDone;
+    }
+
+    public void Start(ITiaActionContext context, GameObject actor)
+    {
+        context.Set(this, new Context
+        {
+            finishTime = Time.time + DurationSeconds,
+        });
     }
 
     public void Update(ITiaActionContext context)
     {
-        if (IsDone) return;
+        var contextObject = context.TryGet<Context>(this).contextObject;
+        if (contextObject.isDone) return;
 
-        IsDone = Time.time >= finishTime;
+        contextObject.isDone = Time.time >= contextObject.finishTime;
     }
 
     public void Finish(ITiaActionContext context)

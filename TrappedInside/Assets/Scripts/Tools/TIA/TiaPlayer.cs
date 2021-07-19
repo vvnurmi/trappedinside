@@ -47,9 +47,9 @@ public class TiaPlayer : MonoBehaviour
 
         while (stepIndex < script.Steps.Length)
         {
-            if (!script.Steps[stepIndex].IsDone)
+            if (!script.Steps[stepIndex].IsDone(context))
                 script.Steps[stepIndex].Update(context);
-            if (!script.Steps[stepIndex].IsDone)
+            if (!script.Steps[stepIndex].IsDone(context))
                 break;
 
             stepIndex++;

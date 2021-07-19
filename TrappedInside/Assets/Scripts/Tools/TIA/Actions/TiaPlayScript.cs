@@ -15,9 +15,9 @@ public class TiaPlayScript : ITiaAction
     [YamlIgnore]
     public string DebugName { get; set; }
 
-    public bool IsDone => throw new NotImplementedException();
+    public bool IsDone(ITiaActionContext context) => throw new NotImplementedException();
 
-    public void Start(ITiaActionContext context)
+    public void Start(ITiaActionContext context, GameObject actor)
     {
         throw new NotImplementedException();
     }

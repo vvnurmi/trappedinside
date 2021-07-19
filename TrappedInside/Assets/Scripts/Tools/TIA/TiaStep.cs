@@ -15,31 +15,19 @@ public class TiaStep
     [YamlIgnore]
     public string DebugName { get; set; }
 
-    public bool IsDone => Sequences.All(seq => seq.IsDone);
+    public bool IsDone(ITiaActionContext context)
+        => Sequences.All(seq => seq.IsDone(context));
 
     public void Start(ITiaActionContext context)
     {
         TiaDebug.Log($"Starting " + DebugName);
-        var subcontexts = Sequences
-            .Select(sequence => context.CloneEmpty())
-            .ToArray();
-        context.Set(this, subcontexts);
-        DoForSequences(context, (sequence, subcontext) => sequence.Start(subcontext));
+        foreach (var sequence in Sequences)
+            sequence.Start(context);
     }
 
     public void Update(ITiaActionContext context)
     {
-        DoForSequences(context, (sequence, subcontext) => sequence.Update(subcontext));
-    }
-
-    private void DoForSequences(
-        ITiaActionContext context,
-        Action<TiaActionSequence, ITiaActionContext> fun)
-    {
-        var (success, subcontexts) = context.Get<ITiaActionContext[]>(this);
-        Debug.Assert(success && subcontexts.Length == Sequences.Length);
-
-        for (int i = 0; i < Sequences.Length; i++)
-            fun(Sequences[i], subcontexts[i]);
+        foreach (var sequence in Sequences)
+            sequence.Update(context);
     }
 }

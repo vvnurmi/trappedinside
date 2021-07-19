@@ -74,66 +74,47 @@ namespace Tests
             Assert.IsFalse(tiaPlayer.IsPlaying);
         }
 
-        private class TiaAsyncStart : ITiaAction
-        {
-            public string DebugName { get; set; }
-            public bool IsDone => false;
-            public GameObject ContextActor { get; private set; }
-
-            private Task startTask;
-
-            public void Start(ITiaActionContext context)
-            {
-                startTask = StartAsync(context);
-            }
-
-            private async Task StartAsync(ITiaActionContext context)
-            {
-                await Task.Delay(TimeSpan.FromSeconds(0.1f));
-                ContextActor = context.Actor;
-            }
-
-            public void Update(ITiaActionContext context) { }
-            public void Finish(ITiaActionContext context) { }
-        }
-
         /// <summary>
-        /// Reproduces a bug: When a step had two action sequences, and the first one
-        /// started a TiaSpeech action, which internally starts a background task, then by
-        /// the time the task got to referencing its actor, the second action sequence
-        /// which accidentally shared the same context object had changed the actor to
-        /// another one, so the speech bubble appeared on the wrong actor.
+        /// Verify that the state of execution of a TIA script is not stored in the
+        /// <see cref="TiaScript"/> instance, so that the same script can be played
+        /// simultaenously multiple times.
         /// </summary>
         [UnityTest]
-        public IEnumerator ActionSequenceStatesAreDistinct()
+        public IEnumerator ScriptIsStateless()
         {
-            var tiaRoot = NewGameObject("TIA root");
-            var testObject1 = NewGameObject("test object 1");
-            var testObject2 = NewGameObject("test object 2");
-            testObject1.transform.parent = tiaRoot.transform;
-            testObject2.transform.parent = tiaRoot.transform;
+            const string TestValue1 = "test value 1";
+            const string TestValue2 = "test value 2";
 
-            var tiaPlayer = tiaRoot.AddComponent<TiaPlayer>();
-            tiaPlayer.script = NewMultiSequenceScript(new[]
-            {
-                new TiaActionSequence
+            var script = NewSimpleScript(actor: null,
+                new TiaInvoke
                 {
-                    Actor = testObject1.name,
-                    Actions = new ITiaAction[]
-                    {
-                        new TiaAsyncStart(),
-                    }
+                    MethodName = nameof(TiaMethods.SetTestString),
+                    MethodArgument1 = TestValue1,
                 },
-                new TiaActionSequence
+                new TiaPause { DurationSeconds = 0.1f },
+                new TiaInvoke
                 {
-                    Actor = testObject2.name,
-                    Actions = new ITiaAction[0]
-                },
-            });
+                    MethodName = nameof(TiaMethods.SetTestString),
+                    MethodArgument1 = TestValue2,
+                }
+            );
 
-            yield return new WaitForSeconds(0.2f);
-            var asyncStart = (TiaAsyncStart)tiaPlayer.script.Steps[0].Sequences[0].Actions[0];
-            Assert.AreEqual(testObject1, asyncStart.ContextActor);
+            var tiaRoot1 = NewGameObject("TIA root 1");
+            var tiaRoot2 = NewGameObject("TIA root 2");
+            var tiaPlayer1 = tiaRoot1.AddComponent<TiaPlayer>();
+            var tiaPlayer2 = tiaRoot2.AddComponent<TiaPlayer>();
+
+            tiaPlayer1.Play(script);
+            yield return new WaitForSeconds(0.08f);
+            // Test string was last set by the first TiaInvoke played by tiaPlayer1.
+            Assert.AreEqual(TestValue1, TiaMethods.testString1);
+
+            tiaPlayer2.Play(script);
+            yield return new WaitForSeconds(0.04f);
+
+            // Test string was last set by the second TiaInvoke played by tiaPlayer1,
+            // unless its script playing state was incorrectly reset by tiaPlayer2.
+            Assert.AreEqual(TestValue2, TiaMethods.testString1);
         }
     }
 }

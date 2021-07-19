@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using YamlDotNet.Core;
 using YamlDotNet.Core.Events;
 using YamlDotNet.Serialization;
@@ -8,25 +9,15 @@ using YamlDotNet.Serialization;
 /// </summary>
 /// <seealso cref="TiaDeactivate"/>
 [Serializable]
-public class TiaActivate : ITiaAction, IYamlConvertible
+public class TiaActivate : SimpleTiaActionBase, ITiaAction, IYamlConvertible
 {
-    [YamlIgnore]
-    public string DebugName { get; set; }
-
-    public bool IsDone { get; private set; }
-
-    public void Start(ITiaActionContext context)
+    /// <summary>
+    /// Returns true if the action is done.
+    /// </summary>
+    public override bool Update(ITiaActionContext context, GameObject actor)
     {
-    }
-
-    public void Update(ITiaActionContext context)
-    {
-        context.Actor.SetActive(true);
-        IsDone = true;
-    }
-
-    public void Finish(ITiaActionContext context)
-    {
+        actor?.SetActive(true);
+        return true;
     }
 
     #region IYamlConvertible implementation
@@ -48,25 +39,15 @@ public class TiaActivate : ITiaAction, IYamlConvertible
 /// </summary>
 /// <seealso cref="TiaActivate"/>
 [Serializable]
-public class TiaDeactivate : ITiaAction, IYamlConvertible
+public class TiaDeactivate : SimpleTiaActionBase, ITiaAction, IYamlConvertible
 {
-    [YamlIgnore]
-    public string DebugName { get; set; }
-
-    public bool IsDone { get; private set; }
-
-    public void Start(ITiaActionContext context)
+    /// <summary>
+    /// Returns true if the action is done.
+    /// </summary>
+    public override bool Update(ITiaActionContext context, GameObject actor)
     {
-    }
-
-    public void Update(ITiaActionContext context)
-    {
-        context.Actor.SetActive(false);
-        IsDone = true;
-    }
-
-    public void Finish(ITiaActionContext context)
-    {
+        actor?.SetActive(false);
+        return true;
     }
 
     #region IYamlConvertible implementation

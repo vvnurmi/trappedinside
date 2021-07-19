@@ -19,18 +19,12 @@ public interface ITiaActionContext
     GameObject TiaRoot { get; }
 
     /// <summary>
-    /// The actor who the actions are about.
-    /// May be null for actions that don't need an actor.
-    /// </summary>
-    GameObject Actor { get; set; }
-
-    /// <summary>
     /// Returns the context object for <paramref name="owner"/>. Context objects are the only way
     /// that TIA script objects are allowed to persist their state.
     /// </summary>
     /// <typeparam name="TContext">The type of the context object.</typeparam>
     /// <returns>False if no context object was set.</returns>
-    (bool success, TContext context) Get<TContext>(object owner);
+    (bool found, TContext contextObject) TryGet<TContext>(object owner);
 
     /// <summary>
     /// Stores the context object for <paramref name="owner"/>. Context objects are the only way
@@ -43,12 +37,6 @@ public interface ITiaActionContext
     /// Creates a new context which has the same properties except no context objects.
     /// </summary>
     ITiaActionContext CloneEmpty();
-
-    /// <summary>
-    /// Sets <paramref name="actionSequence"/> as the active one.
-    /// </summary>
-    [Obsolete]
-    void SetActionSequence(TiaActionSequence actionSequence);
 
     // ---  maybe not needed below here --- //
 
@@ -68,16 +56,11 @@ public struct TiaActionContext : ITiaActionContext
 {
     private Hashtable contexts;
 
-    [Obsolete]
-    private TiaActionSequence actionSequence;
-
     public TiaPlayer ScriptRunner { get; private set; }
 
     public GameObject TiaRoot { get; private set; }
 
-    public GameObject Actor { get; set; }
-
-    public (bool, TContext) Get<TContext>(object owner)
+    public (bool found, TContext contextObject) TryGet<TContext>(object owner)
     {
         if (!contexts.ContainsKey(owner))
             return (false, default);
@@ -98,12 +81,6 @@ public struct TiaActionContext : ITiaActionContext
         return clone;
     }
 
-    [Obsolete]
-    public void SetActionSequence(TiaActionSequence actionSequence)
-    {
-        this.actionSequence = actionSequence;
-    }
-
     public Func<string, GameObject> FindGameObject { get; private set; }
 
     public TiaActionContext(
@@ -111,10 +88,8 @@ public struct TiaActionContext : ITiaActionContext
         GameObject tiaRoot)
     {
         contexts = new Hashtable();
-        actionSequence = null;
         ScriptRunner = scriptRunner;
         TiaRoot = tiaRoot;
-        Actor = null;
         FindGameObject = null;
     }
 
