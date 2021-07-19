@@ -7,11 +7,14 @@ using UnityEngine;
 /// </summary>
 public static partial class TiaMethods
 {
+#if UNITY_EDITOR
+    // For automated testing only.
     public static bool testFlag;
     public static string testString1, testString2;
     public static void SetTestFlagToTrue() => testFlag = true;
     public static void SetTestString(string value) => testString1 = value;
     public static void SetTestStrings(string value1, string value2) => (testString1, testString2) = (value1, value2);
+#endif
 
     /// <summary>
     /// Disables controls of the player character.

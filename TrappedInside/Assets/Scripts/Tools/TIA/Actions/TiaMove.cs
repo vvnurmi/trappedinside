@@ -8,6 +8,15 @@ using YamlDotNet.Serialization;
 [Serializable]
 public class TiaMove : ITiaAction
 {
+    private class Context
+    {
+        public GameObject actor;
+        public BezierCurve curve;
+        public bool isFlipped;
+        public float startTime;
+        public bool isDone;
+    }
+
     [YamlMember(Alias = "Curve")]
     [field: SerializeField]
     public string CurveName { get; set; }
@@ -34,59 +43,62 @@ public class TiaMove : ITiaAction
     [YamlIgnore]
     public string DebugName { get; set; }
 
-    public bool IsDone { get; private set; }
-
-    public BezierCurve Curve =>
-        curve ?? throw new InvalidOperationException($"{nameof(TiaMove)} has no curve, maybe {nameof(Start)} wasn't called?");
-
-    private BezierCurve curve;
-    private bool isFlipped;
-    private float startTime;
-
-    public void Start(ITiaActionContext context)
+    public bool IsDone(ITiaActionContext context)
     {
-        IsDone = false;
-        startTime = Time.time;
+        var (success, contextObject) = context.TryGet<Context>(this);
+        return !success ? false
+            : contextObject.isDone;
+    }
+
+    public void Start(ITiaActionContext context, GameObject actor)
+    {
+        Debug.Assert(actor != null);
+
+        var contextObject = new Context();
+        context.Set(this, contextObject);
+        contextObject.actor = actor;
+        contextObject.startTime = Time.time;
 
         var curveObject = context.TiaRoot.FindChildByName(CurveName);
         Debug.Assert(curveObject != null);
         if (curveObject != null)
         {
-            curve = curveObject.GetComponent<BezierCurve>();
-            Debug.Assert(curve != null);
+            contextObject.curve = curveObject.GetComponent<BezierCurve>();
+            Debug.Assert(contextObject.curve != null);
         }
     }
 
     public void Update(ITiaActionContext context)
     {
-        RepositionOnCurve(context.Actor.GameObject);
-
-        IsDone = Time.time >= startTime + DurationSeconds;
+        var contextObject = context.TryGet<Context>(this).contextObject;
+        RepositionOnCurve(contextObject);
+        contextObject.isDone = Time.time >= contextObject.startTime + DurationSeconds;
     }
 
     public void Finish(ITiaActionContext context)
     {
     }
 
-    private void RepositionOnCurve(GameObject obj)
+    private void RepositionOnCurve(Context contextObject)
     {
-        float flightTime = Time.time - startTime;
-        float curveParam = Mathf.InverseLerp(0, DurationSeconds, flightTime);
-        var pathPosition = Curve.GetPointAt(curveParam);
-        var oldPosition = obj.transform.position;
+        if (contextObject.actor == null || contextObject.curve == null) return;
 
-        obj.transform.SetPositionAndRotation(pathPosition, obj.transform.rotation);
+        float flightTime = Time.time - contextObject.startTime;
+        float curveParam = Mathf.InverseLerp(0, DurationSeconds, flightTime);
+        var pathPosition = contextObject.curve.GetPointAt(curveParam);
+        var oldPosition = contextObject.actor.transform.position;
+        contextObject.actor.transform.SetPositionAndRotation(pathPosition, contextObject.actor.transform.rotation);
 
         if (FlipLeft)
         {
             var keepEitherFlipState = Mathf.Abs(oldPosition.x - pathPosition.x) < 1e-3f;
             var shouldBeFlipped = LooksLeftInitially != oldPosition.x > pathPosition.x;
-            if (!keepEitherFlipState && isFlipped != shouldBeFlipped)
+            if (!keepEitherFlipState && contextObject.isFlipped != shouldBeFlipped)
             {
-                var spriteRenderers = obj.GetComponentsInChildren<SpriteRenderer>();
+                var spriteRenderers = contextObject.actor.GetComponentsInChildren<SpriteRenderer>();
                 foreach (var renderer in spriteRenderers)
                     renderer.flipX = !renderer.flipX;
-                isFlipped = shouldBeFlipped;
+                contextObject.isFlipped = shouldBeFlipped;
             }
         }
     }

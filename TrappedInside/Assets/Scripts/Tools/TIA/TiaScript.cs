@@ -100,6 +100,7 @@ public class TiaScript : ScriptableObject
     {
         foreach (var type in typeof(TiaScript).Module.GetTypes())
         {
+            if (type.IsAbstract) continue;
             if (!typeof(ITiaAction).IsAssignableFrom(type)) continue;
             if (ReferenceEquals(type, typeof(ITiaAction))) continue;
 

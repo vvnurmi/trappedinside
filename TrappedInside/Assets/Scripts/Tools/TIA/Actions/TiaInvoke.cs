@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using UnityEngine;
 using YamlDotNet.Serialization;
 
@@ -9,7 +8,7 @@ using YamlDotNet.Serialization;
 /// <see cref="ITiaActionContext"/> then the current action context is provided implicitly.
 /// </summary>
 [System.Serializable]
-public class TiaInvoke : ITiaAction
+public class TiaInvoke : SimpleTiaActionBase, ITiaAction
 {
     [YamlMember(Alias = "Name")]
     [field: SerializeField]
@@ -23,26 +22,16 @@ public class TiaInvoke : ITiaAction
     [field: SerializeField]
     public string MethodArgument2 { get; set; }
 
-    [YamlIgnore]
-    public string DebugName { get; set; }
-
-    public bool IsDone { get; private set; }
-
-    public void Start(ITiaActionContext context)
+    /// <summary>
+    /// Returns true if the action is done.
+    /// </summary>
+    public override bool Update(ITiaActionContext context, GameObject actor)
     {
         var flags = BindingFlags.Public | BindingFlags.Static;
         var methodInfo = typeof(TiaMethods).GetMethod(MethodName, flags);
         var args = GatherArguments(context, methodInfo);
         methodInfo.Invoke(obj: null, args);
-        IsDone = true;
-    }
-
-    public void Update(ITiaActionContext context)
-    {
-    }
-
-    public void Finish(ITiaActionContext context)
-    {
+        return true;
     }
 
     private object[] GatherArguments(ITiaActionContext context, MethodInfo methodInfo)

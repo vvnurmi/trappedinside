@@ -5,29 +5,19 @@ using YamlDotNet.Serialization;
 /// Makes actor use this animation.
 /// </summary>
 [System.Serializable]
-public class TiaAnimate : ITiaAction
+public class TiaAnimate : SimpleTiaActionBase, ITiaAction
 {
     [YamlMember(Alias = "Name")]
     [field: SerializeField]
     public string AnimationName { get; set; }
 
-    [YamlIgnore]
-    public string DebugName { get; set; }
-
-    public bool IsDone { get; private set; }
-
-    public void Start(ITiaActionContext context)
+    /// <summary>
+    /// Returns true if the action is done.
+    /// </summary>
+    public override bool Update(ITiaActionContext context, GameObject actor)
     {
-    }
-
-    public void Update(ITiaActionContext context)
-    {
-        var animator = context.Actor.GameObject.GetComponent<Animator>();
-        animator.Play(AnimationName);
-        IsDone = true;
-    }
-
-    public void Finish(ITiaActionContext context)
-    {
+        var animator = actor?.GetComponent<Animator>();
+        animator?.Play(AnimationName);
+        return true;
     }
 }

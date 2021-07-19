@@ -1,11 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 using YamlDotNet.Serialization;
 
 /// <summary>
 /// Plays all action sequences simultaneously.
 /// </summary>
-[System.Serializable]
+[Serializable]
 public class TiaStep
 {
     [field: SerializeField]
@@ -14,27 +15,19 @@ public class TiaStep
     [YamlIgnore]
     public string DebugName { get; set; }
 
-    public bool IsDone => Sequences.All(seq => seq.IsDone);
-
-    private ITiaActionContext[] sequenceContexts;
+    public bool IsDone(ITiaActionContext context)
+        => Sequences.All(seq => seq.IsDone(context));
 
     public void Start(ITiaActionContext context)
     {
         TiaDebug.Log($"Starting " + DebugName);
-        sequenceContexts = Sequences
-            .Select(_ => context.Clone())
-            .ToArray();
-        Debug.Assert(Sequences.Length == sequenceContexts.Length);
-        for (int sequenceIndex = 0; sequenceIndex < Sequences.Length; sequenceIndex++)
-            Sequences[sequenceIndex].Start(sequenceContexts[sequenceIndex]);
+        foreach (var sequence in Sequences)
+            sequence.Start(context);
     }
 
     public void Update(ITiaActionContext context)
     {
-        // FIXME: 'context' is ignored now. A proper solution would be to maintain
-        // a separate context for each class.
-        Debug.Assert(Sequences.Length == sequenceContexts.Length);
-        for (int sequenceIndex = 0; sequenceIndex < Sequences.Length; sequenceIndex++)
-            Sequences[sequenceIndex].Update(sequenceContexts[sequenceIndex]);
+        foreach (var sequence in Sequences)
+            sequence.Update(context);
     }
 }

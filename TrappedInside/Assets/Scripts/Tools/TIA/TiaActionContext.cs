@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -17,23 +18,25 @@ public interface ITiaActionContext
     /// </summary>
     GameObject TiaRoot { get; }
 
-    TiaActor Actor { get; }
+    /// <summary>
+    /// Returns the context object for <paramref name="owner"/>. Context objects are the only way
+    /// that TIA script objects are allowed to persist their state.
+    /// </summary>
+    /// <typeparam name="TContext">The type of the context object.</typeparam>
+    /// <returns>False if no context object was set.</returns>
+    (bool found, TContext contextObject) TryGet<TContext>(object owner);
 
     /// <summary>
-    /// Creates a new object which is identical to the context.
+    /// Stores the context object for <paramref name="owner"/>. Context objects are the only way
+    /// that TIA script objects are allowed to persist their state.
     /// </summary>
-    ITiaActionContext Clone();
+    /// <typeparam name="TContext">The type of the context object.</typeparam>
+    void Set<TContext>(object owner, TContext context);
 
     /// <summary>
-    /// Sets <paramref name="actionSequence"/> as the active one.
+    /// Creates a new context which has the same properties except no context objects.
     /// </summary>
-    void SetActionSequence(TiaActionSequence actionSequence);
-
-    // ---  maybe not needed below here --- //
-
-    TiaScript GetScript(string name);
-    GameObject FindChild(string gameObjectName);
-    T FindComponentInChildren<T>(string gameObjectName) where T : MonoBehaviour;
+    ITiaActionContext CloneEmpty();
 }
 
 /// <summary>
@@ -42,26 +45,31 @@ public interface ITiaActionContext
 /// </summary>
 public struct TiaActionContext : ITiaActionContext
 {
-    private TiaActionSequence actionSequence;
+    private Hashtable contexts;
 
     public TiaPlayer ScriptRunner { get; private set; }
 
     public GameObject TiaRoot { get; private set; }
 
-    public TiaActor Actor => actionSequence.Actor
-        ?? throw new NullReferenceException($"No actor set for {actionSequence.DebugName}");
-
-    public TiaScript GetScript(string name)
+    public (bool found, TContext contextObject) TryGet<TContext>(object owner)
     {
-        throw new NotImplementedException();
+        if (!contexts.ContainsKey(owner))
+            return (false, default);
+        return (true, (TContext)contexts[owner]);
     }
 
-    // We're a value type, so this will return a shallow copy.
-    public ITiaActionContext Clone() => this;
-
-    public void SetActionSequence(TiaActionSequence actionSequence)
+    public void Set<TContext>(object owner, TContext context)
     {
-        this.actionSequence = actionSequence;
+        contexts[owner] = context;
+    }
+
+    public ITiaActionContext CloneEmpty()
+    {
+        // We're a value type, so this will do a shallow copy.
+        var clone = this;
+        // Clear the context objects.
+        clone.contexts = new Hashtable();
+        return clone;
     }
 
     public Func<string, GameObject> FindGameObject { get; private set; }
@@ -70,19 +78,14 @@ public struct TiaActionContext : ITiaActionContext
         TiaPlayer scriptRunner,
         GameObject tiaRoot)
     {
-        actionSequence = null;
+        contexts = new Hashtable();
         ScriptRunner = scriptRunner;
         TiaRoot = tiaRoot;
         FindGameObject = null;
     }
 
-    public GameObject FindChild(string gameObjectName)
+    public TiaActionContext(TiaActionContext context)
+        : this(context.ScriptRunner, context.TiaRoot)
     {
-        throw new NotImplementedException();
-    }
-
-    public T FindComponentInChildren<T>(string gameObjectName) where T : MonoBehaviour
-    {
-        throw new NotImplementedException();
     }
 }

@@ -1,16 +1,21 @@
-﻿/// <summary>
+﻿using UnityEngine;
+
+/// <summary>
 /// An action that an actor can take as part of an action sequence.
 /// </summary>
 public interface ITiaAction
 {
     string DebugName { get; set; }
 
-    bool IsDone { get; }
+    /// <summary>
+    /// Returns true if the action has finished.
+    /// </summary>
+    bool IsDone(ITiaActionContext context);
 
     /// <summary>
     /// Called when the action starts.
     /// </summary>
-    void Start(ITiaActionContext context);
+    void Start(ITiaActionContext context, GameObject actor);
 
     /// <summary>
     /// Called regularly after start until <see cref="IsDone"/>
