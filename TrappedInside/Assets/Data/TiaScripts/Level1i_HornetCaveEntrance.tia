@@ -87,15 +87,15 @@ Steps:
       Seconds: 0.8
     - !Activate
 - Sequences:
-  - Actor: Hornet Queendom Foreground
+  - Actor: Background Lights On
     Actions:
     - !Pause
       Seconds: 1
     - !Activate
     - !Pause
-      Seconds: 1
+      Seconds: 1.5
 - Sequences:
-  - Actor: Hornet Queendom Background
+  - Actor: Foreground Lights On
     Actions:
     - !Activate
     - !Pause
